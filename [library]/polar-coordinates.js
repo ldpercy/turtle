@@ -22,10 +22,23 @@ class PolarPoint {
 		)
 	}
 
-	toPointPolarOffset(dRadian, dRadius) {
+	toPointPolarOffset(polarPoint) {  // another polar point represents the deltas
 		return new Point(
-			(this.radius + dRadius) * Math.sin(this.radian + dRadian),
-			(this.radius + dRadius) * -Math.cos(this.radian + dRadian)
+			(this.radius + polarPoint.radius) * Math.sin(this.radian + polarPoint.radian),
+			(this.radius + polarPoint.radius) * -Math.cos(this.radian + polarPoint.radian)
+		)
+	}
+
+	toPointCartesianOffset(dx, dy) {
+
+		let x = 0, y = 0;
+
+
+
+		return new Point(
+			/* tbd */
+			(this.radius) * Math.sin(this.radian),
+			(this.radius) * -Math.cos(this.radian)
 		)
 	}
 
@@ -39,3 +52,23 @@ class PolarPoint {
 const tau = 2 * Math.PI;
 
 function degrees(radians) { return 360 * radians/tau}
+
+
+function rotate(point, radian, center = new Point()) {
+	const result = new Point();
+	const length = lineLength(center, point);
+
+	return result;
+}
+
+function lineLength(point1, point2) {
+	const result = Math.sqrt(((point2.x - point1.x)**2) + ((point2.y - point1.y)**2));
+	return result;
+}
+
+/* Uses the the y axis for 0 radians
+*/
+function lineRadian(center, point) {
+	const result = Math.PI/2 + Math.atan2(point.y-center.y, point.x-center.x)  ;
+	return result;
+}
