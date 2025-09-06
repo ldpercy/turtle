@@ -22,6 +22,14 @@ class PolarPoint {
 		)
 	}
 
+	toPointPolarOffset(dRadian, dRadius) {
+		return new Point(
+			(this.radius + dRadius) * Math.sin(this.radian + dRadian),
+			(this.radius + dRadius) * -Math.cos(this.radian + dRadian)
+		)
+	}
+
+
 }/* PolarPoint */
 
 
