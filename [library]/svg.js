@@ -18,6 +18,17 @@ function getElementAttributes(element) {
 
 
 
+function getPoint(point) {
+	const result = `
+		<circle cx="${point.x}" cy="${point.y}" r="10" class="point">
+			<title>${JSON.stringify(point)}</title>
+		</circle>
+	`;
+	return result;
+}
+
+
+
 class Rect {
 	constructor(x, y, width, height, rx=0, ry=0, option={}, element=new Element(),) {
 		this.x 		= x;

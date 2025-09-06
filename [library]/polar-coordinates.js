@@ -1,11 +1,5 @@
 
-class Point {
-	constructor(x=0, y=0) {
-		this.x = x;
-		this.y = y;
-	}
 
-}/* Point */
 
 
 class PolarPoint {
@@ -54,15 +48,17 @@ const tau = 2 * Math.PI;
 function degrees(radians) { return 360 * radians/tau}
 
 
-function rotate(point, radian, center = new Point()) {
-	const result = new Point();
+function rotatePoint(point, radian, center = new Point()) {
 	const length = lineLength(center, point);
-
+	const pointRadian = lineRadian(center, point);
+	//console.log(length, pointRadian);
+	const result = new PolarPoint(pointRadian+radian, length).toPoint().plus(center);
 	return result;
 }
 
 function lineLength(point1, point2) {
-	const result = Math.sqrt(((point2.x - point1.x)**2) + ((point2.y - point1.y)**2));
+	//const result = Math.sqrt(((point2.x - point1.x)**2) + ((point2.y - point1.y)**2));
+	const result = Math.hypot((point2.x - point1.x), (point2.y - point1.y));
 	return result;
 }
 
