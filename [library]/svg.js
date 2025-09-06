@@ -18,10 +18,14 @@ function getElementAttributes(element) {
 
 
 
-function getPoint(point) {
+function svgPoint(point) {
+	if (point instanceof PolarPoint) point = point.toPoint();
 	const result = `
 		<circle cx="${point.x}" cy="${point.y}" r="10" class="point">
-			<title>${JSON.stringify(point)}</title>
+			<title>Point: ${JSON.stringify(point)}
+				distance: ${point.distanceFrom()}
+				radian:  ${point.radiansFrom()}
+			</title>
 		</circle>
 	`;
 	return result;
@@ -42,7 +46,7 @@ class Rect {
 	}
 }
 
-function getRect(rect) {
+function svgRect(rect) {
 	const result = `
 		<rect ${getElementAttributes(rect.element)} x="${rect.x}" y="${rect.y}" width="${rect.width}" height="${rect.height}" rx="${rect.rx}" ry="${rect.ry}">
 			<title>${JSON.stringify(rect)}</title>
@@ -64,7 +68,7 @@ class Line {
 }
 
 
-function getLine(line) {
+function svgLine(line) {
 	result = `
 		<line ${getElementAttributes(line.element)} x1="${line.x1}" y1="${line.y1}" x2="${line.x2}" y2="${line.y2}">
 			<title>${JSON.stringify(line)}</title>

@@ -3,10 +3,11 @@
 
 
 class PolarPoint {
-	constructor(radian, radius)
+	constructor(radian=0, radius=0, precision=12)
 	{
 		this.radian = radian;
 		this.radius = radius;
+		this.precision = precision;
 	}
 
 	toPoint = function() {
@@ -16,6 +17,22 @@ class PolarPoint {
 		)
 	}
 
+	plus = function(polarPoint) {
+		return this.toPoint().plus(polarPoint.toPoint()).toPolarPoint();
+		// this way is pretty dumb, figure out a better way
+		// the lengths should add arithmetically
+
+		// this one is
+	}
+
+	/*
+	Need to figure out whether the angles are absolute or relative
+	Either interpretation could make sense - need
+
+	*/
+
+
+	// this is really wrong I think
 	toPointPolarOffset(polarPoint) {  // another polar point represents the deltas
 		return new Point(
 			(this.radius + polarPoint.radius) * Math.sin(this.radian + polarPoint.radian),
