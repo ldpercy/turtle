@@ -22,7 +22,7 @@ class PolarPoint {
 		// this way is pretty dumb, figure out a better way
 		// the lengths should add arithmetically
 
-		// this one is
+		// this one is absolute
 	}
 
 	/*
@@ -39,6 +39,19 @@ class PolarPoint {
 			(this.radius + polarPoint.radius) * -Math.cos(this.radian + polarPoint.radian)
 		)
 	}
+
+
+	/* move
+	A single-step turtle graphics kind of move relative to the current point
+	Takes the current radian coordinate as the base heading and the new heading is relative to it.
+	Ie a 0 heading will continue in the same direction
+	*/
+	move = function(distance, heading) {
+		const delta = new PolarPoint(this.radian+heading, distance);
+		//console.log(delta);
+		return this.plus(delta);
+	}
+
 
 	toPointCartesianOffset(dx, dy) {
 

@@ -67,8 +67,7 @@ class Point {
 		this.precision = precision;
 	}
 
-	plus = function(point)
-	{
+	plus = function(point) {
 		return new Point(
 			this.x + point.x,
 			this.y + point.y
@@ -98,9 +97,5 @@ class Point {
 		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
 		return result;
 	}
-
-
-
-
 
 }/* Point */
