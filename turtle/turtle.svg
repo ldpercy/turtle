@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" onload="run()">
+	<title>turtle</title>
+
+	<script href="../[library]/maths.js"/>
+	<script href="../[library]/geometry.js"/>
+	<script href="../[library]/svg.js"/>
+
+
+	<g class="graphPaper">
+		<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
+			<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
+		</pattern>
+		<rect class="viewBox" style="x: -100%; y: -100%; width: 200%; height: 200%; stroke:none; fill: url(#pattern-graphPaper);"/>
+		<line x1="-100%" y1="0" x2="100%" y2="0" style="stroke: teal; stroke-width: 2px;"><title>x-axis</title></line>
+		<line x1="0" y1="-100%" x2="0" y2="100%" style="stroke: teal; stroke-width: 2px;"><title>y-axis</title></line>
+		<circle r="10" style="stroke: teal; stroke-width: 2px; fill:none;"><title>origin</title></circle>
+	</g>
+
+	<text x="-1200" y="-1000" class="title">turtle</text>
+
+	<style>
+		text.title {
+			stroke:#000a;
+			fill: #888a;
+			font-size: 32ex;
+		}
+		path {
+			stroke: blue;
+			stroke-width: 1;
+			fill: #00fa;  <!-- none; -->
+			fill-rule: evenodd; <!-- evenodd, nonzero -->
+			<!-- stroke-dasharray: 2 7; -->
+			stroke-linecap: round;
+			stroke-linejoin: bevel;
+			marker-start:url(#markerStart);
+			marker-end:url(#markerEnd);
+		}
+
+
+
+		rect, line {
+			stroke: red;
+			stroke-width: 5px;
+			fill: pink;
+		}
+
+		.point { stroke: purple; fill:pink; }
+
+		text {
+			fill: tan;
+			stroke: tomato;
+			font-size: 32em;
+		}
+
+		.shadow {
+			filter: drop-shadow(0px 40px 20px #444b);
+		}
+
+		.feShadow {
+			filter: url(#shadow1);
+		}
+	</style>
+
+
+	<script>
+		<![CDATA[
+
+		function run() {
+
+			p1 = new PolarPoint(0, 0).toPoint();
+			p2 = new PolarPoint(1, 400).toPoint();
+			const l1 = new Line(p1.x, p1.y, p2.x, p2.y);
+			//console.log('lineLength(p1,p2):', lineLength(p1,p2));
+			//console.log('lineRadian(p1,p2):', lineRadian(p1,p2));
+			p3 = new PolarPoint(0, 0).plus( new PolarPoint(0,0) ).toPoint();
+			p4 = new PolarPoint(2, 600).toPointPolarOffset( new PolarPoint(1,-100) );
+			const l2 = new Line(p3.x, p3.y, p4.x, p4.y);
+
+			//console.log('lineLength(p3,p4):', lineLength(p3,p4));
+			//console.log('lineRadian(p3,p4):', lineRadian(p3,p4));
+
+			pp1 = new PolarPoint(0.5,500);
+			cp1 = pp1.toPoint();
+
+			ppd = new PolarPoint(1,100);
+			cpd = ppd.toPoint();
+
+			pp2 = pp1.plus(ppd);
+			cp2 = cp1.plus(cpd);
+
+			console.log('pp2', pp2.toPoint()) ;
+			console.log('cp2', cp2);
+
+			//ppo = pp1.toPointPolarOffset(ppd);
+
+
+			let output = `
+				${svgLine(l1)}
+				${svgLine(l2)}
+
+				<!--
+				${svgPoint(pp1.toPoint())}
+				${svgPoint(ppd.toPoint())}
+				${svgPoint(pp2.toPoint())}
+				-->
+
+				${svgPoint(pp1)}
+
+
+				<!-- ${svgPoint(pp1.plus(new PolarPoint(1,200)))}
+				${svgPoint(pp1.plus(new PolarPoint(2,200)))}
+				${svgPoint(pp1.plus(new PolarPoint(3,200)))} -->
+
+
+				${svgPoint(pp1.move(200,0))}
+				${svgPoint(pp1.move(100,1))}
+				${svgPoint(pp1.move(100,2))}
+				${svgPoint(pp1.move(100,3))}
+				${svgPoint(pp1.move(100,4))}
+				${svgPoint(pp1.move(100,5))}
+
+			`;
+
+			/*
+
+				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(1,100)))}
+				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(2,100)))}
+				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(3,100)))}
+				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(4,100)))}
+				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(5,100)))}
+
+
+				<!-- ${svgPoint(ppo)} -->
+				<!-- p1 --> ${svgPoint(p1)}
+				<!-- p2 --> ${svgPoint(p2)}
+				<!-- p3 --> ${svgPoint(p3)}
+				<!-- p4 --> ${svgPoint(p4)}
+
+				${getPoint(rotatePoint(p2,1,p4))}
+				${getPoint(rotatePoint(p2,2,p4))}
+				${getPoint(rotatePoint(p2,3,p4))}
+				${getPoint(rotatePoint(p2,4,p4))}
+				${getPoint(rotatePoint(p2,5,p4))}
+				${getPoint(rotatePoint(p2,6,p4))}
+
+
+				${getPoint(rotatePoint(p2,1))}
+				${getPoint(rotatePoint(p2,2))}
+				${getPoint(rotatePoint(p2,3))}
+				${getPoint(rotatePoint(p2,4))}
+				${getPoint(rotatePoint(p2,5))}
+				${getPoint(rotatePoint(p2,6))}
+			*/
+
+
+			draw(output);
+
+		}/* run */
+
+
+		function draw(svgString, elementId='output') {
+			document.getElementById(elementId).innerHTML += svgString;
+			return svgString.trim();
+		}
+
+		// ]]>
+	</script>
+
+
+	<defs>
+
+
+		<g id="drawing" class="">
+			<rect x="0" y="100" width="600" height="800" />
+			<text x="50" y="50" >
+				rect
+			</text>
+		</g>
+
+		<filter id="shadow1" color-interpolation-filters="sRGB">
+			<feDropShadow dx="-20" dy="20" stdDeviation="3" flood-opacity=".5" flood-color="red"/>
+		</filter>
+
+	</defs>
+
+	<!-- <g id="drawing" class=" shadow">
+		<circle cx="-100" cy="0" r="600" />
+		<rect x="0" y="100" width="600" height="800" />
+		<text x="50" y="50" >
+			clip
+		</text>
+	</g> -->
+
+	<!--
+	<use href="#drawing" x="-1000" class="clip feShadow"/>
+
+	 <use href="#drawing" x="600" class="clip"/>
+	<g class="clip shadow" >
+		<use href="#drawing" transform="translate(500)" />
+	</g>
+
+	<rect x="0" y="100" width="600" height="800" />
+	-->
+
+
+	<g id="output">
+	</g>
+
+</svg>

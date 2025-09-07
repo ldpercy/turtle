@@ -1,7 +1,62 @@
+//
+// geometry
+//
+
+Math.TAU = 2 * Math.PI;
+
+function radians(degrees) {
+	return (degrees/360) * Math.TAU;
+}
+
+function degrees(radians) {
+	return (radians/Math.TAU) * 360;
+}
+
+/* Point
+*/
+class Point {
+	constructor(x=0, y=0, precision=12) {
+		this.x = x;
+		this.y = y;
+		this.precision = precision;
+	}
+
+	plus = function(point) {
+		return new Point(
+			this.x + point.x,
+			this.y + point.y
+		);
+	}
+
+	toPolarPoint = function(polarPoint = new PolarPoint()) {
+		const distance = this.distanceFrom();
+		//console.log(distance);
+		const radian  = (equalAtPrecision(this.precision, distance, 0)) ? polarPoint.radian : this.radiansFrom();
+		//console.log(radian);
+		// for points on the origin return the default PolarPoint radian
+		// should probably actually add these akin to a base vector
+		return new PolarPoint(
+			radian,
+			distance
+		);
+	}
+
+	distanceFrom = function(point = new Point()) {
+		const result = Math.hypot((this.x - point.x), (this.y - point.y));
+		return result;
+	}
+
+	// Clockwise from y axis
+	radiansFrom = function(center = new Point()) {
+		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
+		return result;
+	}
+
+}/* Point */
 
 
-
-
+/* PolarPoint
+*/
 class PolarPoint {
 	constructor(radian=0, radius=0, precision=12)
 	{
@@ -66,16 +121,11 @@ class PolarPoint {
 		)
 	}
 
-
 }/* PolarPoint */
 
 
 
 
-
-const tau = 2 * Math.PI;
-
-function degrees(radians) { return 360 * radians/tau}
 
 
 function rotatePoint(point, radian, center = new Point()) {

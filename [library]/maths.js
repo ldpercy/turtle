@@ -2,12 +2,23 @@
 // Maths
 //
 
+
 /* significantFigures
 Returns a function that will call toPrecision with the supplied number of significant figures
 */
 function significantFigures(integer) {
 	return (number) => { return number.toPrecision(integer) }
 }
+
+
+function equalAtPrecision(precision, n1, n2) {
+	return (n1.toPrecision(precision) === n2.toPrecision(precision))
+}
+
+
+//
+// number bases
+//
 
 
 function baseSize(base, number) {
@@ -53,49 +64,3 @@ function numberToBaseN(number, base) {
 	return result;
 }
 
-
-function equalAtPrecision(precision, n1, n2) {
-	return (n1.toPrecision(precision) === n2.toPrecision(precision))
-}
-
-
-
-class Point {
-	constructor(x=0, y=0, precision=12) {
-		this.x = x;
-		this.y = y;
-		this.precision = precision;
-	}
-
-	plus = function(point) {
-		return new Point(
-			this.x + point.x,
-			this.y + point.y
-		);
-	}
-
-	toPolarPoint = function(polarPoint = new PolarPoint()) {
-		const distance = this.distanceFrom();
-		//console.log(distance);
-		const radian  = (equalAtPrecision(this.precision, distance, 0)) ? polarPoint.radian : this.radiansFrom();
-		//console.log(radian);
-		// for points on the origin return the default PolarPoint radian
-		// should probably actually add these akin to a base vector
-		return new PolarPoint(
-			radian,
-			distance
-		);
-	}
-
-	distanceFrom = function(point = new Point()) {
-		const result = Math.hypot((this.x - point.x), (this.y - point.y));
-		return result;
-	}
-
-	// Clockwise from y axis
-	radiansFrom = function(center = new Point()) {
-		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
-		return result;
-	}
-
-}/* Point */
