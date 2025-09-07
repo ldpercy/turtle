@@ -14,8 +14,9 @@
 
 
 	<div class="form-group">
-		<!--
-		<form id="form-star">
+
+		<form id="form-turtle">
+			<!--
 			<label for="input-radius">radius</label>
 			<input id="input-radius" type="number" name="radius" title="radius" value="1000" list="datalist-radius"/>
 			<datalist id="datalist-radius">
@@ -56,8 +57,9 @@
 				<option value="combined" selected>combined</option>
 				<option value="separate">separate</option>
 			</select>
+			-->
 		</form>
-		-->
+
 
 		<form id="form-style">
 			<label for="input-fillRule">fill rule</label>
@@ -78,8 +80,8 @@
 	</div>
 
 	<output id="output">
-		<svg class="star" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
-			<title>polygon</title>
+		<svg class="drawing" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+			<title>turtle</title>
 			<g class="graphPaper" id="group-grid">
 				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
 					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
@@ -107,8 +109,8 @@
 
 			</defs>
 
-			<g id="star-group" class="evenodd ">
-				<path id="star" d=""/>
+			<g id="group-output" class="evenodd">
+
 			</g>
 		</svg>
 	</output>
