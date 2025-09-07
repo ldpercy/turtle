@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>turtle</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../[library]/form.css"/>
+	<link rel="stylesheet" href="turtle.css"/>
+	<script defer src="../[library]/maths.js"></script>
+	<script defer src="../[library]/geometry.js"></script>
+	<script defer src="./turtle.js"></script>
+
+</head>
+<body onload="bodyOnload()">
+
+
+	<div class="form-group">
+		<!--
+		<form id="form-star">
+			<label for="input-radius">radius</label>
+			<input id="input-radius" type="number" name="radius" title="radius" value="1000" list="datalist-radius"/>
+			<datalist id="datalist-radius">
+				<option>100</option>
+				<option>200</option>
+				<option>500</option>
+				<option>1000</option>
+				<option>1200</option>
+				<option>1500</option>
+				<option>2000</option>
+				<option>5000</option>
+			</datalist>
+
+			<label for="input-sides">sides</label>
+			<input id="input-sides" type="number" name="sides" title="sides" min="1" value="3"/>
+
+			<label for="input-pointStep">point step</label>
+			<input id="input-pointStep" type="number" name="pointStep" title="pointStep" value="1"/>
+
+			<label for="input-startDivision">start division</label>
+			<input id="input-startDivision" type="number" name="startDivision" title="startDivision" value="1">
+
+			<label for="input-coordinates">coordinates</label>
+			<select id="input-coordinates" name="coordinates" size="2">
+				<option value="absolute" selected>absolute</option>
+				<option value="relative">relative</option>
+			</select>
+
+			<hr/>
+
+			<label for="input-copies">copies</label>
+			<input id="input-copies" type="number" name="copies" title="copies" min="0" value="1" >
+			<label for="input-divisionOffset">division offset</label>
+			<input id="input-divisionOffset" type="number" name="divisionOffset" title="divisionOffset" value="1">
+
+			<label for="input-copyPaths">copy paths</label>
+			<select id="input-copyPaths" name="copyPaths" size="2">
+				<option value="combined" selected>combined</option>
+				<option value="separate">separate</option>
+			</select>
+		</form>
+		-->
+
+		<form id="form-style">
+			<label for="input-fillRule">fill rule</label>
+			<select id="input-fillRule" name="fillRule" size="2">
+				<option value="evenodd" selected>evenodd</option>
+				<option value="nonzero">nonzero</option>
+			</select>
+
+			<label for="input-showGrid" class="noafter">
+				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
+				show grid
+			</label>
+			<label for="input-showMarkers" class="noafter">
+				<input type="checkbox" name="showMarkers" id="input-showMarkers">
+				show markers
+			</label>
+		</form>
+	</div>
+
+	<output id="output">
+		<svg class="star" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+			<title>polygon</title>
+			<g class="graphPaper" id="group-grid">
+				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
+					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
+				</pattern>
+				<rect class="viewBox" style="x: -100%; y: -100%; width: 200%; height: 200%; stroke:none; fill: url(#pattern-graphPaper);"/>
+				<line x1="-100%" y1="0" x2="100%" y2="0" style="stroke: teal; stroke-width: 2px;"><title>x-axis</title></line>
+				<line x1="0" y1="-100%" x2="0" y2="100%" style="stroke: teal; stroke-width: 2px;"><title>y-axis</title></line>
+				<circle r="10" style="stroke: teal; stroke-width: 2px; fill:none;"><title>origin</title></circle>
+			</g>
+
+			<defs>
+				<marker id="markerStart" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-30 -30 60 60">
+					<circle class="marker-start" cx="0" cy="0" r="25"/>
+				</marker>
+				<marker id="markerEnd" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-30 -30 60 60">
+					<rect class="marker-end" x="-10" y="-10" width="20" height="20"/>
+				</marker>
+				<marker id="marker" markerWidth="40" markerHeight="100" refX="0" refY="0" orient="auto" viewBox="-20 -50 40 100">
+					<rect class="marker-mid" x="-20" y="-50" width="40" height="100"/>
+				</marker>
+
+				<marker id="wedge" markerWidth="100" markerHeight="100" refX="0" refY="60" orient="auto-start-reverse" viewBox="-20 0 40 80">
+					<path class="marker-mid" d="M 0,0 L 20 80 L -20 80 Z"/>
+				</marker>
+
+			</defs>
+
+			<g id="star-group" class="evenodd ">
+				<path id="star" d=""/>
+			</g>
+		</svg>
+	</output>
+
+</body>
+</html>

@@ -52,13 +52,8 @@
 			font-size: 32em;
 		}
 
-		.shadow {
-			filter: drop-shadow(0px 40px 20px #444b);
-		}
-
-		.feShadow {
-			filter: url(#shadow1);
-		}
+		.shadow   { filter: drop-shadow(0px 40px 20px #444b); }
+		.feShadow { filter: url(#shadow1); }
 	</style>
 
 
@@ -121,36 +116,7 @@
 
 			`;
 
-			/*
 
-				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(1,100)))}
-				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(2,100)))}
-				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(3,100)))}
-				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(4,100)))}
-				${svgPoint(pp1.toPointPolarOffset(new PolarPoint(5,100)))}
-
-
-				<!-- ${svgPoint(ppo)} -->
-				<!-- p1 --> ${svgPoint(p1)}
-				<!-- p2 --> ${svgPoint(p2)}
-				<!-- p3 --> ${svgPoint(p3)}
-				<!-- p4 --> ${svgPoint(p4)}
-
-				${getPoint(rotatePoint(p2,1,p4))}
-				${getPoint(rotatePoint(p2,2,p4))}
-				${getPoint(rotatePoint(p2,3,p4))}
-				${getPoint(rotatePoint(p2,4,p4))}
-				${getPoint(rotatePoint(p2,5,p4))}
-				${getPoint(rotatePoint(p2,6,p4))}
-
-
-				${getPoint(rotatePoint(p2,1))}
-				${getPoint(rotatePoint(p2,2))}
-				${getPoint(rotatePoint(p2,3))}
-				${getPoint(rotatePoint(p2,4))}
-				${getPoint(rotatePoint(p2,5))}
-				${getPoint(rotatePoint(p2,6))}
-			*/
 
 
 			draw(output);
@@ -169,13 +135,20 @@
 
 	<defs>
 
+		<marker id="marker-start" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-30 -30 60 60">
+			<circle class="marker-start" cx="0" cy="0" r="25"/>
+		</marker>
+		<marker id="marker-end" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-30 -30 60 60">
+			<rect class="marker-end" x="-10" y="-10" width="20" height="20"/>
+		</marker>
+		<marker id="marker-mid" markerWidth="40" markerHeight="100" refX="0" refY="0" orient="auto" viewBox="-20 -50 40 100">
+			<rect class="marker-mid" x="-20" y="-50" width="40" height="100"/>
+		</marker>
+		<marker id="wedge" markerWidth="100" markerHeight="100" refX="0" refY="60" orient="auto-start-reverse" viewBox="-20 0 40 80">
+			<path class="marker-mid" d="M 0,0 L 20 80 L -20 80 Z"/>
+		</marker>
 
-		<g id="drawing" class="">
-			<rect x="0" y="100" width="600" height="800" />
-			<text x="50" y="50" >
-				rect
-			</text>
-		</g>
+
 
 		<filter id="shadow1" color-interpolation-filters="sRGB">
 			<feDropShadow dx="-20" dy="20" stdDeviation="3" flood-opacity=".5" flood-color="red"/>
