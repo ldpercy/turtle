@@ -1,0 +1,20 @@
+.form-group {
+
+	position:absolute;
+	right:0ex;
+
+	form  {
+		display: grid;
+		border:1px solid silver;
+		background-color:#eee9;
+		border-radius: 1ex;
+		padding:1ex;
+		margin: 1ex;
+	}
+
+	label:after { content:':'; }
+
+	label.noafter:after { content:''; }
+
+	hr { width:100%;  } /* border:1px dotted silver inset; */
+}
