@@ -23,8 +23,8 @@ function svgPoint(point) {
 	const result = `
 		<circle cx="${point.x}" cy="${point.y}" r="10" class="point">
 			<title>Point: ${JSON.stringify(point)}
-				distance: ${point.distanceFrom()}
-				radian:  ${point.radiansFrom()}
+				distance: ${point.distanceFromOrigin }
+				radian:  ${point.radian }
 			</title>
 		</circle>
 	`;
@@ -65,6 +65,17 @@ class Line {
 		this.option = option;
 		this.element = element;
 	}
+
+	set start(point) {
+		this.x1 = point.x;
+		this.y1 = point.y;
+	}
+
+	set end(point) {
+		this.x2 = point.x;
+		this.y2 = point.y;
+	}
+
 }
 
 

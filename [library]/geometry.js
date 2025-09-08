@@ -29,27 +29,53 @@ class Point {
 	}
 
 	toPolarPoint = function(polarPoint = new PolarPoint()) {
-		const distance = this.distanceFrom();
+		const distanceFromOrigin = this.distanceFromOrigin;
 		//console.log(distance);
-		const radian  = (equalAtPrecision(this.precision, distance, 0)) ? polarPoint.radian : this.radiansFrom();
+		const radian  = (equalAtPrecision(this.precision, distanceFromOrigin, 0)) ? polarPoint.radian : this.radiansFrom();
 		//console.log(radian);
 		// for points on the origin return the default PolarPoint radian
 		// should probably actually add these akin to a base vector
 		return new PolarPoint(
 			radian,
-			distance
+			distanceFromOrigin
 		);
 	}
 
-	distanceFrom = function(point = new Point()) {
-		const result = Math.hypot((this.x - point.x), (this.y - point.y));
-		return result;
+
+
+	get radian() {
+		return Math.atan2(this.y, this.x) + Math.PI/2;
 	}
 
 	// Clockwise from y axis
 	radiansFrom = function(center = new Point()) {
 		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
 		return result;
+	}
+
+
+	get distanceFromOrigin() {
+		return Math.hypot(this.x, this.y);
+	}
+
+	getDistanceFrom = function(point = new Point()) {
+		return Math.hypot((this.x - point.x), (this.y - point.y));
+	}
+
+	// absolute
+	set radian(radian) {
+		const newPoint = new PolarPoint(radian, this.distanceFromOrigin).toPoint();
+		this.x = newPoint.x;
+		this.y = newPoint.y;
+		return this
+	}
+
+	// relative
+	rotate = function(radian) {
+		const newPoint = new PolarPoint(this.radian + radian, this.distanceFromOrigin).toPoint();
+		this.x = newPoint.x;
+		this.y = newPoint.y;
+		return this;
 	}
 
 }/* Point */
@@ -86,7 +112,7 @@ class PolarPoint {
 
 	*/
 
-
+	/*
 	// this is really wrong I think
 	toPointPolarOffset(polarPoint) {  // another polar point represents the deltas
 		return new Point(
@@ -94,6 +120,7 @@ class PolarPoint {
 			(this.radius + polarPoint.radius) * -Math.cos(this.radian + polarPoint.radian)
 		)
 	}
+	*/
 
 
 	/* move
@@ -108,24 +135,28 @@ class PolarPoint {
 	}
 
 
-	toPointCartesianOffset(dx, dy) {
+	/* newPointOffsetXY
+	The offsets are applied to the radial point's 'local' cartesian plane.
+	(The absolute versions of this would have been trivial)
+	*/
+	newPointOffsetXY(dx, dy) {
+		let result = new Point(dx, -this.radius + dy);
+		result.rotate(this.radian);
+		return result;
+	}/* newPointOffsetXY */
 
-		let x = 0, y = 0;
-
-
-
-		return new Point(
-			/* tbd */
-			(this.radius) * Math.sin(this.radian),
-			(this.radius) * -Math.cos(this.radian)
-		)
-	}
 
 }/* PolarPoint */
 
 
 
+/*
+I need a standard syntax for builders/constructors vs mutators - in classes and in general.
+Also need to do some experiments with JS accessors and class methods to see how they'll help here.
 
+A first approach would be to prefix builders with 'new' to make it obvious we're returning a new object base upon the instance and parameters.
+
+*/
 
 
 function rotatePoint(point, radian, center = new Point()) {
