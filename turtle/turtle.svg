@@ -90,8 +90,8 @@
 
 
 			let output = `
-				${svgLine(l1)}
-				${svgLine(l2)}
+				${l1}
+				${l2}
 
 				<!--
 				${svgPoint(pp1.toPoint())}

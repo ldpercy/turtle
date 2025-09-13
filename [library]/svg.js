@@ -44,16 +44,17 @@ class Rect {
 		this.option = option;
 		this.element = element;
 	}
+
+	toString  = function() {
+		const result = `
+			<rect ${getElementAttributes(this.element)} x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" rx="${this.rx}" ry="${this.ry}">
+				<title>${JSON.stringify(this)}</title>
+			</rect>
+		`;
+		return result;
+	}
 }
 
-function svgRect(rect) {
-	const result = `
-		<rect ${getElementAttributes(rect.element)} x="${rect.x}" y="${rect.y}" width="${rect.width}" height="${rect.height}" rx="${rect.rx}" ry="${rect.ry}">
-			<title>${JSON.stringify(rect)}</title>
-		</rect>
-	`;
-	return result;
-}
 
 
 class Line {
@@ -76,16 +77,19 @@ class Line {
 		this.y2 = point.y;
 	}
 
-}
+
+	toString = function() {
+		const result = `
+			<line ${getElementAttributes(this.element)} x1="${this.x1}" y1="${this.y1}" x2="${this.x2}" y2="${this.y2}">
+				<title>${JSON.stringify(this)}</title>
+			</line>
+		`;
+		return result;
+	}
+
+}/* Line */
 
 
-function svgLine(line) {
-	result = `
-		<line ${getElementAttributes(line.element)} x1="${line.x1}" y1="${line.y1}" x2="${line.x2}" y2="${line.y2}">
-			<title>${JSON.stringify(line)}</title>
-		</line>
-	`;
-	return result;
-}
+
 
 
