@@ -3,6 +3,7 @@
 function bodyOnload() {
 
 	//document.getElementById('form-turtle').addEventListener('change', redraw);
+	document.getElementById('input-do').addEventListener('click', doInstruction);
 	document.getElementById('form-style').addEventListener('change', updateStyle);
 
 
@@ -16,9 +17,9 @@ function bodyOnload() {
 		${turtle.toPoint(new Point(-200,300))}
 		${turtle.toPoint(new Point(-400,-500))}
 		${turtle.report}
-		${turtle.toBearing(90,200)}
+		${turtle.toBearing({bearing:90,distance:200})}
 		${turtle.report}
-		${turtle.toBearing(90,200)}
+		${turtle.toBearing({bearing:90,distance:200})}
 		${turtle.toPoint({x:90,y:-200})}
 	`;
 
@@ -60,3 +61,13 @@ function updateStyle() {
 function draw(string) {
 	output.innerHTML += string;
 }
+
+function doInstruction() {
+	const instructionStr = document.getElementById('input-instruction').value;
+	const instructionObj = JSON.parse(instructionStr);
+	draw(turtle.do(instructionObj));
+}
+
+/*
+{"i":"p","p":{"x":500,"y":500}}
+*/
