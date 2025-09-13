@@ -2,10 +2,27 @@
 
 function bodyOnload() {
 
-	document.getElementById('form-turtle').addEventListener('change', redraw);
+	//document.getElementById('form-turtle').addEventListener('change', redraw);
 	document.getElementById('form-style').addEventListener('change', updateStyle);
 
-	redraw();
+
+	turtle = new Turtle();
+
+	output  = document.getElementById('group-output');
+
+	drawing = `
+		${turtle.toPoint(new Point(100,100))}
+		${turtle.report}
+		${turtle.toPoint(new Point(-200,300))}
+		${turtle.toPoint(new Point(-400,-500))}
+		${turtle.report}
+		${turtle.toBearing(90,200)}
+		${turtle.report}
+		${turtle.toBearing(90,200)}
+		${turtle.toPoint({x:90,y:-200})}
+	`;
+
+	draw(drawing);
 }
 
 
@@ -40,6 +57,6 @@ function updateStyle() {
 
 
 
-function redraw() {
-
+function draw(string) {
+	output.innerHTML += string;
 }

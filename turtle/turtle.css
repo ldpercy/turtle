@@ -2,3 +2,18 @@ svg.drawing {
 	width: 100vw;
 	height: 99vh;
 }
+
+
+
+.turtle {
+
+	stroke: red;
+	stroke-width: 2px;
+
+
+	.report {
+		r: 10px;
+		fill:red;
+	}
+
+}
