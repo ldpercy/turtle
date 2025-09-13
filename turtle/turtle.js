@@ -2,16 +2,22 @@
 
 function bodyOnload() {
 
+	turtle = new Turtle();
+
 	//document.getElementById('form-turtle').addEventListener('change', redraw);
 	document.getElementById('input-do').addEventListener('click', doInstruction);
+	document.getElementById('input-clear').addEventListener('click', clear);
+	document.getElementById('input-origin').addEventListener('click', toOrigin);
+
+
 	document.getElementById('form-style').addEventListener('change', updateStyle);
 
 
-	turtle = new Turtle();
+
 
 	output  = document.getElementById('group-output');
 
-	drawing = `
+	/* drawing = `
 		${turtle.toPoint(new Point(100,100))}
 		${turtle.report}
 		${turtle.toPoint(new Point(-200,300))}
@@ -23,7 +29,7 @@ function bodyOnload() {
 		${turtle.toPoint({x:90,y:-200})}
 	`;
 
-	draw(drawing);
+	draw(drawing); */
 }
 
 
@@ -62,6 +68,14 @@ function draw(string) {
 	output.innerHTML += string;
 }
 
+function clear(string) {
+	output.innerHTML = '';
+}
+
+function toOrigin() {
+	turtle.toOrigin();
+}
+
 function doInstruction() {
 	const instructionStr = document.getElementById('input-instruction').value;
 	const instructionObj = JSON.parse(instructionStr);
@@ -70,4 +84,7 @@ function doInstruction() {
 
 /*
 {"i":"p","p":{"x":500,"y":500}}
+
+{"i":"b","p":{"bearing":345,"distance":345}}
+
 */

@@ -38,7 +38,7 @@ class Turtle {
 
 	toBearing = function({bearing, distance}) { 		// draw line from current to new
 		const delta = new PolarPoint(radians(this.degrees + bearing), distance);
-		console.log(delta);
+		//console.log(delta);
 		const point = this.plusPolar(delta);
 
 		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
@@ -49,6 +49,10 @@ class Turtle {
 	}
 
 
+	toOrigin = function() {
+		this.x = 0;
+		this.y = 0;
+	}
 
 	get report() {
 		const result = `
@@ -66,11 +70,11 @@ class Turtle {
 
 
 	do = function(instruction) {
-		console.log(instruction);
+		//console.log(instruction);
 		let result = '';
 		if(Array.prototype.isPrototypeOf(instruction))
 		{
-			instruction.array.forEach(instruction => {
+			instruction.forEach(instruction => {
 				result += this.do(instruction);
 			});
 		}
@@ -79,10 +83,11 @@ class Turtle {
 				case 'p'     	: result += this.toPoint(instruction.p); break;
 				case 'b'        : result += this.toBearing(instruction.p); break;
 				case 'r'        : result += this.report; break;
+				case 'o'        : result += this.toOrigin(); break;
 				default         : result += `<!-- ${instruction} -->`; break;
 			}
 		}
-		console.log(instruction);
+		//console.log(instruction);
 		return result;
 	}
 
