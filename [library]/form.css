@@ -4,6 +4,10 @@
 	position:absolute;
 	right:0ex;
 
+	h2 {
+		margin-top:0em;
+	}
+
 	form  {
 		display: grid;
 		border:1px solid silver;
