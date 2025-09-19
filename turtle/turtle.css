@@ -5,7 +5,7 @@ svg.drawing {
 
 
 
-.turtle {
+.page {
 
 	stroke: red;
 	stroke-width: 2px;
@@ -17,6 +17,31 @@ svg.drawing {
 	}
 
 }
+
+
+.turtle {
+	stroke: #0a0f;
+	stroke-width: 3px;
+	fill: #0a07;
+	.head { fill: #0a0f; }
+	.feet { fill: #0a0f;}
+
+	--size: 10;
+	--body: calc(var(--size) * 4px);
+	--head: calc(var(--size) * 2px);
+	--foot: calc(var(--size) * 1px);
+
+	--threeFifths: calc((3/5) * var(--size) * 4px);
+	--fourFifths:  calc((4/5) * var(--size) * 4px);
+
+	.body { r: var(--body); cx:0px; cy:0px; }
+	.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
+	.fl   { r: var(--foot); cx:calc(-1 * var(--fourFifths) ); cy:calc(-1 * var(--threeFifths)); }
+	.fr   { r: var(--foot); cx:calc(+1 * var(--fourFifths) ); cy:calc(-1 * var(--threeFifths)); }
+	.bl   { r: var(--foot); cx:calc(-1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
+	.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
+}
+
 
 
 #input-instruction {

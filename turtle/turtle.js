@@ -12,44 +12,20 @@ function bodyOnload() {
 
 	document.getElementById('form-style').addEventListener('change', updateStyle);
 
-
-
-
 	output  = document.getElementById('group-output');
 
-	/* drawing = `
-		${turtle.toPoint(new Point(100,100))}
-		${turtle.report}
-		${turtle.toPoint(new Point(-200,300))}
-		${turtle.toPoint(new Point(-400,-500))}
-		${turtle.report}
-		${turtle.toBearing({bearing:90,distance:200})}
-		${turtle.report}
-		${turtle.toBearing({bearing:90,distance:200})}
-		${turtle.toPoint({x:90,y:-200})}
-	`;
-
-	draw(drawing); */
+	turtleIcon = document.getElementById('icon-turtle');
 }
 
 
 
 function updateStyle() {
 
-	//console.log('updateStyle', fillRule);
-
-	if (document.getElementById('input-fillRule').value === 'evenodd') {
-		document.getElementById('group-output').classList.add('evenodd');
+	if (document.getElementById('input-showTurtle').checked) {
+		document.getElementById('icon-turtle').style.display = '';
 	}
 	else {
-		document.getElementById('group-output').classList.remove('evenodd');
-	}
-
-	if (document.getElementById('input-showMarkers').checked) {
-		document.getElementById('group-output').classList.add('show-markers');
-	}
-	else {
-		document.getElementById('group-output').classList.remove('show-markers');
+		document.getElementById('icon-turtle').style.display = 'none';
 	}
 
 	if (document.getElementById('input-showGrid').checked) {
@@ -74,6 +50,7 @@ function clear(string) {
 
 function toOrigin() {
 	turtle.toOrigin();
+	updateTurtle();
 }
 
 /* function doInstruction() {
@@ -90,8 +67,18 @@ function doInstruction() {
 	//console.log('Commands:', commands);
 
 	draw(turtle.doCommand(commands));
+
+	updateTurtle();
 }
 
+
+function updateTurtle() {
+	turtleIcon.setAttribute('x',turtle.x);
+	turtleIcon.setAttribute('y',turtle.y);
+	turtleIcon.setAttribute('transform',
+		`rotate(${turtle.degrees},${turtle.x},${turtle.y})`
+	);
+}
 
 /*
 m 1

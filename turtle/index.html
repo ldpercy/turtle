@@ -59,20 +59,21 @@
 
 
 		<form id="form-style">
-			<label for="input-fillRule">fill rule</label>
+			<!-- <label for="input-fillRule">fill rule</label>
 			<select id="input-fillRule" name="fillRule" size="2">
 				<option value="evenodd" selected>evenodd</option>
 				<option value="nonzero">nonzero</option>
-			</select>
+			</select> -->
 
+			<label for="input-showTurtle" class="noafter">
+				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
+				show turtle
+			</label>
 			<label for="input-showGrid" class="noafter">
 				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
 				show grid
 			</label>
-			<label for="input-showMarkers" class="noafter">
-				<input type="checkbox" name="showMarkers" id="input-showMarkers">
-				show markers
-			</label>
+
 		</form>
 	</div>
 
@@ -104,11 +105,25 @@
 					<path class="marker-mid" d="M 0,0 L 20 80 L -20 80 Z"/>
 				</marker>
 
+				<g id="def-turtle" class="turtle">
+					<title id="turtle-title"></title>
+					<circle class="head"/>
+					<g class="feet">
+						<circle class="fl"/>
+						<circle class="fr"/>
+						<circle class="bl"/>
+						<circle class="br"/>
+					</g>
+					<circle class="body"/>
+				</g>
+
 			</defs>
 
-			<g id="group-output" class="turtle evenodd">
+			<g id="group-output" class="page evenodd">
 
 			</g>
+
+			<use id="icon-turtle" href="#def-turtle"><title></title></use>
 		</svg>
 	</output>
 
