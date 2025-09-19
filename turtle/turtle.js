@@ -35,7 +35,14 @@ function updateStyle() {
 		document.getElementById('group-grid').style.display = 'none';
 	}
 
-}
+	if (document.getElementById('input-showReports').checked) {
+		document.getElementById('group-output').classList.add('show-report');
+	}
+	else {
+		document.getElementById('group-output').classList.remove('show-report');
+	}
+
+}/* updateStyle */
 
 
 

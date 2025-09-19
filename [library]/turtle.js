@@ -6,6 +6,8 @@ class Turtle {
 
 	#heading = 0; //
 
+	reportPrecision = 5;
+
 	constructor(x=0, y=0, degrees=0, precision=12) {
 		this.x = x;
 		this.y = y;
@@ -86,13 +88,15 @@ class Turtle {
 	}
 
 	get report() {
+		const items = [
+			`x: ${this.x.toPrecision(this.reportPrecision)}`,
+			`y: ${this.y.toPrecision(this.reportPrecision)}`,
+			`heading: ${this.degrees.toPrecision(this.reportPrecision)}`
+		];
+
 		const result = `
 			<circle cx="${this.x}" cy="${this.y}" class="report">
-				<title>
-					x: ${this.x}
-					y: ${this.y}
-					heading: ${this.degrees.toPrecision(5)}
-				</title>
+				<title>${items.join('\n')}</title>
 			</circle>
 		`;
 		return result;

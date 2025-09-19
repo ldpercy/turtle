@@ -74,12 +74,16 @@
 				show grid
 			</label>
 
+			<label for="input-showReports" class="noafter">
+				<input type="checkbox" name="showGrid" id="input-showReports" checked>
+				show reports
+			</label>
 		</form>
 	</div>
 
 	<output id="output">
 		<svg class="drawing" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
-			<title>turtle</title>
+			<!-- <title>turtle</title> -->
 			<g class="graphPaper" id="group-grid">
 				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
 					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
@@ -119,7 +123,7 @@
 
 			</defs>
 
-			<g id="group-output" class="page evenodd">
+			<g id="group-output" class="page show-report">
 
 			</g>
 

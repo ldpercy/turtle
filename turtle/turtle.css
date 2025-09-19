@@ -10,12 +10,16 @@ svg.drawing {
 	stroke: red;
 	stroke-width: 2px;
 
-
 	.report {
 		r: 10px;
 		fill:red;
+		display: none;
 	}
 
+}
+
+.page.show-report .report{
+	display:inline;
 }
 
 
