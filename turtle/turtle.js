@@ -76,13 +76,32 @@ function toOrigin() {
 	turtle.toOrigin();
 }
 
-function doInstruction() {
+/* function doInstruction() {
 	const instructionStr = document.getElementById('input-instruction').value;
 	const instructionObj = JSON.parse(instructionStr);
 	draw(turtle.do(instructionObj));
+} */
+
+function doInstruction() {
+	console.log('--- doInstruction ---');
+	const instructionStr = document.getElementById('input-instruction').value;
+	const commands = Turtle.getCommands(instructionStr);
+
+	//console.log('Commands:', commands);
+
+	draw(turtle.doCommand(commands));
 }
 
+
 /*
+m 1
+b 2
+c 1,2
+d
+e 1,2,3,4
+
+
+
 {"i":"p","p":{"x":500,"y":500}}
 
 {"i":"b","p":{"bearing":345,"distance":345}}
