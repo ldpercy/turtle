@@ -44,7 +44,7 @@ svg.drawing {
 	stroke-linejoin: miter;
 	scale: calc(var(--stroke-width) /5);
 	&:hover {
-		scale: calc(var(--stroke-width) /4);
+		scale: calc(var(--stroke-width) /3);
 	}
 }
 

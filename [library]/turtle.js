@@ -101,11 +101,15 @@ class Turtle {
 		else{
 			switch(command.name) {
 				case 'p'            : result += this.toPoint(instruction.p); break;
-				case 'b','bear'     : result += this.bear(...command.argument); break;
-				case 'l','left'     : result += this.left(...command.argument); break;
-				case 'r','right'    : result += this.right(...command.argument); break;
-				case 'm','move'     : result += this.move(...command.argument); break;
-				case 'p','plus'     : result += this.plus(...command.argument); break;
+				case 'b'            : result += this.bear(...command.argument); break;		// i thought you could do multi-case???
+				case 'bear'         : result += this.bear(...command.argument); break;
+				case 'l'            : result += this.left(...command.argument); break;
+				case 'left'         : result += this.left(...command.argument); break;
+				case 'r'            : result += this.right(...command.argument); break;
+				case 'right'        : result += this.right(...command.argument); break;
+				case 'm'            : result += this.move(...command.argument); break;
+				case 'move'         : result += this.move(...command.argument); break;
+				//case 'p','plus'     : result += this.plus(...command.argument); break;
 				case 'marker'       : result += this.marker; break;
 				case 'o'            : result += this.toOrigin(); break;
 				default             : result += `<!-- ${command} -->`; break;
