@@ -20,50 +20,24 @@
 
 			<h2>Turtle</h2>
 
-			<label for="input-instruction">instruction</label>
-			<textarea id="input-instruction" type="string" name="instruction" title="instruction">[]</textarea>
+			<label for="input-command">commands</label>
+			<textarea id="input-command" type="string" name="command" title="command">right 60,500</textarea>
 
 			<button id="input-do" type="button">do</button>
 			<button id="input-clear" type="button">clear</button>
 			<button id="input-origin" type="button">to origin</button>
-			<!--
-			<label for="input-sides">sides</label>
-			<input id="input-sides" type="number" name="sides" title="sides" min="1" value="3"/>
-
-			<label for="input-pointStep">point step</label>
-			<input id="input-pointStep" type="number" name="pointStep" title="pointStep" value="1"/>
-
-			<label for="input-startDivision">start division</label>
-			<input id="input-startDivision" type="number" name="startDivision" title="startDivision" value="1">
-
-			<label for="input-coordinates">coordinates</label>
-			<select id="input-coordinates" name="coordinates" size="2">
-				<option value="absolute" selected>absolute</option>
-				<option value="relative">relative</option>
-			</select>
-
-			<hr/>
-
-			<label for="input-copies">copies</label>
-			<input id="input-copies" type="number" name="copies" title="copies" min="0" value="1" >
-			<label for="input-divisionOffset">division offset</label>
-			<input id="input-divisionOffset" type="number" name="divisionOffset" title="divisionOffset" value="1">
-
-			<label for="input-copyPaths">copy paths</label>
-			<select id="input-copyPaths" name="copyPaths" size="2">
-				<option value="combined" selected>combined</option>
-				<option value="separate">separate</option>
-			</select>
-			-->
 		</form>
 
 
 		<form id="form-style">
-			<!-- <label for="input-fillRule">fill rule</label>
-			<select id="input-fillRule" name="fillRule" size="2">
-				<option value="evenodd" selected>evenodd</option>
-				<option value="nonzero">nonzero</option>
-			</select> -->
+			<label for="input-width" class="noafter">
+				<input type="number" name="width" id="input-width" value="5" min="1"/>
+				width
+			</label>
+			<label for="input-colour" class="noafter">
+				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
+				colour
+			</label>
 
 			<label for="input-showTurtle" class="noafter">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
@@ -78,6 +52,7 @@
 				<input type="checkbox" name="showGrid" id="input-showMarkers" checked>
 				show markers
 			</label>
+
 		</form>
 	</div>
 
@@ -110,7 +85,6 @@
 				</marker>
 
 				<g id="def-turtle" class="turtle">
-					<title id="turtle-title"></title>
 					<circle class="head"/>
 					<g class="feet">
 						<circle class="fl"/>
@@ -127,7 +101,7 @@
 
 			</g>
 
-			<use id="icon-turtle" href="#def-turtle"><title></title></use>
+			<use id="icon-turtle" href="#def-turtle" class="turtle"><title id="turtle-title"></title></use>
 		</svg>
 	</output>
 

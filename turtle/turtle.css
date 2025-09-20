@@ -1,3 +1,21 @@
+/* Turtle
+*/
+
+form {
+	#input-command {
+		height:15em;
+	}
+
+	#input-width,
+	#input-colour
+	{
+		width: 7em;
+		/* padding: 1ex; */
+		/* margin:1ex; */
+	}
+}
+
+
 svg.drawing {
 	width: 100vw;
 	height: 99vh;
@@ -14,7 +32,7 @@ svg.drawing {
 .page {
 
 	stroke: var(--marker);
-	stroke-width: 2px;
+	stroke-width: 5px;
 
 	.marker {
 		r: 10px;
@@ -65,6 +83,5 @@ svg.drawing {
 
 
 
-#input-instruction {
-	height:15em;
-}
+
+

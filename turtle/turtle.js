@@ -5,7 +5,7 @@ function bodyOnload() {
 	turtle = new Turtle();
 
 	//document.getElementById('form-turtle').addEventListener('change', redraw);
-	document.getElementById('input-do').addEventListener('click', doInstruction);
+	document.getElementById('input-do').addEventListener('click', doCommand);
 	document.getElementById('input-clear').addEventListener('click', clear);
 	document.getElementById('input-origin').addEventListener('click', toOrigin);
 
@@ -43,6 +43,10 @@ function updateStyle() {
 		document.getElementById('group-output').classList.remove('show-marker');
 	}
 
+	document.getElementById('group-output').style.stroke = document.getElementById('input-colour').value;
+	document.getElementById('group-output').style['stroke-width'] = document.getElementById('input-width').value;
+
+
 }/* updateStyle */
 
 
@@ -61,16 +65,11 @@ function toOrigin() {
 	updateTurtle();
 }
 
-/* function doInstruction() {
-	const instructionStr = document.getElementById('input-instruction').value;
-	const instructionObj = JSON.parse(instructionStr);
-	draw(turtle.do(instructionObj));
-} */
 
-function doInstruction() {
-	console.log('--- doInstruction ---');
-	const instructionStr = document.getElementById('input-instruction').value;
-	const commands = Turtle.getCommands(instructionStr);
+function doCommand() {
+	console.log('--- doCommand ---');
+	const commandStr = document.getElementById('input-command').value;
+	const commands = Turtle.getCommands(commandStr);
 
 	//console.log('Commands:', commands);
 

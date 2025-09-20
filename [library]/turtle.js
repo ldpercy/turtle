@@ -102,7 +102,9 @@ class Turtle {
 		const result = [
 			`x: ${this.x.toPrecision(this.reportPrecision)}`,
 			`y: ${this.y.toPrecision(this.reportPrecision)}`,
-			`heading: ${this.degrees.toPrecision(this.reportPrecision)}`
+			`heading:`,
+			`	 ${this.degrees.toPrecision(this.reportPrecision)}°`,
+			`	 ${this.radians.toPrecision(this.reportPrecision)} rad`
 		].join('\n');
 		return result;
 	}
