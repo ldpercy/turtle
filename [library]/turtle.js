@@ -4,14 +4,15 @@
 */
 class Turtle {
 
-	#heading = 0; //
+	//#heading = 0; // radians
+	#headingPi = 0; // internally heading is stored in units of pi radians
 
 	reportPrecision = 5;
 
-	constructor(x=0, y=0, degrees=0, precision=12) {
+	constructor(x=0, y=0, headingDegrees=0, precision=12) {
 		this.x = x;
 		this.y = y;
-		this.degrees = degrees;
+		this.headingDegrees = headingDegrees;
 		this.precision = precision;
 	}
 
@@ -20,15 +21,18 @@ class Turtle {
 	// Accessors
 	//
 
-	get radians() { return this.heading; }
-	get degrees() { return (this.heading/Math.TAU) * 360; }
+	get headingRadians()    { return this.headingPi * Math.PI ; }
+	get headingRadiansPi()  { return this.headingPi; }
+	get headingRadiansTau() { return this.headingPi / 2; }
+	get headingDegrees()    { return this.headingPi * 180; }
 
-	set radians(radians) { this.heading = radians; }
-	set degrees(degrees) { this.heading = (degrees/360) * Math.TAU; }
+	set headingRadians(radians)         { this.headingPi = radians / Math.PI; }
+	set headingRadiansPi(radiansPi)     { this.headingPi = radiansPi; }
+	set headingRadiansTau(radiansTau)   { this.headingPi = radiansTau * 2; }
+	set headingDegrees(degrees)         { this.headingPi = (degrees/180); }
 
 
-
-
+/*
 	toPoint = function(point) { 		// draw line from current to new
 		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
 		this.heading = Turtle.getHeading(this, point);
@@ -47,28 +51,30 @@ class Turtle {
 		this.x = point.x;
 		this.y = point.y;
 		return result;
-	}
+	} */
 
 
-	bear = function(bearing, distance=0) { 		// draw line from current to new
+	bear = function(bearingDegrees, distance=0) { 		// draw line from current to new
 		console.log('bear:', arguments);
-		const delta = new PolarPoint(radians(this.degrees + bearing), distance);
+		const delta = new PolarPoint(radians(this.headingDegrees + bearingDegrees), distance);
 		const point = this.plusPolar(delta);
 		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
-		this.degrees = this.degrees + bearing;
+		this.headingDegrees = this.headingDegrees + bearingDegrees;
 		this.x = point.x;
 		this.y = point.y;
 		return result;
 	}
 
 
-	left  = function(bearing, distance=0) { return this.bear(-bearing,distance) }
-	right = function(bearing, distance=0) { return this.bear(+bearing,distance) }
+	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
+	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
+
+
 
 	move = function(dx,dy) {
 		console.log('move:', arguments);
 
-		const currentPolar = new PolarPoint(this.heading, this.distanceFromOrigin);
+		const currentPolar = new PolarPoint(this.headingRadians, this.distanceFromOrigin);
 
 		const newPoint = currentPolar.newPointOffsetXY(dx,-dy);
 
@@ -84,7 +90,7 @@ class Turtle {
 	toOrigin = function() {
 		this.x = 0;
 		this.y = 0;
-		this.heading = 0;
+		this.headingDegrees = 0;
 	}
 
 	get marker() {
@@ -103,34 +109,14 @@ class Turtle {
 			`x: ${this.x.toPrecision(this.reportPrecision)}`,
 			`y: ${this.y.toPrecision(this.reportPrecision)}`,
 			`heading:`,
-			`	 ${this.degrees.toPrecision(this.reportPrecision)}°`,
-			`	 ${this.radians.toPrecision(this.reportPrecision)} rad`
+			`	 ${this.headingDegrees.toPrecision(this.reportPrecision)}°`,
+			`	 ${this.headingRadians.toPrecision(this.reportPrecision)} rad`,
+			`	 ${this.headingRadiansPi.toPrecision(this.reportPrecision)} π rad`,
+			`	 ${this.headingRadiansTau.toPrecision(this.reportPrecision)} τ rad`
 		].join('\n');
 		return result;
 	}
 
-
-	do = function(instruction) {
-		//console.log(instruction);
-		let result = '';
-		if(Array.prototype.isPrototypeOf(instruction))
-		{
-			instruction.forEach(instruction => {
-				result += this.do(instruction);
-			});
-		}
-		else{
-			switch(instruction.i) {
-				case 'p'     	: result += this.toPoint(instruction.p); break;
-				case 'b'        : result += this.toBearing(instruction.p); break;
-				case 'r'        : result += this.report; break;
-				case 'o'        : result += this.toOrigin(); break;
-				default         : result += `<!-- ${instruction} -->`; break;
-			}
-		}
-		//console.log(instruction);
-		return result;
-	}
 
 
 

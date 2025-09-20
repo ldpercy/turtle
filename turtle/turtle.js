@@ -83,7 +83,7 @@ function updateTurtle() {
 	turtleIcon.setAttribute('x',turtle.x);
 	turtleIcon.setAttribute('y',turtle.y);
 	turtleIcon.setAttribute('transform',
-		`rotate(${turtle.degrees},${turtle.x},${turtle.y})`
+		`rotate(${turtle.headingDegrees},${turtle.x},${turtle.y})`
 	);
 
 	document.getElementById('turtle-title').innerHTML = turtle.report;
