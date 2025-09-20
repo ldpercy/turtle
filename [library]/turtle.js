@@ -2,18 +2,26 @@
 */
 class Turtle {
 
-	#headingPi = 0; // internally heading is stored in units of pi radians
-	x = 0;
-	y = 0;
+	#headingDegrees = 0; // internally heading is stored in degrees
+	#x = 0;
+	#y = 0;
 
-	reportPrecision = 5;
+	precision = {
+		report : 5,
+		digits : 12,
+	};
+	/* Precision handling
+	This isn't very good at the moment - need better solutions for this stuff
+	Currently uses 12 fixed decimal points, which is okay, but would like some better ways of doing this.
+	For simple geometry rounding things very close to zero will do, but could have errors for anything requiring higher precision.
+	*/
 
 
-	constructor(x=0, y=0, headingDegrees=0, precision=12) {
+	constructor(x=0, y=0, headingDegrees=0, digits=12) {
 		this.x = x;
 		this.y = y;
 		this.headingDegrees = headingDegrees;
-		this.precision = precision;
+		this.precision.digits = digits;
 	}
 
 
@@ -21,15 +29,38 @@ class Turtle {
 	// Accessors
 	//
 
-	get headingRadians()    { return this.#headingPi * Math.PI ; }
-	get headingRadiansPi()  { return this.#headingPi; }
-	get headingRadiansTau() { return this.#headingPi / 2; }
-	get headingDegrees()    { return this.#headingPi * 180; }
+	set #heading(heading) {
 
-	set headingRadians(radians)         { this.#headingPi = radians / Math.PI; }
-	set headingRadiansPi(radiansPi)     { this.#headingPi = radiansPi; }
-	set headingRadiansTau(radiansTau)   { this.#headingPi = radiansTau * 2; }
-	set headingDegrees(degrees)         { this.#headingPi = (degrees/180); }
+		const equal = equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
+		//console.log('set #heading', heading, equal);
+		/*
+		this isn't very clean - need better solutions for this stuff
+		*/
+
+		this.#headingDegrees = (equal) ? 0.0 : heading;
+	}
+
+
+	get x()  { return this.#x; }
+	get y()  { return this.#y; }
+	set x(value) {
+		this.#x = (equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+	}
+	set y(value) {
+		this.#y = (equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+	}
+
+
+	get headingDegrees()    { return this.#headingDegrees; }
+	get headingRadians()    { return this.#headingDegrees / 180 * Math.PI; }
+	get headingRadiansPi()  { return this.#headingDegrees / 180; }
+	get headingRadiansTau() { return this.#headingDegrees / 360; }
+
+	set headingDegrees(degrees)         { this.#heading = degrees; }
+	set headingRadians(radians)         { this.#heading = radians * 180 / Math.PI; }
+	set headingRadiansPi(radiansPi)     { this.#heading = radiansPi * 180; }
+	set headingRadiansTau(radiansTau)   { this.#heading = radiansTau * 360; }
+
 
 	get radius() { return Math.hypot(this.x, this.y); }
 
@@ -83,7 +114,7 @@ class Turtle {
 
 
 	static getLine(point1, point2) {
-		console.log('getLine:', arguments);
+		//console.log('getLine:', arguments);
 		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
 		return result;
 	}
@@ -132,14 +163,14 @@ class Turtle {
 	get report() {
 		// title text preserves whitespace, so:
 		const result = [
-			`x: ${this.x.toPrecision(this.reportPrecision)}`,
-			`y: ${this.y.toPrecision(this.reportPrecision)}`,
-			`radius: ${this.radius.toPrecision(this.reportPrecision)}`,
+			`x: ${this.x.toPrecision(this.precision.report)}`,
+			`y: ${this.y.toPrecision(this.precision.report)}`,
+			`radius: ${this.radius.toPrecision(this.precision.report)}`,
 			`heading:`,
-			`	${this.headingDegrees.toPrecision(this.reportPrecision)}°`,
-			`	${this.headingRadians.toPrecision(this.reportPrecision)} rad`,
-			`	${this.headingRadiansPi.toPrecision(this.reportPrecision)} π rad`,
-			`	${this.headingRadiansTau.toPrecision(this.reportPrecision)} τ rad`
+			`	${this.headingDegrees.toPrecision(this.precision.report)}°`,
+			`	${this.headingRadians.toPrecision(this.precision.report)} rad`,
+			`	${this.headingRadiansPi.toPrecision(this.precision.report)} π rad`,
+			`	${this.headingRadiansTau.toPrecision(this.precision.report)} τ rad`
 		].join('\n');
 		return result;
 	}

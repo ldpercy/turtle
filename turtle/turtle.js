@@ -70,7 +70,7 @@ function toOrigin() {
 
 
 function doCommand() {
-	console.log('--- doCommand ---');
+	//console.log('--- doCommand ---');
 	const commandStr = document.getElementById('input-command').value;
 	const commands = Turtle.getCommands(commandStr);
 
