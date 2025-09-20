@@ -87,21 +87,25 @@ class Turtle {
 		this.heading = 0;
 	}
 
-	get report() {
-		const items = [
-			`x: ${this.x.toPrecision(this.reportPrecision)}`,
-			`y: ${this.y.toPrecision(this.reportPrecision)}`,
-			`heading: ${this.degrees.toPrecision(this.reportPrecision)}`
-		];
-
+	get marker() {
 		const result = `
-			<circle cx="${this.x}" cy="${this.y}" class="report">
-				<title>${items.join('\n')}</title>
+			<circle cx="${this.x}" cy="${this.y}" class="marker">
+				<title>${this.report}</title>
 			</circle>
 		`;
 		return result;
 	}
 
+
+	get report() {
+		// title text preserves whitespace, so:
+		const result = [
+			`x: ${this.x.toPrecision(this.reportPrecision)}`,
+			`y: ${this.y.toPrecision(this.reportPrecision)}`,
+			`heading: ${this.degrees.toPrecision(this.reportPrecision)}`
+		].join('\n');
+		return result;
+	}
 
 
 	do = function(instruction) {
@@ -144,7 +148,7 @@ class Turtle {
 				case 'l'        : result += this.left(...command.argument); break;
 				case 'r'        : result += this.right(...command.argument); break;
 				case 'm'        : result += this.move(...command.argument); break;
-				case 'report'   : result += this.report; break;
+				case 'marker'   : result += this.marker; break;
 				case 'o'        : result += this.toOrigin(); break;
 				default         : result += `<!-- ${instruction} -->`; break;
 			}

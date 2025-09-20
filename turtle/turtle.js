@@ -15,6 +15,7 @@ function bodyOnload() {
 	output  = document.getElementById('group-output');
 
 	turtleIcon = document.getElementById('icon-turtle');
+	updateTurtle();
 }
 
 
@@ -35,11 +36,11 @@ function updateStyle() {
 		document.getElementById('group-grid').style.display = 'none';
 	}
 
-	if (document.getElementById('input-showReports').checked) {
-		document.getElementById('group-output').classList.add('show-report');
+	if (document.getElementById('input-showMarkers').checked) {
+		document.getElementById('group-output').classList.add('show-marker');
 	}
 	else {
-		document.getElementById('group-output').classList.remove('show-report');
+		document.getElementById('group-output').classList.remove('show-marker');
 	}
 
 }/* updateStyle */
@@ -85,6 +86,8 @@ function updateTurtle() {
 	turtleIcon.setAttribute('transform',
 		`rotate(${turtle.degrees},${turtle.x},${turtle.y})`
 	);
+
+	document.getElementById('turtle-title').innerHTML = turtle.report;
 }
 
 /*

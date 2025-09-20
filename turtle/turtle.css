@@ -1,34 +1,45 @@
 svg.drawing {
 	width: 100vw;
 	height: 99vh;
+
+
+	--turtle: #0a07;
+	--turtle-stroke: #0a0f;
+	--marker : red;
+
 }
 
 
 
 .page {
 
-	stroke: red;
+	stroke: var(--marker);
 	stroke-width: 2px;
 
-	.report {
+	.marker {
 		r: 10px;
-		fill:red;
+		fill: var(--marker);
 		display: none;
+	}
+
+	&.show-marker .marker{
+		display:inline;
+
+		&:hover {
+			r: 20px;
+		}
 	}
 
 }
 
-.page.show-report .report{
-	display:inline;
-}
-
 
 .turtle {
-	stroke: #0a0f;
+	fill: var(--turtle);
+	stroke: var(--turtle-stroke);
 	stroke-width: 3px;
-	fill: #0a07;
-	.head { fill: #0a0f; }
-	.feet { fill: #0a0f;}
+
+	.head { fill: var(--turtle-stroke); }
+	.feet { fill: var(--turtle-stroke); }
 
 	--size: 10;
 	--body: calc(var(--size) * 4px);
@@ -37,6 +48,12 @@ svg.drawing {
 
 	--threeFifths: calc((3/5) * var(--size) * 4px);
 	--fourFifths:  calc((4/5) * var(--size) * 4px);
+
+	/* I could have done most of this with a transform... */
+
+	&:hover {
+		--size:12;
+	}
 
 	.body { r: var(--body); cx:0px; cy:0px; }
 	.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
