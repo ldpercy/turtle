@@ -146,6 +146,10 @@ class PolarPoint {
 	}/* newPointOffsetXY */
 
 
+	rotate(radian) {
+		this.radian += radian;
+	}
+
 }/* PolarPoint */
 
 

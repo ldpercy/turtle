@@ -1,13 +1,13 @@
-
-
 /* Turtle
 */
 class Turtle {
 
-	//#heading = 0; // radians
 	#headingPi = 0; // internally heading is stored in units of pi radians
+	x = 0;
+	y = 0;
 
 	reportPrecision = 5;
+
 
 	constructor(x=0, y=0, headingDegrees=0, precision=12) {
 		this.x = x;
@@ -21,15 +21,15 @@ class Turtle {
 	// Accessors
 	//
 
-	get headingRadians()    { return this.headingPi * Math.PI ; }
-	get headingRadiansPi()  { return this.headingPi; }
-	get headingRadiansTau() { return this.headingPi / 2; }
-	get headingDegrees()    { return this.headingPi * 180; }
+	get headingRadians()    { return this.#headingPi * Math.PI ; }
+	get headingRadiansPi()  { return this.#headingPi; }
+	get headingRadiansTau() { return this.#headingPi / 2; }
+	get headingDegrees()    { return this.#headingPi * 180; }
 
-	set headingRadians(radians)         { this.headingPi = radians / Math.PI; }
-	set headingRadiansPi(radiansPi)     { this.headingPi = radiansPi; }
-	set headingRadiansTau(radiansTau)   { this.headingPi = radiansTau * 2; }
-	set headingDegrees(degrees)         { this.headingPi = (degrees/180); }
+	set headingRadians(radians)         { this.#headingPi = radians / Math.PI; }
+	set headingRadiansPi(radiansPi)     { this.#headingPi = radiansPi; }
+	set headingRadiansTau(radiansTau)   { this.#headingPi = radiansTau * 2; }
+	set headingDegrees(degrees)         { this.#headingPi = (degrees/180); }
 
 	get radius() { return Math.hypot(this.x, this.y); }
 
@@ -39,16 +39,18 @@ class Turtle {
 	// commands
 	//
 
+	toOrigin = function() {
+		this.x = 0.0;
+		this.y = 0.0;
+		this.headingDegrees = 0.0;
+	}
 
 
 	bear = function(bearingDegrees, distance=0) { 		// draw line from current to new
 		//console.log('bear:', arguments);
 		const delta = new PolarPoint(radians(this.headingDegrees + bearingDegrees), distance);
-		const point = this.plusPolar(delta);
-		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
-		this.headingDegrees = this.headingDegrees + bearingDegrees;
-		this.x = point.x;
-		this.y = point.y;
+		const newPoint = this.plusPolar(delta);
+		const result = this.#moveTurtle(newPoint);
 		return result;
 	}
 
@@ -57,28 +59,63 @@ class Turtle {
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
 
 
-	/* not working yet */
+	/* moves dx,dy in the turtles current local frame */
 	move = function(dx,dy) {
 		//console.log('move:', arguments);
-
-		const currentPolar = new PolarPoint(this.headingRadians, this.radius);
-
-		const newPoint = currentPolar.newPointOffsetXY(dx,-dy);
-
-
-		const result = `<line x1="${this.x}" y1="${this.y}" x2="${newPoint.x}" y2="${newPoint.y}"/>`;
-		this.radians = Turtle.getHeading(this, newPoint);
-		this.x = newPoint.x;
-		this.y = newPoint.y;
+		const offset = new Point(dx,dy).rotate(this.headingRadians);
+		const newPoint = this.plusPoint(offset);
+		const result = this.#moveTurtle(newPoint);
 		return result;
-
 	}
 
-	toOrigin = function() {
-		this.x = 0.0;
-		this.y = 0.0;
-		this.headingDegrees = 0.0;
+	/*
+	*/
+	#moveTurtle = function(point) {
+		//console.log('moveTurtle:', arguments);
+		const result = Turtle.getLine(this, point);
+
+		this.headingRadians = Turtle.getLineRadians(this, point);
+		this.x = point.x;
+		this.y = point.y;
+
+		return result;
 	}
+
+
+	static getLine(point1, point2) {
+		console.log('getLine:', arguments);
+		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
+		return result;
+	}
+
+
+	doCommand = function(command) {
+		//console.log('Command:', command);
+		let result = '';
+		if(Array.prototype.isPrototypeOf(command))
+		{
+			command.forEach(command => {
+				result += this.doCommand(command);
+			});
+		}
+		else{
+			switch(command.name) {
+				case 'p'            : result += this.toPoint(instruction.p); break;
+				case 'b','bear'     : result += this.bear(...command.argument); break;
+				case 'l','left'     : result += this.left(...command.argument); break;
+				case 'r','right'    : result += this.right(...command.argument); break;
+				case 'm','move'     : result += this.move(...command.argument); break;
+				case 'p','plus'     : result += this.plus(...command.argument); break;
+				case 'marker'       : result += this.marker; break;
+				case 'o'            : result += this.toOrigin(); break;
+				default             : result += `<!-- ${command} -->`; break;
+			}
+		}
+		//console.log(instruction);
+		return result;
+	}
+
+
 
 	get marker() {
 		const result = `
@@ -105,35 +142,7 @@ class Turtle {
 
 
 
-
-	doCommand = function(command) {
-		//console.log('Command:', command);
-		let result = '';
-		if(Array.prototype.isPrototypeOf(command))
-		{
-			command.forEach(command => {
-				result += this.doCommand(command);
-			});
-		}
-		else{
-			switch(command.name) {
-				case 'p'            : result += this.toPoint(instruction.p); break;
-				case 'b','bear'     : result += this.bear(...command.argument); break;
-				case 'l','left'     : result += this.left(...command.argument); break;
-				case 'r','right'    : result += this.right(...command.argument); break;
-				case 'm'            : result += this.move(...command.argument); break;
-				case 'marker'       : result += this.marker; break;
-				case 'o'            : result += this.toOrigin(); break;
-				default             : result += `<!-- ${command} -->`; break;
-			}
-		}
-		//console.log(instruction);
-		return result;
-	}
-
-
-
-	static getHeading = function(point1, point2) {
+	static getLineRadians = function(point1, point2) {
 		const result = Math.PI/2 + Math.atan2(point2.y-point1.y, point2.x-point1.x);
 		return result;
 	}
