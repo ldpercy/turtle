@@ -18,7 +18,7 @@
 
 		<form id="form-turtle">
 
-			<h2>Turtle</h2>
+			<h1>Turtle</h1>
 
 			<label for="input-command">commands</label>
 			<textarea id="input-command" type="string" name="command" title="command">right 60,500</textarea>
@@ -26,17 +26,21 @@
 			<button id="input-do" type="button">do</button>
 			<button id="input-clear" type="button">clear</button>
 			<button id="input-origin" type="button">to origin</button>
+
+			<h2>Current:</h2>
+			<output id="turtle-report"></output>
 		</form>
 
 
 		<form id="form-style">
-			<label for="input-width" class="noafter">
-				<input type="number" name="width" id="input-width" value="5" min="1"/>
-				width
-			</label>
+
 			<label for="input-colour" class="noafter">
 				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
 				colour
+			</label>
+			<label for="input-strokeWidth" class="noafter">
+				<input type="number" name="strokeWidth" id="input-strokeWidth" value="10" min="1"/>
+				stroke-width
 			</label>
 
 			<label for="input-showTurtle" class="noafter">
@@ -70,19 +74,12 @@
 			</g>
 
 			<defs>
-				<marker id="markerStart" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-30 -30 60 60">
-					<circle class="marker-start" cx="0" cy="0" r="25"/>
-				</marker>
-				<marker id="markerEnd" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-30 -30 60 60">
-					<rect class="marker-end" x="-10" y="-10" width="20" height="20"/>
-				</marker>
-				<marker id="marker" markerWidth="40" markerHeight="100" refX="0" refY="0" orient="auto" viewBox="-20 -50 40 100">
-					<rect class="marker-mid" x="-20" y="-50" width="40" height="100"/>
-				</marker>
-
 				<marker id="wedge" markerWidth="100" markerHeight="100" refX="0" refY="60" orient="auto-start-reverse" viewBox="-20 0 40 80">
 					<path class="marker-mid" d="M 0,0 L 20 80 L -20 80 Z"/>
 				</marker>
+				<!-- <polygon id="def-marker" points="0,-40 10,10 -10 10" class="marker"/> -->
+				 <path id="def-marker" d="m0,-30 L10,10 L-10 10 z" class="marker"/>
+
 
 				<g id="def-turtle" class="turtle">
 					<circle class="head"/>
@@ -101,7 +98,7 @@
 
 			</g>
 
-			<use id="icon-turtle" href="#def-turtle" class="turtle"><title id="turtle-title"></title></use>
+			<use id="icon-turtle" href="#def-turtle" class="turtle" x="0" y="0"><title id="turtle-title"></title></use>
 		</svg>
 	</output>
 

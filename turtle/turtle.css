@@ -1,17 +1,31 @@
 /* Turtle
 */
 
+* {
+	transition: all .1s ease-in;
+}
+
+html {
+	--silver: #bbbb;
+}
+
 form {
+
 	#input-command {
 		height:15em;
 	}
 
-	#input-width,
-	#input-colour
-	{
-		width: 7em;
-		/* padding: 1ex; */
-		/* margin:1ex; */
+	#input-colour { width: 11ex; }
+	#input-strokeWidth  { width: 10ex; }
+
+
+	#turtle-report {
+		font-family: monospace;
+		font-size: 1em;
+		white-space: pre;
+		background-color: #fffc;
+		padding:1ex;
+		border:1px solid var(--silver);
 	}
 }
 
@@ -20,32 +34,40 @@ svg.drawing {
 	width: 100vw;
 	height: 99vh;
 
-
 	--turtle: #0a07;
 	--turtle-stroke: #0a0f;
-	--marker : red;
+
 
 }
 
-
+#def-marker {
+	stroke-linejoin: miter;
+	scale: calc(var(--stroke-width) /5);
+	&:hover {
+		scale: calc(var(--stroke-width) /4);
+	}
+}
 
 .page {
+	--draw-colour: #f00;
+	--stroke-width: 10;
+	stroke: var(--draw-colour);
+	fill: var(--draw-colour);
+	fill-opacity: 50%;
 
-	stroke: var(--marker);
-	stroke-width: 5px;
+	stroke-width: var(--stroke-width);
+	stroke-linecap: round;
+	stroke-linejoin: miter;
+	paint-order: stroke;
 
 	.marker {
-		r: 10px;
-		fill: var(--marker);
 		display: none;
+		stroke-width:0px;
+		stroke-linejoin: miter;
 	}
 
 	&.show-marker .marker{
 		display:inline;
-
-		&:hover {
-			r: 20px;
-		}
 	}
 
 }

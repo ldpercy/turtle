@@ -31,31 +31,18 @@ class Turtle {
 	set headingRadiansTau(radiansTau)   { this.headingPi = radiansTau * 2; }
 	set headingDegrees(degrees)         { this.headingPi = (degrees/180); }
 
-
-/*
-	toPoint = function(point) { 		// draw line from current to new
-		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
-		this.heading = Turtle.getHeading(this, point);
-		this.x = point.x;
-		this.y = point.y;
-		return result;
-	}
+	get radius() { return Math.hypot(this.x, this.y); }
 
 
-	toBearing = function({bearing, distance}) { 		// draw line from current to new
-		const delta = new PolarPoint(radians(this.degrees + bearing), distance);
-		const point = this.plusPolar(delta);
 
-		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
-		this.heading = Turtle.getHeading(this, point);
-		this.x = point.x;
-		this.y = point.y;
-		return result;
-	} */
+	//
+	// commands
+	//
+
 
 
 	bear = function(bearingDegrees, distance=0) { 		// draw line from current to new
-		console.log('bear:', arguments);
+		//console.log('bear:', arguments);
 		const delta = new PolarPoint(radians(this.headingDegrees + bearingDegrees), distance);
 		const point = this.plusPolar(delta);
 		const result = `<line x1="${this.x}" y1="${this.y}" x2="${point.x}" y2="${point.y}"/>`;
@@ -70,11 +57,11 @@ class Turtle {
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
 
 
-
+	/* not working yet */
 	move = function(dx,dy) {
-		console.log('move:', arguments);
+		//console.log('move:', arguments);
 
-		const currentPolar = new PolarPoint(this.headingRadians, this.distanceFromOrigin);
+		const currentPolar = new PolarPoint(this.headingRadians, this.radius);
 
 		const newPoint = currentPolar.newPointOffsetXY(dx,-dy);
 
@@ -88,16 +75,14 @@ class Turtle {
 	}
 
 	toOrigin = function() {
-		this.x = 0;
-		this.y = 0;
-		this.headingDegrees = 0;
+		this.x = 0.0;
+		this.y = 0.0;
+		this.headingDegrees = 0.0;
 	}
 
 	get marker() {
 		const result = `
-			<circle cx="${this.x}" cy="${this.y}" class="marker">
-				<title>${this.report}</title>
-			</circle>
+			<use href="#def-marker" class="marker" x="${this.x}" y="${this.y}" transform="rotate(${this.headingDegrees},${this.x},${this.y})"><title>${this.report}</title></use>
 		`;
 		return result;
 	}
@@ -108,11 +93,12 @@ class Turtle {
 		const result = [
 			`x: ${this.x.toPrecision(this.reportPrecision)}`,
 			`y: ${this.y.toPrecision(this.reportPrecision)}`,
+			`radius: ${this.radius.toPrecision(this.reportPrecision)}`,
 			`heading:`,
-			`	 ${this.headingDegrees.toPrecision(this.reportPrecision)}°`,
-			`	 ${this.headingRadians.toPrecision(this.reportPrecision)} rad`,
-			`	 ${this.headingRadiansPi.toPrecision(this.reportPrecision)} π rad`,
-			`	 ${this.headingRadiansTau.toPrecision(this.reportPrecision)} τ rad`
+			`	${this.headingDegrees.toPrecision(this.reportPrecision)}°`,
+			`	${this.headingRadians.toPrecision(this.reportPrecision)} rad`,
+			`	${this.headingRadiansPi.toPrecision(this.reportPrecision)} π rad`,
+			`	${this.headingRadiansTau.toPrecision(this.reportPrecision)} τ rad`
 		].join('\n');
 		return result;
 	}
@@ -138,7 +124,7 @@ class Turtle {
 				case 'm'            : result += this.move(...command.argument); break;
 				case 'marker'       : result += this.marker; break;
 				case 'o'            : result += this.toOrigin(); break;
-				default             : result += `<!-- ${instruction} -->`; break;
+				default             : result += `<!-- ${command} -->`; break;
 			}
 		}
 		//console.log(instruction);
@@ -199,9 +185,7 @@ class Turtle {
 	}
 
 
-	get distanceFromOrigin() {
-		return Math.hypot(this.x, this.y);
-	}
+
 
 
 
@@ -216,4 +200,5 @@ class Command {
 	}
 	name = '';
 	argument = [];
+	toString() { return `${this.name} ${this.argument}`}
 }

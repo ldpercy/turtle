@@ -4,9 +4,8 @@
 	position:absolute;
 	right:0ex;
 
-	h2 {
-		margin-top:0em;
-	}
+	h1 { font-size:3ex; margin-top:0em; }
+	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
 
 	form  {
 		display: grid;

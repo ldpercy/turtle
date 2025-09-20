@@ -16,6 +16,7 @@ function bodyOnload() {
 
 	turtleIcon = document.getElementById('icon-turtle');
 	updateTurtle();
+	updateStyle();
 }
 
 
@@ -43,9 +44,11 @@ function updateStyle() {
 		document.getElementById('group-output').classList.remove('show-marker');
 	}
 
-	document.getElementById('group-output').style.stroke = document.getElementById('input-colour').value;
-	document.getElementById('group-output').style['stroke-width'] = document.getElementById('input-width').value;
+	const drawColour = document.getElementById('input-colour').value;
+	document.getElementById('group-output').style.setProperty('--draw-colour', drawColour);
 
+	const strokeWidth = document.getElementById('input-strokeWidth').value;
+	document.getElementById('group-output').style.setProperty('--stroke-width',strokeWidth);
 
 }/* updateStyle */
 
@@ -73,9 +76,9 @@ function doCommand() {
 
 	//console.log('Commands:', commands);
 
-	draw(turtle.doCommand(commands));
-
+	const commandOutput = turtle.doCommand(commands);
 	updateTurtle();
+	draw(commandOutput);
 }
 
 
@@ -87,6 +90,7 @@ function updateTurtle() {
 	);
 
 	document.getElementById('turtle-title').innerHTML = turtle.report;
+	document.getElementById('turtle-report').innerHTML = turtle.report;
 }
 
 /*
