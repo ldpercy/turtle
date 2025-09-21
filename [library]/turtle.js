@@ -2,9 +2,11 @@
 */
 class Turtle {
 
-	#headingDegrees = 0; // internally heading is stored in degrees
-	#x = 0;
-	#y = 0;
+	position = new Point();
+	heading = new Angle(); // internally heading is stored in degrees
+	/* #x = 0;
+	#y = 0; */
+	#origin = new Point(0,0);
 
 	precision = {
 		report : 5,
@@ -17,10 +19,10 @@ class Turtle {
 	*/
 
 
-	constructor(x=0, y=0, headingDegrees=0, digits=12) {
-		this.x = x;
-		this.y = y;
-		this.headingDegrees = headingDegrees;
+	constructor(x=0, y=0, heading=0, digits=12) {
+		this.position.x = x;
+		this.position.y = y;
+		this.heading.degrees = heading;
 		this.precision.digits = digits;
 	}
 
@@ -29,41 +31,29 @@ class Turtle {
 	// Accessors
 	//
 
-	set #heading(heading) {
+	setHeading(heading) {
 
-		const equal = equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
+		const equal = Maths.equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
 		//console.log('set #heading', heading, equal);
 		/*
 		this isn't very clean - need better solutions for this stuff
 		*/
 
-		this.#headingDegrees = (equal) ? 0.0 : heading;
+		this.heading.degrees = (equal) ? 0.0 : heading;
 	}
 
 
-	get x()  { return this.#x; }
-	get y()  { return this.#y; }
+	get x()  { return this.position.x; }
+	get y()  { return this.position.y; }
 	set x(value) {
-		this.#x = (equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+		this.position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
 	}
 	set y(value) {
-		this.#y = (equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+		this.position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
 	}
 
 
-	get headingDegrees()    { return this.#headingDegrees; }
-	get headingRadians()    { return this.#headingDegrees / 180 * Math.PI; }
-	get headingRadiansPi()  { return this.#headingDegrees / 180; }
-	get headingRadiansTau() { return this.#headingDegrees / 360; }
-
-	set headingDegrees(degrees)         { this.#heading = degrees; }
-	set headingRadians(radians)         { this.#heading = radians * 180 / Math.PI; }
-	set headingRadiansPi(radiansPi)     { this.#heading = radiansPi * 180; }
-	set headingRadiansTau(radiansTau)   { this.#heading = radiansTau * 360; }
-
-
-	get radius() { return Math.hypot(this.x, this.y); }
-
+	get radius() { return Math.hypot(this.position.x, this.position.y); }
 
 
 	//
@@ -71,9 +61,9 @@ class Turtle {
 	//
 
 	toOrigin = function() {
-		this.x = 0.0;
-		this.y = 0.0;
-		this.headingDegrees = 0.0;
+		this.position.x = 0.0;
+		this.position.y = 0.0;
+		this.heading.degrees = 0.0;
 	}
 
 
@@ -81,12 +71,12 @@ class Turtle {
 		//console.log('bear:', arguments);
 		let result = '';
 		if (distance) { // could also be subject to float comparison
-			const delta = new PolarPoint(radians(this.headingDegrees + bearingDegrees), distance);
+			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
 			const newPoint = this.plusPolar(delta);
 			result = this.#moveTurtle(newPoint);
 		}
 		else {
-			this.headingDegrees += bearingDegrees;
+			this.heading.degrees += bearingDegrees;
 		}
 
 		return result;
@@ -100,7 +90,7 @@ class Turtle {
 	/* moves dx,dy in the turtles current local frame */
 	move = function(dx,dy) {
 		//console.log('move:', arguments);
-		const offset = new Point(dx,dy).rotate(this.headingRadians);
+		const offset = new Point(dx,dy).rotate(this.heading.radians);
 		const newPoint = this.plusPoint(offset);
 		const result = this.#moveTurtle(newPoint);
 		return result;
@@ -109,12 +99,12 @@ class Turtle {
 
 
 	circle = function(r) {
-		const result = `<circle cx="${this.x}" cy="${this.y}" r="${r}"/>`;
+		const result = `<circle cx="${this.position.x}" cy="${this.position.y}" r="${r}"/>`;
 		return result;
 	}
 
 	rect = function(width, height) {
-		const result = `<rect x="${this.x - width/2}" y="${this.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.headingDegrees},${this.x},${this.y})"/>`;
+		const result = `<rect x="${this.position.x - width/2}" y="${this.position.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.position.x},${this.position.y})"/>`;
 		return result;
 	}
 
@@ -123,11 +113,11 @@ class Turtle {
 	*/
 	#moveTurtle = function(point) {
 		//console.log('moveTurtle:', arguments);
-		const result = Turtle.getLine(this, point);
+		const result = Turtle.getLine(this.position, point);
 
-		this.headingRadians = Turtle.getLineRadians(this, point);
-		this.x = point.x;
-		this.y = point.y;
+		this.heading = Turtle.lineAngle(this.position, point);
+		this.position.x = point.x;
+		this.position.y = point.y;
 
 		return result;
 	}
@@ -177,7 +167,9 @@ class Turtle {
 
 	get marker() {
 		const result = `
-			<use href="#def-marker" class="marker" x="${this.x}" y="${this.y}" transform="rotate(${this.headingDegrees},${this.x},${this.y})"><title>${this.report}</title></use>
+			<use href="#def-marker" class="marker" x="${this.position.x}" y="${this.position.y}" transform="rotate(${this.heading.degrees},${this.position.x},${this.position.y})">
+				<title>${this.report}</title>
+			</use>
 		`;
 		return result;
 	}
@@ -185,28 +177,42 @@ class Turtle {
 
 	get report() {
 		// title text preserves whitespace, so:
+		const originAngle = Turtle.lineAngle(this.#origin, this.position);
+
 		const result = [
-			`x: ${this.x.toPrecision(this.precision.report)}`,
-			`y: ${this.y.toPrecision(this.precision.report)}`,
+			`x: ${this.position.x.toPrecision(this.precision.report)}`,
+			`y: ${this.position.y.toPrecision(this.precision.report)}`,
 			`heading:`,
-			`	${this.headingDegrees.toPrecision(this.precision.report)}°`,
-			`	${this.headingRadians.toPrecision(this.precision.report)} rad`,
-			`	${this.headingRadiansPi.toPrecision(this.precision.report)} π rad`,
-			`	${this.headingRadiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	${this.heading.degrees.toPrecision(this.precision.report)}°`,
+			`	${this.heading.radians.toPrecision(this.precision.report)} rad`,
+			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`from origin:`,
 			`	${this.radius.toPrecision(this.precision.report)}`,
+			`	${originAngle.degrees.toPrecision(this.precision.report)}°`,
+			`	${originAngle.radians.toPrecision(this.precision.report)} rad`,
+			`	${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	${originAngle.radiansTau.toPrecision(this.precision.report)} τ rad`,
 		].join('\n');
 		return result;
 	}
 
 
+	/* will get less meaningful the closer the points are together
+	*/
+	static lineAngle = function(point1, point2) {
+		let result = new Angle();
+		if (!point1.isEqualTo(point2)) {
+			result = new Angle(Math.PI/2 + Math.atan2(point2.y-point1.y, point2.x-point1.x),'radians');
+		}
 
-	static getLineRadians = function(point1, point2) {
-		const result = Math.PI/2 + Math.atan2(point2.y-point1.y, point2.x-point1.x);
 		return result;
 	}
 
-
+	static lineLength = function(point1, point2) {
+		const result = Math.hypot((point2.x - point1.x), (point2.y - point1.y));
+		return result;
+	}
 
 	static getCommands = function(string) {
 		const result = [];
@@ -242,8 +248,8 @@ class Turtle {
 
 	plusPoint = function(point) {
 		return new Point(
-			this.x + point.x,
-			this.y + point.y
+			this.position.x + point.x,
+			this.position.y + point.y
 		);
 	}
 
@@ -251,10 +257,6 @@ class Turtle {
 		const temp = polarPoint.toPoint();
 		return this.plusPoint(temp);
 	}
-
-
-
-
 
 
 }/* Turtle */
