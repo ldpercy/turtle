@@ -40,13 +40,7 @@ svg.drawing {
 
 }
 
-#def-marker {
-	stroke-linejoin: miter;
-	scale: calc(var(--stroke-width) /5);
-	&:hover {
-		scale: calc(var(--stroke-width) /3);
-	}
-}
+
 
 .page {
 	--draw-colour: #f00;
@@ -55,28 +49,52 @@ svg.drawing {
 	fill: var(--draw-colour);
 	fill-opacity: 50%;
 
-	stroke-width: var(--stroke-width);
+	stroke-width: var(--drawing-stroke-width);
 	stroke-linecap: round;
 	stroke-linejoin: miter;
 	paint-order: stroke;
 
 	.marker {
 		display: none;
-		stroke-width:0px;
-		stroke-linejoin: miter;
 	}
 
 	&.show-marker .marker{
 		display:inline;
 	}
+}
+
+#def-marker {
+	--foo: 5;
+	/* --stroke-width: 10; */
+	--scale-min: 1;
+
+	--scale: max(var(--drawing-stroke-width) /5, var(--scale-min) );
+	--scale-temp: calc(var(--drawing-stroke-width) /5 );
+
+	stroke-width: 0px;
+
+	scale: var(--scale);
+
+	/* d: path('m0,-30 L10,10 L-10 10 z'); */
+
+	&:hover {
+		scale: calc(var(--scale) * 1.8);
+	}
+}
+
+use.marker {
+	--foo: 5;
 
 }
+
+
 
 
 .turtle {
 	fill: var(--turtle);
 	stroke: var(--turtle-stroke);
 	stroke-width: 3px;
+	filter: drop-shadow(0px 0px 30px #ff07);
 
 	.head { fill: var(--turtle-stroke); }
 	.feet { fill: var(--turtle-stroke); }
@@ -94,7 +112,7 @@ svg.drawing {
 	/* I could have done most of this with a transform... */
 
 	&:hover {
-		--size:12;
+		--size:15;
 	}
 
 	.body { r: var(--body); cx:0px; cy:0px; }

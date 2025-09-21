@@ -37,6 +37,7 @@ function updateStyle() {
 		document.getElementById('group-grid').style.display = 'none';
 	}
 
+
 	if (document.getElementById('input-showMarkers').checked) {
 		document.getElementById('group-output').classList.add('show-marker');
 	}
@@ -48,7 +49,15 @@ function updateStyle() {
 	document.getElementById('group-output').style.setProperty('--draw-colour', drawColour);
 
 	const strokeWidth = document.getElementById('input-strokeWidth').value;
-	document.getElementById('group-output').style.setProperty('--stroke-width',strokeWidth);
+	document.getElementById('svg-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+
+	if (document.getElementById('input-showStroke').checked) {
+		document.getElementById('group-output').style.setProperty('--drawing-stroke-width',strokeWidth);
+	}
+	else {
+		document.getElementById('group-output').style.setProperty('--drawing-stroke-width',0);
+	}
+
 
 }/* updateStyle */
 

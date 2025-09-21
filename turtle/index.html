@@ -33,7 +33,7 @@
 
 
 		<form id="form-style">
-
+			<h2>Drawing</h2>
 			<label for="input-colour" class="noafter">
 				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
 				colour
@@ -42,27 +42,30 @@
 				<input type="range" name="strokeWidth" id="input-strokeWidth" value="10" min="1" max="20"/>
 				stroke-width
 			</label>
-
+			<label for="input-showStroke" class="noafter">
+				<input type="checkbox" name="showStroke" id="input-showStroke" checked>
+				stroke
+			</label>
 			<label for="input-showTurtle" class="noafter">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
-				show turtle
+				turtle
 			</label>
 			<label for="input-showGrid" class="noafter">
 				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
-				show grid
+				grid
 			</label>
-
 			<label for="input-showMarkers" class="noafter">
 				<input type="checkbox" name="showGrid" id="input-showMarkers" checked>
-				show markers
+				markers
 			</label>
+
 		</form>
 	</div>
 
 	<output id="output">
-		<svg class="drawing" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
-			<!-- <title>turtle</title> -->
-			<g class="graphPaper" id="group-grid">
+		<svg id="svg-drawing" class="drawing" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+
+			<g id="group-grid" class="graphPaper">
 				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
 					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
 				</pattern>
@@ -73,11 +76,13 @@
 			</g>
 
 			<defs>
+				<!--
 				<marker id="wedge" markerWidth="100" markerHeight="100" refX="0" refY="60" orient="auto-start-reverse" viewBox="-20 0 40 80">
 					<path class="marker-mid" d="M 0,0 L 20 80 L -20 80 Z"/>
 				</marker>
+				-->
 				<!-- <polygon id="def-marker" points="0,-40 10,10 -10 10" class="marker"/> -->
-				 <path id="def-marker" d="m0,-30 L10,10 L-10 10 z" class="marker"/>
+				<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
 
 
 				<g id="def-turtle" class="turtle">

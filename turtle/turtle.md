@@ -29,3 +29,9 @@ But simpler - maybe something like :
 
 
 
+Todo:
+-----
+* Dynamic viewbox resize
+* option to switch between SVG and conventional coordinates (`y` up/down)
+* Change or have options for line drawing - line, polygon, path
+* Add some other svg shapes such as circle and rect
