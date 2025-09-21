@@ -67,7 +67,7 @@ class Turtle {
 
 
 	//
-	// commands
+	//  commands
 	//
 
 	toOrigin = function() {
@@ -79,9 +79,16 @@ class Turtle {
 
 	bear = function(bearingDegrees, distance=0) { 		// draw line from current to new
 		//console.log('bear:', arguments);
-		const delta = new PolarPoint(radians(this.headingDegrees + bearingDegrees), distance);
-		const newPoint = this.plusPolar(delta);
-		const result = this.#moveTurtle(newPoint);
+		let result = '';
+		if (distance) { // could also be subject to float comparison
+			const delta = new PolarPoint(radians(this.headingDegrees + bearingDegrees), distance);
+			const newPoint = this.plusPolar(delta);
+			result = this.#moveTurtle(newPoint);
+		}
+		else {
+			this.headingDegrees += bearingDegrees;
+		}
+
 		return result;
 	}
 
@@ -98,6 +105,19 @@ class Turtle {
 		const result = this.#moveTurtle(newPoint);
 		return result;
 	}
+
+
+
+	circle = function(r) {
+		const result = `<circle cx="${this.x}" cy="${this.y}" r="${r}"/>`;
+		return result;
+	}
+
+	rect = function(width, height) {
+		const result = `<rect x="${this.x - width/2}" y="${this.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.headingDegrees},${this.x},${this.y})"/>`;
+		return result;
+	}
+
 
 	/*
 	*/
@@ -140,6 +160,9 @@ class Turtle {
 				case 'right'        : result += this.right(...command.argument); break;
 				case 'm'            : result += this.move(...command.argument); break;
 				case 'move'         : result += this.move(...command.argument); break;
+				case 'circle'       : result += this.circle(...command.argument); break;
+				case 'rect'         : result += this.rect(...command.argument); break;
+
 				//case 'p','plus'     : result += this.plus(...command.argument); break;
 				case 'marker'       : result += this.marker; break;
 				case 'o'            : result += this.toOrigin(); break;
@@ -165,12 +188,13 @@ class Turtle {
 		const result = [
 			`x: ${this.x.toPrecision(this.precision.report)}`,
 			`y: ${this.y.toPrecision(this.precision.report)}`,
-			`radius: ${this.radius.toPrecision(this.precision.report)}`,
 			`heading:`,
 			`	${this.headingDegrees.toPrecision(this.precision.report)}°`,
 			`	${this.headingRadians.toPrecision(this.precision.report)} rad`,
 			`	${this.headingRadiansPi.toPrecision(this.precision.report)} π rad`,
-			`	${this.headingRadiansTau.toPrecision(this.precision.report)} τ rad`
+			`	${this.headingRadiansTau.toPrecision(this.precision.report)} τ rad`,
+			`from origin:`,
+			`	${this.radius.toPrecision(this.precision.report)}`,
 		].join('\n');
 		return result;
 	}
