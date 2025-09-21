@@ -70,6 +70,11 @@ class Point {
 		return this;
 	}
 
+
+	isEqualTo(point) {
+		return ((this.x === point.x) && (this.y === point.y));
+	}
+
 }/* Point */
 
 
@@ -175,3 +180,29 @@ function lineRadian(center, point) {
 	const result = Math.PI/2 + Math.atan2(point.y-center.y, point.x-center.x)  ;
 	return result;
 }
+
+
+
+class Angle {
+	#degrees = 0;
+
+	constructor(number, unit) {
+		switch(unit) {
+			case 'degrees'      : this.degrees = number; break;
+			case 'radians'      : this.radians = number; break;
+			case 'radiansPi'    : this.radiansPi = number; break;
+			case 'radiansTau'   : this.radiansTau = numbber; break;
+		}
+	}
+
+	get degrees()    { return this.#degrees; }
+	get radians()    { return this.#degrees / 180 * Math.PI; }
+	get radiansPi()  { return this.#degrees / 180; }
+	get radiansTau() { return this.#degrees / 360; }
+
+	set degrees(degrees)         { this.#degrees = degrees; }
+	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
+	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
+	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
+
+}/* Angle */
