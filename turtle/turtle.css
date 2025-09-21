@@ -9,6 +9,10 @@ html {
 	--silver: #bbbb;
 }
 
+summary {
+	cursor: pointer;
+}
+
 form {
 
 	#input-command {
@@ -18,6 +22,15 @@ form {
 	#input-colour { width: 10ex; }
 	#input-strokeWidth  { width: 10ex; }
 
+
+	#turtle-instructions {
+		display: grid;
+		font-family: monospace;
+		font-size: 1em;
+		background-color: #fffc;
+		padding:1ex;
+		border:1px solid var(--silver);
+	}
 
 	#turtle-report {
 		font-family: monospace;

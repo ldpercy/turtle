@@ -3,7 +3,7 @@
 class Turtle {
 
 	position = new Point();
-	heading = new Angle(); // internally heading is stored in degrees
+	heading = new Angle();
 	/* #x = 0;
 	#y = 0; */
 	#origin = new Point(0,0);
@@ -76,8 +76,9 @@ class Turtle {
 			result = this.#moveTurtle(newPoint);
 		}
 		else {
-			this.heading.degrees += bearingDegrees;
+
 		}
+		this.heading.degrees += bearingDegrees;
 
 		return result;
 	}
@@ -85,6 +86,20 @@ class Turtle {
 
 	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
+
+
+	jump = function(bearingDegrees, distance=0) {
+		let result = '';
+		if (distance) { // could also be subject to float comparison
+			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
+			const newPoint = this.plusPolar(delta);
+			this.position.x = newPoint.x;
+			this.position.y = newPoint.y;
+		}
+
+		this.heading.degrees += bearingDegrees;
+		return result;
+	}
 
 
 	/* moves dx,dy in the turtles current local frame */
@@ -108,14 +123,19 @@ class Turtle {
 		return result;
 	}
 
+	ellipse = function(rx, ry) {
+		const result = `<ellipse cx="${this.position.x}" cy="${this.position.y}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.position.x},${this.position.y})"/>`;
+		return result;
+	}
+
+
 
 	/*
 	*/
 	#moveTurtle = function(point) {
 		//console.log('moveTurtle:', arguments);
 		const result = Turtle.getLine(this.position, point);
-
-		this.heading = Turtle.lineAngle(this.position, point);
+		//this.heading = Turtle.lineAngle(this.position, point);
 		this.position.x = point.x;
 		this.position.y = point.y;
 
@@ -144,6 +164,7 @@ class Turtle {
 				case 'p'            : result += this.toPoint(instruction.p); break;
 				case 'b'            : result += this.bear(...command.argument); break;		// i thought you could do multi-case???
 				case 'bear'         : result += this.bear(...command.argument); break;
+				case 'jump'         : result += this.jump(...command.argument); break;
 				case 'l'            : result += this.left(...command.argument); break;
 				case 'left'         : result += this.left(...command.argument); break;
 				case 'r'            : result += this.right(...command.argument); break;
@@ -152,6 +173,7 @@ class Turtle {
 				case 'move'         : result += this.move(...command.argument); break;
 				case 'circle'       : result += this.circle(...command.argument); break;
 				case 'rect'         : result += this.rect(...command.argument); break;
+				case 'ellipse'      : result += this.ellipse(...command.argument); break;
 
 				//case 'p','plus'     : result += this.plus(...command.argument); break;
 				case 'marker'       : result += this.marker; break;

@@ -20,9 +20,24 @@
 
 			<h1>Turtle</h1>
 
-			<label for="input-command">commands</label>
-			<textarea id="input-command" type="string" name="command" title="command">right 60,500</textarea>
 
+			<details>
+				<summary>Commands</summary>
+
+				<output id="turtle-instructions">
+					<div>left degrees,distance</div>
+					<div>right degrees,distance</div>
+					<div>bear degrees,distance</div>
+					<div>jump degrees,distance</div>
+					<div>move dx,dy</div>
+					<div>circle radius</div>
+					<div>ellipse width,height</div>
+					<div>rect width,height</div>
+					<div>marker</div>
+				</output>
+
+			</details>
+			<textarea id="input-command" type="string" name="command" title="command">right 60,500</textarea>
 			<button id="input-do" type="button">do</button>
 			<button id="input-clear" type="button">clear</button>
 			<button id="input-origin" type="button">to origin</button>
