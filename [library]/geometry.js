@@ -2,15 +2,7 @@
 // geometry
 //
 
-Math.TAU = 2 * Math.PI;
 
-function radians(degrees) {
-	return (degrees/360) * Math.TAU;
-}
-
-function degrees(radians) {
-	return (radians/Math.TAU) * 360;
-}
 
 /* Point
 */
@@ -31,7 +23,7 @@ class Point {
 	toPolarPoint = function(polarPoint = new PolarPoint()) {
 		const distanceFromOrigin = this.distanceFromOrigin;
 		//console.log(distance);
-		const radian  = (equalAtPrecision(this.precision, distanceFromOrigin, 0)) ? polarPoint.radian : this.radiansFrom();
+		const radian  = (Maths.equalToPrecision(this.precision, distanceFromOrigin, 0)) ? polarPoint.radian : this.radiansFrom();
 		//console.log(radian);
 		// for points on the origin return the default PolarPoint radian
 		// should probably actually add these akin to a base vector
