@@ -1,0 +1,71 @@
+
+
+html {
+	--silver: #bbbb;
+}
+
+summary {
+	cursor: pointer;
+}
+
+form {
+	display: grid;
+	border:1px solid silver;
+	background-color:#eee9;
+	border-radius: 1ex;
+	padding:1ex;
+	margin: 1ex;
+
+	font-family:sans-serif;
+	h1 { font-size:3ex; }
+	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
+	h1:nth-child(1), h2:nth-child(1) { margin-top:0em; }
+
+	hr { width:100%;  } /* border:1px dotted silver inset; */
+
+	label:after { content:':'; }
+	label.noafter:after { content:''; }
+
+
+	#input-command {
+		height:15em;
+	}
+
+	#input-colour { width: 10ex; }
+	#input-strokeWidth  { width: 10ex; }
+
+
+	#turtle-instructions {
+		display: grid;
+		font-family: monospace;
+		font-size: 1em;
+		background-color: #fffc;
+		padding:1ex;
+		border:1px solid var(--silver);
+	}
+
+	#turtle-report {
+		font-family: monospace;
+		font-size: 1em;
+		white-space: pre;
+		background-color: #fffc;
+		padding:1ex;
+		border:1px solid var(--silver);
+	}
+}
+
+
+
+.control-group {
+
+	&.control-left {
+		position:absolute;
+		left:0ex;
+	}
+
+	&.control-right {
+		position:absolute;
+		right:0ex;
+	}
+
+}
