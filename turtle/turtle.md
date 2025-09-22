@@ -46,3 +46,23 @@ rect 250,500
 marker
 left 165,600
 ```
+
+
+Task: Split this to dedicated repo
+----------------------------------
+
+This has become enough of a project that it deserves it's own repo, so going to split it out.
+
+For starters I think I'll just need these two directories:
+* [library]
+* turtle
+
+Will be a little messy initially, but should be easy to clean up.
+Will leave the current version of turtle in experiment-svg for now, the core library especially might be useful for other things.
+
+From a local copy, something like this:
+```bash
+git-filter-repo --force --path ./[library] --path ./turtle
+```
+
+
