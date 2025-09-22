@@ -92,10 +92,10 @@ function doCommand() {
 
 
 function updateTurtle() {
-	turtleIcon.setAttribute('x', turtle.position.x);
-	turtleIcon.setAttribute('y', turtle.position.y);
+	turtleIcon.setAttribute('x', turtle.x);
+	turtleIcon.setAttribute('y', turtle.y);
 	turtleIcon.setAttribute('transform',
-		`rotate(${turtle.heading.degrees},${turtle.position.x},${turtle.position.y})`
+		`rotate(${turtle.heading.degrees},${turtle.x},${turtle.y})`
 	);
 
 	document.getElementById('turtle-title').innerHTML = turtle.report;
