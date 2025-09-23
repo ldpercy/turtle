@@ -104,7 +104,8 @@ function doCommand() {
 
 function getPageRotation() {
 	const rotate = turtle.heading.degrees % 360;
-	const result = `rotate(${-rotate},${turtle.x},${turtle.y})`;
+	//const result = `rotate(${-rotate},${turtle.x},${turtle.y})`;
+	const result = `rotate(${-rotate},0,0)`;
 	return result;
 }
 
