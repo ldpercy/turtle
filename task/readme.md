@@ -9,7 +9,15 @@ Todo:
 * Dynamic viewbox resize
 * option to switch between SVG and conventional coordinates (`y` up/down)
 * Change or have options for line drawing - line, polygon, path
+
+### In Progress
+
 * Rotate the page according to the turtle's perspective
+	It works, but need to use the turtle's move angle delta instead of absolute
+
+
+
+### Done
 
 
 
