@@ -12,7 +12,7 @@ function bodyOnload() {
 
 	document.getElementById('form-style').addEventListener('change', updateStyle);
 
-	output  = document.getElementById('group-output');
+	drawing  = document.getElementById('group-drawing');
 
 	turtleIcon = document.getElementById('icon-turtle');
 	updateTurtle();
@@ -39,23 +39,23 @@ function updateStyle() {
 
 
 	if (document.getElementById('input-showMarkers').checked) {
-		document.getElementById('group-output').classList.add('show-marker');
+		document.getElementById('group-drawing').classList.add('show-marker');
 	}
 	else {
-		document.getElementById('group-output').classList.remove('show-marker');
+		document.getElementById('group-drawing').classList.remove('show-marker');
 	}
 
 	const drawColour = document.getElementById('input-colour').value;
-	document.getElementById('group-output').style.setProperty('--draw-colour', drawColour);
+	document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
 
 	const strokeWidth = document.getElementById('input-strokeWidth').value;
-	document.getElementById('svg-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+	document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
 
 	if (document.getElementById('input-showStroke').checked) {
-		document.getElementById('group-output').style.setProperty('--drawing-stroke-width',strokeWidth);
+		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
 	}
 	else {
-		document.getElementById('group-output').style.setProperty('--drawing-stroke-width',0);
+		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',0);
 	}
 
 
@@ -65,11 +65,11 @@ function updateStyle() {
 
 
 function draw(string) {
-	output.innerHTML += string;
+	drawing.innerHTML += string;
 }
 
 function clear(string) {
-	output.innerHTML = '';
+	drawing.innerHTML = '';
 }
 
 function toOrigin() {
@@ -86,6 +86,8 @@ function doCommand() {
 	//console.log('Commands:', commands);
 
 	const commandOutput = turtle.doCommand(commands);
+
+
 	updateTurtle();
 	draw(commandOutput);
 }

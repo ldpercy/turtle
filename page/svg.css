@@ -7,7 +7,7 @@
 
 
 
-svg.drawing {
+.svg-turtle {
 	width: 100vw;
 	height: 99vh;
 
@@ -18,7 +18,7 @@ svg.drawing {
 
 
 
-.page {
+.drawing {
 	--draw-colour: #f00;
 	--stroke-width: 10;
 	stroke: var(--draw-colour);

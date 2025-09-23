@@ -77,9 +77,29 @@
 		</form>
 	</div>
 
-	<output id="output">
-		<svg id="svg-drawing" class="drawing" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
 
+	<svg id="svg-turtle" class="svg-turtle" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+
+		<defs>
+			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
+
+			<g id="def-turtle" class="turtle">
+				<g class="feet">
+					<circle class="fl"/>
+					<circle class="fr"/>
+					<circle class="bl"/>
+					<circle class="br"/>
+				</g>
+				<circle class="body"/>
+				<circle class="head"/>
+				<g class="eyes">
+					<circle class="el"/>
+					<circle class="er"/>
+				</g>
+			</g>
+		</defs>
+
+		<g id="group-page" class="page">
 			<g id="group-grid" class="graphPaper">
 				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
 					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
@@ -90,40 +110,14 @@
 				<circle r="10" style="stroke: teal; stroke-width: 2px; fill:none;"><title>origin</title></circle>
 			</g>
 
-			<defs>
-				<!--
-				<marker id="wedge" markerWidth="100" markerHeight="100" refX="0" refY="60" orient="auto-start-reverse" viewBox="-20 0 40 80">
-					<path class="marker-mid" d="M 0,0 L 20 80 L -20 80 Z"/>
-				</marker>
-				-->
-				<!-- <polygon id="def-marker" points="0,-40 10,10 -10 10" class="marker"/> -->
-				<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
-
-
-				<g id="def-turtle" class="turtle">
-					<g class="feet">
-						<circle class="fl"/>
-						<circle class="fr"/>
-						<circle class="bl"/>
-						<circle class="br"/>
-					</g>
-					<circle class="body"/>
-					<circle class="head"/>
-					<g class="eyes">
-						<circle class="el"/>
-						<circle class="er"/>
-					</g>
-				</g>
-
-			</defs>
-
-			<g id="group-output" class="page show-marker">
+			<g id="group-drawing" class="drawing show-marker">
 
 			</g>
 
 			<use id="icon-turtle" href="#def-turtle" class="turtle" x="0" y="0"><title id="turtle-title"></title></use>
-		</svg>
-	</output>
+		</g><!-- page -->
+	</svg>
+
 
 </body>
 </html>
