@@ -23,6 +23,8 @@ function bodyOnload() {
 
 function updateStyle() {
 
+
+	// Page
 	if (document.getElementById('input-showTurtle').checked) {
 		document.getElementById('icon-turtle').style.display = '';
 	}
@@ -37,6 +39,19 @@ function updateStyle() {
 		document.getElementById('group-grid').style.display = 'none';
 	}
 
+	if (document.getElementById('input-pageRotate').checked) {
+		document.getElementById('group-page').setAttribute('transform', getPageRotation());
+	}
+	else {
+		document.getElementById('group-page').setAttribute('transform','');
+	}
+
+	// Drawing
+	const drawColour = document.getElementById('input-colour').value;
+	document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
+
+	const strokeWidth = document.getElementById('input-strokeWidth').value;
+	document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
 
 	if (document.getElementById('input-showMarkers').checked) {
 		document.getElementById('group-drawing').classList.add('show-marker');
@@ -44,12 +59,6 @@ function updateStyle() {
 	else {
 		document.getElementById('group-drawing').classList.remove('show-marker');
 	}
-
-	const drawColour = document.getElementById('input-colour').value;
-	document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
-
-	const strokeWidth = document.getElementById('input-strokeWidth').value;
-	document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
 
 	if (document.getElementById('input-showStroke').checked) {
 		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
@@ -93,12 +102,24 @@ function doCommand() {
 }
 
 
+function getPageRotation() {
+	const rotate = turtle.heading.degrees % 360;
+	const result = `rotate(${-rotate},${turtle.x},${turtle.y})`;
+	return result;
+}
+
+
+
 function updateTurtle() {
 	turtleIcon.setAttribute('x', turtle.x);
 	turtleIcon.setAttribute('y', turtle.y);
 	turtleIcon.setAttribute('transform',
 		`rotate(${turtle.heading.degrees},${turtle.x},${turtle.y})`
 	);
+
+	if (document.getElementById('input-pageRotate').checked) {
+		document.getElementById('group-page').setAttribute('transform', getPageRotation());
+	}
 
 	document.getElementById('turtle-title').innerHTML = turtle.report;
 	document.getElementById('turtle-report').innerHTML = turtle.report;
