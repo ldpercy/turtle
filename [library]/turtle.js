@@ -105,9 +105,14 @@ class Turtle {
 	/* moves dx,dy in the turtles current local frame */
 	move = function(dx,dy) {
 		//console.log('move:', arguments);
+
+		const currentPos =  new Point(this.x,this.y);
 		const offset = new Point(dx,dy).rotate(this.heading.radians);
 		const newPoint = this.plusPoint(offset);
+		this.heading.degrees = Turtle.lineAngle(currentPos, newPoint).degrees;
+
 		const result = this.#moveTurtle(newPoint);
+
 		return result;
 	}
 
