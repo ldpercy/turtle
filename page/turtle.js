@@ -39,12 +39,21 @@ function updateStyle() {
 		document.getElementById('group-grid').style.display = 'none';
 	}
 
-	if (document.getElementById('input-pageRotate').checked) {
+	updatePageTransform();
+
+	/* if (document.getElementById('input-pageRotate').checked) {
 		document.getElementById('group-page').setAttribute('transform', getPageRotation());
 	}
 	else {
 		document.getElementById('group-page').setAttribute('transform','');
 	}
+
+	if (document.getElementById('input-centerTurtle').checked) {
+		document.getElementById('group-page').setAttribute('transform', getPageRotation());
+	}
+	else {
+		document.getElementById('group-page').setAttribute('transform','');
+	} */
 
 	// Drawing
 	const drawColour = document.getElementById('input-colour').value;
@@ -110,6 +119,19 @@ function getPageRotation() {
 }
 
 
+function updatePageTransform() {
+
+	const rotate = degrees180(turtle.heading.degrees);
+
+	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
+	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.x},${-turtle.y})` : '';
+
+	const transform = `${rotateTransform} ${translateTransform}`;
+
+	document.getElementById('group-page').setAttribute('transform', transform);
+}
+
+
 
 function updateTurtle() {
 	turtleIcon.setAttribute('x', turtle.x);
@@ -118,9 +140,7 @@ function updateTurtle() {
 		`rotate(${turtle.heading.degrees},${turtle.x},${turtle.y})`
 	);
 
-	if (document.getElementById('input-pageRotate').checked) {
-		document.getElementById('group-page').setAttribute('transform', getPageRotation());
-	}
+	updatePageTransform();
 
 	document.getElementById('turtle-title').innerHTML = turtle.report;
 	document.getElementById('turtle-report').innerHTML = turtle.report;
