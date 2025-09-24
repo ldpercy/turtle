@@ -4,7 +4,7 @@ class Turtle {
 
 	#position = new Point();
 	heading = new Angle();
-	headingPrevious = new Angle();
+
 	/* #x = 0;
 	#y = 0; */
 	#origin = new Point(0,0);
@@ -195,7 +195,6 @@ class Turtle {
 	doCommands(commandArray) {
 		//console.log(commandArray);
 
-		this.headingPrevious = new Angle(this.heading.degrees,'degrees');
 		let result = '';
 		commandArray.forEach(command => {
 			result += this.doCommand(command);

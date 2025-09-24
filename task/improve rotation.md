@@ -37,3 +37,14 @@ I've just set the page rotation to the actual turtle heading, and it works as ex
 Maybe I was using a `mod`ed rotation before which produced the wonky jumps.
 Anyways now it feels correct, and sending the turtle home unwinds his rotations in a pretty funny way.
 
+Note also that like this the page *will* do any extra revolutions as implied by the commands.
+
+Wrapup
+------
+Good enough for now.
+* Added checkbox for turtle centering
+* Added first draft text command
+* Rotation now mimics actual turtle movements
+
+
+
