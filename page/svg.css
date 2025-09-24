@@ -20,7 +20,6 @@
 
 .drawing {
 	--draw-colour: #f00;
-	--stroke-width: 10;
 	stroke: var(--draw-colour);
 	fill: var(--draw-colour);
 	fill-opacity: 50%;
@@ -37,11 +36,20 @@
 	&.show-marker .marker{
 		display:inline;
 	}
+
+	text {
+		text-anchor: middle;
+		dominant-baseline: middle;
+		font-style:normal;
+		stroke:none;
+		font-size: calc(10px * var(--drawing-stroke-width));
+		fill-opacity:100%;
+	}
+
 }
 
 #def-marker {
 	--foo: 5;
-	/* --stroke-width: 10; */
 	--scale-min: 1;
 
 	--scale: max(var(--drawing-stroke-width) /5, var(--scale-min) );

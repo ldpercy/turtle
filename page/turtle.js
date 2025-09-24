@@ -5,7 +5,7 @@ function bodyOnload() {
 	turtle = new Turtle();
 
 	//document.getElementById('form-turtle').addEventListener('change', redraw);
-	document.getElementById('input-do').addEventListener('click', doCommand);
+	document.getElementById('input-do').addEventListener('click', doCommands);
 	document.getElementById('input-clear').addEventListener('click', clear);
 	document.getElementById('input-origin').addEventListener('click', toOrigin);
 
@@ -96,15 +96,14 @@ function toOrigin() {
 }
 
 
-function doCommand() {
+function doCommands() {
 	//console.log('--- doCommand ---');
 	const commandStr = document.getElementById('input-command').value;
 	const commands = Turtle.getCommands(commandStr);
 
 	//console.log('Commands:', commands);
 
-	const commandOutput = turtle.doCommand(commands);
-
+	const commandOutput = turtle.doCommands(commands);
 
 	updateTurtle();
 	draw(commandOutput);
