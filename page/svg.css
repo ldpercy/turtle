@@ -16,7 +16,28 @@
 
 }
 
+.graphPaper {
+	stroke: teal;
+	fill:none;
 
+	#pattern-graphPaper {
+		stroke-width: 1px;
+	}
+	.viewBox {
+		x: -100%;
+		y: -100%;
+		width: 200%;
+		height: 200%;
+		fill: url(#pattern-graphPaper);
+	}
+	.axis {
+		 stroke-width: 2px;
+	}
+	.origin {
+		r:10px;
+		stroke-width: 2px;
+	}
+}
 
 .drawing {
 	--draw-colour: #f00;
