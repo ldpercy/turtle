@@ -120,7 +120,14 @@ function getPageRotation() {
 
 function updatePageTransform() {
 
-	const rotate = degrees180(turtle.heading.degrees);
+	//const rotate = degrees180(turtle.heading.degrees);
+
+	const rotate = turtle.heading.degrees;
+
+	// const turtleTurn = turtle.heading.degrees - turtle.headingPrevious.degrees;
+
+	//console.log(rotate);
+
 
 	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
 	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.x},${-turtle.y})` : '';

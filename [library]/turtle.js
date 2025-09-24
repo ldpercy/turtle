@@ -4,6 +4,7 @@ class Turtle {
 
 	#position = new Point();
 	heading = new Angle();
+	headingPrevious = new Angle();
 	/* #x = 0;
 	#y = 0; */
 	#origin = new Point(0,0);
@@ -164,7 +165,7 @@ class Turtle {
 		//console.log('Command:', command);
 		let result = '';
 
-			switch(command.name) {
+		switch(command.name) {
 			case 'p'            : result = this.toPoint(instruction.p); break;
 			case 'b'            : result = this.bear(...command.argument); break;		// i thought you could do multi-case???
 			case 'bear'         : result = this.bear(...command.argument); break;
@@ -184,7 +185,7 @@ class Turtle {
 			case 'marker'       : result = this.marker; break;
 			case 'o'            : result = this.toOrigin(); break;
 			default             : result = `<!-- ${command} -->`; break;
-			}
+		}
 
 		//console.log(instruction);
 		return result;
@@ -193,10 +194,13 @@ class Turtle {
 
 	doCommands(commandArray) {
 		//console.log(commandArray);
+
+		this.headingPrevious = new Angle(this.heading.degrees,'degrees');
 		let result = '';
 		commandArray.forEach(command => {
 			result += this.doCommand(command);
 		});
+
 		return result;
 	}
 
