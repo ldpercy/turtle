@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>🐢 Turtle</title>
+	<title>🐢 Turtle v0.2 by ldpercy</title>
 	<meta charset="utf-8">
+	 <meta name="description" content="Turtle v0.2 by ldpercy - SVG, JavaScript, HTML, CSS">
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 	<script defer src="./[library]/maths.js"></script>
@@ -32,6 +33,7 @@
 					<div>circle radius</div>
 					<div>ellipse width,height</div>
 					<div>rect width,height</div>
+					<div>text string</div>
 					<div>marker</div>
 				</output>
 
@@ -43,7 +45,12 @@
 
 			<h2>Current:</h2>
 			<output id="turtle-report"></output>
+			<details>
+				<summary>🛈</summary>
+				<a href="https://github.com/ldpercy/turtle/">Turtle v0.2</a> by <a href="https://github.com/ldpercy/">ldpercy</a>
+			</details>
 		</form>
+
 	</div>
 
 	<div class="control-group control-right">
@@ -52,16 +59,21 @@
 
 			<label for="input-showTurtle" class="noafter">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
-				turtle
+				show turtle
 			</label>
 			<label for="input-showGrid" class="noafter">
 				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
-				grid
+				show grid
 			</label>
-			<label for="input-pageRotate" class="noafter">
-				<input type="checkbox" name="pageRotate" id="input-pageRotate">
+			<label for="input-centerTurtle" class="noafter">
+				<input type="checkbox" name="centerTurtle" id="input-centerTurtle" checked>
+				center turtle
+			</label>
+			<label for="input-rotatePage" class="noafter">
+				<input type="checkbox" name="rotatePage" id="input-rotatePage">
 				rotate
 			</label>
+
 
 
 			<h2>Drawing</h2>

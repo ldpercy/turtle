@@ -4,6 +4,7 @@ class Turtle {
 
 	#position = new Point();
 	heading = new Angle();
+
 	/* #x = 0;
 	#y = 0; */
 	#origin = new Point(0,0);
@@ -134,6 +135,11 @@ class Turtle {
 	}
 
 
+	text = function(text) {
+		const result = `<text x="${this.x}" y="${this.y}" transform="rotate(${this.heading.degrees},${this.#position.x},${this.#position.y})">${text}</text>`;
+		return result;
+	}
+
 
 	/*
 	*/
@@ -158,35 +164,42 @@ class Turtle {
 	doCommand = function(command) {
 		//console.log('Command:', command);
 		let result = '';
-		if(Array.prototype.isPrototypeOf(command))
-		{
-			command.forEach(command => {
-				result += this.doCommand(command);
-			});
-		}
-		else{
-			switch(command.name) {
-				case 'p'            : result += this.toPoint(instruction.p); break;
-				case 'b'            : result += this.bear(...command.argument); break;		// i thought you could do multi-case???
-				case 'bear'         : result += this.bear(...command.argument); break;
-				case 'jump'         : result += this.jump(...command.argument); break;
-				case 'l'            : result += this.left(...command.argument); break;
-				case 'left'         : result += this.left(...command.argument); break;
-				case 'r'            : result += this.right(...command.argument); break;
-				case 'right'        : result += this.right(...command.argument); break;
-				case 'm'            : result += this.move(...command.argument); break;
-				case 'move'         : result += this.move(...command.argument); break;
-				case 'circle'       : result += this.circle(...command.argument); break;
-				case 'rect'         : result += this.rect(...command.argument); break;
-				case 'ellipse'      : result += this.ellipse(...command.argument); break;
 
-				//case 'p','plus'     : result += this.plus(...command.argument); break;
-				case 'marker'       : result += this.marker; break;
-				case 'o'            : result += this.toOrigin(); break;
-				default             : result += `<!-- ${command} -->`; break;
-			}
+		switch(command.name) {
+			case 'p'            : result = this.toPoint(instruction.p); break;
+			case 'b'            : result = this.bear(...command.argument); break;		// i thought you could do multi-case???
+			case 'bear'         : result = this.bear(...command.argument); break;
+			case 'jump'         : result = this.jump(...command.argument); break;
+			case 'l'            : result = this.left(...command.argument); break;
+			case 'left'         : result = this.left(...command.argument); break;
+			case 'r'            : result = this.right(...command.argument); break;
+			case 'right'        : result = this.right(...command.argument); break;
+			case 'm'            : result = this.move(...command.argument); break;
+			case 'move'         : result = this.move(...command.argument); break;
+			case 'circle'       : result = this.circle(...command.argument); break;
+			case 'rect'         : result = this.rect(...command.argument); break;
+			case 'ellipse'      : result = this.ellipse(...command.argument); break;
+			case 'text'         : result = this.text(...command.argument); break;
+
+			//case 'p','plus'     : result = this.plus(...command.argument); break;
+			case 'marker'       : result = this.marker; break;
+			case 'o'            : result = this.toOrigin(); break;
+			default             : result = `<!-- ${command} -->`; break;
 		}
+
 		//console.log(instruction);
+		return result;
+	}
+
+
+	doCommands(commandArray) {
+		//console.log(commandArray);
+
+		let result = '';
+		commandArray.forEach(command => {
+			result += this.doCommand(command);
+		});
+
 		return result;
 	}
 
@@ -249,9 +262,14 @@ class Turtle {
 			(line) => {
 				const match = line.match(/(\w+)(\s.*)?/);
 				if (match) {
-					//console.log(match);
-					const cmd = match[1];
-					const arg = (match[2]) ? this.parseArgs(match[2]) : [];
+					const cmd = match[1].trim();
+					let arg;
+					if (cmd === 'text') {
+						arg = (match[2]) ? [match[2]] : [''];
+					}
+					else {
+						arg = (match[2]) ? this.parseArgs(match[2]) : [];
+					}
 					result.push(new Command(cmd, arg));
 				}
 			}
@@ -259,6 +277,7 @@ class Turtle {
 
 		return result;
 	}
+
 
 	static parseArgs(argString) {
 		const argArray = argString.split(',');

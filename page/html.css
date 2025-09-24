@@ -17,7 +17,7 @@ form {
 	margin: 1ex;
 
 	font-family:sans-serif;
-	h1 { font-size:3ex; }
+	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
 	h1:nth-child(1), h2:nth-child(1) { margin-top:0em; }
 
@@ -52,6 +52,8 @@ form {
 		padding:1ex;
 		border:1px solid var(--silver);
 	}
+
+	details { margin-top:1ex; margin-bottom: 0ex; }
 }
 
 
