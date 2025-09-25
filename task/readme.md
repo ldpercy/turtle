@@ -7,6 +7,8 @@ Task
 Todo:
 -----
 
+* Work out how to apply different transition speeds to different items
+* Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
 * Add SVG arc command - might be tricky to do nicely
 * Add colour commands for turtle to override defaults
 * Add fill colour picker
