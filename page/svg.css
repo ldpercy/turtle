@@ -42,13 +42,9 @@
 		stroke: none;
 		fill:teal;
 		text-anchor:end;
-		font-size: 20px;
+		font-size: 25px;
 		dominant-baseline: ideographic;
 		font-family: monospace;
-
-		/* tspan {
-			rotate:90deg;
-		} */
 	}
 }
 
