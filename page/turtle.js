@@ -4,11 +4,9 @@ function bodyOnload() {
 
 	turtle = new Turtle();
 
-	//document.getElementById('form-turtle').addEventListener('change', redraw);
 	document.getElementById('input-do').addEventListener('click', doCommands);
 	document.getElementById('input-clear').addEventListener('click', clear);
 	document.getElementById('input-origin').addEventListener('click', toOrigin);
-
 
 	document.getElementById('form-style').addEventListener('change', updateStyle);
 
@@ -22,7 +20,6 @@ function bodyOnload() {
 
 
 function updateStyle() {
-
 
 	// Page
 	if (document.getElementById('input-showTurtle').checked) {
@@ -40,20 +37,6 @@ function updateStyle() {
 	}
 
 	updatePageTransform();
-
-	/* if (document.getElementById('input-pageRotate').checked) {
-		document.getElementById('group-page').setAttribute('transform', getPageRotation());
-	}
-	else {
-		document.getElementById('group-page').setAttribute('transform','');
-	}
-
-	if (document.getElementById('input-centerTurtle').checked) {
-		document.getElementById('group-page').setAttribute('transform', getPageRotation());
-	}
-	else {
-		document.getElementById('group-page').setAttribute('transform','');
-	} */
 
 	// Drawing
 	const drawColour = document.getElementById('input-colour').value;
@@ -86,7 +69,7 @@ function draw(string) {
 	drawing.innerHTML += string;
 }
 
-function clear(string) {
+function clear() {
 	drawing.innerHTML = '';
 }
 
@@ -110,24 +93,10 @@ function doCommands() {
 }
 
 
-function getPageRotation() {
-	const rotate = degrees180(turtle.heading.degrees);
-	//const result = `rotate(${-rotate},${turtle.x},${turtle.y})`;
-	const result = `rotate(${-rotate},0,0)`;
-	return result;
-}
-
 
 function updatePageTransform() {
 
-	//const rotate = degrees180(turtle.heading.degrees);
-
 	const rotate = turtle.heading.degrees;
-
-	// const turtleTurn = turtle.heading.degrees - turtle.headingPrevious.degrees;
-
-	//console.log(rotate);
-
 
 	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
 	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.x},${-turtle.y})` : '';
@@ -152,20 +121,6 @@ function updateTurtle() {
 	document.getElementById('turtle-report').innerHTML = turtle.report;
 }
 
-/*
-m 1
-b 2
-c 1,2
-d
-e 1,2,3,4
-
-
-
-{"i":"p","p":{"x":500,"y":500}}
-
-{"i":"b","p":{"bearing":345,"distance":345}}
-
-*/
 
 
 

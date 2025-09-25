@@ -15,25 +15,25 @@ form {
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
-
 	font-family:sans-serif;
+
 	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
-	h1:nth-child(1), h2:nth-child(1) { margin-top:0em; }
+	h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
-	hr { width:100%;  } /* border:1px dotted silver inset; */
+	details { margin-top:1ex; margin-bottom: 0ex; }
+
+	hr { width:100%; }
 
 	label:after { content:':'; }
 	label.noafter:after { content:''; }
 
+	input[type=color] { width: 10ex; margin-right:0.7ex; }
+	input[type=range] { width: 10ex; }
 
 	#input-command {
 		height:15em;
 	}
-
-	#input-colour { width: 10ex; }
-	#input-strokeWidth  { width: 10ex; }
-
 
 	#turtle-instructions {
 		display: grid;
@@ -53,8 +53,7 @@ form {
 		border:1px solid var(--silver);
 	}
 
-	details { margin-top:1ex; margin-bottom: 0ex; }
-}
+}/* form */
 
 
 
