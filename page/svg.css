@@ -37,7 +37,21 @@
 		r:10px;
 		stroke-width: 2px;
 	}
+
+	.label {
+		stroke: none;
+		fill:teal;
+		text-anchor:end;
+		font-size: 20px;
+		dominant-baseline: ideographic;
+		font-family: monospace;
+
+		/* tspan {
+			rotate:90deg;
+		} */
+	}
 }
+
 
 .drawing {
 	--draw-colour: #f00;

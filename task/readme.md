@@ -11,7 +11,6 @@ Todo:
 * Add colour commands for turtle to override defaults
 * Add fill colour picker
 * Vastly improve floating-point handling - snapping, rounding, comparison, precision etc
-* Add unit markers to the axis lines
 * Add a polar grid or overlay option
 * Dynamic viewbox resize
 * option to switch between SVG and conventional coordinates (`y` up/down)
@@ -20,13 +19,13 @@ Todo:
 
 ### In Progress
 
-* Rotate the page according to the turtle's perspective
-	It works, but need to use the turtle's move angle delta instead of absolute
+* Add unit labels to the axis lines
 
 
 
 ### Done
 
+* Rotate the page according to the turtle's perspective
 * Add turtle-centering transform
 * Split this repo from experiment-svg
 
