@@ -17,7 +17,8 @@
 }
 
 .graphPaper {
-	stroke: teal;
+	--teal: #088;
+	stroke: var(--teal);
 	fill:none;
 
 	#pattern-graphPaper {
@@ -40,7 +41,7 @@
 
 	.label {
 		stroke: none;
-		fill:teal;
+		fill: var(--teal);
 		text-anchor:end;
 		font-size: 25px;
 		dominant-baseline: ideographic;
