@@ -6,3 +6,20 @@ At the moment everything is using [standard SVG coordinates](<https://developer.
 
 
 Want to add some sort of way to switch the display into a conventional cartesian mode.
+
+
+Initial thoughts
+----------------
+
+A few initial thoughts about ways to approach this:
+* Add an extension to the Point class called SVGPoint that translates the two coordinate systems.
+* Add a page load url parameter to set the initial coordinate system - might have to be used if 'live' switching is too tricky
+* A different possibly simpler way to do it would be to just apply a -1 scale transform to the y axis of the page, but not sure what that might do to things like labels/text etc.
+
+My gut feeling is that the first is probably the best place to start, *but* it probably implies having two kinds of Turtles:
+1. A first purely theoretical turtle that just tracks movements in a virtual cartesian space. It could also handle things like some of the core commands and maths, and maybe history.
+2. A second 'SVGTurtle' that converts cartesian units to SVGUnits and handles all the drawing. Whether it's a subclass or just composed dont know yet.
+
+I think something along these lines is likely the best way to go, and could definitely improve some things like separation of concerns, but probably at the cost of some added complexity.
+
+
