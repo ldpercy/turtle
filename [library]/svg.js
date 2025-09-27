@@ -92,17 +92,24 @@ class Line {
 
 
 
-class SVGPoint extends Point {
+class SVGPoint extends Point{
 
-	#svg = {
-		x : 0,
-		y : 0,
+	/* constructor(x=0, y=0, precision=12) {
+		super(x,y,precision);
+	} */
+
+	get x() { return super.x; }
+	get y() { return -super.y; }
+	set x(x) {
+		super.x = x;
+	}
+	set y(y) {
+		super.y = -y;
 	}
 
+	get cartesian() { return super.this; }
 
-	get svg() { return this.#svg; }
 
-
-}
+}/* SVGPoint */
 
 
