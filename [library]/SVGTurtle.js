@@ -1,6 +1,6 @@
-/* Turtle
+/* SVGTurtle
 */
-class Turtle {
+class SVGTurtle {
 
 	#position = new Point();
 	heading = new Angle();
@@ -110,7 +110,7 @@ class Turtle {
 		const currentPos =  new Point(this.x,this.y);
 		const offset = new Point(dx,dy).rotate(this.heading.radians);
 		const newPoint = this.plusPoint(offset);
-		this.heading.degrees = Turtle.lineAngle(currentPos, newPoint).degrees;
+		this.heading.degrees = SVGTurtle.lineAngle(currentPos, newPoint).degrees;
 
 		const result = this.#moveTurtle(newPoint);
 
@@ -145,8 +145,8 @@ class Turtle {
 	*/
 	#moveTurtle = function(point) {
 		//console.log('moveTurtle:', arguments);
-		const result = Turtle.getLine(this.#position, point);
-		//this.heading = Turtle.lineAngle(this.#position, point);
+		const result = SVGTurtle.getLine(this.#position, point);
+		//this.heading = SVGTurtle.lineAngle(this.#position, point);
 		this.#position.x = point.x;
 		this.#position.y = point.y;
 
@@ -217,7 +217,7 @@ class Turtle {
 
 	get report() {
 		// title text preserves whitespace, so:
-		const originAngle = Turtle.lineAngle(this.#origin, this.#position);
+		const originAngle = SVGTurtle.lineAngle(this.#origin, this.#position);
 
 		const result = [
 			`x: ${this.#position.x.toPrecision(this.precision.report)}`,
@@ -305,7 +305,7 @@ class Turtle {
 	}
 
 
-}/* Turtle */
+}/* SVGTurtle */
 
 
 

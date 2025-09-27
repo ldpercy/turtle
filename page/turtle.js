@@ -2,7 +2,7 @@
 
 function bodyOnload() {
 
-	turtle = new Turtle();
+	turtle = new SVGTurtle();
 
 	document.getElementById('input-do').addEventListener('click', doCommands);
 	document.getElementById('input-clear').addEventListener('click', clear);
@@ -82,7 +82,7 @@ function toOrigin() {
 function doCommands() {
 	//console.log('--- doCommand ---');
 	const commandStr = document.getElementById('input-command').value;
-	const commands = Turtle.getCommands(commandStr);
+	const commands = SVGTurtle.getCommands(commandStr);
 
 	//console.log('Commands:', commands);
 
