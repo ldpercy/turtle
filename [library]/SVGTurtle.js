@@ -7,6 +7,7 @@ class SVGTurtle {
 
 	/* #x = 0;
 	#y = 0; */
+	#heading = new Angle();
 	#origin = new Point(0,0);
 
 	precision = {
@@ -23,7 +24,7 @@ class SVGTurtle {
 	constructor(x=0, y=0, heading=0, digits=12) {
 		this.#position.x = x;
 		this.#position.y = y;
-		this.heading.degrees = heading;
+		this.#heading.degrees = heading;
 		this.precision.digits = digits;
 	}
 
@@ -31,6 +32,8 @@ class SVGTurtle {
 	//
 	// Accessors
 	//
+
+	get heading() { return this.#heading; }
 
 	setHeading(heading) {
 
@@ -40,7 +43,7 @@ class SVGTurtle {
 		this isn't very clean - need better solutions for this stuff
 		*/
 
-		this.heading.degrees = (equal) ? 0.0 : heading;
+		this.#heading.degrees = (equal) ? 0.0 : heading;
 	}
 
 
@@ -64,7 +67,7 @@ class SVGTurtle {
 	toOrigin = function() {
 		this.#position.x = 0.0;
 		this.#position.y = 0.0;
-		this.heading.degrees = 0.0;
+		this.#heading.degrees = 0.0;
 	}
 
 
@@ -72,14 +75,14 @@ class SVGTurtle {
 		//console.log('bear:', arguments);
 		let result = '';
 		if (distance) { // could also be subject to float comparison
-			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
+			const delta = new PolarPoint(Maths.degreesToRadians(this.#heading.degrees + bearingDegrees), distance);
 			const newPoint = this.plusPolar(delta);
 			result = this.#moveTurtle(newPoint);
 		}
 		else {
 
 		}
-		this.heading.degrees += bearingDegrees;
+		this.#heading.degrees += bearingDegrees;
 
 		return result;
 	}
@@ -92,13 +95,13 @@ class SVGTurtle {
 	jump = function(bearingDegrees, distance=0) {
 		let result = '';
 		if (distance) { // could also be subject to float comparison
-			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
+			const delta = new PolarPoint(Maths.degreesToRadians(this.#heading.degrees + bearingDegrees), distance);
 			const newPoint = this.plusPolar(delta);
 			this.#position.x = newPoint.x;
 			this.#position.y = newPoint.y;
 		}
 
-		this.heading.degrees += bearingDegrees;
+		this.#heading.degrees += bearingDegrees;
 		return result;
 	}
 
@@ -108,9 +111,9 @@ class SVGTurtle {
 		//console.log('move:', arguments);
 
 		const currentPos =  new Point(this.x,this.y);
-		const offset = new Point(dx,dy).rotate(this.heading.radians);
+		const offset = new Point(dx,dy).rotate(this.#heading.radians);
 		const newPoint = this.plusPoint(offset);
-		this.heading.degrees = SVGTurtle.lineAngle(currentPos, newPoint).degrees;
+		this.#heading.degrees = SVGTurtle.lineAngle(currentPos, newPoint).degrees;
 
 		const result = this.#moveTurtle(newPoint);
 
@@ -125,7 +128,7 @@ class SVGTurtle {
 	}
 
 	rect = function(width, height) {
-		const result = `<rect x="${this.#position.x - width/2}" y="${this.#position.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.#position.x},${this.#position.y})"/>`;
+		const result = `<rect x="${this.#position.x - width/2}" y="${this.#position.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})"/>`;
 		return result;
 	}
 
@@ -138,7 +141,7 @@ class SVGTurtle {
 
 
 	text = function(text) {
-		const result = `<text x="${this.x}" y="${this.y}" transform="rotate(${this.heading.degrees},${this.#position.x},${this.#position.y})">${text}</text>`;
+		const result = `<text x="${this.x}" y="${this.y}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})">${text}</text>`;
 		return result;
 	}
 
@@ -148,7 +151,7 @@ class SVGTurtle {
 	#moveTurtle = function(point) {
 		//console.log('moveTurtle:', arguments);
 		const result = SVGTurtle.getLine(this.#position, point);
-		//this.heading = SVGTurtle.lineAngle(this.#position, point);
+		//this.#heading = SVGTurtle.lineAngle(this.#position, point);
 		this.#position.x = point.x;
 		this.#position.y = point.y;
 
@@ -209,7 +212,7 @@ class SVGTurtle {
 
 	get marker() {
 		const result = `
-			<use href="#def-marker" class="marker" x="${this.#position.x}" y="${this.#position.y}" transform="rotate(${this.heading.degrees},${this.#position.x},${this.#position.y})">
+			<use href="#def-marker" class="marker" x="${this.#position.x}" y="${this.#position.y}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})">
 				<title>${this.report}</title>
 			</use>
 		`;
@@ -225,10 +228,10 @@ class SVGTurtle {
 			`x: ${this.#position.x.toPrecision(this.precision.report)}`,
 			`y: ${this.#position.y.toPrecision(this.precision.report)}`,
 			`heading:`,
-			`	${this.heading.degrees.toPrecision(this.precision.report)}°`,
-			`	${this.heading.radians.toPrecision(this.precision.report)} rad`,
-			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
-			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	${this.#heading.degrees.toPrecision(this.precision.report)}°`,
+			`	${this.#heading.radians.toPrecision(this.precision.report)} rad`,
+			`	${this.#heading.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	${this.#heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`from origin:`,
 			`	${this.radius.toPrecision(this.precision.report)}`,
 			`	${originAngle.degrees.toPrecision(this.precision.report)}°`,
