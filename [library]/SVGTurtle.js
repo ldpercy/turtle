@@ -243,7 +243,7 @@ class SVGTurtle {
 	static lineAngle = function(point1, point2) {
 		let result = new Angle();
 		if (!point1.isEqualTo(point2)) {
-			result = new Angle(Math.PI/2 + Math.atan2(point2.y-point1.y, point2.x-point1.x),'radians');
+			result.radians = Math.PI/2 + Math.atan2(point2.y-point1.y, point2.x-point1.x);
 		}
 
 		return result;

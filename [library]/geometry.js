@@ -186,14 +186,7 @@ function lineRadian(center, point) {
 class Angle {
 	#degrees = 0;
 
-	constructor(number, unit) {
-		switch(unit) {
-			case 'degrees'      : this.degrees    = number; break;
-			case 'radians'      : this.radians    = number; break;
-			case 'radiansPi'    : this.radiansPi  = number; break;
-			case 'radiansTau'   : this.radiansTau = number; break;
-		}
-	}
+	constructor() {	}
 
 	get degrees()    { return this.#degrees; }
 	get radians()    { return this.#degrees / 180 * Math.PI; }
