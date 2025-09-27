@@ -129,8 +129,10 @@ class SVGTurtle {
 		return result;
 	}
 
-	ellipse = function(rx, ry) {
-		const result = `<ellipse cx="${this.#position.x}" cy="${this.#position.y}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.#position.x},${this.#position.y})"/>`;
+	ellipse = function(width, height) {
+		const rx = width / 2;
+		const ry = height / 2;
+		const result = `<ellipse cx="${this.#position.x}" cy="${this.#position.y}" rx="${rx}" ry="${ry}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})"/>`;
 		return result;
 	}
 
@@ -184,7 +186,7 @@ class SVGTurtle {
 			//case 'p','plus'     : result = this.plus(...command.argument); break;
 			case 'marker'       : result = this.marker; break;
 			case 'o'            : result = this.toOrigin(); break;
-			default             : result = `<!-- ${command} -->`; break;
+			default             : result = `<!-- Unknown: ${command} -->`; break;
 		}
 
 		//console.log(instruction);
@@ -260,7 +262,7 @@ class SVGTurtle {
 
 		lineArray.forEach(
 			(line) => {
-				const match = line.match(/(\w+)(\s.*)?/);
+				const match = line.match(/^(\w+)(\s.*)?/);
 				if (match) {
 					const cmd = match[1].trim();
 					let arg;
@@ -271,6 +273,9 @@ class SVGTurtle {
 						arg = (match[2]) ? this.parseArgs(match[2]) : [];
 					}
 					result.push(new Command(cmd, arg));
+				}
+				else {
+					result.push(new Command('', line));
 				}
 			}
 		);
