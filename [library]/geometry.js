@@ -7,11 +7,62 @@
 /* Point
 */
 class Point {
+
+	#x = 0;
+	#y = 0;
+
 	constructor(x=0, y=0, precision=12) {
 		this.x = x;
 		this.y = y;
 		this.precision = precision;
 	}
+
+	//
+	//	Accessors
+	//
+
+	get x() { return this.#x; }
+	get y() { return this.#y; }
+	set x(x) { this.#x = x; }
+	set y(y) { this.#y = y; }
+
+	get distanceFromOrigin() {
+		return Math.hypot(this.#x, this.y);
+	}
+
+	get radian() {
+		return Math.atan2(this.y, this.#x) + Math.PI/2;
+	}
+
+	set radian(radian) {
+		// absolute
+		const newPoint = new PolarPoint(radian, this.distanceFromOrigin).toPoint();
+		this.x = newPoint.x;
+		this.y = newPoint.y;
+		return this;
+	}
+
+	//
+	// Queries
+	//
+
+	radiansFrom = function(center = new Point()) {
+		// Clockwise from y axis
+		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
+		return result;
+	}
+
+	getDistanceFrom = function(point = new Point()) {
+		return Math.hypot((this.x - point.x), (this.y - point.y));
+	}
+
+	isEqualTo(point) {
+		return ((this.x === point.x) && (this.y === point.y));
+	}
+
+	//
+	// Convertors
+	//
 
 	plus = function(point) {
 		return new Point(
@@ -33,49 +84,20 @@ class Point {
 		);
 	}
 
+	//
+	// Mutators
+	//
 
-
-	get radian() {
-		return Math.atan2(this.y, this.x) + Math.PI/2;
-	}
-
-	// Clockwise from y axis
-	radiansFrom = function(center = new Point()) {
-		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
-		return result;
-	}
-
-
-	get distanceFromOrigin() {
-		return Math.hypot(this.x, this.y);
-	}
-
-	getDistanceFrom = function(point = new Point()) {
-		return Math.hypot((this.x - point.x), (this.y - point.y));
-	}
-
-	// absolute
-	set radian(radian) {
-		const newPoint = new PolarPoint(radian, this.distanceFromOrigin).toPoint();
-		this.x = newPoint.x;
-		this.y = newPoint.y;
-		return this
-	}
-
-	// relative
 	rotate = function(radian) {
+		// relative
 		const newPoint = new PolarPoint(this.radian + radian, this.distanceFromOrigin).toPoint();
 		this.x = newPoint.x;
 		this.y = newPoint.y;
 		return this;
 	}
 
-
-	isEqualTo(point) {
-		return ((this.x === point.x) && (this.y === point.y));
-	}
-
 }/* Point */
+
 
 
 /* PolarPoint

@@ -92,4 +92,17 @@ class Line {
 
 
 
+class SVGPoint extends Point {
+
+	#svg = {
+		x : 0,
+		y : 0,
+	}
+
+
+	get svg() { return this.#svg; }
+
+
+}
+
 
