@@ -2,13 +2,11 @@
 */
 class SVGTurtle {
 
-	#position = new Point();
-	heading = new Angle();
-
-	/* #x = 0;
-	#y = 0; */
+	#position = new SVGPoint();
 	#heading = new Angle();
 	#origin = new Point(0,0);
+
+	#turtle = new Turtle();
 
 	precision = {
 		report : 5,
@@ -20,7 +18,6 @@ class SVGTurtle {
 	For simple geometry rounding things very close to zero will do, but could have errors for anything requiring higher precision.
 	*/
 
-
 	constructor(x=0, y=0, heading=0, digits=12) {
 		this.#position.x = x;
 		this.#position.y = y;
@@ -28,12 +25,29 @@ class SVGTurtle {
 		this.precision.digits = digits;
 	}
 
-
 	//
 	// Accessors
 	//
 
+	get x()  { return this.position.x; }
+	get y()  { return this.position.y; }
+	get position() { return this.#position; }
 	get heading() { return this.#heading; }
+	get radius() { return Math.hypot(this.#position.x, this.#position.y); }
+
+	set x(value) {
+		this.#position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+	}
+	set y(value) {
+		this.#position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+	}
+
+
+
+	//
+	// mutators
+	//
+
 
 	setHeading(heading) {
 
@@ -46,23 +60,6 @@ class SVGTurtle {
 		this.#heading.degrees = (equal) ? 0.0 : heading;
 	}
 
-
-	get x()  { return this.#position.x; }
-	get y()  { return this.#position.y; }
-	set x(value) {
-		this.#position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
-	}
-	set y(value) {
-		this.#position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
-	}
-
-
-	get radius() { return Math.hypot(this.#position.x, this.#position.y); }
-
-
-	//
-	//  commands
-	//
 
 	toOrigin = function() {
 		this.#position.x = 0.0;
@@ -159,13 +156,6 @@ class SVGTurtle {
 	}
 
 
-	static getLine(point1, point2) {
-		//console.log('getLine:', arguments);
-		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
-		return result;
-	}
-
-
 	doCommand = function(command) {
 		//console.log('Command:', command);
 		let result = '';
@@ -238,7 +228,21 @@ class SVGTurtle {
 			`	${originAngle.radians.toPrecision(this.precision.report)} rad`,
 			`	${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${originAngle.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`cartesian:`,
+			`	x: ${this.position.cartesianX.toPrecision(this.precision.report)}`,
+			`	y: ${this.position.cartesianY.toPrecision(this.precision.report)}`,
 		].join('\n');
+		return result;
+	}
+
+
+	//
+	// Static
+	//
+
+	static getLine(point1, point2) {
+		//console.log('getLine:', arguments);
+		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
 		return result;
 	}
 
@@ -296,8 +300,9 @@ class SVGTurtle {
 		return result;
 	}
 
+
 	//
-	//
+	// Convertors
 	//
 
 	plusPoint = function(point) {

@@ -23,3 +23,13 @@ My gut feeling is that the first is probably the best place to start, *but* it p
 I think something along these lines is likely the best way to go, and could definitely improve some things like separation of concerns, but probably at the cost of some added complexity.
 
 
+SVGPoint
+--------
+
+I've created the SVGPoint class that extends Point, and it can report the underlying cartesian.
+It seems correct so far.
+I think I could at this point just swap the labels and report and it would mostly be correct.
+
+Ah maybe not - the moveXY is not currently correct, it's still operating in SVG coordinates.
+
+I think I need to start splitting the move mutators down to an underlying cartesian turtle to clear this up.

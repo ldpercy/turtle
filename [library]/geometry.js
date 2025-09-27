@@ -26,6 +26,8 @@ class Point {
 	set x(x) { this.#x = x; }
 	set y(y) { this.#y = y; }
 
+	// get this() { return this; }
+
 	get distanceFromOrigin() {
 		return Math.hypot(this.#x, this.y);
 	}

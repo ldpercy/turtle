@@ -98,8 +98,17 @@ class SVGPoint extends Point{
 		super(x,y,precision);
 	} */
 
+	/* cartesian = {
+		x: super.x,
+		y: super.y,
+	}; */
+
+
 	get x() { return super.x; }
 	get y() { return -super.y; }
+	get cartesianX() { return super.x; }
+	get cartesianY() { return super.y; }
+
 	set x(x) {
 		super.x = x;
 	}
@@ -107,7 +116,8 @@ class SVGPoint extends Point{
 		super.y = -y;
 	}
 
-	get cartesian() { return super.this; }
+
+	//get cartesian() { return super; }
 
 
 }/* SVGPoint */
