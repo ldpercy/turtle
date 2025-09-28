@@ -1,12 +1,13 @@
 /* SVGTurtle
 */
-class SVGTurtle {
+class SVGTurtle extends Turtle{
 
 	#position = new SVGPoint();
 	#heading = new Angle();
-	#origin = new Point(0,0);
+	static origin = new SVGPoint(0,0);
+	static zeroRadian = Math.PI/2;
 
-	#turtle = new Turtle();
+	//#turtle = new Turtle();
 
 	precision = {
 		report : 5,
@@ -19,27 +20,29 @@ class SVGTurtle {
 	*/
 
 	constructor(x=0, y=0, heading=0, digits=12) {
-		this.#position.x = x;
-		this.#position.y = y;
+		super(...arguments);
+		this.#x = x;
+		this.#y = y;
 		this.#heading.degrees = heading;
 		this.precision.digits = digits;
+		//console.log('SVGTurtle:', this);
 	}
 
 	//
 	// Accessors
 	//
 
-	get x()  { return this.position.x; }
-	get y()  { return this.position.y; }
+	get x()  { return this.#position.x; }
+	get y()  { return this.#position.y; }
 	get position() { return this.#position; }
 	get heading() { return this.#heading; }
-	get radius() { return Math.hypot(this.#position.x, this.#position.y); }
+	get radius() { return Math.hypot(this.x, this.y); }
 
-	set x(value) {
-		this.#position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+	set #x(value) {
+		this.position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
 	}
-	set y(value) {
-		this.#position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
+	set #y(value) {
+		this.position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
 	}
 
 
@@ -57,48 +60,46 @@ class SVGTurtle {
 		this isn't very clean - need better solutions for this stuff
 		*/
 
-		this.#heading.degrees = (equal) ? 0.0 : heading;
+		this.heading.degrees = (equal) ? 0.0 : heading;
 	}
 
 
-	toOrigin = function() {
-		this.#position.x = 0.0;
-		this.#position.y = 0.0;
-		this.#heading.degrees = 0.0;
-	}
 
-
-	bear = function(bearingDegrees, distance=0) { 		// draw line from current to new
-		//console.log('bear:', arguments);
+	bear(bearingDegrees, distance=0) { 		// draw line from current to new
+		console.log('SVGTurtle.bear:', arguments);
 		let result = '';
+		super.bear(bearingDegrees, distance);
 		if (distance) { // could also be subject to float comparison
-			const delta = new PolarPoint(Maths.degreesToRadians(this.#heading.degrees + bearingDegrees), distance);
-			const newPoint = this.plusPolar(delta);
-			result = this.#moveTurtle(newPoint);
+			let stp = super.toPoint();
+			console.log('stp:', stp);
+			result = this.#moveTurtle(stp);
 		}
-		else {
-
-		}
-		this.#heading.degrees += bearingDegrees;
 
 		return result;
 	}
 
 
-	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
-	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
+	#moveTurtle = function(point) {
+		console.log('#moveTurtle:', arguments);
+		const currentPos = new SVGPoint(this.x, this.y)
+		const result = SVGTurtle.getLine(currentPos, point);
+		this.position.x = point.x;
+		this.position.y = point.y;
+
+		return result;
+	}
 
 
 	jump = function(bearingDegrees, distance=0) {
 		let result = '';
 		if (distance) { // could also be subject to float comparison
-			const delta = new PolarPoint(Maths.degreesToRadians(this.#heading.degrees + bearingDegrees), distance);
+			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
 			const newPoint = this.plusPolar(delta);
-			this.#position.x = newPoint.x;
-			this.#position.y = newPoint.y;
+			this.x = newPoint.x;
+			this.y = newPoint.y;
 		}
 
-		this.#heading.degrees += bearingDegrees;
+		this.heading.degrees += bearingDegrees;
 		return result;
 	}
 
@@ -107,10 +108,10 @@ class SVGTurtle {
 	move = function(dx,dy) {
 		//console.log('move:', arguments);
 
-		const currentPos =  new Point(this.x,this.y);
-		const offset = new Point(dx,dy).rotate(this.#heading.radians);
+		const currentPos =  new SVGPoint(this.x,this.y);
+		const offset = new SVGPoint(dx,dy).rotate(this.heading.radians);
 		const newPoint = this.plusPoint(offset);
-		this.#heading.degrees = SVGTurtle.lineAngle(currentPos, newPoint).degrees;
+		this.heading.degrees = SVGTurtle.lineAngle(currentPos, newPoint).degrees;
 
 		const result = this.#moveTurtle(newPoint);
 
@@ -120,40 +121,30 @@ class SVGTurtle {
 
 
 	circle = function(r) {
-		const result = `<circle cx="${this.#position.x}" cy="${this.#position.y}" r="${r}"/>`;
+		const result = `<circle cx="${this.x}" cy="${this.y}" r="${r}"/>`;
 		return result;
 	}
 
 	rect = function(width, height) {
-		const result = `<rect x="${this.#position.x - width/2}" y="${this.#position.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})"/>`;
+		const result = `<rect x="${this.x - width/2}" y="${this.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.x},${this.y})"/>`;
 		return result;
 	}
 
 	ellipse = function(width, height) {
 		const rx = width / 2;
 		const ry = height / 2;
-		const result = `<ellipse cx="${this.#position.x}" cy="${this.#position.y}" rx="${rx}" ry="${ry}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})"/>`;
+		const result = `<ellipse cx="${this.x}" cy="${this.y}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.x},${this.y})"/>`;
 		return result;
 	}
 
 
 	text = function(text) {
-		const result = `<text x="${this.x}" y="${this.y}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})">${text}</text>`;
+		const result = `<text x="${this.x}" y="${this.y}" transform="rotate(${this.heading.degrees},${this.x},${this.y})">${text}</text>`;
 		return result;
 	}
 
 
-	/*
-	*/
-	#moveTurtle = function(point) {
-		//console.log('moveTurtle:', arguments);
-		const result = SVGTurtle.getLine(this.#position, point);
-		//this.#heading = SVGTurtle.lineAngle(this.#position, point);
-		this.#position.x = point.x;
-		this.#position.y = point.y;
 
-		return result;
-	}
 
 
 	doCommand = function(command) {
@@ -202,7 +193,7 @@ class SVGTurtle {
 
 	get marker() {
 		const result = `
-			<use href="#def-marker" class="marker" x="${this.#position.x}" y="${this.#position.y}" transform="rotate(${this.#heading.degrees},${this.#position.x},${this.#position.y})">
+			<use href="#def-marker" class="marker" x="${this.x}" y="${this.y}" transform="rotate(${this.heading.degrees},${this.x},${this.y})">
 				<title>${this.report}</title>
 			</use>
 		`;
@@ -212,16 +203,16 @@ class SVGTurtle {
 
 	get report() {
 		// title text preserves whitespace, so:
-		const originAngle = SVGTurtle.lineAngle(this.#origin, this.#position);
+		const originAngle = SVGTurtle.lineAngle(SVGTurtle.origin, this.#position);
 
 		const result = [
-			`x: ${this.#position.x.toPrecision(this.precision.report)}`,
-			`y: ${this.#position.y.toPrecision(this.precision.report)}`,
+			`x: ${this.x.toPrecision(this.precision.report)}`,
+			`y: ${this.y.toPrecision(this.precision.report)}`,
 			`heading:`,
-			`	${this.#heading.degrees.toPrecision(this.precision.report)}°`,
-			`	${this.#heading.radians.toPrecision(this.precision.report)} rad`,
-			`	${this.#heading.radiansPi.toPrecision(this.precision.report)} π rad`,
-			`	${this.#heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	${this.heading.degrees.toPrecision(this.precision.report)}°`,
+			`	${this.heading.radians.toPrecision(this.precision.report)} rad`,
+			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`from origin:`,
 			`	${this.radius.toPrecision(this.precision.report)}`,
 			`	${originAngle.degrees.toPrecision(this.precision.report)}°`,
@@ -240,6 +231,16 @@ class SVGTurtle {
 	// Static
 	//
 
+	/* will get less meaningful the closer the points are together
+	*/
+	static lineAngle = function(point1, point2) {
+	let result = new Angle();
+		if (!point1.isEqualTo(point2)) {
+			result.radians = (SVGTurtle.zeroRadian + Math.atan2(point2.y-point1.y, point2.x-point1.x));
+		}
+		return result;
+	}
+
 	static getLine(point1, point2) {
 		//console.log('getLine:', arguments);
 		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
@@ -247,21 +248,6 @@ class SVGTurtle {
 	}
 
 
-	/* will get less meaningful the closer the points are together
-	*/
-	static lineAngle = function(point1, point2) {
-		let result = new Angle();
-		if (!point1.isEqualTo(point2)) {
-			result.radians = Math.PI/2 + Math.atan2(point2.y-point1.y, point2.x-point1.x);
-		}
-
-		return result;
-	}
-
-	static lineLength = function(point1, point2) {
-		const result = Math.hypot((point2.x - point1.x), (point2.y - point1.y));
-		return result;
-	}
 
 	static getCommands = function(string) {
 		const result = [];
@@ -301,21 +287,6 @@ class SVGTurtle {
 	}
 
 
-	//
-	// Convertors
-	//
-
-	plusPoint = function(point) {
-		return new Point(
-			this.#position.x + point.x,
-			this.#position.y + point.y
-		);
-	}
-
-	plusPolar = function(polarPoint) { // new
-		const temp = polarPoint.toPoint();
-		return this.plusPoint(temp);
-	}
 
 
 }/* SVGTurtle */

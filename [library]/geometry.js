@@ -10,10 +10,12 @@ class Point {
 
 	#x = 0;
 	#y = 0;
+	static origin = new Point(0,0)
+	static zeroRadian = Math.PI/2;
 
 	constructor(x=0, y=0, precision=12) {
-		this.x = x;
-		this.y = y;
+		this.#x = x;
+		this.#y = y;
 		this.precision = precision;
 	}
 
@@ -29,16 +31,18 @@ class Point {
 	// get this() { return this; }
 
 	get distanceFromOrigin() {
-		return Math.hypot(this.#x, this.y);
+		return Math.hypot(this.x, this.y);
 	}
 
-	get radian() {
-		return Math.atan2(this.y, this.#x) + Math.PI/2;
+	get angleFromOrigin() {
+		const result = new Angle();
+		result.radians = Point.zeroRadian + Math.atan2(this.y, this.x);
+		return result;
 	}
 
-	set radian(radian) {
+	set angle(angle) {
 		// absolute
-		const newPoint = new PolarPoint(radian, this.distanceFromOrigin).toPoint();
+		const newPoint = new PolarPoint(angle.radians, this.distanceFromOrigin).toPoint();
 		this.x = newPoint.x;
 		this.y = newPoint.y;
 		return this;
@@ -48,9 +52,9 @@ class Point {
 	// Queries
 	//
 
-	radiansFrom = function(center = new Point()) {
+	getAngleFrom = function(center = new Point()) {
 		// Clockwise from y axis
-		const result = Math.PI/2 + Math.atan2(this.y-center.y, this.x-center.x);
+		const result = Point.zeroRadian + Math.atan2(this.y-center.y, this.x-center.x);
 		return result;
 	}
 
@@ -86,13 +90,17 @@ class Point {
 		);
 	}
 
+	toString() {
+		return `x:${this.x}; y:${this.y};`;
+	}
+
 	//
 	// Mutators
 	//
 
-	rotate = function(radian) {
+	rotate = function(radians) {
 		// relative
-		const newPoint = new PolarPoint(this.radian + radian, this.distanceFromOrigin).toPoint();
+		const newPoint = new PolarPoint(this.angleFromOrigin.radians + radians, this.distanceFromOrigin).toPoint();
 		this.x = newPoint.x;
 		this.y = newPoint.y;
 		return this;
@@ -105,19 +113,37 @@ class Point {
 /* PolarPoint
 */
 class PolarPoint {
-	constructor(radian=0, radius=0, precision=12)
+
+	#angle;
+	#radius;
+
+	constructor(angle = new Angle(), radius=0, precision=12)
 	{
-		this.radian = radian;
-		this.radius = radius;
+		this.#angle = angle;
+		this.#radius = radius;
 		this.precision = precision;
 	}
 
+	//
+	//	Accessors
+	//
+
+	get angle() { return this.#angle; }
+	get radius() { return this.#radius; }
+
+
 	toPoint = function() {
-		return new Point(
-			this.radius * Math.sin(this.radian),
-			this.radius * -Math.cos(this.radian)
-		)
+		const result = new Point(
+			this.radius * Math.sin(this.angle.radians),
+			this.radius * Math.cos(this.angle.radians)
+		);
+		return result;
 	}
+
+	toString() {
+		return `angle:${this.#angle.degrees}; radius:${this.radius};`;
+	}
+
 
 	plus = function(polarPoint) {
 		return this.toPoint().plus(polarPoint.toPoint()).toPolarPoint();
@@ -148,13 +174,13 @@ class PolarPoint {
 	A single-step turtle graphics kind of move relative to the current point
 	Takes the current radian coordinate as the base heading and the new heading is relative to it.
 	Ie a 0 heading will continue in the same direction
-	*/
+
 	move = function(distance, heading) {
 		const delta = new PolarPoint(this.radian+heading, distance);
 		//console.log(delta);
 		return this.plus(delta);
 	}
-
+	*/
 
 	/* newPointOffsetXY
 	The offsets are applied to the radial point's 'local' cartesian plane.
@@ -162,13 +188,13 @@ class PolarPoint {
 	*/
 	newPointOffsetXY(dx, dy) {
 		let result = new Point(dx, -this.radius + dy);
-		result.rotate(this.radian);
+		result.rotate(this.angle);
 		return result;
 	}/* newPointOffsetXY */
 
 
-	rotate(radian) {
-		this.radian += radian;
+	rotate(angle) {
+		this.angle.degrees += angle.degrees;
 	}
 
 }/* PolarPoint */
@@ -210,16 +236,18 @@ function lineRadian(center, point) {
 class Angle {
 	#degrees = 0;
 
-	constructor() {	}
+	constructor(degrees=0) {
+		this.#degrees = degrees;
+	}
 
 	get degrees()    { return this.#degrees; }
 	get radians()    { return this.#degrees / 180 * Math.PI; }
 	get radiansPi()  { return this.#degrees / 180; }
 	get radiansTau() { return this.#degrees / 360; }
 
-	set degrees(degrees)         { this.#degrees = degrees; }
-	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
-	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
-	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
+	set degrees(degrees)         { this.#degrees = degrees; return this; }
+	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; return this; }
+	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; return this; }
+	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; return this; }
 
 }/* Angle */
