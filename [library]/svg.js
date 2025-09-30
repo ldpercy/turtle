@@ -106,12 +106,19 @@ class SVGPoint extends Point{
 
 	get x() { return super.x; }
 	get y() { return super.y; }
-	get svgX() { return super.x; }
-	get svgY() { return -super.y; }
+	set x(x) { super.x = x; }
+	set y(y) { super.y = y; }
 
+	get cartesianX() { return super.x; }
+	get cartesianY() { return -super.y; }
 
-	//get cartesian() { return super; }
+	toCartesian() {
+		return new Point(this.cartesianX, this.cartesianY);
+	}
 
+	toString() {
+		return `SVGPoint - x:${this.x}; y:${this.y};`;
+	}
 
 }/* SVGPoint */
 

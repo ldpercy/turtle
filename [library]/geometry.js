@@ -90,9 +90,6 @@ class Point {
 		);
 	}
 
-	toString() {
-		return `x:${this.x}; y:${this.y};`;
-	}
 
 	//
 	// Mutators
@@ -104,6 +101,12 @@ class Point {
 		this.x = newPoint.x;
 		this.y = newPoint.y;
 		return this;
+	}
+
+
+
+	toString() {
+		return `Point - x:${this.x}; y:${this.y};`;
 	}
 
 }/* Point */

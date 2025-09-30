@@ -27,11 +27,13 @@ class Turtle {
 	get heading() { return this.#heading; }
 	get radius() { return Math.hypot(this.x, this.y); }
 
-	get report() { return `x:${this.#x}; y:${this.#y}; heading:${this.heading.degrees};`; }
+	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
 
-	set #x(x) { this.#position.x = x; }
-	set #y(y) { this.#position.y = y; }
-
+	set position(point) {  // I'd rather this was private, but can't use the same name - review
+		console.debug('Turtle.set position:', arguments);
+		this.#position.x = point.x;
+		this.#position.y = point.y;
+	}
 
 
 	//
@@ -39,23 +41,21 @@ class Turtle {
 	//
 
 	toOrigin = function() {
-		this.#x = 0.0;
-		this.#y = 0.0;
-		this.heading.degrees = 0.0;
+		this.#position = Turtle.origin;
+		this.#heading.degrees = 0.0;
 	}
 
 
 	bear(bearingDegrees, distance=0) {
-		console.log('Turtle.bear:', arguments);
+		console.debug('Turtle.bear:', arguments);
 		this.heading.degrees += bearingDegrees;
 		if (distance) { // could also be subject to float comparison
-			console.log('if (distance)');
+			//console.log('if (distance)');
 			const delta = new PolarPoint(new Angle(this.heading.degrees), distance);
-			console.log('if (distance): delta', delta);
+			//console.log('if (distance): delta', delta);
 			const newPoint = this.plusPolar(delta);
 			console.log('newPoint', newPoint);
-			this.#x = newPoint.x;
-			this.#y = newPoint.y;
+			this.position = newPoint;
 		}
 	}
 
@@ -100,7 +100,7 @@ class Turtle {
 
 	toPoint() {
 		let tp = new Point(this.#position.x, this.#position.y);
-		console.log('tp:', tp, this.x);
+		//console.log('tp:', tp, this.x);
 		return tp;
 	}
 
@@ -112,11 +112,16 @@ class Turtle {
 	}
 
 	plusPolar = function(polarPoint) { // new
-		console.log('Turtle.plusPolar:', arguments);
+		//console.log('Turtle.plusPolar:', arguments);
 		const temp = polarPoint.toPoint();
 		const result = this.plusPoint(temp);
-		console.log('Turtle.plusPolar:', temp, result);
+		//console.log('Turtle.plusPolar:', temp, result);
 		return result;
+	}
+
+
+	toString() {
+		return `Turtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
 	}
 
 

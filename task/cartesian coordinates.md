@@ -40,6 +40,11 @@ Man this is way more involved than I'd imagined - a bunch of little things:
 * There is a difference between methods written as `myMethod() {...}` and `myMethod = function() {...}` - in some cases only the first works
 * Using accessors for compound properties doesn't seem to be working as I'd expected, eg `get foo() {return #foo}` with `foo.bar` doesn't always work - need to investigate
 
+**Edit:** I've found a way to do the first:
+```js
+(p1 = new Point(2,3)).x = 22
+```
+
 
 Also there's the general question of exactly *how* SVGPoints should work.
 If they extend Point then their x and y should probably behave the same as Point ie cartesian.
@@ -47,4 +52,30 @@ If they don't extend but are independent then their x and y should properly repr
 I think I've gotten this a bit muddled so far, need to clarify.
 Also angles *will* be different between the two.
 Maybe it would better to have Point, SVGPoint and CartesianPoint? Not sure yet.
+
+
+Sub Instances / Super Instances
+-------------------------------
+Another thing:
+
+* Subclass instances maintain separate copies of same-named fields from their super, they don't override/overwrite
+**Edit** not true, see below
+
+I feel like this might be different to some languages, I don't think I was expecting it.
+
+For Turtle/SVGTurtle this might mean some mutators need to do double the work to maintain both the sub and the super.
+Doesn't seem terribly pleasant or efficient.
+It might only mean a handful of methods though.
+Still wondering whether it might be better to compose the virtual turtle to make this relationship a bit clearer.
+
+At the moment writing the code for Point/SVGPoint and Turtle/SVGTurtle is getting really knotty and confusing.
+I'm sure I can make it work, but it really might be better to break the inheritance chain.
+
+**Update:**
+Public fields are shared between derived class instances and their super.
+Private fields are *separate* between base and sub instances.
+
+> Derived classes don't have access to the parent class's private fields
+
+This could well have contributed to some confusion...
 

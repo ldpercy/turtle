@@ -19,10 +19,9 @@ class SVGTurtle extends Turtle{
 	For simple geometry rounding things very close to zero will do, but could have errors for anything requiring higher precision.
 	*/
 
-	constructor(x=0, y=0, heading=0, digits=12) {
+	constructor(svgPoint = new SVGPoint(), heading=0, digits=12) {
 		super(...arguments);
-		this.#x = x;
-		this.#y = y;
+		this.#position = svgPoint;
 		this.#heading.degrees = heading;
 		this.precision.digits = digits;
 		//console.log('SVGTurtle:', this);
@@ -38,19 +37,18 @@ class SVGTurtle extends Turtle{
 	get heading() { return this.#heading; }
 	get radius() { return Math.hypot(this.x, this.y); }
 
-	set #x(value) {
-		this.position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
-	}
-	set #y(value) {
-		this.position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(value), 0.0)) ? 0.0 : value;
-	}
+	get superPosition() { return super.position; }
 
+	set position(svgPoint) {  // I'd rather this was private, but can't use the same name - review
+		console.log('SVGTurtle.set position:', arguments);
+		this.#position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.x), 0.0)) ? 0.0 : svgPoint.x;
+		this.#position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.y), 0.0)) ? 0.0 : svgPoint.y;
+	}
 
 
 	//
 	// mutators
 	//
-
 
 	setHeading(heading) {
 
@@ -66,7 +64,7 @@ class SVGTurtle extends Turtle{
 
 
 	bear(bearingDegrees, distance=0) { 		// draw line from current to new
-		console.log('SVGTurtle.bear:', arguments);
+		console.debug('SVGTurtle.bear:', arguments);
 		let result = '';
 		super.bear(bearingDegrees, distance);
 		if (distance) { // could also be subject to float comparison
@@ -80,11 +78,10 @@ class SVGTurtle extends Turtle{
 
 
 	#moveTurtle = function(point) {
-		console.log('#moveTurtle:', arguments);
+		console.debug('#moveTurtle:', arguments);
 		const currentPos = new SVGPoint(this.x, this.y)
 		const result = SVGTurtle.getLine(currentPos, point);
-		this.position.x = point.x;
-		this.position.y = point.y;
+		this.position = point;
 
 		return result;
 	}
@@ -95,8 +92,7 @@ class SVGTurtle extends Turtle{
 		if (distance) { // could also be subject to float comparison
 			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
 			const newPoint = this.plusPolar(delta);
-			this.x = newPoint.x;
-			this.y = newPoint.y;
+			this.position = newPoint;
 		}
 
 		this.heading.degrees += bearingDegrees;
@@ -222,6 +218,13 @@ class SVGTurtle extends Turtle{
 			`cartesian:`,
 			`	x: ${this.position.cartesianX.toPrecision(this.precision.report)}`,
 			`	y: ${this.position.cartesianY.toPrecision(this.precision.report)}`,
+
+			// debug
+
+			`Debug:`,
+			`	${super.toString()}`,
+			`	${this.toString()}`,
+
 		].join('\n');
 		return result;
 	}
@@ -286,7 +289,9 @@ class SVGTurtle extends Turtle{
 		return result;
 	}
 
-
+	toString() {
+		return `SVGTurtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
+	}
 
 
 }/* SVGTurtle */
