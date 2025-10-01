@@ -79,3 +79,43 @@ Private fields are *separate* between base and sub instances.
 
 This could well have contributed to some confusion...
 
+
+Coordinate systems
+------------------
+
+About now I'm starting to reconsider everything.
+* Should I have separate kinds of point for different coordinate systems?
+* Should I have separate classes for the coordinate systems themselves?
+* Perhaps some Point methods could be moved to coordinate system classes?
+
+There definitely could be benefits to moving towards something like this.
+For example doing bulk operations like transforming a set of coordinates with matrices etc - that would need some kind of structure.
+Also these that are currently sitting in the Point class:
+```js
+static origin = new Point(0,0)
+static zeroRadian = Math.PI/2;
+```
+They would be better off as coordinate system concerns, particularly the second.
+And though it's a secondary concern right now, fewer methods being duplicated could also lower the memory footprint a little bit.
+
+Precision and related concerns like snapping might also be better homed with the coordinate system.
+For instance a turtle following the same commands could end up in a different spot in coordinates that are rounded to a particular decimal.
+
+This could also get way more abstract to allow for other spaces (manifolds?) like spherical, toroidal or hyperbolic.
+
+So are SVG coordinates fundamentally different from cartesian coordinates?
+Lots of operations will be the same, some of the angular stuff will be different though.
+
+Need to clarify:
+* Point - a place in a space
+* Space - some kind of abstract n-dimensional volume that points exist in
+* Coordinate system - a way of notating the position of points in a space
+
+So maybe SVG and 'conventional' are just planar spaces that can use cartesian coordinates (or polar) but the spaces themselves are fundamentally inverted from each other on the y-axis.
+I think an approach like this will work out better as it's more conducive to the idea of spaces having things like limits and rules.
+For example a 'page' or 'screen' could be a space that is a specific size and no points exist outside it.
+Non-planar spaces like spheres, tubes, toroids etc will have their own wrapping and equivalence rules.
+
+Having the turtle move in a non-euclidean geometry could be kind of interesting
+Also, tubular space sounds awesome.
+
