@@ -112,10 +112,9 @@ Need to clarify:
 * Coordinate system - a way of notating the position of points in a space
 
 So maybe SVG and 'conventional' are just planar spaces that can use cartesian coordinates (or polar) but the spaces themselves are fundamentally inverted from each other on the y-axis.
+
 I think an approach like this will work out better as it's more conducive to the idea of spaces having things like limits and rules.
 For example a 'page' or 'screen' could be a space that is a specific size and no points exist outside it.
-Non-planar spaces like spheres, tubes, toroids etc will have their own wrapping and equivalence rules.
-
-Having the turtle move in a non-euclidean geometry could be kind of interesting
-Also, tubular space sounds awesome.
+Non-planar spaces like spheres, tubes, toroids etc will have their own wrapping and equivalence rules (and doing movements in non-euclidean geometry could get kind of interesting).
+Also, tubular space sounds awesome, especially for a turtle.
 
