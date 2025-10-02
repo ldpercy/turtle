@@ -111,10 +111,91 @@ Need to clarify:
 * Space - some kind of abstract n-dimensional volume that points exist in
 * Coordinate system - a way of notating the position of points in a space
 
-So maybe SVG and 'conventional' are just planar spaces that can use cartesian coordinates (or polar) but the spaces themselves are fundamentally inverted from each other on the y-axis.
+So maybe SVG and 'conventional' are just planar spaces that use cartesian coordinates (or polar) but their cartesian coordinate systems are inverted from each other on the y-axis.
 
 I think an approach like this will work out better as it's more conducive to the idea of spaces having things like limits and rules.
 For example a 'page' or 'screen' could be a space that is a specific size and no points exist outside it.
-Non-planar spaces like spheres, tubes, toroids etc will have their own wrapping and equivalence rules (and doing movements in non-euclidean geometry could get kind of interesting).
+Non-planar spaces like spheres, tubes, toroids etc will have their own wrapping and equivalence rules, and maybe coordinate systems too (and doing movements in non-euclidean geometry could get kind of interesting).
 Also, tubular space sounds awesome, especially for a turtle.
 
+
+Inner Classes
+-------------
+
+It looks like you *can* use inner classes in JavaScript - I was unsure about that.
+I've only tried a couple of trivial examples so far, so don't know yet if there are any fatal gotchas or annoying details or whatever.
+
+However if they turn out mostly okay it will open up a stack of new possibilities for ways to organise code nicely.
+
+For example when it comes to the idea of 'spaces' I could (potentially) do stuff like this:
+
+```js
+class PlanarSpace {
+
+	name = 'Name of space';
+
+	constructor(name, size) {
+		this.name = name;
+		this.size = size;	// could be fixed or unbounded
+	}
+
+	static Point = class {
+		constructor(x,y) {
+			this.x = x;
+			this.y = y;
+		}
+	}/* Point */
+
+}/* PlanarSpace */
+```
+So that particular kinds of points are grouped with their geometric spaces.
+Don't know if I'd end up to doing it exactly like that, but this might end up better organised than having a bunch of free-floating FooPoint type classes.
+Like this a 3d space could have it's own version of Point, and maybe a couple of different polar point versions.
+Semi-planar spaces like spheres, tubes and toroids could maybe still use a 2d cartesian point, but it would probably depend on how the spaces were defined.
+
+
+Coordinate systems again
+------------------------
+Still don't know yet how to describe the different coordinates systems that might be used for a space, eg 'regular' and svg coordinates.
+It might be nice to be able define custom coordinates for instance.
+
+```js
+screen1 = new PlanarSpace('My computer screen');
+screen1.size = {horizontal:1920, vertical:1080};
+screen1.coordinates.screen = { horizontal.zero:left, vertical.zero:top }
+screen1.coordinates.regular = { horizontal.zero:left, vertical.zero:bottom }
+screen1.coordinates.centered = { horizontal.zero:middle, vertical.zero:middle }
+```
+If there was a way to talk 'through' custom coordinates set up like this that would be quite neat, but really very unsure if this is a good approach, or even how to do it.
+You'd also need to describe in which direction the coordinate values increase for the centered one.
+
+It would probably make sense to have at least one built in default coordinate system though.
+
+
+Turtles and their spaces
+------------------------
+
+Brain was spinning on this while trying to sleep last night.
+Say we have some kind of space defined, how do we put a turtle on it?
+Starting with the simple case of a 1-to-1 turtle-to-space relationship (but I'm already imagining more):
+```js
+page = new PlanarSpace('SVG drawing space');
+
+leonardo = new Turtle();
+leonardo.space = page;
+leonardo.position = page.origin;
+```
+
+From this point all the moves will end up being a negotiation between the turtle and the space.
+Some moves might be prevented or truncated by boundaries, some might result in rounding or snapping.
+The resulting turtle position and orientation gets updated, probably in the space's default or native coordinates, and those values can be converted via the space to other coordinates.
+
+I kind of feel like that would probably do it, for an abstract turtle maybe.
+
+Like this I think I can probably get SVGPoint out of the complicated place it's sitting in now.
+The idea of the SVGTurtle might also end up a bit redundant, but it would have to be replaced by something like a TurtleSVGRenderer.
+Not sure how that would work yet, but it's better separation of concerns.
+You could perhaps use a renderer as a wrapper object such that the wrapper took the commands and passed them on, rendering the difference.
+Not sure how clean that would be though.
+A different approach would involve codifying a set of movements somehow to be passed separately into the renderer to return the output.
+Pros and cons, the second would be better for some kinds of things.
