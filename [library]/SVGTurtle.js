@@ -2,10 +2,10 @@
 */
 class SVGTurtle extends Turtle{
 
-	#position = new SVGPoint();
-	#heading = new Angle();
-	static origin = new SVGPoint(0,0);
-	static zeroRadian = Math.PI/2;
+	#space;
+	#position;
+	#heading;
+
 
 	//#turtle = new Turtle();
 
@@ -19,10 +19,18 @@ class SVGTurtle extends Turtle{
 	For simple geometry rounding things very close to zero will do, but could have errors for anything requiring higher precision.
 	*/
 
-	constructor(svgPoint = new SVGPoint(), heading=0, digits=12) {
+	constructor(
+			space = new PlanarSpace('page'),
+			position = new space.Point(),
+			heading = new space.Angle(),
+			digits = 12
+		) {
 		super(...arguments);
-		this.#position = svgPoint;
-		this.#heading.degrees = heading;
+
+		this.#space = space;
+		this.#position = position;
+		this.#heading = heading;
+
 		this.precision.digits = digits;
 		//console.log('SVGTurtle:', this);
 	}
@@ -31,18 +39,27 @@ class SVGTurtle extends Turtle{
 	// Accessors
 	//
 
-	get x()  { return this.#position.x; }
-	get y()  { return this.#position.y; }
-	get position() { return this.#position; }
-	get heading() { return this.#heading; }
-	get radius() { return Math.hypot(this.x, this.y); }
+	//get x()  { return this.#position.x; }
+	//get y()  { return this.#position.y; }
+	//get position() { return this.#position; }
+	//get heading() { return this.#heading; }
+	//get radius() { return Math.hypot(this.x, this.y); }
+
+
+	get svgX() { return this.#position.x;}
+	get svgY() { return -this.#position.y; }
 
 	get superPosition() { return super.position; }
 
 	set position(svgPoint) {  // I'd rather this was private, but can't use the same name - review
 		console.log('SVGTurtle.set position:', arguments);
-		this.#position.x = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.x), 0.0)) ? 0.0 : svgPoint.x;
-		this.#position.y = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.y), 0.0)) ? 0.0 : svgPoint.y;
+
+		const x = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.x), 0.0)) ? 0.0 : svgPoint.x;
+		const y = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.y), 0.0)) ? 0.0 : svgPoint.x;
+
+		const newCartesian = new this.#space.CartesianCoordinates(x,y);
+
+		this.#position.cartesian = newCartesian;
 	}
 
 
@@ -68,9 +85,9 @@ class SVGTurtle extends Turtle{
 		let result = '';
 		super.bear(bearingDegrees, distance);
 		if (distance) { // could also be subject to float comparison
-			let stp = super.toPoint();
-			console.log('stp:', stp);
-			result = this.#moveTurtle(stp);
+			//let stp = super.toPoint();
+			console.log('super position:', super.position);
+			result = this.#moveTurtle(super.position);
 		}
 
 		return result;
@@ -199,7 +216,7 @@ class SVGTurtle extends Turtle{
 
 	get report() {
 		// title text preserves whitespace, so:
-		const originAngle = SVGTurtle.lineAngle(SVGTurtle.origin, this.#position);
+		const originAngle = SVGTurtle.lineAngle(this.#space.origin, this.#position);
 
 		const result = [
 			`x: ${this.x.toPrecision(this.precision.report)}`,
@@ -215,9 +232,9 @@ class SVGTurtle extends Turtle{
 			`	${originAngle.radians.toPrecision(this.precision.report)} rad`,
 			`	${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${originAngle.radiansTau.toPrecision(this.precision.report)} τ rad`,
-			`cartesian:`,
-			`	x: ${this.position.cartesianX.toPrecision(this.precision.report)}`,
-			`	y: ${this.position.cartesianY.toPrecision(this.precision.report)}`,
+			`svg:`,
+			`	x: ${this.svgX.toPrecision(this.precision.report)}`,
+			`	y: ${this.svgY.toPrecision(this.precision.report)}`,
 
 			// debug
 
@@ -290,7 +307,9 @@ class SVGTurtle extends Turtle{
 	}
 
 	toString() {
-		return `SVGTurtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
+		let result = super.toString();
+		result += `SVGTurtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
+		return result;
 	}
 
 
