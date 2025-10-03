@@ -2,8 +2,8 @@
 
 function bodyOnload() {
 
-	turtle = new SVGTurtle();
 	page = new PlanarSpace('page');
+	turtle = new SVGTurtle(page);
 
 	document.getElementById('input-do').addEventListener('click', doCommands);
 	document.getElementById('input-clear').addEventListener('click', clear);
