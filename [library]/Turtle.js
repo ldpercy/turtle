@@ -2,9 +2,9 @@
 */
 class Turtle {
 
-	#position = new Point(0,0);
+	#position = new PlanarSpace.Point(0,0);
 	#heading = new Angle();
-	static origin = new Point(0,0);
+	static origin = new PlanarSpace.Point(0,0);
 	static zeroRadian = Math.PI/2;
 
 	constructor(x=0, y=0, heading=0, digits=12) {

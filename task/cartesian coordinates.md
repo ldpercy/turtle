@@ -199,3 +199,18 @@ You could perhaps use a renderer as a wrapper object such that the wrapper took 
 Not sure how clean that would be though.
 A different approach would involve codifying a set of movements somehow to be passed separately into the renderer to return the output.
 Pros and cons, the second would be better for some kinds of things.
+
+
+Have a crack
+------------
+I've made enough of a mess in this branch already, might as well have another try.... I can always reset and start again.
+Thinking now the idea of SVGPoint and SVGTurtle seems kind of like a noob error. Oh well.
+
+Will start by trying to move some of the euclidean geometry to a PlanarSpace class.
+Don't know if I need/want a 'space' base class yet - will come back to.
+
+It's already starting to look much better.
+Hope it stays this way.
+I'm wondering If I can eliminate the difference between a point and polar point, and have them implicitly convert as needed much like the angle class...?
+That would be quite nice.
+

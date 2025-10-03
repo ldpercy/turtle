@@ -92,7 +92,7 @@ class Line {
 
 
 
-class SVGPoint extends Point{
+class SVGPoint extends PlanarSpace.Point{
 
 	/* constructor(x=0, y=0, precision=12) {
 		super(x,y,precision);
