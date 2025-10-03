@@ -5,25 +5,67 @@
 
 class PlanarSpace {
 
-	name = 'Initial PlanarSpace name';
+	name;
+	origin;
+	size;	// tbd
 
-	static origin;
 	static zeroRadian = Math.PI/2;		// This should be made a parameter to the space; Clockwise from y-axis is what I use, but it should be configurable
 
 
-	constructor(name, size) {
+	constructor(
+			name = 'Initial PlanarSpace name',
+			origin = new PlanarSpace.Point('Origin'),
+			size,
+		) {
 		this.name = name;
+		this.origin = origin;
 		this.size = size;
-		origin = new PlanarSpace.Point(0,0);
 	}
+
+
+	get origin() { return PlanarSpace.origin; }
+	//get point() { return new PlanarSpace.Point; }
+	//get angle() { return new PlanarSpace.Angle; }
+
+
+	// Convenience Constructors
+	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
+
+	Point = class {
+		constructor(name) {
+			return new PlanarSpace.Point(...arguments);
+		}
+	}/* Point */
+
+
+	Angle = class {
+		constructor() {
+			return new PlanarSpace.Angle(...arguments);
+		}
+	}/* Angle */
+
+
+	CartesianCoordinates = class {
+		constructor() {
+			return new PlanarSpace.CartesianCoordinates(...arguments);
+		}
+	}/* Point */
+
+
+	PolarCoordinates = class {
+		constructor() {
+			return new PlanarSpace.PolarCoordinates(...arguments);
+		}
+	}/* Angle */
+
 
 
 	//
 	//	Static methods
 	//
 
-	static distanceFromOrigin(point) {
-		return Math.hypot(point.x, point.y);
+	static distanceFromOrigin(cartesian) {
+		return Math.hypot(cartesian.x, cartesian.y);
 	}
 
 	static setAngle(point, angle) {
@@ -33,13 +75,13 @@ class PlanarSpace {
 		point.y = newPoint.y;
 	}
 
-	static angleFromOrigin(point) {
-		return PlanarSpace.getAngleFrom(point, PlanarSpace.origin);
+	static angleFromOrigin(cartesian) {
+		return PlanarSpace.getAngleFrom(cartesian.x, cartesian.y, PlanarSpace.origin);
 	}
 
-	static getAngleFrom(point, center = PlanarSpace.origin) {
+	static getAngleFrom(cartesian, center = PlanarSpace.origin) {
 		const result = new Angle();
-		result.radians = PlanarSpace.zeroRadian + Math.atan2(point.y-center.y, point.x-center.x);
+		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
 		return result;
 	}
 
@@ -51,9 +93,24 @@ class PlanarSpace {
 		return ((point1.x === point2.x) && (point1.y === point2.y));
 	}
 
+	static polarToCartesian = function(polar) {
+		const result = new PlanarSpace.CartesianCoordinates(
+			polar.radius * Math.sin(polar.angle.radians),
+			polar.radius * Math.cos(polar.angle.radians)
+		);
+		return result;
+	}
+
+	static cartesianToPolar = function(cartesian) {
+		const result = new PlanarSpace.PolarCoordinates(
+			PlanarSpace.angleFromOrigin(cartesian),
+			PlanarSpace.distanceFromOrigin(cartesian)
+		);
+		return result;
+	}
+
 
 }/* PlanarSpace */
-
 
 
 //
@@ -61,37 +118,62 @@ class PlanarSpace {
 //
 
 
+
+PlanarSpace.CartesianCoordinates = class {
+	x;
+	y;
+	constructor(x=0, y=0) {
+		this.x = x;
+		this.y = y;
+	}
+}
+
+PlanarSpace.PolarCoordinates = class {
+	angle;
+	radius;
+	constructor(angle = new PlanarSpace.Angle(), radius=0) {
+		this.angle = angle;
+		this.radius = radius;
+	}
+}
+
+
 /* PlanarSpace.Point
 */
 PlanarSpace.Point = class {
-	#x = 0;
-	#y = 0;
+	#name		= 'Initial Point name';
+	#cartesian	= new PlanarSpace.CartesianCoordinates();
+	#polar		= new PlanarSpace.PolarCoordinates();
 
-	constructor(x=0, y=0) {
-		this.#x = x;
-		this.#y = y;
+	constructor(name) {
+		this.#name = name;
 	}
 
 	//
 	//	Accessors
 	//
 
-	get x() { return this.#x; }
-	get y() { return this.#y; }
-	set x(x) { this.#x = x; }
-	set y(y) { this.#y = y; }
+	get x()			{ return this.#cartesian.x; }
+	get y()			{ return this.#cartesian.y; }
+	get angle()		{ return this.#polar.angle; }
+	get radius()	{ return this.#polar.radius; }
 
-	get distanceFromOrigin() {
-		return PlanarSpace.distanceFromOrigin(this);
-	}
 
-	get angleFromOrigin() {
-		return PlanarSpace.angleFromOrigin(this);
-	}
-
-	set angle(angle) {		// absolute
+	/* set angle(angle) {		// absolute
 		PlanarSpace.setAngle(this, angle);
+		// plus a
+	} */
+
+	set polar(polar) {
+		this.#polar = polar;
+		this.#cartesian = PlanarSpace.polarToCartesian(polar);
 	}
+
+	set cartesian(cartesian) {
+		this.#cartesian = cartesian;
+		this.#polar = PlanarSpace.cartesianToPolar(cartesian);
+	}
+
 
 	//
 	// Queries
@@ -120,6 +202,16 @@ PlanarSpace.Point = class {
 		);
 	}
 
+
+	plusPolar = function(polarPoint) { // new
+		//console.log('Turtle.plusPolar:', arguments);
+		const temp = polarPoint.toPoint();
+		const result = this.plusPoint(temp);
+		//console.log('Turtle.plusPolar:', temp, result);
+		return result;
+	}
+
+
 	toPolarPoint = function(polarPoint = new PolarPoint()) {
 		const distanceFromOrigin = this.distanceFromOrigin;
 		//console.log(distance);
@@ -138,6 +230,13 @@ PlanarSpace.Point = class {
 	// Mutators
 	//
 
+	add(point) {
+		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
+		console.log('PlanarSpace.Point.add', point);
+		this.cartesian = newCartesian;
+	}
+
+
 	rotate = function(radians) {
 		// relative
 		const newPoint = new PolarPoint(this.angleFromOrigin.radians + radians, this.distanceFromOrigin).toPoint();
@@ -147,9 +246,8 @@ PlanarSpace.Point = class {
 	}
 
 
-
 	toString() {
-		return `Point - x:${this.x}; y:${this.y};`;
+		return `${this.name} - x:${this.x}; y:${this.y}; x:${this.angle.degrees}; y:${this.radius};`;
 	}
 
 }/* PlanarSpace.Point */
@@ -245,3 +343,24 @@ PlanarSpace.PolarPoint = class {
 	}
 
 }/* PlanarSpace.PolarPoint */
+
+
+
+PlanarSpace.Angle = class {
+	#degrees = 0;
+
+	constructor(degrees=0) {
+		this.#degrees = degrees;
+	}
+
+	get degrees()    { return this.#degrees; }
+	get radians()    { return this.#degrees / 180 * Math.PI; }
+	get radiansPi()  { return this.#degrees / 180; }
+	get radiansTau() { return this.#degrees / 360; }
+
+	set degrees(degrees)         { this.#degrees = degrees; return this; }
+	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; return this; }
+	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; return this; }
+	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; return this; }
+
+}/* PlanarSpace.Angle */
