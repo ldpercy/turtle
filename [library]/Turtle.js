@@ -2,16 +2,21 @@
 */
 class Turtle {
 
-	#position = new PlanarSpace.Point(0,0);
-	#heading = new Angle();
-	static origin = new PlanarSpace.Point(0,0);
-	static zeroRadian = Math.PI/2;
+	#space;
+	#position;
+	#heading;
 
-	constructor(x=0, y=0, heading=0, digits=12) {
+	constructor(
+			space = new PlanarSpace('page'),
+			position = new space.Point(),
+			heading = new space.Angle(),
+			digits = 12
+		) {
 		//console.log('Turtle args:',arguments)
-		this.#position.x = x;
-		this.#position.y = y;
-		this.#heading.degrees = heading;
+
+		this.#space = space;
+		this.#position = position;
+		this.#heading = heading;
 		//this.precision.digits = digits;
 		//console.log('Turtle this:',this);
 	}
@@ -29,11 +34,11 @@ class Turtle {
 
 	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
 
-	set position(point) {  // I'd rather this was private, but can't use the same name - review
+	/* set position(point) {  // I'd rather this was private, but can't use the same name - review
 		console.debug('Turtle.set position:', arguments);
 		this.#position.x = point.x;
 		this.#position.y = point.y;
-	}
+	} */
 
 
 	//
@@ -48,16 +53,23 @@ class Turtle {
 
 	bear(bearingDegrees, distance=0) {
 		console.debug('Turtle.bear:', arguments);
+		let delta, angle;
 		this.heading.degrees += bearingDegrees;
+
 		if (distance) { // could also be subject to float comparison
 			//console.log('if (distance)');
-			const delta = new PolarPoint(new Angle(this.heading.degrees), distance);
-			//console.log('if (distance): delta', delta);
-			const newPoint = this.plusPolar(delta);
-			console.log('newPoint', newPoint);
-			this.position = newPoint;
+			delta = new this.#space.Point('delta');
+			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
+			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
+
+			console.log('if (distance): delta', delta);
+
+			//const newPoint = this.plusPolar(delta);
+			//console.log('newPoint', newPoint);
+			this.#position.add(delta);
 		}
-	}
+		this.log('bear-end');
+	}/* bear */
 
 	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
@@ -124,6 +136,8 @@ class Turtle {
 		return `Turtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
 	}
 
-
+	log(prefix) {
+		console.log(prefix, this.toString());
+	}
 
 }/* Turtle */
