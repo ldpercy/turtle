@@ -28,6 +28,74 @@ class PlanarSpace {
 	//get angle() { return new PlanarSpace.Angle; }
 
 
+	//
+	// Instance Methods
+	//
+
+	distanceFromOrigin(cartesian) {
+		return Math.hypot(cartesian.x - this.origin.x, cartesian.y - this.origin.y);
+	}
+
+	angleFromOrigin(cartesian) {
+		return PlanarSpace.getAngleFrom(cartesian.x, cartesian.y, this.origin);
+	}
+
+	cartesianToPolar = function(cartesian) {
+		const result = new PlanarSpace.PolarCoordinates(
+			this.angleFromOrigin(cartesian),
+			this.distanceFromOrigin(cartesian)
+		);
+		return result;
+	}
+
+	polarToCartesian = function(polar) {
+		const result = new PlanarSpace.CartesianCoordinates(
+			this.origin.x + (polar.radius * Math.sin(polar.angle.radians)),
+			this.origin.y + (polar.radius * Math.cos(polar.angle.radians))
+		);
+		return result;
+	}
+
+
+	//
+	//	Static methods
+	//
+
+	static getAngleFrom(center, cartesian) {
+		const result = new Angle();
+		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
+		return result;
+	}
+
+	static getDistanceFrom(point1, point2) {
+		return Math.hypot((point2.x - point1.x), (point2.y - point1.y));
+	}
+
+
+	static setAngle(point, angle) {
+		// Set the angle absolutely
+		const newPoint = new PlanarSpace.PolarPoint(angle.radians, point.distanceFromOrigin).toPoint();
+		point.x = newPoint.x;
+		point.y = newPoint.y;
+	}
+
+	static areEqual(point1, point2) {
+		return ((point1.x === point2.x) && (point1.y === point2.y));
+	}
+
+
+
+
+
+	static lineAngle(point1, point2) {
+		// will get less meaningful the closer the points are together
+		let result = new Angle();
+		if (!point1.isEqualTo(point2)) {
+			result.radians = (PlanarSpace.zeroRadian.zeroRadian + Math.atan2(point2.y-point1.y, point2.x-point1.x));
+		}
+		return result;
+	}
+
 	// Convenience Constructors
 	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
 
@@ -57,57 +125,6 @@ class PlanarSpace {
 			return new PlanarSpace.PolarCoordinates(...arguments);
 		}
 	}/* Angle */
-
-
-
-	//
-	//	Static methods
-	//
-
-	static distanceFromOrigin(cartesian) {
-		return Math.hypot(cartesian.x, cartesian.y);
-	}
-
-	static setAngle(point, angle) {
-		// Set the angle absolutely
-		const newPoint = new PlanarSpace.PolarPoint(angle.radians, point.distanceFromOrigin).toPoint();
-		point.x = newPoint.x;
-		point.y = newPoint.y;
-	}
-
-	static angleFromOrigin(cartesian) {
-		return PlanarSpace.getAngleFrom(cartesian.x, cartesian.y, PlanarSpace.origin);
-	}
-
-	static getAngleFrom(cartesian, center = PlanarSpace.origin) {
-		const result = new Angle();
-		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
-		return result;
-	}
-
-	static getDistanceBetween(point1, point2) {
-		return Math.hypot((point2.x - point1.x), (point2.y - point1.y));
-	}
-
-	static areEqual(point1, point2) {
-		return ((point1.x === point2.x) && (point1.y === point2.y));
-	}
-
-	static polarToCartesian = function(polar) {
-		const result = new PlanarSpace.CartesianCoordinates(
-			polar.radius * Math.sin(polar.angle.radians),
-			polar.radius * Math.cos(polar.angle.radians)
-		);
-		return result;
-	}
-
-	static cartesianToPolar = function(cartesian) {
-		const result = new PlanarSpace.PolarCoordinates(
-			PlanarSpace.angleFromOrigin(cartesian),
-			PlanarSpace.distanceFromOrigin(cartesian)
-		);
-		return result;
-	}
 
 
 }/* PlanarSpace */

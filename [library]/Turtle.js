@@ -140,4 +140,99 @@ class Turtle {
 		console.log(prefix, this.toString());
 	}
 
+
+
+	//
+	// Commands
+	//
+
+	doCommand = function(command) {
+		//console.log('Command:', command);
+		let result = '';
+
+		switch(command.name) {
+			case 'p'            : result = this.toPoint(instruction.p); break;
+			case 'b'            : result = this.bear(...command.argument); break;		// i thought you could do multi-case???
+			case 'bear'         : result = this.bear(...command.argument); break;
+			case 'jump'         : result = this.jump(...command.argument); break;
+			case 'l'            : result = this.left(...command.argument); break;
+			case 'left'         : result = this.left(...command.argument); break;
+			case 'r'            : result = this.right(...command.argument); break;
+			case 'right'        : result = this.right(...command.argument); break;
+			case 'm'            : result = this.move(...command.argument); break;
+			case 'move'         : result = this.move(...command.argument); break;
+			case 'circle'       : result = this.circle(...command.argument); break;
+			case 'rect'         : result = this.rect(...command.argument); break;
+			case 'ellipse'      : result = this.ellipse(...command.argument); break;
+			case 'text'         : result = this.text(...command.argument); break;
+
+			//case 'p','plus'     : result = this.plus(...command.argument); break;
+			case 'marker'       : result = this.marker; break;
+			case 'o'            : result = this.toOrigin(); break;
+			default             : result = `<!-- Unknown: ${command} -->`; break;
+		}
+
+		//console.log(instruction);
+		return result;
+	}
+
+
+	doCommands(commandArray) {
+		//console.log(commandArray);
+
+		let result = '';
+		commandArray.forEach(command => {
+			result += this.doCommand(command);
+		});
+
+		return result;
+	}
+
+	static getCommands = function(string) {
+		const result = [];
+		const lineArray = string.trim().split('\n');
+
+		lineArray.forEach(
+			(line) => {
+				const match = line.match(/^(\w+)(\s.*)?/);
+				if (match) {
+					const cmd = match[1].trim();
+					let arg;
+					if (cmd === 'text') {
+						arg = (match[2]) ? [match[2]] : [''];
+					}
+					else {
+						arg = (match[2]) ? this.parseArgs(match[2]) : [];
+					}
+					result.push(new Turtle.Command(cmd, arg));
+				}
+				else {
+					result.push(new Turtle.Command('', line));
+				}
+			}
+		);
+
+		return result;
+	}
+
+	static parseArgs(argString) {
+		const argArray = argString.split(',');
+
+		const result = argArray.map(
+			(element) => { return Number.parseInt(element); }
+		);
+		return result;
+	}
+
 }/* Turtle */
+
+
+Turtle.Command = class {
+	constructor(name, argument) {
+		this.name = name;
+		this.argument = argument;
+	}
+	name = '';
+	argument = [];
+	toString() { return `${this.name} ${this.argument}`}
+}
