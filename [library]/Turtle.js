@@ -8,7 +8,7 @@ class Turtle {
 
 	constructor(
 			space = new PlanarSpace('page'),
-			position = new space.Point(),
+			position = space.newPoint('Turtle position', space),
 			heading = new space.Angle(),
 			digits = 12
 		) {
@@ -58,7 +58,7 @@ class Turtle {
 
 		if (distance) { // could also be subject to float comparison
 			//console.log('if (distance)');
-			delta = new this.#space.Point('delta');
+			delta = this.#space.newPoint('delta');
 			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
 

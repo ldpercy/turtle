@@ -214,3 +214,103 @@ Hope it stays this way.
 I'm wondering If I can eliminate the difference between a point and polar point, and have them implicitly convert as needed much like the angle class...?
 That would be quite nice.
 
+
+
+Points attached to spaces
+-------------------------
+A few of the methods for points rely on the origin point.
+Usually in a planar space the origin will be at (0,0), but it seems arbitrary and *possibly* changeable so I've started making it a parameter to the space.
+(Though I can't actually think of any real-world examples of non-zero origins yet...)
+
+The problem is then each Point either needs to know where its origin is, or know what space it exists in so it can refer to the space's origin.
+
+Which means attaching a point to a space at creation time, which is giving me a few coding headaches.
+
+So then a few philosophical questions:
+
+* Should a point always be attached to a space? Usually... but maybe not?
+* Could a point exist in more than one space? Maybe...  but it might be better to simulate that with mimic points for each space (rather than have single point instance track all it's spaces).
+* Should each point have it's own origin, or use its space's origin? I'd prefer the second in most cases.
+* Could there be a 'default' space instance for points to be created into? Not really sure, or even how to do it.
+* Should a space track its points? Doesn't seem super necessary right now, but maybe could be useful in future - for example say you wanted to do a bulk transform on a space and its occupants, *something* needs to track them, perhaps not the space's job though.
+
+I'll say at this point things aren't *super* clear, but I'm pretty sure (for now at least) I want points to exist in a space, and keep a reference to it.
+Other requirements are available.
+
+### Attaching points to spaces
+
+Back to this then.
+Last night I tried to see if inner classes are aware of their outer classes, but didn't have much luck.
+
+First thing I tried was modifying the convenience constructor I'd made:
+```js
+class PlanarSpace {
+	...
+
+	Point = class {
+		constructor(name, space=this.space) {
+			return new PlanarSpace.Point(...arguments);
+		}
+	}/* Point */
+
+	...
+}
+```
+But `space=this.space` doesn't work, the `this` is the new instance's this, not the outer class's.
+I'm not sure if there are ways of making class expressions dynamic in any way to allow for something like this.
+Or there might be some fancy binding trick or something.
+
+A couple of other approaches that would do for now:
+* Enforce that 'space' is set by throwing an error (i'd rather not)
+* Use a factory function instead of the convenience constructor for making new space points
+
+I'm leaning towards the second. It would look like this:
+```js
+class PlanarSpace {
+	...
+
+	newPoint(name) {
+		return new PlanarSpace.Point(name, this);		// pass in the space instance ('this') to the Point constructor
+	}
+
+	...
+}
+```
+I think that will have to do for now unless I find something better.
+It will mean that space users (who are ignorant of the actual concrete space) will go from:
+```js
+fooPoint = new fooSpace.Point('bar', fooSpace);
+```
+to:
+```js
+fooPoint = fooSpace.newPoint('bar');
+```
+Which isn't quite as snazzy, but gets the job done.
+
+### Other space entities
+Does any of this apply to any other entities (apart from points) that I'm starting to attach to spaces, or might in future?
+* coordinates
+* angles
+* origin
+* zero or reference angle
+* size/shape/metrics
+* rules
+* precision/rounding/snapping
+* lines/volumes/groups etc
+
+At the moment the question only really applies to coordinates and angles, and the problem only exists when a space entity *needs* to refer to it's particular space instance for some reason.
+
+Right now the way planar angles are written they're fairly agnostic, but it's possible they could get dragged into this.
+If an angle needed to be an absolute direction in a space then yes, that refers to the space's zero angle.
+Mostly I think that will belong with the client coder though, will see.
+
+Coordinates could defer to their space for their default values, but not much else I can think of.
+I reckon it's fair to create some coordinates that might exist outside a space and ask questions about those (points too on that count).
+
+
+
+### summary
+
+* Space entities that need a reference to their space must be constructed with a factory function
+* Instance factory functions are named `newEntity`
+

@@ -21,7 +21,7 @@ class SVGTurtle extends Turtle{
 
 	constructor(
 			space = new PlanarSpace('page'),
-			position = new space.Point(),
+			position = space.newPoint('SVGTurtle position'),
 			heading = new space.Angle(),
 			digits = 12
 		) {
@@ -94,10 +94,9 @@ class SVGTurtle extends Turtle{
 	}
 
 
-	#moveTurtle = function(point) {
+	#moveTurtle(point) {
 		console.debug('#moveTurtle:', arguments);
-		const currentPos = new SVGPoint(this.x, this.y)
-		const result = SVGTurtle.getLine(currentPos, point);
+		const result = SVGTurtle.getLine(super.position, point);
 		this.position = point;
 
 		return result;
@@ -172,9 +171,12 @@ class SVGTurtle extends Turtle{
 
 
 	get report() {
-		// title text preserves whitespace, so:
-		const originAngle = SVGTurtle.lineAngle(this.#space.origin, this.#position);
 
+		console.log('report origin', this.#space.origin);
+
+		const originAngle = this.#position.getAngleFrom(this.#space.origin);
+
+		// title text preserves whitespace, so:
 		const result = [
 			`x: ${this.x.toPrecision(this.precision.report)}`,
 			`y: ${this.y.toPrecision(this.precision.report)}`,

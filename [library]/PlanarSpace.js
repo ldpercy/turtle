@@ -14,7 +14,7 @@ class PlanarSpace {
 
 	constructor(
 			name = 'Initial PlanarSpace name',
-			origin = new PlanarSpace.Point('Origin'),
+			origin = new PlanarSpace.CartesianCoordinates(),
 			size,
 		) {
 		this.name = name;
@@ -23,7 +23,7 @@ class PlanarSpace {
 	}
 
 
-	get origin() { return PlanarSpace.origin; }
+	get origin() { return this.origin; }
 	//get point() { return new PlanarSpace.Point; }
 	//get angle() { return new PlanarSpace.Angle; }
 
@@ -96,14 +96,29 @@ class PlanarSpace {
 		return result;
 	}
 
+
+
 	// Convenience Constructors
 	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
 
-	Point = class {
-		constructor(name) {
-			return new PlanarSpace.Point(...arguments);
-		}
-	}/* Point */
+	/* Attach constructed items to their parent space instance:
+	Doing something like the following:
+		constructor(name, space=this) {
+	Unfortunately does not bind the 'this' to the space instance, it's bound to the new Instance's this.
+	I bet there is a way to do it though...
+
+	Using a factory function would work.
+	Will have to think about the ergonomics of what I'm trying to achieve here.
+
+	Having these convenience constructors allows use of standard 'new instance.Foo()' type constructs.
+	But they make connecting the subinstances to the parent instance hard.
+
+	*/
+
+
+	newPoint(name) {
+		return new PlanarSpace.Point(name, this);
+	}
 
 
 	Angle = class {
@@ -159,11 +174,15 @@ PlanarSpace.PolarCoordinates = class {
 */
 PlanarSpace.Point = class {
 	#name		= 'Initial Point name';
-	#cartesian	= new PlanarSpace.CartesianCoordinates();
-	#polar		= new PlanarSpace.PolarCoordinates();
+	#space;
+	#cartesian;
+	#polar;
 
-	constructor(name) {
+	constructor(name, space) {
 		this.#name = name;
+		this.#space = space;
+		this.#cartesian	= new space.CartesianCoordinates();
+		this.#polar	    = new space.PolarCoordinates();
 	}
 
 	//
@@ -183,12 +202,12 @@ PlanarSpace.Point = class {
 
 	set polar(polar) {
 		this.#polar = polar;
-		this.#cartesian = PlanarSpace.polarToCartesian(polar);
+		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
 
 	set cartesian(cartesian) {
 		this.#cartesian = cartesian;
-		this.#polar = PlanarSpace.cartesianToPolar(cartesian);
+		this.#polar = this.#space.cartesianToPolar(cartesian);
 	}
 
 
@@ -196,12 +215,12 @@ PlanarSpace.Point = class {
 	// Queries
 	//
 
-	getAngleFrom(center = PlanarSpace.origin) {
-		return PlanarSpace.getAngleFrom(center);
+	getAngleFrom(center) {
+		return PlanarSpace.getAngleFrom(center, this);
 	}
 
-	getDistanceFrom(point = PlanarSpace.origin) {
-		return PlanarSpace.getDistanceBetween(this, point);
+	getDistanceFrom(point) {
+		return PlanarSpace.getDistanceFrom(this, point);
 	}
 
 	isEqualTo(point) {
