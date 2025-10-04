@@ -2,17 +2,10 @@
 */
 class SVGTurtle extends Turtle{
 
-	#space;
-	#position;
-	#heading;
+
+	turtle;
 
 
-	//#turtle = new Turtle();
-
-	precision = {
-		report : 5,
-		digits : 12,
-	};
 	/* Precision handling
 	This isn't very good at the moment - need better solutions for this stuff
 	Currently uses 12 fixed decimal points, which is okay, but would like some better ways of doing this.
@@ -21,46 +14,39 @@ class SVGTurtle extends Turtle{
 
 	constructor(
 			space = new PlanarSpace('page'),
-			position = space.newPoint('SVGTurtle position'),
-			heading = new space.Angle(),
+			//position = space.newPoint('SVGTurtle position'),
+			//heading = new space.Angle(),
 			digits = 12
 		) {
 		super(...arguments);
 
-		this.#space = space;
-		this.#position = position;
-		this.#heading = heading;
+
+		//this.#position = position;
+		//this.#heading = heading;
 
 		this.precision.digits = digits;
 		//console.log('SVGTurtle:', this);
+
+
+		this.turtle = new Turtle(space);
 	}
 
 	//
 	// Accessors
 	//
 
-	//get x()  { return this.#position.x; }
-	//get y()  { return this.#position.y; }
+
 	//get position() { return this.#position; }
-	//get heading() { return this.#heading; }
+
 	//get radius() { return Math.hypot(this.x, this.y); }
 
-
-	get svgX() { return this.#position.x;}
-	get svgY() { return -this.#position.y; }
-
-	get superPosition() { return super.position; }
-
-	set position(svgPoint) {  // I'd rather this was private, but can't use the same name - review
-		console.log('SVGTurtle.set position:', arguments);
-
-		const x = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.x), 0.0)) ? 0.0 : svgPoint.x;
-		const y = (Maths.equalToFixed(this.precision.digits, Math.abs(svgPoint.y), 0.0)) ? 0.0 : svgPoint.x;
-
-		const newCartesian = new this.#space.CartesianCoordinates(x,y);
-
-		this.#position.cartesian = newCartesian;
-	}
+	get x()  { return this.turtle.position.x; }
+	get y()  { return this.turtle.position.y; }
+	get svgX() { return this.x;}
+	get svgY() { return -this.y; }
+	get heading() { return this.turtle.heading; }
+	get position() { return this.turtle.position; }
+	get radius() { return this.turtle.position.radius; }
 
 
 	//
@@ -81,12 +67,12 @@ class SVGTurtle extends Turtle{
 
 
 	bear(bearingDegrees, distance=0) { 		// draw line from current to new
-		console.debug('SVGTurtle.bear:', arguments);
+		//console.debug('SVGTurtle.bear:', arguments);
 		let result = '';
 		super.bear(bearingDegrees, distance);
 		if (distance) { // could also be subject to float comparison
 			//let stp = super.toPoint();
-			console.log('super position:', super.position);
+			//console.log('super position:', super.position);
 			result = this.#moveTurtle(super.position);
 		}
 
@@ -95,7 +81,7 @@ class SVGTurtle extends Turtle{
 
 
 	#moveTurtle(point) {
-		console.debug('#moveTurtle:', arguments);
+		//console.debug('#moveTurtle:', arguments);
 		const result = SVGTurtle.getLine(super.position, point);
 		this.position = point;
 
@@ -171,10 +157,9 @@ class SVGTurtle extends Turtle{
 
 
 	get report() {
+		const originAngle = this.turtle.position.angle;
 
-		console.log('report origin', this.#space.origin);
-
-		const originAngle = this.#position.getAngleFrom(this.#space.origin);
+		console.log('report:...', this.position);
 
 		// title text preserves whitespace, so:
 		const result = [
@@ -206,6 +191,44 @@ class SVGTurtle extends Turtle{
 	}
 
 
+
+
+	doCommand = function(command) {
+		//console.log('Command:', command);
+		let result = '';
+
+
+
+		switch(command.name) {
+
+			// these need to go to the turtle
+			case 'b'            : result = this.bear(...command.argument); break;		// i thought you could do multi-case???
+			case 'bear'         : result = this.bear(...command.argument); break;
+			case 'jump'         : result = this.jump(...command.argument); break;
+			case 'l'            : result = this.left(...command.argument); break;
+			case 'left'         : result = this.left(...command.argument); break;
+			case 'r'            : result = this.right(...command.argument); break;
+			case 'right'        : result = this.right(...command.argument); break;
+			case 'm'            : result = this.move(...command.argument); break;
+			case 'move'         : result = this.move(...command.argument); break;
+			case 'o'            : result = this.toOrigin(); break;
+
+			// these are presentation only
+			case 'circle'       : result = this.circle(...command.argument); break;
+			case 'rect'         : result = this.rect(...command.argument); break;
+			case 'ellipse'      : result = this.ellipse(...command.argument); break;
+			case 'text'         : result = this.text(...command.argument); break;
+			case 'marker'       : result = this.marker; break;
+
+			default             : result = `<!-- Unknown: ${command} -->`; break;
+
+		}
+
+		//console.log(instruction);
+		return result;
+	}
+
+
 	//
 	// Static
 	//
@@ -220,8 +243,8 @@ class SVGTurtle extends Turtle{
 
 
 	toString() {
-		let result = super.toString();
-		result += `SVGTurtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
+		//let result = super.toString();
+		let result = `SVGTurtle - x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`;
 		return result;
 	}
 

@@ -347,3 +347,27 @@ Look it's not super perfect but I'll go with that for now.
 * I should be be able to defer more of the point methods back to `static` Space methods now that zero is fixed
 
 
+Break up SVGTurtle
+------------------
+
+Really need to do this - too many methods calls bouncing between super and sub and making things confusing.
+
+As mentioned above, need something like a wrapper or renderer object.
+I've started doing a little and I need a way to split up commands depending on how they're to be processed.
+
+These commands are SVG only, they currently have no actual effect on the turtle's position (though versions of some conceivably could):
+* circle
+* ellipse
+* rect
+* text
+* marker
+
+The others are turtle commands that usually draw lines:
+* bear
+* jump
+* left
+* right
+* move
+* origin
+
+

@@ -6,6 +6,11 @@ class Turtle {
 	#position;
 	#heading;
 
+	precision = {
+		report : 5,
+		digits : 12,
+	};
+
 	constructor(
 			space = new PlanarSpace('page'),
 			position = space.newPoint('Turtle position'),
@@ -17,7 +22,7 @@ class Turtle {
 		this.#space = space;
 		this.#position = position;
 		this.#heading = heading;
-		//this.precision.digits = digits;
+		this.precision.digits = digits;
 		//console.log('Turtle this:',this);
 	}
 
@@ -26,11 +31,12 @@ class Turtle {
 	//	Accessors
 	//
 
+
+	get position() { return this.#position; }
 	get x()  { return this.#position.x; }
 	get y()  { return this.#position.y; }
-	get position() { return this.#position; }
 	get heading() { return this.#heading; }
-	get radius() { return Math.hypot(this.x, this.y); }
+	get radius() { return this.#position.radius; }
 
 	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
 
@@ -39,6 +45,17 @@ class Turtle {
 		this.#position.x = point.x;
 		this.#position.y = point.y;
 	} */
+
+	set position(point) {  // I'd rather this was private, but can't use the same name - review
+		//console.log('SVGTurtle.set position:', arguments);
+
+		const x = (Maths.equalToFixed(this.precision.digits, Math.abs(point.x), 0.0)) ? 0.0 : point.x;
+		const y = (Maths.equalToFixed(this.precision.digits, Math.abs(point.y), 0.0)) ? 0.0 : point.x;
+
+		const newCartesian = new this.#space.CartesianCoordinates(x,y);
+
+		this.#position.cartesian = newCartesian;
+	}
 
 
 	//
@@ -52,7 +69,7 @@ class Turtle {
 
 
 	bear(bearingDegrees, distance=0) {
-		console.debug('Turtle.bear:', arguments);
+		//console.debug('Turtle.bear:', arguments);
 		let delta, angle;
 		this.heading.degrees += bearingDegrees;
 
@@ -62,7 +79,7 @@ class Turtle {
 			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
 
-			console.log('if (distance): delta', delta);
+			//console.log('if (distance): delta', delta);
 
 			//const newPoint = this.plusPolar(delta);
 			//console.log('newPoint', newPoint);
