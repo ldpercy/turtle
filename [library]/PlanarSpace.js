@@ -5,53 +5,52 @@
 
 class PlanarSpace {
 
-	name;
-	origin;
-	size;	// tbd
-
+	static origin = {x:0, y:0};
 	static zeroRadian = Math.PI/2;		// This should be made a parameter to the space; Clockwise from y-axis is what I use, but it should be configurable
+	#name;
+	#size;	// tbd
 
 
 	constructor(
 			name = 'Initial PlanarSpace name',
-			origin = new PlanarSpace.CartesianCoordinates(),
 			size,
 		) {
-		this.name = name;
-		this.origin = origin;
-		this.size = size;
+		this.#name = name;
+		this.#size = size;
 	}
 
+	get name() { return this.#name; }
+	//static get origin() { return this.#origin; }
 
-	get origin() { return this.origin; }
-	//get point() { return new PlanarSpace.Point; }
-	//get angle() { return new PlanarSpace.Angle; }
 
 
 	//
 	// Instance Methods
 	//
 
-	distanceFromOrigin(cartesian) {
-		return Math.hypot(cartesian.x - this.origin.x, cartesian.y - this.origin.y);
-	}
 
 	angleFromOrigin(cartesian) {
-		return PlanarSpace.getAngleFrom(cartesian.x, cartesian.y, this.origin);
+		return this.getAngleFrom(cartesian.x, cartesian.y, this.origin);
+	}
+
+	getAngleFrom(center, cartesian) {
+		const result = new Angle();
+		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
+		return result;
 	}
 
 	cartesianToPolar = function(cartesian) {
 		const result = new PlanarSpace.PolarCoordinates(
 			this.angleFromOrigin(cartesian),
-			this.distanceFromOrigin(cartesian)
+			PlanarSpace.distanceFromOrigin(cartesian)
 		);
 		return result;
 	}
 
 	polarToCartesian = function(polar) {
 		const result = new PlanarSpace.CartesianCoordinates(
-			this.origin.x + (polar.radius * Math.sin(polar.angle.radians)),
-			this.origin.y + (polar.radius * Math.cos(polar.angle.radians))
+			PlanarSpace.origin.x + (polar.radius * Math.sin(polar.angle.radians)),
+			PlanarSpace.origin.y + (polar.radius * Math.cos(polar.angle.radians))
 		);
 		return result;
 	}
@@ -61,10 +60,9 @@ class PlanarSpace {
 	//	Static methods
 	//
 
-	static getAngleFrom(center, cartesian) {
-		const result = new Angle();
-		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
-		return result;
+
+	static distanceFromOrigin(cartesian) {
+		return PlanarSpace.getDistanceFrom(PlanarSpace.origin, cartesian);
 	}
 
 	static getDistanceFrom(point1, point2) {
@@ -216,7 +214,7 @@ PlanarSpace.Point = class {
 	//
 
 	getAngleFrom(center) {
-		return PlanarSpace.getAngleFrom(center, this);
+		return this.#space.getAngleFrom(center, this);
 	}
 
 	getDistanceFrom(point) {
@@ -268,7 +266,7 @@ PlanarSpace.Point = class {
 
 	add(point) {
 		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
-		console.log('PlanarSpace.Point.add', point);
+		//console.log('PlanarSpace.Point.add', point);
 		this.cartesian = newCartesian;
 	}
 

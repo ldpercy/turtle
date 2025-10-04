@@ -314,3 +314,36 @@ I reckon it's fair to create some coordinates that might exist outside a space a
 * Space entities that need a reference to their space must be constructed with a factory function
 * Instance factory functions are named `newEntity`
 
+
+### Polar coordinates for non-zero Origin
+
+Just realised something - if I allow for specifying a non-zero origin in cartesian coordinates, then equivalently the origin should be non-zero in polar coordinates.
+Problem is, that could lead to some really unpleasant maths with *really* tiny angles if the origin is very far away from zero.
+So think think think....
+* The polar 'origin' could always be relative to the cartesian origin, so that the angles stay reasonable...
+* Or, wind some of this back and fix the origin to (0,0) and let the client handle any spatial translation...
+
+To be honest, for sheer simplicity, I'm inclined to do the second.
+Having non-zero origins is a nice idea, but it might be a bit too niche for the trouble.
+Having a space translate/transform of some sort at the client side is probably better.
+
+So...
+
+Sigh. I can probably wind some of this back.
+
+Do points (or other entities) still need to be attached to their spaces?
+For now actually I think I'm going to say yes, but not for the origin.
+The zero-angle one still could end up being a space parameter.
+I mean it sounds like it too could be handled with a client side transform...
+But a rotational transform might be easier done in the Space where I'm already doing trig, so the client only needs to worry about arithmetic.
+Pretty arbitrary, but would be nicer for the clients.
+
+Look it's not super perfect but I'll go with that for now.
+
+* Planar spaces have origins at zero for cartesian and polar radius - non configurable
+* The angular zero and direction is still yet to be properly configured though
+* I'll leave the space reference **in** for point instances - feel like i might still need it
+* Clients can handle spatial arthmetic (addition/multiplication) but we'll help out by doing the basic trig in the space
+* I should be be able to defer more of the point methods back to `static` Space methods now that zero is fixed
+
+

@@ -8,7 +8,7 @@ class Turtle {
 
 	constructor(
 			space = new PlanarSpace('page'),
-			position = space.newPoint('Turtle position', space),
+			position = space.newPoint('Turtle position'),
 			heading = new space.Angle(),
 			digits = 12
 		) {
