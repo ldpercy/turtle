@@ -4,7 +4,7 @@ class SVGTurtle extends Turtle{
 
 
 	turtle;
-
+	history = [];
 
 	/* Precision handling
 	This isn't very good at the moment - need better solutions for this stuff
@@ -29,6 +29,10 @@ class SVGTurtle extends Turtle{
 
 
 		this.turtle = new Turtle(space);
+
+		this.history.length = 5;
+		this.history.push(new SVGTurtle.HistoryItem(this.turtle.coordinates));
+		this.history.shift();
 	}
 
 	//
@@ -44,25 +48,17 @@ class SVGTurtle extends Turtle{
 	get y()  { return this.turtle.position.y; }
 	get svgX() { return this.x;}
 	get svgY() { return -this.y; }
-	get heading() { return this.turtle.heading; }
-	get position() { return this.turtle.position; }
-	get radius() { return this.turtle.position.radius; }
 
+	//get radius() { return this.turtle.position.radius; }
+
+	get coordinates()			{ return this.turtle.coordinates; }
+	get currentCoordinates()	{ return this.history[this.history.length-1]; }
+	get previousCoordinates()	{ return this.history[this.history.length-2]; }
 
 	//
 	// mutators
 	//
 
-	setHeading(heading) {
-
-		const equal = Maths.equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
-		//console.log('set #heading', heading, equal);
-		/*
-		this isn't very clean - need better solutions for this stuff
-		*/
-
-		this.heading.degrees = (equal) ? 0.0 : heading;
-	}
 
 
 
@@ -159,7 +155,7 @@ class SVGTurtle extends Turtle{
 	get report() {
 		const originAngle = this.turtle.position.angle;
 
-		console.log('report:...', this.position);
+		//console.debug('coordinates:...', this.turtle.coordinates);
 
 		// title text preserves whitespace, so:
 		const result = [
@@ -171,7 +167,7 @@ class SVGTurtle extends Turtle{
 			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`from origin:`,
-			`	${this.radius.toPrecision(this.precision.report)}`,
+			`	${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
 			`	${originAngle.degrees.toPrecision(this.precision.report)}°`,
 			`	${originAngle.radians.toPrecision(this.precision.report)} rad`,
 			`	${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
@@ -179,13 +175,11 @@ class SVGTurtle extends Turtle{
 			`svg:`,
 			`	x: ${this.svgX.toPrecision(this.precision.report)}`,
 			`	y: ${this.svgY.toPrecision(this.precision.report)}`,
-
 			// debug
-
 			`Debug:`,
-			`	${super.toString()}`,
 			`	${this.toString()}`,
-
+			`history:`,
+			`	${this.history.join('\n	')}`,
 		].join('\n');
 		return result;
 	}
@@ -194,25 +188,18 @@ class SVGTurtle extends Turtle{
 
 
 	doCommand = function(command) {
-		//console.log('Command:', command);
+		console.log('SVGTurtle.doCommand:', command);
 		let result = '';
 
 
+		if (this.turtle.commands.includes(command.name)) {
+			const commandResult = this.turtle.doCommand(command);
+		}
+		this.history.push(new SVGTurtle.HistoryItem(this.turtle.coordinates));
+		this.history.shift();
+
 
 		switch(command.name) {
-
-			// these need to go to the turtle
-			case 'b'            : result = this.bear(...command.argument); break;		// i thought you could do multi-case???
-			case 'bear'         : result = this.bear(...command.argument); break;
-			case 'jump'         : result = this.jump(...command.argument); break;
-			case 'l'            : result = this.left(...command.argument); break;
-			case 'left'         : result = this.left(...command.argument); break;
-			case 'r'            : result = this.right(...command.argument); break;
-			case 'right'        : result = this.right(...command.argument); break;
-			case 'm'            : result = this.move(...command.argument); break;
-			case 'move'         : result = this.move(...command.argument); break;
-			case 'o'            : result = this.toOrigin(); break;
-
 			// these are presentation only
 			case 'circle'       : result = this.circle(...command.argument); break;
 			case 'rect'         : result = this.rect(...command.argument); break;
@@ -220,9 +207,14 @@ class SVGTurtle extends Turtle{
 			case 'text'         : result = this.text(...command.argument); break;
 			case 'marker'       : result = this.marker; break;
 
+			case 'left'         :
+			case 'right'        : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
+
+
 			default             : result = `<!-- Unknown: ${command} -->`; break;
 
 		}
+
 
 		//console.log(instruction);
 		return result;
@@ -236,7 +228,7 @@ class SVGTurtle extends Turtle{
 
 
 	static getLine(point1, point2) {
-		//console.log('getLine:', arguments);
+		//console.debug('SVGTurtle.getLine:', arguments);
 		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
 		return result;
 	}
@@ -253,3 +245,18 @@ class SVGTurtle extends Turtle{
 
 
 
+
+/* A shallow copy of a point suitable for sticking into the history array
+*/
+SVGTurtle.HistoryItem = class {
+	x;
+	y;
+	heading;
+
+	constructor(turtleCoordinates) {
+		this.x = turtleCoordinates.position.x;
+		this.y = turtleCoordinates.position.y;
+		this.heading = new Angle(turtleCoordinates.heading.degrees);
+	}
+	toString() { return `heading:${this.heading.degrees}; x:${this.x}; y:${this.y};`; }
+}
