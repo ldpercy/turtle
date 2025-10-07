@@ -30,7 +30,7 @@ class PlanarSpace {
 
 
 	angleFromOrigin(cartesian) {
-		return this.getAngleFrom(cartesian.x, cartesian.y, this.origin);
+		return this.getAngleFrom(PlanarSpace.origin, cartesian );
 	}
 
 	getAngleFrom(center, cartesian) {
@@ -238,19 +238,19 @@ PlanarSpace.Point = class {
 
 
 	plusPolar = function(polarPoint) { // new
-		//console.log('Turtle.plusPolar:', arguments);
+		//console.debug('Turtle.plusPolar:', arguments);
 		const temp = polarPoint.toPoint();
 		const result = this.plusPoint(temp);
-		//console.log('Turtle.plusPolar:', temp, result);
+		//console.debug('Turtle.plusPolar:', temp, result);
 		return result;
 	}
 
 
 	toPolarPoint = function(polarPoint = new PolarPoint()) {
 		const distanceFromOrigin = this.distanceFromOrigin;
-		//console.log(distance);
+		//console.debug(distance);
 		const radian  = (Maths.equalToPrecision(this.precision, distanceFromOrigin, 0)) ? polarPoint.radian : this.radiansFrom();
-		//console.log(radian);
+		//console.debug(radian);
 		// for points on the origin return the default PolarPoint radian
 		// should probably actually add these akin to a base vector
 		return new PolarPoint(
@@ -266,7 +266,6 @@ PlanarSpace.Point = class {
 
 	add(point) {
 		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
-		//console.log('PlanarSpace.Point.add', point);
 		this.cartesian = newCartesian;
 	}
 
@@ -356,7 +355,7 @@ PlanarSpace.PolarPoint = class {
 
 	move = function(distance, heading) {
 		const delta = new PolarPoint(this.radian+heading, distance);
-		//console.log(delta);
+		//console.debug(delta);
 		return this.plus(delta);
 	}
 	*/
