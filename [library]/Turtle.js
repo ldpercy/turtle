@@ -6,6 +6,19 @@ class Turtle {
 	#position;
 	#heading;
 
+	commands = [
+		'b',
+		'bear',
+		'jump',
+		'l',
+		'left',
+		'r',
+		'right',
+		'm',
+		'move',
+		'o',
+	];
+
 	precision = {
 		report : 5,
 		digits : 12,
@@ -37,6 +50,7 @@ class Turtle {
 	get y()  { return this.#position.y; }
 	get heading() { return this.#heading; }
 	get radius() { return this.#position.radius; }
+	get coordinates() { return { position: this.#position, heading: this.#heading } };
 
 	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
 
@@ -62,9 +76,23 @@ class Turtle {
 	//	Mutators
 	//
 
-	toOrigin = function() {
-		this.#position = Turtle.origin;
-		this.#heading.degrees = 0.0;
+
+	toOrigin() {
+		this.position = this.#space.origin;
+		this.heading.degrees = 0.0;
+	}
+
+
+
+	setHeading(heading) {
+
+		const equal = Maths.equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
+		//console.log('set #heading', heading, equal);
+		/*
+		this isn't very clean - need better solutions for this stuff
+		*/
+
+		this.heading.degrees = (equal) ? 0.0 : heading;
 	}
 
 
@@ -85,7 +113,7 @@ class Turtle {
 			//console.log('newPoint', newPoint);
 			this.#position.add(delta);
 		}
-		this.log('bear-end');
+		//this.log('bear-end');
 	}/* bear */
 
 	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
@@ -164,7 +192,7 @@ class Turtle {
 	//
 
 	doCommand = function(command) {
-		//console.log('Command:', command);
+		console.log('Turtle.doCommand:', command);
 		let result = '';
 
 		switch(command.name) {
@@ -178,15 +206,16 @@ class Turtle {
 			case 'right'        : result = this.right(...command.argument); break;
 			case 'm'            : result = this.move(...command.argument); break;
 			case 'move'         : result = this.move(...command.argument); break;
+			case 'o'            : result = this.toOrigin(); break;
+			/*
 			case 'circle'       : result = this.circle(...command.argument); break;
 			case 'rect'         : result = this.rect(...command.argument); break;
 			case 'ellipse'      : result = this.ellipse(...command.argument); break;
 			case 'text'         : result = this.text(...command.argument); break;
-
-			//case 'p','plus'     : result = this.plus(...command.argument); break;
 			case 'marker'       : result = this.marker; break;
-			case 'o'            : result = this.toOrigin(); break;
-			default             : result = `<!-- Unknown: ${command} -->`; break;
+			*/
+
+			default             : console.log(`<!-- Unknown: ${command} -->`); break;
 		}
 
 		//console.log(instruction);
