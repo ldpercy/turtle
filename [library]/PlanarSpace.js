@@ -20,7 +20,7 @@ class PlanarSpace {
 	}
 
 	get name() { return this.#name; }
-	//static get origin() { return this.#origin; }
+	get origin() { return PlanarSpace.origin; }
 
 
 
