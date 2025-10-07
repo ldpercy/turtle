@@ -375,3 +375,14 @@ Probably it should work something like:
 * If a known Turtle command send it to turtle, get new position
 * If a known SVGTurtle command send to renderer method
 * return result
+
+
+
+SVG & Conventional units
+------------------------
+
+Finally after a very long time in the weeds this is starting to work.
+
+I'm going to standardise on 'conventional' orientation for the moment while I get everything running again.
+
+For now just inverting all the y coords is working, but I'd like a way better way to do this, especially if i want to be able to flip between coord systems.

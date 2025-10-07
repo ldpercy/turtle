@@ -197,14 +197,14 @@ class Turtle {
 
 		switch(command.name) {
 			case 'p'            : result = this.toPoint(instruction.p); break;
-			case 'b'            : result = this.bear(...command.argument); break;		// i thought you could do multi-case???
+			case 'b'            :
+			case 'jump'         :
 			case 'bear'         : result = this.bear(...command.argument); break;
-			case 'jump'         : result = this.jump(...command.argument); break;
-			case 'l'            : result = this.left(...command.argument); break;
+			case 'l'            :
 			case 'left'         : result = this.left(...command.argument); break;
-			case 'r'            : result = this.right(...command.argument); break;
+			case 'r'            :
 			case 'right'        : result = this.right(...command.argument); break;
-			case 'm'            : result = this.move(...command.argument); break;
+			case 'm'            :
 			case 'move'         : result = this.move(...command.argument); break;
 			case 'o'            : result = this.toOrigin(); break;
 			/*

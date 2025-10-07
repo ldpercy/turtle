@@ -44,10 +44,11 @@ class SVGTurtle extends Turtle{
 
 	//get radius() { return Math.hypot(this.x, this.y); }
 
-	get x()  { return this.turtle.position.x; }
-	get y()  { return this.turtle.position.y; }
-	get svgX() { return this.x;}
-	get svgY() { return -this.y; }
+	get x()         { return this.turtle.position.x; }
+	get y()         { return this.turtle.position.y; }
+	get heading()   { return this.turtle.heading; }
+	get svgX()      { return this.x;}
+	get svgY()      { return -this.y; }
 
 	//get radius() { return this.turtle.position.radius; }
 
@@ -84,7 +85,7 @@ class SVGTurtle extends Turtle{
 		return result;
 	}
 
-
+	/*
 	jump = function(bearingDegrees, distance=0) {
 		let result = '';
 		if (distance) { // could also be subject to float comparison
@@ -95,7 +96,7 @@ class SVGTurtle extends Turtle{
 
 		this.heading.degrees += bearingDegrees;
 		return result;
-	}
+	}*/
 
 
 	/* moves dx,dy in the turtles current local frame */
@@ -115,36 +116,31 @@ class SVGTurtle extends Turtle{
 
 
 	circle = function(r) {
-		const result = `<circle cx="${this.x}" cy="${this.y}" r="${r}"/>`;
+		const result = `<circle cx="${this.svgX}" cy="${this.svgY}" r="${r}"/>`;
 		return result;
 	}
 
 	rect = function(width, height) {
-		const result = `<rect x="${this.x - width/2}" y="${this.y - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.x},${this.y})"/>`;
+		const result = `<rect x="${this.x - width/2}" y="${this.svgY - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
 	ellipse = function(width, height) {
 		const rx = width / 2;
 		const ry = height / 2;
-		const result = `<ellipse cx="${this.x}" cy="${this.y}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.x},${this.y})"/>`;
+		const result = `<ellipse cx="${this.x}" cy="${this.svgY}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
-
 
 	text = function(text) {
-		const result = `<text x="${this.x}" y="${this.y}" transform="rotate(${this.heading.degrees},${this.x},${this.y})">${text}</text>`;
+		const result = `<text x="${this.x}" y="${this.svgY}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})">${text}</text>`;
 		return result;
 	}
-
-
-
-
 
 
 	get marker() {
 		const result = `
-			<use href="#def-marker" class="marker" x="${this.x}" y="${this.y}" transform="rotate(${this.heading.degrees},${this.x},${this.y})">
+			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})">
 				<title>${this.report}</title>
 			</use>
 		`;
@@ -207,7 +203,9 @@ class SVGTurtle extends Turtle{
 			case 'text'         : result = this.text(...command.argument); break;
 			case 'marker'       : result = this.marker; break;
 
+			case 'l'            :
 			case 'left'         :
+			case 'r'            :
 			case 'right'        : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 
@@ -221,6 +219,14 @@ class SVGTurtle extends Turtle{
 	}
 
 
+
+	toString() {
+		//let result = super.toString();
+		let result = `SVGTurtle| x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`;
+		return result;
+	}
+
+
 	//
 	// Static
 	//
@@ -229,16 +235,10 @@ class SVGTurtle extends Turtle{
 
 	static getLine(point1, point2) {
 		//console.debug('SVGTurtle.getLine:', arguments);
-		const result = `<line x1="${point1.x}" y1="${point1.y}" x2="${point2.x}" y2="${point2.y}"/>`;
+		const result = `<line x1="${point1.x}" y1="${-point1.y}" x2="${point2.x}" y2="${-point2.y}"/>`;
 		return result;
 	}
 
-
-	toString() {
-		//let result = super.toString();
-		let result = `SVGTurtle - x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`;
-		return result;
-	}
 
 
 }/* SVGTurtle */

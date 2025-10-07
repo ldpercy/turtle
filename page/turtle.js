@@ -111,10 +111,10 @@ function updatePageTransform() {
 
 
 function updateTurtle() {
-	turtleIcon.setAttribute('x', turtle.x);
-	turtleIcon.setAttribute('y', turtle.y);
+	turtleIcon.setAttribute('x', turtle.svgX);
+	turtleIcon.setAttribute('y', turtle.svgY);
 	turtleIcon.setAttribute('transform',
-		`rotate(${turtle.heading.degrees},${turtle.x},${turtle.y})`
+		`rotate(${turtle.heading.degrees},${turtle.svgX},${turtle.svgY})`
 	);
 
 	updatePageTransform();
