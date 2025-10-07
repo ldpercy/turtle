@@ -75,7 +75,8 @@ function clear() {
 }
 
 function toOrigin() {
-	turtle.toOrigin();
+	//turtle.toOrigin();
+	turtle.doCommand({name:'o'});
 	updateTurtle();
 }
 

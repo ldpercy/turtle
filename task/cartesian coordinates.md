@@ -370,4 +370,8 @@ The others are turtle commands that usually draw lines:
 * move
 * origin
 
-
+Probably it should work something like:
+* SVGTurtle takes command, records current turtle position
+* If a known Turtle command send it to turtle, get new position
+* If a known SVGTurtle command send to renderer method
+* return result
