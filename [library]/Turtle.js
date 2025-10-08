@@ -61,10 +61,10 @@ class Turtle {
 	} */
 
 	set position(point) {  // I'd rather this was private, but can't use the same name - review
-		//console.log('SVGTurtle.set position:', arguments);
+		// console.log('Turtle.set position:', arguments);
 
 		const x = (Maths.equalToFixed(this.precision.digits, Math.abs(point.x), 0.0)) ? 0.0 : point.x;
-		const y = (Maths.equalToFixed(this.precision.digits, Math.abs(point.y), 0.0)) ? 0.0 : point.x;
+		const y = (Maths.equalToFixed(this.precision.digits, Math.abs(point.y), 0.0)) ? 0.0 : point.y;
 
 		const newCartesian = new this.#space.CartesianCoordinates(x,y);
 
