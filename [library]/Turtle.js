@@ -232,14 +232,9 @@ class Turtle {
 
 
 	doCommands(commandArray) {
-		//console.log(commandArray);
-
-		let result = '';
 		commandArray.forEach(command => {
-			result += this.doCommand(command);
+			this.doCommand(command);
 		});
-
-		return result;
 	}
 
 	static getCommands = function(string) {

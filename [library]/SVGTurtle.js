@@ -1,10 +1,11 @@
 /* SVGTurtle
 */
-class SVGTurtle extends Turtle{
+class SVGTurtle {   //extends Turtle
 
 
 	turtle;
 	history = [];
+	precision = {};
 
 	/* Precision handling
 	This isn't very good at the moment - need better solutions for this stuff
@@ -18,7 +19,7 @@ class SVGTurtle extends Turtle{
 			//heading = new space.Angle(),
 			digits = 12
 		) {
-		super(...arguments);
+		// super(...arguments);
 
 
 		//this.#position = position;
@@ -59,9 +60,6 @@ class SVGTurtle extends Turtle{
 	//
 	// mutators
 	//
-
-
-
 
 	bear(bearingDegrees, distance=0) { 		// draw line from current to new
 		//console.debug('SVGTurtle.bear:', arguments);
@@ -165,10 +163,10 @@ class SVGTurtle extends Turtle{
 			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`polar coordinates:`,
 			`	r: ${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
-			`	${originAngle.degrees.toPrecision(this.precision.report)}°`,
-			`	${originAngle.radians.toPrecision(this.precision.report)} rad`,
-			`	${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
-			`	${originAngle.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	a: ${originAngle.degrees.toPrecision(this.precision.report)}°`,
+			`	a: ${originAngle.radians.toPrecision(this.precision.report)} rad`,
+			`	a: ${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	a: ${originAngle.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`svg:`,
 			`	x: ${this.svgX.toPrecision(this.precision.report)}`,
 			`	y: ${this.svgY.toPrecision(this.precision.report)}`,
@@ -220,6 +218,15 @@ class SVGTurtle extends Turtle{
 		return result;
 	}
 
+
+	doCommands(commandArray) {
+		let result = '';
+		commandArray.forEach(command => {
+			result += this.doCommand(command);
+		});
+
+		return result;
+	}
 
 
 	toString() {

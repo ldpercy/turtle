@@ -1,6 +1,13 @@
-
+//
+//	turtle.js
+//
 
 function bodyOnload() {
+	console.info(`
+		Turtle by ldpercy v0.3
+		https://github.com/ldpercy/turtle/
+	`);
+
 
 	page = new PlanarSpace('page');
 	turtle = new SVGTurtle(page);
@@ -84,7 +91,7 @@ function toOrigin() {
 function doCommands() {
 	//console.log('--- doCommand ---');
 	const commandStr = document.getElementById('input-command').value;
-	const commands = SVGTurtle.getCommands(commandStr);
+	const commands = Turtle.getCommands(commandStr);
 
 	//console.log('Commands:', commands);
 
