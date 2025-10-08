@@ -175,7 +175,7 @@ class SVGTurtle extends Turtle{
 			`Debug:`,
 			`	${this.toString()}`,
 			`history:`,
-			`	${this.history.join('\n	')}`,
+			`	${this.history.map((item) => { return `heading:${item.heading.degrees}; x:${item.x}; y:${item.y};`;}).join('\n	')}`,
 		].join('\n');
 		return result;
 	}
@@ -246,11 +246,12 @@ class SVGTurtle extends Turtle{
 	*/
 	getHistoryItem(turtleCoordinates) {
 
-		const x = turtleCoordinates.position.x;
-		const y = turtleCoordinates.position.y;
-		const heading = new this.turtle.space.Angle(turtleCoordinates.heading.degrees);
+		const result = {
+			x : turtleCoordinates.position.x,
+			y : turtleCoordinates.position.y,
+			heading : new this.turtle.space.Angle(turtleCoordinates.heading.degrees),
+		};
 
-		const result = `heading:${heading.degrees}; x:${x}; y:${y};`;
 		return result;
 	}
 
