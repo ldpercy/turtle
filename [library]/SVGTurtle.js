@@ -31,7 +31,7 @@ class SVGTurtle extends Turtle{
 		this.turtle = new Turtle(space);
 
 		this.history.length = 5;
-		this.history.push(new SVGTurtle.HistoryItem(this.turtle.coordinates));
+		this.history.push(this.getHistoryItem(this.turtle.coordinates));
 		this.history.shift();
 	}
 
@@ -191,7 +191,7 @@ class SVGTurtle extends Turtle{
 		if (this.turtle.commands.includes(command.name)) {
 			const commandResult = this.turtle.doCommand(command);
 		}
-		this.history.push(new SVGTurtle.HistoryItem(this.turtle.coordinates));
+		this.history.push(this.getHistoryItem(this.turtle.coordinates));
 		this.history.shift();
 
 
@@ -241,22 +241,21 @@ class SVGTurtle extends Turtle{
 
 
 
+
+	/* A shallow copy of a point suitable for sticking into the history array
+	*/
+	getHistoryItem(turtleCoordinates) {
+
+		const x = turtleCoordinates.position.x;
+		const y = turtleCoordinates.position.y;
+		const heading = new this.turtle.space.Angle(turtleCoordinates.heading.degrees);
+
+		const result = `heading:${heading.degrees}; x:${x}; y:${y};`;
+		return result;
+	}
+
+
 }/* SVGTurtle */
 
 
 
-
-/* A shallow copy of a point suitable for sticking into the history array
-*/
-SVGTurtle.HistoryItem = class {
-	x;
-	y;
-	heading;
-
-	constructor(turtleCoordinates) {
-		this.x = turtleCoordinates.position.x;
-		this.y = turtleCoordinates.position.y;
-		this.heading = new Angle(turtleCoordinates.heading.degrees);
-	}
-	toString() { return `heading:${this.heading.degrees}; x:${this.x}; y:${this.y};`; }
-}
