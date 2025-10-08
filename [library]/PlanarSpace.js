@@ -288,14 +288,50 @@ PlanarSpace.Point = class {
 
 
 
+
+
+
+PlanarSpace.Angle = class {
+	#degrees = 0;
+
+	constructor(degrees=0) {
+		this.#degrees = degrees;
+	}
+
+	get degrees()    { return this.#degrees; }
+	get radians()    { return this.#degrees / 180 * Math.PI; }
+	get radiansPi()  { return this.#degrees / 180; }
+	get radiansTau() { return this.#degrees / 360; }
+
+	set degrees(degrees)         { this.#degrees = degrees; return this; }
+	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; return this; }
+	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; return this; }
+	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; return this; }
+
+	plus(angle) {
+		this.#degrees += angle.degrees;
+	}
+
+}/* PlanarSpace.Angle */
+
+
+
+
+
+
+
 /* PlanarSpace.PolarPoint
-*/
+
+This can be culled  - there might be some sort of need for it in the future but in a greatly cut-down version.
+For now though Point is the combined version.
+
+* /
 PlanarSpace.PolarPoint = class {
 
 	#angle;
 	#radius;
 
-	constructor(angle = new Angle(), radius=0, precision=12)
+	constructor(angle = new PlanarSpace.Angle(), radius=0, precision=12)
 	{
 		this.#angle = angle;
 		this.#radius = radius;
@@ -335,7 +371,7 @@ PlanarSpace.PolarPoint = class {
 	Need to figure out whether the angles are absolute or relative
 	Either interpretation could make sense - need
 
-	*/
+	* /
 
 	/*
 	// this is really wrong I think
@@ -345,7 +381,7 @@ PlanarSpace.PolarPoint = class {
 			(this.radius + polarPoint.radius) * -Math.cos(this.radian + polarPoint.radian)
 		)
 	}
-	*/
+	* /
 
 
 	/* move
@@ -358,42 +394,21 @@ PlanarSpace.PolarPoint = class {
 		//console.debug(delta);
 		return this.plus(delta);
 	}
-	*/
+	* /
 
 	/* newPointOffsetXY
 	The offsets are applied to the radial point's 'local' cartesian plane.
 	(The absolute versions of this would have been trivial)
-	*/
+	* /
 	newPointOffsetXY(dx, dy) {
 		let result = new Point(dx, -this.radius + dy);
 		result.rotate(this.angle);
 		return result;
-	}/* newPointOffsetXY */
+	}/* newPointOffsetXY * /
 
 
 	rotate(angle) {
 		this.angle.degrees += angle.degrees;
 	}
 
-}/* PlanarSpace.PolarPoint */
-
-
-
-PlanarSpace.Angle = class {
-	#degrees = 0;
-
-	constructor(degrees=0) {
-		this.#degrees = degrees;
-	}
-
-	get degrees()    { return this.#degrees; }
-	get radians()    { return this.#degrees / 180 * Math.PI; }
-	get radiansPi()  { return this.#degrees / 180; }
-	get radiansTau() { return this.#degrees / 360; }
-
-	set degrees(degrees)         { this.#degrees = degrees; return this; }
-	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; return this; }
-	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; return this; }
-	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; return this; }
-
-}/* PlanarSpace.Angle */
+}/ * PlanarSpace.PolarPoint */
