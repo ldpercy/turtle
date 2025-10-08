@@ -44,7 +44,7 @@ class Turtle {
 	//	Accessors
 	//
 
-
+	get space() { return this.#space; }
 	get position() { return this.#position; }
 	get x()  { return this.#position.x; }
 	get y()  { return this.#position.y; }
@@ -53,6 +53,7 @@ class Turtle {
 	get coordinates() { return { position: this.#position, heading: this.#heading } };
 
 	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
+
 
 	/* set position(point) {  // I'd rather this was private, but can't use the same name - review
 		console.debug('Turtle.set position:', arguments);
@@ -78,10 +79,9 @@ class Turtle {
 
 
 	toOrigin() {
-		this.position = this.#space.origin;
-		this.heading.degrees = 0.0;
+		this.#position.toOrigin();
+		this.#heading.degrees = 0;
 	}
-
 
 
 	setHeading(heading) {
@@ -97,7 +97,7 @@ class Turtle {
 
 
 	bear(bearingDegrees, distance=0) {
-		//console.debug('Turtle.bear:', arguments);
+		console.debug('Turtle.bear:', arguments);
 		let delta, angle;
 		this.heading.degrees += bearingDegrees;
 
@@ -107,7 +107,7 @@ class Turtle {
 			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
 
-			//console.log('if (distance): delta', delta);
+			console.log('Turtle.bear delta', delta);
 
 			//const newPoint = this.plusPolar(delta);
 			//console.log('newPoint', newPoint);
@@ -120,34 +120,42 @@ class Turtle {
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
 
 
-	/* moves dx,dy in the turtles current local frame */
-	move = function(dx,dy) {
-		//console.log('move:', arguments);
+	/* moves dx,dy in the turtles current local frame
+	*/
+	move(dx, dy) {
+		console.log('Turtle.move:', arguments);
 
-		const currentPos =  new Point(this.x,this.y);
-		const offset = new Point(dx,dy).rotate(this.heading.radians);
-		const newPoint = this.plusPoint(offset);
-		this.heading.degrees = Turtle.lineAngle(currentPos, newPoint).degrees;
+		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
+		//const offset = new Point(dx,dy).rotate(this.heading.radians);
+
+		let delta = this.#space.newPoint('delta');
+		let deltaCartesian = new this.#space.CartesianCoordinates(dx, dy);
+		console.debug('Turtle.move deltaCartesian:', deltaCartesian);
+
+
+		delta.cartesian = deltaCartesian; // { x: 123, y: 456 };
+		console.debug('Turtle.move delta:', delta);
+
+
+		delta.rotate(this.heading);
+		console.debug('Turtle.move delta rotate:', delta);
+
+		const newPoint = this.#position.plus(delta);
+
+		console.debug('Turtle.move newPoint:', newPoint);
+
+		const newHeading = this.#space.lineAngle(currentCartesian, newPoint);
+
+		console.debug('Turtle.move new heading:', newHeading);
+		this.#heading = newHeading;
+
+		this.position = newPoint;
 	}
 
 	//
 	// Static
 	//
 
-
-	static lineAngle = function(point1, point2) {
-		// will get less meaningful the closer the points are together
-		let result = new Angle();
-		if (!point1.isEqualTo(point2)) {
-			result.radians = (Turtle.zeroRadian + Math.atan2(point2.y-point1.y, point2.x-point1.x));
-		}
-		return result;
-	}
-
-	static lineLength = function(point1, point2) {
-		const result = Math.hypot((point2.x - point1.x), (point2.y - point1.y));
-		return result;
-	}
 
 
 
@@ -192,7 +200,7 @@ class Turtle {
 	//
 
 	doCommand = function(command) {
-		console.log('Turtle.doCommand:', command);
+		console.info('Turtle.doCommand:', command);
 		let result = '';
 
 		switch(command.name) {

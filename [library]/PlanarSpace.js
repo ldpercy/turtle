@@ -34,7 +34,7 @@ class PlanarSpace {
 	}
 
 	getAngleFrom(center, cartesian) {
-		const result = new Angle();
+		const result = new PlanarSpace.Angle();
 		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
 		return result;
 	}
@@ -49,12 +49,24 @@ class PlanarSpace {
 
 	polarToCartesian = function(polar) {
 		const result = new PlanarSpace.CartesianCoordinates(
-			PlanarSpace.origin.x + (polar.radius * Math.sin(polar.angle.radians)),
-			PlanarSpace.origin.y + (polar.radius * Math.cos(polar.angle.radians))
+			PlanarSpace.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
+			PlanarSpace.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
 		);
+		console.debug('PlanarSpace.polarToCartesian:', polar, result);
 		return result;
 	}
 
+
+	lineAngle(point1, point2) {
+		// will get less meaningful the closer the points are together
+		//console.debug('PlanarSpace.lineAngle:', arguments);
+		let result = new PlanarSpace.Angle();
+		if (!PlanarSpace.areEqual(point1,point2)) {
+			result.radians = (PlanarSpace.zeroRadian + Math.atan2(point2.y-point1.y, point2.x-point1.x));
+		}
+		console.debug('PlanarSpace.lineAngle:', arguments, result);
+		return result;
+	}
 
 	//
 	//	Static methods
@@ -77,22 +89,13 @@ class PlanarSpace {
 		point.y = newPoint.y;
 	}
 
+
 	static areEqual(point1, point2) {
+		// could depend on more,
 		return ((point1.x === point2.x) && (point1.y === point2.y));
 	}
 
 
-
-
-
-	static lineAngle(point1, point2) {
-		// will get less meaningful the closer the points are together
-		let result = new Angle();
-		if (!point1.isEqualTo(point2)) {
-			result.radians = (PlanarSpace.zeroRadian.zeroRadian + Math.atan2(point2.y-point1.y, point2.x-point1.x));
-		}
-		return result;
-	}
 
 
 
@@ -193,19 +196,19 @@ PlanarSpace.Point = class {
 	get radius()	{ return this.#polar.radius; }
 
 
-	/* set angle(angle) {		// absolute
-		PlanarSpace.setAngle(this, angle);
-		// plus a
-	} */
-
 	set polar(polar) {
+		console.log('PlanarSpace.Point set polar', polar);
 		this.#polar = polar;
+
 		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
 
 	set cartesian(cartesian) {
+		console.debug('PlanarSpace.Point set cartesian', this.#cartesian, cartesian);
 		this.#cartesian = cartesian;
+		//console.debug('PlanarSpace.Point set cartesian', this.#cartesian);
 		this.#polar = this.#space.cartesianToPolar(cartesian);
+		//console.debug('PlanarSpace.Point set cartesian result', this, this.#cartesian);
 	}
 
 
@@ -230,13 +233,13 @@ PlanarSpace.Point = class {
 	//
 
 	plus = function(point) {
-		return new Point(
-			this.x + point.x,
-			this.y + point.y
-		);
+		const newPoint = new PlanarSpace.Point('plus point', this.#space);
+		newPoint.cartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
+		return newPoint;
 	}
 
 
+	/*
 	plusPolar = function(polarPoint) { // new
 		//console.debug('Turtle.plusPolar:', arguments);
 		const temp = polarPoint.toPoint();
@@ -258,11 +261,19 @@ PlanarSpace.Point = class {
 			distanceFromOrigin
 		);
 	}
+	*/
 
 
 	//
 	// Mutators
 	//
+
+	toOrigin() {
+		this.#cartesian.x = 0;
+		this.#cartesian.y = 0;
+		this.#polar.degrees = 0;
+		this.#polar.radius = 0;
+	}
 
 	add(point) {
 		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
@@ -270,17 +281,24 @@ PlanarSpace.Point = class {
 	}
 
 
-	rotate = function(radians) {
+	rotate(angle) {
 		// relative
-		const newPoint = new PolarPoint(this.angleFromOrigin.radians + radians, this.distanceFromOrigin).toPoint();
+		console.debug('PlanarSpace.Point rotate', angle);
+
+		const newPolarAngle = new PlanarSpace.Angle(this.#polar.angle.degrees + angle.degrees);
+		const newPolar = new PlanarSpace.PolarCoordinates(newPolarAngle, this.#polar.radius);
+
+		this.polar = newPolar;
+
+		/* const newPoint = new PolarPoint(this.angleFromOrigin.radians + radians, this.distanceFromOrigin).toPoint();
 		this.x = newPoint.x;
 		this.y = newPoint.y;
-		return this;
+		return this; */
 	}
 
 
 	toString() {
-		return `${this.name} - x:${this.x}; y:${this.y}; x:${this.angle.degrees}; y:${this.radius};`;
+		return `${this.name} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
 	}
 
 }/* PlanarSpace.Point */

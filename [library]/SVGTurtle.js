@@ -99,9 +99,9 @@ class SVGTurtle extends Turtle{
 	}*/
 
 
-	/* moves dx,dy in the turtles current local frame */
+	/* moves dx,dy in the turtles current local frame * /
 	move = function(dx,dy) {
-		//console.log('move:', arguments);
+		console.log('SVGTurtle.move:', arguments);
 
 		const currentPos =  new SVGPoint(this.x,this.y);
 		const offset = new SVGPoint(dx,dy).rotate(this.heading.radians);
@@ -111,7 +111,7 @@ class SVGTurtle extends Turtle{
 		const result = this.#moveTurtle(newPoint);
 
 		return result;
-	}
+	}/ * move */
 
 
 
@@ -155,15 +155,16 @@ class SVGTurtle extends Turtle{
 
 		// title text preserves whitespace, so:
 		const result = [
-			`x: ${this.x.toPrecision(this.precision.report)}`,
-			`y: ${this.y.toPrecision(this.precision.report)}`,
+			`cartesian:`,
+			`	x: ${this.x.toPrecision(this.precision.report)}`,
+			`	y: ${this.y.toPrecision(this.precision.report)}`,
 			`heading:`,
 			`	${this.heading.degrees.toPrecision(this.precision.report)}°`,
 			`	${this.heading.radians.toPrecision(this.precision.report)} rad`,
 			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
-			`from origin:`,
-			`	${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
+			`polar coordinates:`,
+			`	r: ${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
 			`	${originAngle.degrees.toPrecision(this.precision.report)}°`,
 			`	${originAngle.radians.toPrecision(this.precision.report)} rad`,
 			`	${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,
@@ -172,8 +173,8 @@ class SVGTurtle extends Turtle{
 			`	x: ${this.svgX.toPrecision(this.precision.report)}`,
 			`	y: ${this.svgY.toPrecision(this.precision.report)}`,
 			// debug
-			`Debug:`,
-			`	${this.toString()}`,
+			//`Debug:`,
+			//`	${this.toString()}`,
 			`history:`,
 			`	${this.history.map((item) => { return `heading:${item.heading.degrees}; x:${item.x}; y:${item.y};`;}).join('\n	')}`,
 		].join('\n');
@@ -184,7 +185,7 @@ class SVGTurtle extends Turtle{
 
 
 	doCommand = function(command) {
-		console.log('SVGTurtle.doCommand:', command);
+		console.info('SVGTurtle.doCommand:', command);
 		let result = '';
 
 
@@ -203,6 +204,7 @@ class SVGTurtle extends Turtle{
 			case 'text'         : result = this.text(...command.argument); break;
 			case 'marker'       : result = this.marker; break;
 
+			case 'move'         :
 			case 'l'            :
 			case 'left'         :
 			case 'r'            :
@@ -222,7 +224,7 @@ class SVGTurtle extends Turtle{
 
 	toString() {
 		//let result = super.toString();
-		let result = `SVGTurtle| x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`;
+		let result = `SVGTurtle| x:${this.x.toPrecision(this.precision.report)}; y:${this.y.toPrecision(this.precision.report)}; heading:${this.heading.degrees};`;
 		return result;
 	}
 
@@ -254,6 +256,7 @@ class SVGTurtle extends Turtle{
 
 		return result;
 	}
+
 
 
 }/* SVGTurtle */

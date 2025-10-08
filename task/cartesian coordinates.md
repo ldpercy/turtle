@@ -386,3 +386,13 @@ Finally after a very long time in the weeds this is starting to work.
 I'm going to standardise on 'conventional' orientation for the moment while I get everything running again.
 
 For now just inverting all the y coords is working, but I'd like a way better way to do this, especially if i want to be able to flip between coord systems.
+
+
+### Move & bear
+
+Still trying to get these both working properly...
+Bear is okay, but it inverts move, and vice-versa, and I need to slow down and fix this correctly instead of just farking around.
+
+
+
+
