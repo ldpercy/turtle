@@ -108,7 +108,7 @@ function updatePageTransform() {
 	const rotate = turtle.heading.degrees;
 
 	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
-	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.x},${-turtle.y})` : '';
+	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.svgX},${-turtle.svgY})` : '';
 
 	const transform = `${rotateTransform} ${translateTransform}`;
 
