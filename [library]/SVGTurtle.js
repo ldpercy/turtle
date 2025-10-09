@@ -210,6 +210,8 @@ class SVGTurtle {   //extends Turtle
 			case 'r'            :
 			case 'right'        : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
+			case 'origin'       :
+			case 'o'            : break;
 
 			default             : console.warn(`Unknown command: ${command}`); result = `<!-- Unknown command: ${command} -->`; break;
 

@@ -81,7 +81,7 @@ class Turtle {
 
 
 	toOrigin() {
-		this.#position.toOrigin();
+		this.#position.resetToOrigin();
 		this.#heading.degrees = 0;
 	}
 

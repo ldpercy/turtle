@@ -280,10 +280,10 @@ PlanarSpace.Point = class {
 	// Mutators
 	//
 
-	toOrigin() {
+	resetToOrigin() {
 		this.#cartesian.x = 0;
 		this.#cartesian.y = 0;
-		this.#polar.degrees = 0;
+		this.#polar.angle.degrees = 0;
 		this.#polar.radius = 0;
 	}
 
