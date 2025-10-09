@@ -9,7 +9,7 @@
 	<script defer src="./[library]/Maths.js"></script>
 	<!-- <script defer src="./[library]/geometry.js"></script> -->
 	<script defer src="./[library]/PlanarSpace.js"></script>
-	<!-- <script defer src="./[library]/svg.js"></script> -->
+	<script defer src="./[library]/SVG.js"></script>
 	<script defer src="./[library]/Turtle.js"></script>
 	<script defer src="./[library]/SVGTurtle.js"></script>
 
@@ -56,6 +56,11 @@
 	<div class="control-group control-right">
 		<form id="form-style">
 			<h2>Page</h2>
+
+			<label for="input-zoom" class="noafter">
+				<input type="range" name="zoom" id="input-zoom" value="1" min="0.5" max="4"/>
+				zoom
+			</label>
 
 			<label for="input-showTurtle" class="noafter">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
