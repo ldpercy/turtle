@@ -58,7 +58,14 @@
 			<h2>Page</h2>
 
 			<label for="input-zoom" class="noafter">
-				<input type="range" name="zoom" id="input-zoom" value="1" min="0.5" max="4"/>
+				<input type="range" name="zoom" id="input-zoom" value="02" min="-2" max="2" list="datalist-zoom" />
+				<datalist id="datalist-zoom">
+					<option value="-2">-2</option>
+					<option value="-1">-1</option>
+					<option value="0">0</option>
+					<option value="+1">+1</option>
+					<option value="+2">+2</option>
+				</datalist>
 				zoom
 			</label>
 
@@ -100,7 +107,7 @@
 	</div><!-- control-right -->
 
 
-	<svg id="svg-turtle" class="svg-turtle" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
 
 		<defs>
 			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->

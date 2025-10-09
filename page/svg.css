@@ -7,13 +7,12 @@
 
 
 
-.svg-turtle {
+.svg-element {
 	width: 100vw;
 	height: 99vh;
 
 	--turtle: #0a07;
 	--turtle-stroke: #0a0f;
-
 }
 
 .graphPaper {
@@ -23,6 +22,7 @@
 
 	#pattern-graphPaper {
 		stroke-width: 1px;
+		stroke-dasharray: 10 10;
 	}
 	.viewBox {
 		x: -100%;

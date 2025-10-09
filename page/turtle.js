@@ -21,6 +21,10 @@ function bodyOnload() {
 	document.getElementById('input-origin').addEventListener('click', toOrigin);
 
 	document.getElementById('form-style').addEventListener('change', updateStyle);
+	document.getElementById('input-zoom').addEventListener('change', updateZoom);
+
+	svgElement = document.getElementById('svg-element');
+	viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
 
 	drawing  = document.getElementById('group-drawing');
 
@@ -31,9 +35,28 @@ function bodyOnload() {
 
 
 
+function updateZoom() {
+
+	const zoomPower = Number.parseInt(document.getElementById('input-zoom').value);
+
+	const scale = 2 ** zoomPower;
+
+	//console.log(scale);
+
+	const newViewBox = viewBox.toStringScale(scale);
+	//console.log(newViewBox);
+	svgElement.setAttribute('viewBox',newViewBox);
+
+}
+
+
+
 function updateStyle() {
 
 	// Page
+
+
+
 	if (document.getElementById('input-showTurtle').checked) {
 		document.getElementById('icon-turtle').style.display = '';
 	}
