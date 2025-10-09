@@ -107,7 +107,7 @@ class Turtle {
 			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
 
-			console.log('Turtle.bear delta', delta);
+			console.debug('Turtle.bear delta', delta);
 
 			//const newPoint = this.plusPolar(delta);
 			//console.log('newPoint', newPoint);
@@ -123,7 +123,7 @@ class Turtle {
 	/* moves dx,dy in the turtles current local frame
 	*/
 	move(dx, dy) {
-		console.log('Turtle.move:', arguments);
+		console.debug('Turtle.move:', arguments);
 
 		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
 		//const offset = new Point(dx,dy).rotate(this.heading.radians);
@@ -200,7 +200,7 @@ class Turtle {
 	//
 
 	doCommand = function(command) {
-		console.info('Turtle.doCommand:', command);
+		console.log('Turtle.doCommand:', command);
 		let result = '';
 
 		switch(command.name) {
@@ -223,7 +223,7 @@ class Turtle {
 			case 'marker'       : result = this.marker; break;
 			*/
 
-			default             : console.log(`<!-- Unknown: ${command} -->`); break;
+			default             : console.warn(`Unknown command: ${command}`); break;
 		}
 
 		//console.log(instruction);
@@ -243,7 +243,7 @@ class Turtle {
 
 		lineArray.forEach(
 			(line) => {
-				const match = line.match(/^(\w+)(\s.*)?/);
+				const match = line.match(/^(\w+)(\s.*)?/);	// standard command structure
 				if (match) {
 					const cmd = match[1].trim();
 					let arg;
@@ -256,7 +256,7 @@ class Turtle {
 					result.push(new Turtle.Command(cmd, arg));
 				}
 				else {
-					result.push(new Turtle.Command('', line));
+					// result.push(new Turtle.Command('', line));
 				}
 			}
 		);

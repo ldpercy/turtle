@@ -197,7 +197,7 @@ PlanarSpace.Point = class {
 
 
 	set polar(polar) {
-		console.log('PlanarSpace.Point set polar', polar);
+		console.debug('PlanarSpace.Point set polar', polar);
 		this.#polar = polar;
 
 		this.#cartesian = this.#space.polarToCartesian(polar);

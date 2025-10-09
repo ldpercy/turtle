@@ -183,7 +183,7 @@ class SVGTurtle {   //extends Turtle
 
 
 	doCommand = function(command) {
-		console.info('SVGTurtle.doCommand:', command);
+		console.log('SVGTurtle.doCommand:', command);
 		let result = '';
 
 
@@ -209,7 +209,7 @@ class SVGTurtle {   //extends Turtle
 			case 'right'        : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 
-			default             : result = `<!-- Unknown: ${command} -->`; break;
+			default             : console.warn(`Unknown command: ${command}`); result = `<!-- Unknown command: ${command} -->`; break;
 
 		}
 
