@@ -7,6 +7,7 @@ Task
 Todo:
 -----
 
+* Ability to switch between SVG and conventional coordinates (`y` up/down)
 * Work out how to apply different transition speeds to different items
 * Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
 * Add SVG arc command - might be tricky to do nicely
@@ -14,13 +15,13 @@ Todo:
 * Add fill colour picker
 * Vastly improve floating-point handling - snapping, rounding, comparison, precision etc
 * Add a polar grid or overlay option
-* Dynamic viewbox resize
 * Change or have options for line drawing - line, polygon, path
 
 
 ### In Progress
 
-* option to switch between SVG and conventional coordinates (`y` up/down)
+* Conversion to conventional cartesian coordinates
+* Page zooming with scale transform (better than viewBox resize)
 
 
 ### Done

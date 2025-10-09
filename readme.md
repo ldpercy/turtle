@@ -39,9 +39,13 @@ left 165,600
 Coordinates
 -----------
 
-At the moment everything is using [standard SVG coordinates](<https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Positions#the_grid>) which inverts `y` compared to the way cartesian coordinates are usually presented.
+### Cartesian
+I've recently changed this over to use conventional cartesian coordinates instead of SVG coordinates, but the ability to switch is still on the [my todo list](task/readme.md).
 
-The ability to switch to conventional cartesian coordinates is on [my todo list](task/readme.md).
+### Polar
+* The polar axis extends up from the origin, ie the positive y-axis
+* Angles increase positively from the polar axis in the clockwise direction
+
 
 
 

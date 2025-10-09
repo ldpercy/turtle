@@ -5,8 +5,8 @@
 projectInfo = `
 	Turtle by ldpercy
 	https://github.com/ldpercy/turtle/
-	Version 0.3
-	https://github.com/ldpercy/turtle/pull/2
+	Version 0.4
+	https://github.com/ldpercy/turtle/pull/3
 `;
 
 
