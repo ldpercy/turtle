@@ -1,17 +1,11 @@
 /* SVGTurtle
 */
-class SVGTurtle {   //extends Turtle
+class SVGTurtle {
 
 	name;
 	turtle;
 	history = [];
 	precision = {};
-
-	/* Precision handling
-	This isn't very good at the moment - need better solutions for this stuff
-	Currently uses 12 fixed decimal points, which is okay, but would like some better ways of doing this.
-	For simple geometry rounding things very close to zero will do, but could have errors for anything requiring higher precision.
-	*/
 
 	constructor(
 			name,
@@ -20,18 +14,13 @@ class SVGTurtle {   //extends Turtle
 			//heading = new space.Angle(),
 			digits = 12
 		) {
-		// super(...arguments);
 
-
+		this.name = `SVGTurtle-${name}`;
+		this.turtle = new Turtle(name, space);
 		//this.#position = position;
 		//this.#heading = heading;
 
 		this.precision.digits = digits;
-		//console.log('SVGTurtle:', this);
-
-		this.name = `SVGTurtle-${name}`;
-
-		this.turtle = new Turtle(name, space);
 
 		this.history.length = 5;
 		this.history.push(this.getHistoryItem(this.turtle.coordinates));
@@ -42,103 +31,44 @@ class SVGTurtle {   //extends Turtle
 	// Accessors
 	//
 
-
-	//get position() { return this.#position; }
-
-	//get radius() { return Math.hypot(this.x, this.y); }
-
 	get x()         { return this.turtle.position.x; }
 	get y()         { return this.turtle.position.y; }
 	get heading()   { return this.turtle.heading; }
-	get svgX()      { return this.x;}
+	get svgX()      { return +this.x;}
 	get svgY()      { return -this.y; }
-
-	//get radius() { return this.turtle.position.radius; }
 
 	get coordinates()			{ return this.turtle.coordinates; }
 	get currentCoordinates()	{ return this.history[this.history.length-1]; }
 	get previousCoordinates()	{ return this.history[this.history.length-2]; }
 
+
 	//
 	// mutators
 	//
 
-	bear(bearingDegrees, distance=0) { 		// draw line from current to new
-		//console.debug('SVGTurtle.bear:', arguments);
-		let result = '';
-		super.bear(bearingDegrees, distance);
-		if (distance) { // could also be subject to float comparison
-			//let stp = super.toPoint();
-			//console.log('super position:', super.position);
-			result = this.#moveTurtle(super.position);
-		}
-
-		return result;
-	}
-
-
-	#moveTurtle(point) {
-		//console.debug('#moveTurtle:', arguments);
-		const result = SVGTurtle.getLine(super.position, point);
-		this.position = point;
-
-		return result;
-	}
-
-	/*
-	jump = function(bearingDegrees, distance=0) {
-		let result = '';
-		if (distance) { // could also be subject to float comparison
-			const delta = new PolarPoint(Maths.degreesToRadians(this.heading.degrees + bearingDegrees), distance);
-			const newPoint = this.plusPolar(delta);
-			this.position = newPoint;
-		}
-
-		this.heading.degrees += bearingDegrees;
-		return result;
-	}*/
-
-
-	/* moves dx,dy in the turtles current local frame * /
-	move = function(dx,dy) {
-		console.log('SVGTurtle.move:', arguments);
-
-		const currentPos =  new SVGPoint(this.x,this.y);
-		const offset = new SVGPoint(dx,dy).rotate(this.heading.radians);
-		const newPoint = this.plusPoint(offset);
-		this.heading.degrees = SVGTurtle.lineAngle(currentPos, newPoint).degrees;
-
-		const result = this.#moveTurtle(newPoint);
-
-		return result;
-	}/ * move */
-
-
-
-	circle = function(r) {
+	circle(r) {
 		const result = `<circle cx="${this.svgX}" cy="${this.svgY}" r="${r}"/>`;
 		return result;
 	}
 
-	rect = function(width, height) {
+	rect(width, height) {
 		const result = `<rect x="${this.x - width/2}" y="${this.svgY - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
-	ellipse = function(width, height) {
+	ellipse(width, height) {
 		const rx = width / 2;
 		const ry = height / 2;
 		const result = `<ellipse cx="${this.x}" cy="${this.svgY}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
-	text = function(text) {
+	text(text) {
 		const result = `<text x="${this.x}" y="${this.svgY}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})">${text}</text>`;
 		return result;
 	}
 
-
-	get marker() {
+	marker() {
 		const result = `
 			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})">
 				<title>${this.report}</title>
@@ -202,7 +132,7 @@ class SVGTurtle {   //extends Turtle
 			case 'rect'         : result = this.rect(...command.argument); break;
 			case 'ellipse'      : result = this.ellipse(...command.argument); break;
 			case 'text'         : result = this.text(...command.argument); break;
-			case 'marker'       : result = this.marker; break;
+			case 'marker'       : result = this.marker(); break;
 
 			case 'move'         :
 			case 'l'            :
@@ -210,6 +140,7 @@ class SVGTurtle {   //extends Turtle
 			case 'r'            :
 			case 'right'        : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
+			case 'jump'         :
 			case 'origin'       :
 			case 'o'            : break;
 
@@ -240,21 +171,6 @@ class SVGTurtle {   //extends Turtle
 	}
 
 
-	//
-	// Static
-	//
-
-
-
-	static getLine(point1, point2) {
-		//console.debug('SVGTurtle.getLine:', arguments);
-		const result = `<line x1="${point1.x}" y1="${-point1.y}" x2="${point2.x}" y2="${-point2.y}"/>`;
-		return result;
-	}
-
-
-
-
 	/* A shallow copy of a point suitable for sticking into the history array
 	*/
 	getHistoryItem(turtleCoordinates) {
@@ -265,6 +181,18 @@ class SVGTurtle {   //extends Turtle
 			heading : new this.turtle.space.Angle(turtleCoordinates.heading.degrees),
 		};
 
+		return result;
+	}
+
+
+	//
+	// Static
+	//
+
+
+	static getLine(point1, point2) {
+		//console.debug('SVGTurtle.getLine:', arguments);
+		const result = `<line x1="${point1.x}" y1="${-point1.y}" x2="${point2.x}" y2="${-point2.y}"/>`;
 		return result;
 	}
 

@@ -418,6 +418,7 @@ For now, just to focus and get an actual end in site, these will be the remainin
 If everything looks pretty much as it did before (or better), and everything now presents in conventional coordinates then I'll close it and defer further work to other tasks.
 
 
+I've also been playing more with the different console methods - it would be nice if I could get a consistent way of identifying the source of these (turtle, space, point etc).
 
 
 

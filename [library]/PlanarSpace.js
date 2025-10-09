@@ -8,17 +8,12 @@ class PlanarSpace {
 	static origin = {x:0, y:0};
 	#name;
 
-	/* JavaScript angle adjustments
-	The standard for atan2 uses mathematical conventions:
-		* the polar axis extends right from the origin, ie the x-axis
-		* angles are measured counter-clockwise
-	Depending on how the user configures the space, these adjustments will need to be made:
-	*/
+	// JavaScript angle adjustments - see wiki/coordinates
 	#jsAngleAxisAdjust;
 	#jsAngleDirectionAdjust;
 
-	/* space dimensions */
-	#size;	// tbd
+	// space dimensions - tbd
+	#size;
 
 
 	constructor(
@@ -254,30 +249,6 @@ PlanarSpace.Point = class {
 	toPolar()		{ return new PlanarSpace.PolarCoordinates(new PlanarSpace.Angle(this.#polar.angle.degrees), this.#polar.radius); }
 
 
-	/*
-	plusPolar = function(polarPoint) { // new
-		//console.debug('Turtle.plusPolar:', arguments);
-		const temp = polarPoint.toPoint();
-		const result = this.plusPoint(temp);
-		//console.debug('Turtle.plusPolar:', temp, result);
-		return result;
-	}
-
-
-	toPolarPoint = function(polarPoint = new PolarPoint()) {
-		const distanceFromOrigin = this.distanceFromOrigin;
-		//console.debug(distance);
-		const radian  = (Maths.equalToPrecision(this.precision, distanceFromOrigin, 0)) ? polarPoint.radian : this.radiansFrom();
-		//console.debug(radian);
-		// for points on the origin return the default PolarPoint radian
-		// should probably actually add these akin to a base vector
-		return new PolarPoint(
-			radian,
-			distanceFromOrigin
-		);
-	}
-	*/
-
 
 	//
 	// Mutators
@@ -296,13 +267,11 @@ PlanarSpace.Point = class {
 	}
 
 
-	rotate(angle) {
-		// relative
+	rotate(angle) {	// relative
 		//console.debug('PlanarSpace.Point rotate', angle);
 
 		const newPolarAngle = new PlanarSpace.Angle(this.#polar.angle.degrees + angle.degrees);
 		const newPolar = new PlanarSpace.PolarCoordinates(newPolarAngle, this.#polar.radius);
-
 		this.polar = newPolar;
 	}
 
@@ -349,94 +318,6 @@ PlanarSpace.Angle = class {
 
 
 /* PlanarSpace.PolarPoint
-
 This can be culled  - there might be some sort of need for it in the future but in a greatly cut-down version.
 For now though Point is the combined version.
-
-* /
-PlanarSpace.PolarPoint = class {
-
-	#angle;
-	#radius;
-
-	constructor(angle = new PlanarSpace.Angle(), radius=0, precision=12)
-	{
-		this.#angle = angle;
-		this.#radius = radius;
-		this.precision = precision;
-	}
-
-	//
-	//	Accessors
-	//
-
-	get angle() { return this.#angle; }
-	get radius() { return this.#radius; }
-
-
-	toPoint = function() {
-		const result = new Point(
-			this.radius * Math.sin(this.angle.radians),
-			this.radius * Math.cos(this.angle.radians)
-		);
-		return result;
-	}
-
-	toString() {
-		return `angle:${this.#angle.degrees}; radius:${this.radius};`;
-	}
-
-
-	plus = function(polarPoint) {
-		return this.toPoint().plus(polarPoint.toPoint()).toPolarPoint();
-		// this way is pretty dumb, figure out a better way
-		// the lengths should add arithmetically
-
-		// this one is absolute
-	}
-
-	/*
-	Need to figure out whether the angles are absolute or relative
-	Either interpretation could make sense - need
-
-	* /
-
-	/*
-	// this is really wrong I think
-	toPointPolarOffset(polarPoint) {  // another polar point represents the deltas
-		return new Point(
-			(this.radius + polarPoint.radius) * Math.sin(this.radian + polarPoint.radian),
-			(this.radius + polarPoint.radius) * -Math.cos(this.radian + polarPoint.radian)
-		)
-	}
-	* /
-
-
-	/* move
-	A single-step turtle graphics kind of move relative to the current point
-	Takes the current radian coordinate as the base heading and the new heading is relative to it.
-	Ie a 0 heading will continue in the same direction
-
-	move = function(distance, heading) {
-		const delta = new PolarPoint(this.radian+heading, distance);
-		//console.debug(delta);
-		return this.plus(delta);
-	}
-	* /
-
-	/* newPointOffsetXY
-	The offsets are applied to the radial point's 'local' cartesian plane.
-	(The absolute versions of this would have been trivial)
-	* /
-	newPointOffsetXY(dx, dy) {
-		let result = new Point(dx, -this.radius + dy);
-		result.rotate(this.angle);
-		return result;
-	}/* newPointOffsetXY * /
-
-
-	rotate(angle) {
-		this.angle.degrees += angle.degrees;
-	}
-
-}/ * PlanarSpace.PolarPoint */
+*/
