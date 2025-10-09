@@ -2,7 +2,7 @@
 */
 class SVGTurtle {   //extends Turtle
 
-
+	name;
 	turtle;
 	history = [];
 	precision = {};
@@ -14,6 +14,7 @@ class SVGTurtle {   //extends Turtle
 	*/
 
 	constructor(
+			name,
 			space = new PlanarSpace('page'),
 			//position = space.newPoint('SVGTurtle position'),
 			//heading = new space.Angle(),
@@ -28,8 +29,9 @@ class SVGTurtle {   //extends Turtle
 		this.precision.digits = digits;
 		//console.log('SVGTurtle:', this);
 
+		this.name = `SVGTurtle-${name}`;
 
-		this.turtle = new Turtle(space);
+		this.turtle = new Turtle(name, space);
 
 		this.history.length = 5;
 		this.history.push(this.getHistoryItem(this.turtle.coordinates));

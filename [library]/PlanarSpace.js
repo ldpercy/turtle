@@ -197,14 +197,14 @@ PlanarSpace.Point = class {
 
 
 	set polar(polar) {
-		console.debug('PlanarSpace.Point set polar', polar);
+		console.debug(`PlanarSpace.Point ${this.#name}.polar = `, polar);
 		this.#polar = polar;
 
 		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
 
 	set cartesian(cartesian) {
-		console.debug('PlanarSpace.Point set cartesian', this.#cartesian, cartesian);
+		console.debug(`PlanarSpace.Point ${this.#name}.cartesian = `, cartesian);
 		this.#cartesian = cartesian;
 		//console.debug('PlanarSpace.Point set cartesian', this.#cartesian);
 		this.#polar = this.#space.cartesianToPolar(cartesian);
@@ -233,7 +233,7 @@ PlanarSpace.Point = class {
 	//
 
 	plus = function(point) {
-		const newPoint = new PlanarSpace.Point('plus point', this.#space);
+		const newPoint = new PlanarSpace.Point(`${this.#name} plus point`, this.#space);
 		newPoint.cartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
 		return newPoint;
 	}

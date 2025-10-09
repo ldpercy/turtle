@@ -2,6 +2,7 @@
 */
 class Turtle {
 
+	#name;
 	#space;
 	#position;
 	#heading;
@@ -25,13 +26,14 @@ class Turtle {
 	};
 
 	constructor(
+			name,
 			space = new PlanarSpace('page'),
-			position = space.newPoint('Turtle position'),
+			position = space.newPoint(`${name}-position`),
 			heading = new space.Angle(),
 			digits = 12
 		) {
 		//console.log('Turtle args:',arguments)
-
+		this.#name =  `Turtle-${name}`;
 		this.#space = space;
 		this.#position = position;
 		this.#heading = heading;
@@ -97,7 +99,7 @@ class Turtle {
 
 
 	bear(bearingDegrees, distance=0) {
-		console.debug('Turtle.bear:', arguments);
+		console.debug(`${this.#name}.bear:`, arguments);
 		let delta, angle;
 		this.heading.degrees += bearingDegrees;
 
