@@ -12,7 +12,7 @@ class SVGTurtle {
 			space = new PlanarSpace('page'),
 			//position = space.newPoint('SVGTurtle position'),
 			//heading = new space.Angle(),
-			digits = 12
+			reportPrecision = 6,
 		) {
 
 		this.name = `SVGTurtle-${name}`;
@@ -20,7 +20,7 @@ class SVGTurtle {
 		//this.#position = position;
 		//this.#heading = heading;
 
-		this.precision.digits = digits;
+		this.precision.report = reportPrecision;
 
 		this.history.length = 5;
 		this.history.push(this.getHistoryItem(this.turtle.coordinates));
@@ -102,11 +102,8 @@ class SVGTurtle {
 			`svg:`,
 			`	x: ${this.svgX.toPrecision(this.precision.report)}`,
 			`	y: ${this.svgY.toPrecision(this.precision.report)}`,
-			// debug
-			//`Debug:`,
-			//`	${this.toString()}`,
-			`history:`,
-			`	${this.history.map((item) => { return `heading:${item.heading.degrees}; x:${item.x}; y:${item.y};`;}).join('\n	')}`,
+			//`history:`,
+			//`	${this.history.map((item) => { return `heading:${item.heading.degrees}; x:${item.x}; y:${item.y};`;}).join('\n	')}`,
 		].join('\n');
 		return result;
 	}

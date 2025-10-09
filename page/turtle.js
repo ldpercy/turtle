@@ -2,17 +2,19 @@
 //	turtle.js
 //
 
-function bodyOnload() {
-	console.info(`
-		Turtle by ldpercy
-		https://github.com/ldpercy/turtle/
-		Version 0.3
-		https://github.com/ldpercy/turtle/pull/2
-	`);
+projectInfo = `
+	Turtle by ldpercy
+	https://github.com/ldpercy/turtle/
+	Version 0.3
+	https://github.com/ldpercy/turtle/pull/2
+`;
 
+
+function bodyOnload() {
+	console.info(projectInfo);
 
 	page = new PlanarSpace('page');
-	turtle = new SVGTurtle('Terry', page);
+	turtle = new SVGTurtle('Terry', page, 6);
 
 	document.getElementById('input-do').addEventListener('click', doCommands);
 	document.getElementById('input-clear').addEventListener('click', clear);
