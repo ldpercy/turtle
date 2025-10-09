@@ -21,7 +21,7 @@ function bodyOnload() {
 	document.getElementById('input-origin').addEventListener('click', toOrigin);
 
 	document.getElementById('form-style').addEventListener('change', updateStyle);
-	document.getElementById('input-zoom').addEventListener('change', updateZoom);
+	//document.getElementById('input-zoom').addEventListener('change', updateZoom);
 
 	svgElement = document.getElementById('svg-element');
 	viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
@@ -35,7 +35,7 @@ function bodyOnload() {
 
 
 
-function updateZoom() {
+function getScale() {
 
 	const zoomPower = Number.parseInt(document.getElementById('input-zoom').value);
 
@@ -43,10 +43,10 @@ function updateZoom() {
 
 	//console.log(scale);
 
-	const newViewBox = viewBox.toStringScale(scale);
+	//const newViewBox = viewBox.toStringScale(scale);
 	//console.log(newViewBox);
-	svgElement.setAttribute('viewBox',newViewBox);
-
+	//svgElement.setAttribute('viewBox',newViewBox);
+	return scale;
 }
 
 
@@ -137,7 +137,9 @@ function updatePageTransform() {
 	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
 	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.svgX},${-turtle.svgY})` : '';
 
-	const transform = `${rotateTransform} ${translateTransform}`;
+	const scaleTransform = `scale(${getScale()})`;
+
+	const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
 
 	document.getElementById('group-page').setAttribute('transform', transform);
 }
