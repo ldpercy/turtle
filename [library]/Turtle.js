@@ -146,7 +146,7 @@ class Turtle {
 
 		console.debug('Turtle.move newPoint:', newPoint);
 
-		const newHeading = this.#space.lineAngle(currentCartesian, newPoint);
+		const newHeading = this.#space.getAngleFrom(currentCartesian, newPoint);
 
 		console.debug('Turtle.move new heading:', newHeading);
 		this.#heading = newHeading;

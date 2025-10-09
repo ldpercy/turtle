@@ -6,18 +6,40 @@
 class PlanarSpace {
 
 	static origin = {x:0, y:0};
-	static zeroRadian = Math.PI/2;		// This should be made a parameter to the space; Clockwise from y-axis is what I use, but it should be configurable
 	#name;
+
+	/* JavaScript angle adjustments
+	The standard for atan2 uses mathematical conventions:
+		* the polar axis extends right from the origin, ie the x-axis
+		* angles are measured counter-clockwise
+	Depending on how the user configures the space, these adjustments will need to be made:
+	*/
+	#jsAngleAxisAdjust;
+	#jsAngleDirectionAdjust;
+
+	/* space dimensions */
 	#size;	// tbd
 
 
 	constructor(
 			name = 'Initial PlanarSpace name',
+			polarAxis = 'y',
+			polarDirection = 'clockwise',
 			size,
 		) {
 		this.#name = name;
+
+
+		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
+		else					{	this.#jsAngleAxisAdjust = 0;			}
+
+		if (polarDirection === 'clockwise')	{	this.#jsAngleDirectionAdjust = -1;	}
+		else								{	this.#jsAngleDirectionAdjust = +1;	}
+
 		this.#size = size;
-	}
+
+	}/* constructor */
+
 
 	get name() { return this.#name; }
 	get origin() { return PlanarSpace.origin; }
@@ -28,14 +50,13 @@ class PlanarSpace {
 	// Instance Methods
 	//
 
-
 	angleFromOrigin(cartesian) {
 		return this.getAngleFrom(PlanarSpace.origin, cartesian );
 	}
 
 	getAngleFrom(center, cartesian) {
 		const result = new PlanarSpace.Angle();
-		result.radians = PlanarSpace.zeroRadian + Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
+		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(cartesian.y - center.y, cartesian.x - center.x));
 		return result;
 	}
 
@@ -57,16 +78,7 @@ class PlanarSpace {
 	}
 
 
-	lineAngle(point1, point2) {
-		// will get less meaningful the closer the points are together
-		//console.debug('PlanarSpace.lineAngle:', arguments);
-		let result = new PlanarSpace.Angle();
-		if (!PlanarSpace.areEqual(point1,point2)) {
-			result.radians = (PlanarSpace.zeroRadian + Math.atan2(point2.y-point1.y, point2.x-point1.x));
-		}
-		console.debug('PlanarSpace.lineAngle:', arguments, result);
-		return result;
-	}
+
 
 	//
 	//	Static methods
