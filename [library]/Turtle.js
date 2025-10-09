@@ -57,11 +57,6 @@ class Turtle {
 	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
 
 
-	/* set position(point) {  // I'd rather this was private, but can't use the same name - review
-		console.debug('Turtle.set position:', arguments);
-		this.#position.x = point.x;
-		this.#position.y = point.y;
-	} */
 
 	set position(point) {  // I'd rather this was private, but can't use the same name - review
 		// console.log('Turtle.set position:', arguments);
@@ -98,25 +93,27 @@ class Turtle {
 	}
 
 
+	/* bear
+	*/
 	bear(bearingDegrees, distance=0) {
-		console.debug(`${this.#name}.bear:`, arguments);
+		//console.debug(`${this.#name}.bear:`, arguments);
 		let delta, angle;
 		this.heading.degrees += bearingDegrees;
 
 		if (distance) { // could also be subject to float comparison
-			//console.log('if (distance)');
-			delta = this.#space.newPoint('delta');
+			delta = this.#space.newPoint('bearing delta');
 			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
 
-			console.debug('Turtle.bear delta', delta);
+			//console.debug('Turtle.bear delta', delta);
 
 			//const newPoint = this.plusPolar(delta);
 			//console.log('newPoint', newPoint);
 			this.#position.add(delta);
 		}
-		//this.log('bear-end');
+		//console.debug(`${this.#name}.bear position:`, this.#position);
 	}/* bear */
+
 
 	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
@@ -125,30 +122,30 @@ class Turtle {
 	/* moves dx,dy in the turtles current local frame
 	*/
 	move(dx, dy) {
-		console.debug('Turtle.move:', arguments);
+		//console.debug('Turtle.move:', arguments);
 
 		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
 		//const offset = new Point(dx,dy).rotate(this.heading.radians);
 
 		let delta = this.#space.newPoint('delta');
 		let deltaCartesian = new this.#space.CartesianCoordinates(dx, dy);
-		console.debug('Turtle.move deltaCartesian:', deltaCartesian);
+		//console.debug('Turtle.move deltaCartesian:', deltaCartesian);
 
 
 		delta.cartesian = deltaCartesian; // { x: 123, y: 456 };
-		console.debug('Turtle.move delta:', delta);
+		//console.debug('Turtle.move delta:', delta);
 
 
 		delta.rotate(this.heading);
-		console.debug('Turtle.move delta rotate:', delta);
+		//console.debug('Turtle.move delta rotate:', delta);
 
 		const newPoint = this.#position.plus(delta);
 
-		console.debug('Turtle.move newPoint:', newPoint);
+		//console.debug('Turtle.move newPoint:', newPoint);
 
 		const newHeading = this.#space.getAngleFrom(currentCartesian, newPoint);
 
-		console.debug('Turtle.move new heading:', newHeading);
+		//console.debug('Turtle.move new heading:', newHeading);
 		this.#heading = newHeading;
 
 		this.position = newPoint;
@@ -202,7 +199,7 @@ class Turtle {
 	//
 
 	doCommand = function(command) {
-		console.log('Turtle.doCommand:', command);
+		console.log(`${this.#name}.doCommand:`, command);
 		let result = '';
 
 		switch(command.name) {

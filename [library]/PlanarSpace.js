@@ -209,14 +209,14 @@ PlanarSpace.Point = class {
 
 
 	set polar(polar) {
-		console.debug(`PlanarSpace.Point ${this.#name}.polar = `, polar);
+		//console.debug(`PlanarSpace.Point ${this.#name}.polar = `, polar);
 		this.#polar = polar;
 
 		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
 
 	set cartesian(cartesian) {
-		console.debug(`PlanarSpace.Point ${this.#name}.cartesian = `, cartesian);
+		//console.debug(`PlanarSpace.Point ${this.#name}.cartesian = `, cartesian);
 		this.#cartesian = cartesian;
 		//console.debug('PlanarSpace.Point set cartesian', this.#cartesian);
 		this.#polar = this.#space.cartesianToPolar(cartesian);
@@ -298,7 +298,7 @@ PlanarSpace.Point = class {
 
 	rotate(angle) {
 		// relative
-		console.debug('PlanarSpace.Point rotate', angle);
+		//console.debug('PlanarSpace.Point rotate', angle);
 
 		const newPolarAngle = new PlanarSpace.Angle(this.#polar.angle.degrees + angle.degrees);
 		const newPolar = new PlanarSpace.PolarCoordinates(newPolarAngle, this.#polar.radius);
