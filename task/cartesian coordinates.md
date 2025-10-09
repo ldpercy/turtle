@@ -393,6 +393,33 @@ For now just inverting all the y coords is working, but I'd like a way better wa
 Still trying to get these both working properly...
 Bear is okay, but it inverts move, and vice-versa, and I need to slow down and fix this correctly instead of just farking around.
 
+Okay cool, have whittled away a little more cruft and added some more useful debugging and think I'm just about back to where I need to be.
+Move and bear are now working again in my conventional planar coordinate setup.
+
+I've also properly parameterised the polar configuration now, but haven't tested it much yet.
+
+Still a bunch more things to do though.
+
+
+This task
+---------
+
+This has turned into a much bigger job than just getting conventional cartesian coordinates going.
+I still don't know yet whether at the end of all this I'll be able to easily switch back into SVG coords (hope so), back that's taking a back seat right now.
+
+For now, just to focus and get an actual end in site, these will be the remaining tasks:
+
+* Update page centering
+* Update axis markers for conventional coords - these will need to be dynamic eventually
+* Get some of the output formatted to x number of decimals
+* Make sure all drawing methods are working as before
+* Do a bit of testing on the space polar parameters
+
+If everything looks pretty much as it did before (or better), and everything now presents in conventional coordinates then I'll close it and defer further work to other tasks.
+
+
+
+
 
 
 
