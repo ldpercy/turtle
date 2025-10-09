@@ -3,10 +3,14 @@ Coordinates
 
 
 
+
+
+
+
 JavaScript angle adjustments
 ----------------------------
 
-The JavaScript standard for atan2 uses mathematical conventions:
+The JavaScript standard for atan2 uses conventions from mathematics:
 
 * The polar axis extends to the right from the origin, ie the positive x-axis
 * Angles increase positively from the polar axis in the counter-clockwise direction

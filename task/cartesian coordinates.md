@@ -421,6 +421,21 @@ If everything looks pretty much as it did before (or better), and everything now
 I've also been playing more with the different console methods - it would be nice if I could get a consistent way of identifying the source of these (turtle, space, point etc).
 
 
+### Zoom
+
+I felt like tacking this on here as well as it seemed fairly doable.
+
+I've added a zoom feature using a scale that works okay; the UI could use a little work though.
+
+Initially I did it with a viewbox resize which worked, but the transition didn't animate so I changed it to a scale transform, which does animate.
+There still may be need for the viewbox version so I'll keep the code.
+
+When zoomed in the Turtle jiggles around a bit during animations - no idea if I can do anything about that though, seems like a browser thing.
+Might be able to smooth it out by changing the duration or easing.
+
+
+Have also updated the gridlines a little.
+
 
 
 
