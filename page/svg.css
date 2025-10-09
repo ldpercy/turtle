@@ -20,17 +20,19 @@
 	stroke: var(--teal);
 	fill:none;
 
-	#pattern-graphPaper {
+	#pattern-gridMinor {
 		stroke-width: 1px;
-		stroke-dasharray: 10 10;
+		/* stroke-dasharray: 10 10;    dashes */
+		/* stroke-dasharray: 10 80 20 80 10;  crosses  */
 	}
 	.viewBox {
 		x: -100%;
 		y: -100%;
 		width: 200%;
 		height: 200%;
-		fill: url(#pattern-graphPaper);
 	}
+	.grid-minor { fill: url(#pattern-gridMinor); }
+	.grid-major { fill: url(#pattern-gridMajor); }
 	.axis {
 		 stroke-width: 2px;
 	}
