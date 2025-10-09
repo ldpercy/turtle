@@ -50,19 +50,19 @@ class PlanarSpace {
 	// Instance Methods
 	//
 
-	angleFromOrigin(cartesian) {
-		return this.getAngleFrom(PlanarSpace.origin, cartesian );
-	}
 
 	getAngleFrom(center, cartesian) {
+		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
 		const result = new PlanarSpace.Angle();
-		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(cartesian.y - center.y, cartesian.x - center.x));
+		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
+		//console.debug(`${this.#name}.getAngleFrom:`, result);
 		return result;
 	}
 
 	cartesianToPolar = function(cartesian) {
+
 		const result = new PlanarSpace.PolarCoordinates(
-			this.angleFromOrigin(cartesian),
+			this.getAngleFrom(PlanarSpace.origin, cartesian),
 			PlanarSpace.distanceFromOrigin(cartesian)
 		);
 		return result;
@@ -73,7 +73,7 @@ class PlanarSpace {
 			PlanarSpace.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
 			PlanarSpace.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
 		);
-		console.debug('PlanarSpace.polarToCartesian:', polar, result);
+		//console.debug('PlanarSpace.polarToCartesian:', polar, result);
 		return result;
 	}
 
@@ -250,6 +250,9 @@ PlanarSpace.Point = class {
 		return newPoint;
 	}
 
+	toCartesian()	{ return new PlanarSpace.CartesianCoordinates(this.x, this.y); }
+	toPolar()		{ return new PlanarSpace.PolarCoordinates(new PlanarSpace.Angle(this.#polar.angle.degrees), this.#polar.radius); }
+
 
 	/*
 	plusPolar = function(polarPoint) { // new
@@ -301,11 +304,6 @@ PlanarSpace.Point = class {
 		const newPolar = new PlanarSpace.PolarCoordinates(newPolarAngle, this.#polar.radius);
 
 		this.polar = newPolar;
-
-		/* const newPoint = new PolarPoint(this.angleFromOrigin.radians + radians, this.distanceFromOrigin).toPoint();
-		this.x = newPoint.x;
-		this.y = newPoint.y;
-		return this; */
 	}
 
 
