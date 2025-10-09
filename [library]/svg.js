@@ -1,6 +1,8 @@
 //
 // SVG
 //
+// not currently used, might bring it back in future
+//
 
 class Element {
 	constructor(id='', classString='') {

@@ -4,8 +4,10 @@
 
 function bodyOnload() {
 	console.info(`
-		Turtle by ldpercy v0.3
+		Turtle by ldpercy
 		https://github.com/ldpercy/turtle/
+		Version 0.3
+		https://github.com/ldpercy/turtle/pull/2
 	`);
 
 

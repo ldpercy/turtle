@@ -199,7 +199,7 @@ class Turtle {
 	//
 
 	doCommand = function(command) {
-		console.log(`${this.#name}.doCommand:`, command);
+		//console.log(`${this.#name}.doCommand:`, command);
 		let result = '';
 
 		switch(command.name) {

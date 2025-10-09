@@ -115,7 +115,7 @@ class SVGTurtle {
 
 
 	doCommand = function(command) {
-		console.log(`${this.name}.doCommand:`, command);
+		//console.log(`${this.name}.doCommand:`, command);
 		let result = '';
 
 

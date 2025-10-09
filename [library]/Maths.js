@@ -3,6 +3,9 @@
 //
 class Maths{
 
+
+	static TAU = 2 * Math.PI;
+
 	/* significantFigures
 	Returns a function that will call toPrecision with the supplied number of significant figures
 	*/
@@ -48,58 +51,4 @@ class Maths{
 	}
 
 
-
-	//
-	// number bases
-	//
-
-	static baseSize(base, number) {
-		let power = 0;
-		while (base**power <= number) { power++; }
-		return power;
-	}
-
-	static numberToBase(number, base) {
-		let result = {};
-		let remainder = number;
-		let power = 0;
-		let placeKey = 0;
-		let placeVal = 0;
-		while (remainder > 0) {
-			placeKey = base**power;
-			placeVal = remainder % base;
-			result[placeKey] = placeVal;
-			remainder = (remainder - placeVal)/ base;
-			power++;
-		}
-		return result;
-	}
-
-
-	/* Similar to above but doesn't use zero
-	*/
-	static numberToBaseN(number, base) {
-		let result = {};
-		let remainder = number;
-		let power = 0;
-		let placeKey = 0;
-		let placeVal = 0;
-		while (remainder > 0) {
-			placeKey = base**power;
-			placeVal = ((remainder % base) === 0) ? base : remainder % base;
-
-			result[placeKey] = placeVal;
-			remainder = (remainder - placeVal)/ base;
-			power++;
-		}
-		return result;
-	}
-
-
 }/* Maths */
-
-
-
-Math.TAU = 2 * Math.PI;
-
-
