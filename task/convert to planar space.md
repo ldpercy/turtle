@@ -1,5 +1,12 @@
-Cartesian Coordinates
-=====================
+Convert to planar space
+=======================
+
+This task was originally titled **Cartesian Coordinates** but the scope shifted significantly during development.
+
+```
+2025-10-10		v0.4	Done	https://github.com/ldpercy/turtle/pull/3
+```
+
 
 
 At the moment everything is using [standard SVG coordinates](<https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Positions#the_grid>) which inverts `y` compared to the way cartesian coordinates are usually presented.
@@ -438,4 +445,26 @@ Have also updated the gridlines a little.
 
 
 
+Wrapup
+------
 
+Well, what started out as a seemingly smallish request to convert/allow for regular cartesian coordinates turned into a bit of a monster.
+
+I should probably rename the task to properly reflect what I've actually done here.
+
+* Long diversion into trying to get things working with simple subclasses for Points and the Turtle - proved not very fruitful
+* Heaps more discovery regarding how JS classes work, eg private fields are hard private; methods are a little different from function fields; accessors are cool when used correctly
+* Eventually concluded that a lot of entities like Points and Angles (and their related functions) make sense within a given geometric space, and started collecting a lot of the current code into a PlanarSpace class to represent 2D euclidean spaces.
+* The space idea could be applied to other kinds of geometries such as toroids, spheres, tubes etc with their own rules
+* Spaces will also be where a lot of the eventual precision/rounding/snapping etc code will be homed as those rules could vary per space.
+* Started user 'inner' classes in JS - they're not really inner in a proper sense yet as i don't think JS supports that, but using it as a way of grouping related classes together in a namespace. In this case angles, points and coordinate pairs are now namespaced within PlanarSpace.
+* Point and PolarPoint have been combined and now I just have getters/setters for the different coordinate types; this removes a bunch of the awkward object conversion code.
+* An SVGTurtle class has been added. It originally inherited from Turtle, but now is just wrapper to handle drawing and related concerns. Turtle is now independent of any output.
+* Instances of PlanarSpace can configure their own polar axis and direction (though it's only partially working so far)
+* A small history array was added to help with line drawing and debugging. Currently not shown, but will re-add to the UI in future.
+* Added a page zoom feature, and updated grid a little
+* Lots of hair-tearing
+
+Okay that's more or less the lot.
+The main theme here now is the collection of all the disparate bits of maths into a PlanarSpace class and namespace.
+I'll rename this task and make sure the PR gets an updated name.
