@@ -1,14 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>🐢 Turtle by ldpercy v0.3</title>
+	<title>🐢 Turtle by ldpercy v0.4</title>
 	<meta charset="utf-8">
-	 <meta name="description" content="Turtle by ldpercy v0.3 - SVG, JavaScript, HTML, CSS">
+	 <meta name="description" content="Turtle by ldpercy v0.4 - SVG, JavaScript, HTML, CSS">
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
-	<script defer src="./[library]/maths.js"></script>
-	<script defer src="./[library]/geometry.js"></script>
-	<script defer src="./[library]/turtle.js"></script>
+	<script defer src="./[library]/Maths.js"></script>
+	<!-- <script defer src="./[library]/geometry.js"></script> -->
+	<script defer src="./[library]/PlanarSpace.js"></script>
+	<script defer src="./[library]/SVG.js"></script>
+	<script defer src="./[library]/Turtle.js"></script>
+	<script defer src="./[library]/SVGTurtle.js"></script>
+
 	<script defer src="./page/turtle.js"></script>
 </head>
 <body onload="bodyOnload()">
@@ -43,7 +47,7 @@
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a> by <a href="https://github.com/ldpercy/">ldpercy</a>
-				<a href="https://github.com/ldpercy/turtle/pull/2">v0.3</a>
+				<a href="https://github.com/ldpercy/turtle/pull/3">v0.4</a>
 
 			</details>
 		</form>
@@ -52,6 +56,18 @@
 	<div class="control-group control-right">
 		<form id="form-style">
 			<h2>Page</h2>
+
+			<label for="input-zoom" class="noafter">
+				<input type="range" name="zoom" id="input-zoom" value="0" min="-2" max="2" list="datalist-zoom" />
+				<datalist id="datalist-zoom">
+					<option value="-2">-2</option>
+					<option value="-1">-1</option>
+					<option value="0">0</option>
+					<option value="+1">+1</option>
+					<option value="+2">+2</option>
+				</datalist>
+				zoom
+			</label>
 
 			<label for="input-showTurtle" class="noafter">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
@@ -91,7 +107,7 @@
 	</div><!-- control-right -->
 
 
-	<svg id="svg-turtle" class="svg-turtle" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
 
 		<defs>
 			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
@@ -114,10 +130,14 @@
 
 		<g id="group-page" class="page">
 			<g id="group-grid" class="graphPaper">
-				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
-					<rect x="0" y="0" width="100" height="100"/>
+				<pattern id="pattern-gridMinor" width="100" height="100" patternUnits="userSpaceOnUse">
+					<polyline points="0,100 100,100 100,0"/>
 				</pattern>
-				<rect class="viewBox"/>
+				<pattern id="pattern-gridMajor" width="500" height="500" patternUnits="userSpaceOnUse">
+					<polyline points="0,500 500,500 500,0"/>
+				</pattern>
+				<rect class="viewBox grid-major"/>
+				<rect class="viewBox grid-minor"/>
 				<line class="axis" x1="-100%" y1="0" x2="100%" y2="0"><title>x axis</title></line>
 				<line class="axis" x1="0" y1="-100%" x2="0" y2="100%"><title>y axis</title></line>
 				<circle class="origin"><title>origin</title></circle>
@@ -125,8 +145,10 @@
 				<text class="label axis-x" x="+2000" y="0" transform="rotate(90,+2000,0)"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
 				<text class="label axis-x" x="-1000" y="0" transform="rotate(90,-1000,0)"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
 				<text class="label axis-x" x="-2000" y="0" transform="rotate(90,-2000,0)"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
-				<text class="label axis-y" x="0" y="+1000"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
-				<text class="label axis-y" x="0" y="-1000"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
+				<text class="label axis-y" x="0" y="+1000"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
+				<text class="label axis-y" x="0" y="+2000"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
+				<text class="label axis-y" x="0" y="-1000"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
+				<text class="label axis-y" x="0" y="-2000"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
 			</g>
 
 			<g id="group-drawing" class="drawing show-marker"></g>

@@ -1,14 +1,30 @@
+//
+//	turtle.js
+//
+
+projectInfo = `
+	Turtle by ldpercy
+	https://github.com/ldpercy/turtle/
+	Version 0.4
+	https://github.com/ldpercy/turtle/pull/3
+`;
 
 
 function bodyOnload() {
+	console.info(projectInfo);
 
-	turtle = new Turtle();
+	page = new PlanarSpace('page');
+	turtle = new SVGTurtle('Terry', page, 6);
 
 	document.getElementById('input-do').addEventListener('click', doCommands);
 	document.getElementById('input-clear').addEventListener('click', clear);
 	document.getElementById('input-origin').addEventListener('click', toOrigin);
 
 	document.getElementById('form-style').addEventListener('change', updateStyle);
+	//document.getElementById('input-zoom').addEventListener('change', updateZoom);
+
+	svgElement = document.getElementById('svg-element');
+	viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
 
 	drawing  = document.getElementById('group-drawing');
 
@@ -19,9 +35,28 @@ function bodyOnload() {
 
 
 
+function getScale() {
+
+	const zoomPower = Number.parseInt(document.getElementById('input-zoom').value);
+
+	const scale = 2 ** zoomPower;
+
+	//console.log(scale);
+
+	//const newViewBox = viewBox.toStringScale(scale);
+	//console.log(newViewBox);
+	//svgElement.setAttribute('viewBox',newViewBox);
+	return scale;
+}
+
+
+
 function updateStyle() {
 
 	// Page
+
+
+
 	if (document.getElementById('input-showTurtle').checked) {
 		document.getElementById('icon-turtle').style.display = '';
 	}
@@ -74,7 +109,8 @@ function clear() {
 }
 
 function toOrigin() {
-	turtle.toOrigin();
+	//turtle.toOrigin();
+	turtle.doCommand({name:'o'});
 	updateTurtle();
 }
 
@@ -99,9 +135,11 @@ function updatePageTransform() {
 	const rotate = turtle.heading.degrees;
 
 	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
-	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.x},${-turtle.y})` : '';
+	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.svgX},${-turtle.svgY})` : '';
 
-	const transform = `${rotateTransform} ${translateTransform}`;
+	const scaleTransform = `scale(${getScale()})`;
+
+	const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
 
 	document.getElementById('group-page').setAttribute('transform', transform);
 }
@@ -109,10 +147,10 @@ function updatePageTransform() {
 
 
 function updateTurtle() {
-	turtleIcon.setAttribute('x', turtle.x);
-	turtleIcon.setAttribute('y', turtle.y);
+	turtleIcon.setAttribute('x', turtle.svgX);
+	turtleIcon.setAttribute('y', turtle.svgY);
 	turtleIcon.setAttribute('transform',
-		`rotate(${turtle.heading.degrees},${turtle.x},${turtle.y})`
+		`rotate(${turtle.heading.degrees},${turtle.svgX},${turtle.svgY})`
 	);
 
 	updatePageTransform();

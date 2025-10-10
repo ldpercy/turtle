@@ -16,41 +16,61 @@ I ended up so close to doing this while working out some polar maths for the [ye
 Syntax
 ------
 
-Not going to implement the original logo syntax, will be similar in style though.
+* All angles are in degrees
+* All distances are in SVG units (or 'pixels')
+* Items in square brackets are optional and can be omitted
 
-I started with JSON commands similar to this:
-```js
-[
-	{ cmd:'forward',	args: {length: 10} },
-	{ cmd:'turn',		args: {deg: 90} },
-]
-```
 
-But quickly left it for being too verbose. Now using a simpler syntax like this:
+### Movement Commands
 
-```
-right 15,500
-circle 175
-rect 250,500
-marker
-left 165,600
-```
+| command					| example		| description							|
+|---------------------------|---------------|---------------------------------------|
+| left angle[,distance]		| left 30,500	| bear left for the given distance		|
+| right angle[,distance]	| right 45,500	| bear right for the given distance		|
+| bear angle[,distance]		| bear 60,200	| same as right							|
+| jump angle[,distance]		| jump 90,400	| bear without drawing line				|
+| move dx,dy				| move 400,300	| move in the turtle's local frame		|
+
+
+### SVG drawing commands
+
+These do not move the turtle, but draw items at its current location and orientation.
+
+
+| command				| example			| description										|
+|-----------------------|-------------------|---------------------------------------------------|
+| circle radius			| circle 100		| draw a circle with the given radius				|
+| ellipse width,height	| ellipse 150,50	| draw an ellipse with the given width & height		|
+| rect width,height		| rect 250,100		| draw a rectangle with the given width & height	|
+| text string			| text Hello 🐢		| draw text with given string						|
+| marker				| marker			| drop a marker flag - hover for position info		|
+
+
+### Note
+
+* Blank lines are ignored
+* Unknown commands are ignored
+* You can comment out a line by turning it into an unknown command, eg `//right 45,500`
+
+
+
 
 Coordinates
 -----------
 
-At the moment everything is using [standard SVG coordinates](<https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Positions#the_grid>) which inverts `y` compared to the way cartesian coordinates are usually presented.
+### Cartesian
+I've recently changed this over to use conventional cartesian coordinates (y axis up) instead of SVG coordinates, but the ability to switch is still on the [my todo list](task/readme.md).
 
-The ability to switch to conventional cartesian coordinates is on [my todo list](task/readme.md).
+### Polar
+* The polar axis (0°) extends up from the origin, ie the positive y-axis in conventional cartesian
+* Angles increase from the polar axis in the clockwise direction
 
 
 
-SVG bearing
------------
-There was a proposal to add 'bearing' to SVG's path commands (much in style of turtle graphics) which would have made the implementation even easier.
+Tasks
+-----
 
-Unfortunately it is abandoned afaict:
+More detail in the [task/](<./task/>) directory.
 
-https://lists.w3.org/Archives/Public/www-svg/2014Feb/0034.html
-
-https://github.com/w3c/svgwg/wiki/SVG-2-new-features#new-path-features
+* Ability to switch between SVG and conventional coordinates (`y` up/down)
+* Dark theme
