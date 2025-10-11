@@ -15,7 +15,7 @@
 
 	<script defer src="./page/turtle.js"></script>
 </head>
-<body onload="bodyOnload()">
+<body onload="bodyOnload()" class="dark">
 
 	<div class="control-group control-left">
 		<form id="form-turtle">
@@ -57,49 +57,67 @@
 		<form id="form-style">
 			<h2>Page</h2>
 
-			<label for="input-zoom" class="noafter">
+			<label for="input-zoom">
 				<input type="range" name="zoom" id="input-zoom" value="0" min="-2" max="2" list="datalist-zoom" />
 				<datalist id="datalist-zoom">
 					<option value="-2">-2</option>
 					<option value="-1">-1</option>
 					<option value="0">0</option>
-					<option value="+1">+1</option>
-					<option value="+2">+2</option>
+					<option value="1">+1</option>
+					<option value="2">+2</option>
 				</datalist>
 				zoom
 			</label>
 
-			<label for="input-showTurtle" class="noafter">
+
+
+			<label for="input-showTurtle">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
 				show turtle
 			</label>
-			<label for="input-showGrid" class="noafter">
+			<label for="input-showGrid">
 				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
 				show grid
 			</label>
-			<label for="input-centerTurtle" class="noafter">
+			<label for="input-centerTurtle">
 				<input type="checkbox" name="centerTurtle" id="input-centerTurtle">
 				center turtle
 			</label>
-			<label for="input-rotatePage" class="noafter">
+			<label for="input-rotatePage">
 				<input type="checkbox" name="rotatePage" id="input-rotatePage">
 				rotate
 			</label>
 
+
+			<label class="theme">
+				<label title="light">
+					<input type="radio" name="theme" value="light">
+					□
+				</label>
+				<label title="dark">
+					<input type="radio" name="theme" value="dark">
+					■
+				</label>
+				<label title="auto">
+					<input type="radio" name="theme" value="auto" checked>
+					▣
+				</label>
+			</label>
+
 			<h2>Drawing</h2>
-			<label for="input-colour" class="noafter">
+			<label for="input-colour">
 				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
 				colour
 			</label>
-			<label for="input-strokeWidth" class="noafter">
+			<label for="input-strokeWidth">
 				<input type="range" name="strokeWidth" id="input-strokeWidth" value="10" min="1" max="20"/>
 				stroke-width
 			</label>
-			<label for="input-showStroke" class="noafter">
+			<label for="input-showStroke">
 				<input type="checkbox" name="showStroke" id="input-showStroke" checked>
 				stroke
 			</label>
-			<label for="input-showMarkers" class="noafter">
+			<label for="input-showMarkers">
 				<input type="checkbox" name="showGrid" id="input-showMarkers" checked>
 				markers
 			</label>

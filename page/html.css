@@ -2,6 +2,14 @@
 
 html {
 	--silver: #bbbb;
+
+	margin:0px;
+	padding:0px;
+
+	body {
+		margin:0px;
+		padding:0px;
+	}
 }
 
 summary {
@@ -25,12 +33,6 @@ form {
 
 	hr { width:100%; }
 
-	label:after { content:':'; }
-	label.noafter:after { content:''; }
-
-	input[type=color] { width: 10ex; margin-right:0.7ex; }
-	input[type=range] { width: 10ex; }
-
 	#input-command {
 		height:15em;
 	}
@@ -53,6 +55,17 @@ form {
 		border:1px solid var(--silver);
 	}
 
+
+	/*
+	label:after { content:':'; }
+	label.noafter:after { content:''; }
+	*/
+
+	input[type=color] { width: 10ex; margin-right:0.7ex; }
+	input[type=range] { width: 10ex; }
+
+	label.theme { font-size:1.4em; vertical-align:middle; }
+
 }/* form */
 
 
@@ -70,3 +83,28 @@ form {
 	}
 
 }
+
+
+
+@media (prefers-color-scheme:dark) {
+
+}
+
+@media (prefers-color-scheme:light) {
+
+}
+
+
+
+body.light {
+
+	background-color:white;
+
+
+}
+
+body.dark {
+	background-color:black;
+}
+
+
