@@ -64,7 +64,7 @@ form {
 	input[type=color] { width: 10ex; margin-right:0.7ex; }
 	input[type=range] { width: 10ex; }
 
-	label.theme { font-size:1.4em; vertical-align:middle; }
+	/* label.theme { font-size:1.4em; vertical-align:middle; } */
 
 }/* form */
 

@@ -50,7 +50,7 @@ class TurtleApp extends HTMLApp {
 		this.turtle = new SVGTurtle('Terry', this.page, 6);
 
 		this.svgElement = document.getElementById('svg-element');
-		this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
+		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
 		this.drawing  = document.getElementById('group-drawing');
 		this.turtleIcon = document.getElementById('icon-turtle');
 
@@ -62,19 +62,27 @@ class TurtleApp extends HTMLApp {
 
 
 	updatePage() {
-
-		if (document.getElementById('input-showTurtle').checked) {
+		const pageForm = document.getElementById('form-page');
+		if (pageForm.showTurtle.checked) {
 			document.getElementById('icon-turtle').style.display = '';
 		}
 		else {
 			document.getElementById('icon-turtle').style.display = 'none';
 		}
 
-		if (document.getElementById('input-showGrid').checked) {
+		if (pageForm.showGrid.checked) {
 			document.getElementById('group-grid').style.display = '';
 		}
 		else {
 			document.getElementById('group-grid').style.display = 'none';
+		}
+
+		if (pageForm.theme.value === 'light')
+		{
+			document.body.classList.replace('dark','light') ;
+		}
+		else {
+			document.body.classList.replace('light','dark') ;
 		}
 
 		this.updatePageTransform();
