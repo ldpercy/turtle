@@ -30,9 +30,14 @@ class TurtleApp extends HTMLApp {
 			listener: ()=>this.toOrigin
 		},
 		{
-			query: '#form-style',
+			query: '#form-page',
 			type: 'change',
-			listener: ()=>this.updateStyle
+			listener: ()=>this.updatePage
+		},
+		{
+			query: '#form-drawing',
+			type: 'change',
+			listener: ()=>this.updateDrawing
 		},
 	];
 
@@ -50,8 +55,31 @@ class TurtleApp extends HTMLApp {
 		this.turtleIcon = document.getElementById('icon-turtle');
 
 		this.updateTurtle();
-		this.updateStyle();
+		this.updatePage();
+		this.updateDrawing();
 	}/* documentDOMContentLoaded */
+
+
+
+	updatePage() {
+
+		if (document.getElementById('input-showTurtle').checked) {
+			document.getElementById('icon-turtle').style.display = '';
+		}
+		else {
+			document.getElementById('icon-turtle').style.display = 'none';
+		}
+
+		if (document.getElementById('input-showGrid').checked) {
+			document.getElementById('group-grid').style.display = '';
+		}
+		else {
+			document.getElementById('group-grid').style.display = 'none';
+		}
+
+		this.updatePageTransform();
+	}/* updatePage */
+
 
 
 	getScale() {
@@ -69,30 +97,8 @@ class TurtleApp extends HTMLApp {
 	}
 
 
+	updateDrawing() {
 
-	updateStyle() {
-
-		// Page
-
-
-
-		if (document.getElementById('input-showTurtle').checked) {
-			document.getElementById('icon-turtle').style.display = '';
-		}
-		else {
-			document.getElementById('icon-turtle').style.display = 'none';
-		}
-
-		if (document.getElementById('input-showGrid').checked) {
-			document.getElementById('group-grid').style.display = '';
-		}
-		else {
-			document.getElementById('group-grid').style.display = 'none';
-		}
-
-		this.updatePageTransform();
-
-		// Drawing
 		const drawColour = document.getElementById('input-colour').value;
 		document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
 
@@ -113,8 +119,7 @@ class TurtleApp extends HTMLApp {
 			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',0);
 		}
 
-
-	}/* updateStyle */
+	}/* updateDrawing */
 
 
 
@@ -145,7 +150,7 @@ class TurtleApp extends HTMLApp {
 
 		this.updateTurtle();
 		this.draw(commandOutput);
-	}
+	}/* doCommands */
 
 
 
@@ -161,7 +166,7 @@ class TurtleApp extends HTMLApp {
 		const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
 
 		document.getElementById('group-page').setAttribute('transform', transform);
-	}
+	}/* updatePageTransform */
 
 
 
@@ -176,7 +181,7 @@ class TurtleApp extends HTMLApp {
 
 		document.getElementById('turtle-title').innerHTML = this.turtle.report;
 		document.getElementById('turtle-report').innerHTML = this.turtle.report;
-	}
+	}/* updateTurtle */
 
 
 
