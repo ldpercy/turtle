@@ -163,18 +163,3 @@ function updateTurtle() {
 
 
 
-function degrees180(degrees) {
-	// https://stackoverflow.com/questions/2320986/easy-way-to-keeping-angles-between-179-and-180-degrees
-	// my brain is mushy
-
-	// reduce the angle
-	let result = degrees % 360;
-
-	// force it to be the positive remainder, so that 0 <= angle < 360
-	result = (result + 360) % 360;
-
-	// force into the minimum absolute value residue class, so that -180 < angle <= 180
-	if (result > 180)
-		result -= 360;
-	return result;
-}/* degrees180 */
