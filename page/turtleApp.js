@@ -1,165 +1,187 @@
 //
-//	turtle.js
+//	turtleApp.js
 //
 
-projectInfo = `
-	Turtle by ldpercy
-	https://github.com/ldpercy/turtle/
-	Version 0.4
-	https://github.com/ldpercy/turtle/pull/3
-`;
+
+class TurtleApp extends HTMLApp {
+
+	info = `
+		Turtle by ldpercy
+		https://github.com/ldpercy/turtle/
+		Version 0.4
+		https://github.com/ldpercy/turtle/pull/3
+	`;
 
 
-function bodyOnload() {
-	console.info(projectInfo);
-
-	page = new PlanarSpace('page');
-	turtle = new SVGTurtle('Terry', page, 6);
-
-	document.getElementById('input-do').addEventListener('click', doCommands);
-	document.getElementById('input-clear').addEventListener('click', clear);
-	document.getElementById('input-origin').addEventListener('click', toOrigin);
-
-	document.getElementById('form-style').addEventListener('change', updateStyle);
-	//document.getElementById('input-zoom').addEventListener('change', updateZoom);
-
-	svgElement = document.getElementById('svg-element');
-	viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-
-	drawing  = document.getElementById('group-drawing');
-
-	turtleIcon = document.getElementById('icon-turtle');
-	updateTurtle();
-	updateStyle();
-}
-
-
-
-function getScale() {
-
-	const zoomPower = Number.parseInt(document.getElementById('input-zoom').value);
-
-	const scale = 2 ** zoomPower;
-
-	//console.log(scale);
-
-	//const newViewBox = viewBox.toStringScale(scale);
-	//console.log(newViewBox);
-	//svgElement.setAttribute('viewBox',newViewBox);
-	return scale;
-}
+	eventListeners = [
+		{
+			query: '#input-do',
+			type: 'click',
+			listener: ()=>this.doCommands
+		},
+		{
+			query: '#input-clear',
+			type: 'click',
+			listener: ()=>this.clear
+		},
+		{
+			query: '#input-origin',
+			type: 'click',
+			listener: ()=>this.toOrigin
+		},
+		{
+			query: '#form-style',
+			type: 'change',
+			listener: ()=>this.updateStyle
+		},
+	];
 
 
 
-function updateStyle() {
+	documentDOMContentLoaded() {
+		super.documentDOMContentLoaded();
 
-	// Page
+		this.page = new PlanarSpace('page');
+		this.turtle = new SVGTurtle('Terry', this.page, 6);
+
+		this.svgElement = document.getElementById('svg-element');
+		this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
+		this.drawing  = document.getElementById('group-drawing');
+		this.turtleIcon = document.getElementById('icon-turtle');
+
+		this.updateTurtle();
+		this.updateStyle();
+	}/* documentDOMContentLoaded */
 
 
+	getScale() {
 
-	if (document.getElementById('input-showTurtle').checked) {
-		document.getElementById('icon-turtle').style.display = '';
-	}
-	else {
-		document.getElementById('icon-turtle').style.display = 'none';
-	}
+		const zoomPower = Number.parseInt(document.getElementById('input-zoom').value);
 
-	if (document.getElementById('input-showGrid').checked) {
-		document.getElementById('group-grid').style.display = '';
-	}
-	else {
-		document.getElementById('group-grid').style.display = 'none';
+		const scale = 2 ** zoomPower;
+
+		//console.log(scale);
+
+		//const newViewBox = viewBox.toStringScale(scale);
+		//console.log(newViewBox);
+		//svgElement.setAttribute('viewBox',newViewBox);
+		return scale;
 	}
 
-	updatePageTransform();
 
-	// Drawing
-	const drawColour = document.getElementById('input-colour').value;
-	document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
 
-	const strokeWidth = document.getElementById('input-strokeWidth').value;
-	document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+	updateStyle() {
 
-	if (document.getElementById('input-showMarkers').checked) {
-		document.getElementById('group-drawing').classList.add('show-marker');
-	}
-	else {
-		document.getElementById('group-drawing').classList.remove('show-marker');
-	}
+		// Page
 
-	if (document.getElementById('input-showStroke').checked) {
+
+
+		if (document.getElementById('input-showTurtle').checked) {
+			document.getElementById('icon-turtle').style.display = '';
+		}
+		else {
+			document.getElementById('icon-turtle').style.display = 'none';
+		}
+
+		if (document.getElementById('input-showGrid').checked) {
+			document.getElementById('group-grid').style.display = '';
+		}
+		else {
+			document.getElementById('group-grid').style.display = 'none';
+		}
+
+		this.updatePageTransform();
+
+		// Drawing
+		const drawColour = document.getElementById('input-colour').value;
+		document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
+
+		const strokeWidth = document.getElementById('input-strokeWidth').value;
 		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+
+		if (document.getElementById('input-showMarkers').checked) {
+			document.getElementById('group-drawing').classList.add('show-marker');
+		}
+		else {
+			document.getElementById('group-drawing').classList.remove('show-marker');
+		}
+
+		if (document.getElementById('input-showStroke').checked) {
+			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+		}
+		else {
+			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',0);
+		}
+
+
+	}/* updateStyle */
+
+
+
+
+	draw(string) {
+		this.drawing.innerHTML += string;
 	}
-	else {
-		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',0);
+
+	clear() {
+		this.drawing.innerHTML = '';
+	}
+
+	toOrigin() {
+		//turtle.toOrigin();
+		this.turtle.doCommand({name:'o'});
+		this.updateTurtle();
 	}
 
 
-}/* updateStyle */
+	doCommands() {
+		//console.log('--- doCommand ---');
+		const commandStr = document.getElementById('input-command').value;
+		const commands = Turtle.getCommands(commandStr);
+
+		//console.log('Commands:', commands);
+
+		const commandOutput = this.turtle.doCommands(commands);
+
+		this.updateTurtle();
+		this.draw(commandOutput);
+	}
 
 
 
+	updatePageTransform() {
 
-function draw(string) {
-	drawing.innerHTML += string;
-}
+		const rotate = this.turtle.heading.degrees;
 
-function clear() {
-	drawing.innerHTML = '';
-}
+		const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
+		const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-this.turtle.svgX},${-this.turtle.svgY})` : '';
 
-function toOrigin() {
-	//turtle.toOrigin();
-	turtle.doCommand({name:'o'});
-	updateTurtle();
-}
+		const scaleTransform = `scale(${this.getScale()})`;
 
+		const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
 
-function doCommands() {
-	//console.log('--- doCommand ---');
-	const commandStr = document.getElementById('input-command').value;
-	const commands = Turtle.getCommands(commandStr);
-
-	//console.log('Commands:', commands);
-
-	const commandOutput = turtle.doCommands(commands);
-
-	updateTurtle();
-	draw(commandOutput);
-}
+		document.getElementById('group-page').setAttribute('transform', transform);
+	}
 
 
 
-function updatePageTransform() {
+	updateTurtle() {
+		this.turtleIcon.setAttribute('x', this.turtle.svgX);
+		this.turtleIcon.setAttribute('y', this.turtle.svgY);
+		this.turtleIcon.setAttribute('transform',
+			`rotate(${this.turtle.heading.degrees},${this.turtle.svgX},${this.turtle.svgY})`
+		);
 
-	const rotate = turtle.heading.degrees;
+		this.updatePageTransform();
 
-	const rotateTransform    = (document.getElementById('input-rotatePage').checked)   ? `rotate(${-rotate},0,0)` : '';
-	const translateTransform = (document.getElementById('input-centerTurtle').checked) ? `translate(${-turtle.svgX},${-turtle.svgY})` : '';
-
-	const scaleTransform = `scale(${getScale()})`;
-
-	const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
-
-	document.getElementById('group-page').setAttribute('transform', transform);
-}
-
-
-
-function updateTurtle() {
-	turtleIcon.setAttribute('x', turtle.svgX);
-	turtleIcon.setAttribute('y', turtle.svgY);
-	turtleIcon.setAttribute('transform',
-		`rotate(${turtle.heading.degrees},${turtle.svgX},${turtle.svgY})`
-	);
-
-	updatePageTransform();
-
-	document.getElementById('turtle-title').innerHTML = turtle.report;
-	document.getElementById('turtle-report').innerHTML = turtle.report;
-}
+		document.getElementById('turtle-title').innerHTML = this.turtle.report;
+		document.getElementById('turtle-report').innerHTML = this.turtle.report;
+	}
 
 
 
+}/* TurtleApp */
 
+
+turtleApp = new TurtleApp();
 
