@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>🐢 Turtle by ldpercy v0.4</title>
+	<title>🐢 Turtle by ldpercy v0.5</title>
 	<meta charset="utf-8">
-	 <meta name="description" content="Turtle by ldpercy v0.4 - SVG, JavaScript, HTML, CSS">
+	<meta name="color-scheme" content="dark light">
+	<meta name="description" content="Turtle by ldpercy v0.5 - SVG, JavaScript, HTML, CSS">
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 	<script defer src="./[library]/Maths.js"></script>
@@ -12,10 +13,10 @@
 	<script defer src="./[library]/SVG.js"></script>
 	<script defer src="./[library]/Turtle.js"></script>
 	<script defer src="./[library]/SVGTurtle.js"></script>
-
-	<script defer src="./page/turtle.js"></script>
+	<script defer src="./[library]/HTMLApp.js"></script>
+	<script defer src="./page/turtleApp.js"></script>
 </head>
-<body onload="bodyOnload()">
+<body class="light">
 
 	<div class="control-group control-left">
 		<form id="form-turtle">
@@ -23,10 +24,10 @@
 
 			<details>
 				<summary>Commands</summary>
-				<output id="turtle-instructions">
+				<output class="infoBox" id="turtle-instructions">
 					<div>left degrees,distance</div>
 					<div>right degrees,distance</div>
-					<!-- <div>bear degrees,distance</div> -->
+					<div>bear degrees,distance</div>
 					<div>jump degrees,distance</div>
 					<div>move dx,dy</div>
 					<div>circle radius</div>
@@ -43,63 +44,84 @@
 			<button id="input-origin" type="button">to origin</button>
 
 			<h2>Current:</h2>
-			<output id="turtle-report"></output>
+			<output id="turtle-report" class="infoBox"></output>
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a> by <a href="https://github.com/ldpercy/">ldpercy</a>
-				<a href="https://github.com/ldpercy/turtle/pull/3">v0.4</a>
+				<a href="https://github.com/ldpercy/turtle/pull/4">v0.5</a>
 
 			</details>
 		</form>
 	</div><!-- control-left -->
 
 	<div class="control-group control-right">
-		<form id="form-style">
+		<form id="form-page">
 			<h2>Page</h2>
 
-			<label for="input-zoom" class="noafter">
+
+
+			<label for="input-showTurtle">
+				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
+				show turtle
+			</label>
+			<label for="input-showGrid">
+				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
+				show grid
+			</label>
+			<label for="input-centerTurtle">
+				<input type="checkbox" name="centerTurtle" id="input-centerTurtle">
+				center turtle
+			</label>
+			<label for="input-rotatePage">
+				<input type="checkbox" name="rotatePage" id="input-rotatePage">
+				rotate
+			</label>
+
+
+			<label class="theme">
+				<label title="light">
+					<input type="radio" name="theme" value="light" checked>
+					light
+				</label>
+				<label title="dark">
+					<input type="radio" name="theme" value="dark">
+					dark
+				</label>
+				<!--
+				<label title="auto">
+					<input type="radio" name="theme" value="auto" checked>
+					▣
+				</label>
+				 -->
+			</label>
+			<label for="input-zoom" class="zoom">
 				<input type="range" name="zoom" id="input-zoom" value="0" min="-2" max="2" list="datalist-zoom" />
 				<datalist id="datalist-zoom">
 					<option value="-2">-2</option>
 					<option value="-1">-1</option>
 					<option value="0">0</option>
-					<option value="+1">+1</option>
-					<option value="+2">+2</option>
+					<option value="1">+1</option>
+					<option value="2">+2</option>
 				</datalist>
 				zoom
 			</label>
+		</form>
 
-			<label for="input-showTurtle" class="noafter">
-				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
-				show turtle
-			</label>
-			<label for="input-showGrid" class="noafter">
-				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
-				show grid
-			</label>
-			<label for="input-centerTurtle" class="noafter">
-				<input type="checkbox" name="centerTurtle" id="input-centerTurtle">
-				center turtle
-			</label>
-			<label for="input-rotatePage" class="noafter">
-				<input type="checkbox" name="rotatePage" id="input-rotatePage">
-				rotate
-			</label>
-
+		<form id="form-drawing">
 			<h2>Drawing</h2>
-			<label for="input-colour" class="noafter">
+			<label for="input-colour">
 				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
 				colour
 			</label>
-			<label for="input-strokeWidth" class="noafter">
+			<label for="input-strokeWidth">
 				<input type="range" name="strokeWidth" id="input-strokeWidth" value="10" min="1" max="20"/>
 				stroke-width
 			</label>
-			<label for="input-showStroke" class="noafter">
+			<label for="input-showStroke">
 				<input type="checkbox" name="showStroke" id="input-showStroke" checked>
 				stroke
 			</label>
-			<label for="input-showMarkers" class="noafter">
+			<label for="input-showMarkers">
 				<input type="checkbox" name="showGrid" id="input-showMarkers" checked>
 				markers
 			</label>

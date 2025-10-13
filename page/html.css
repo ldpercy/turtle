@@ -2,6 +2,20 @@
 
 html {
 	--silver: #bbbb;
+
+
+	margin:0px;
+	padding:0px;
+
+	body {
+		margin:0px;
+		padding:0px;
+	}
+	scrollbar-width: none;
+	/*
+	there are 5 extra pixels on the body height coming from somewhere...
+	might be a line-box thing on the svg element
+	*/
 }
 
 summary {
@@ -11,7 +25,6 @@ summary {
 form {
 	display: grid;
 	border:1px solid silver;
-	background-color:#eee9;
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
@@ -25,33 +38,31 @@ form {
 
 	hr { width:100%; }
 
-	label:after { content:':'; }
-	label.noafter:after { content:''; }
-
-	input[type=color] { width: 10ex; margin-right:0.7ex; }
-	input[type=range] { width: 10ex; }
-
 	#input-command {
 		height:15em;
 	}
 
-	#turtle-instructions {
-		display: grid;
+
+	.infoBox {
 		font-family: monospace;
 		font-size: 1em;
-		background-color: #fffc;
 		padding:1ex;
 		border:1px solid var(--silver);
 	}
 
-	#turtle-report {
-		font-family: monospace;
-		font-size: 1em;
-		white-space: pre;
-		background-color: #fffc;
-		padding:1ex;
-		border:1px solid var(--silver);
+	#turtle-instructions {
+		display: grid;
 	}
+
+	#turtle-report {
+		white-space: pre;
+	}
+
+
+	input[type=color] { width: 10ex; margin-right:0.7ex; }
+	input[type=range] { width: 10ex; }
+
+	input[name=zoom] { width: 16ex;}
 
 }/* form */
 
@@ -70,3 +81,43 @@ form {
 	}
 
 }
+
+
+
+@media (prefers-color-scheme:dark) {
+
+}
+
+@media (prefers-color-scheme:light) {
+
+}
+
+
+
+body.light {
+	color-scheme: light;
+	background-color:white;
+	color: black;
+	form {
+		background-color:#eee9;
+		border-color: #bbbb;
+	}
+	.infoBox { background-color: #fffc; }
+
+}
+
+body.dark {
+	color-scheme: dark;
+	background-color: #222;
+	color: white;
+	form {
+		background-color:#7779;
+		border-color: #9999;
+	}
+	.infoBox {
+		background-color: #222c;
+		border-color: #9999;
+	}
+}
+
+
