@@ -25,7 +25,6 @@ summary {
 form {
 	display: grid;
 	border:1px solid silver;
-	background-color:#eee9;
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
@@ -43,34 +42,27 @@ form {
 		height:15em;
 	}
 
-	#turtle-instructions {
-		display: grid;
+
+	.infoBox {
 		font-family: monospace;
 		font-size: 1em;
-		background-color: #fffc;
 		padding:1ex;
 		border:1px solid var(--silver);
+	}
+
+	#turtle-instructions {
+		display: grid;
 	}
 
 	#turtle-report {
-		font-family: monospace;
-		font-size: 1em;
 		white-space: pre;
-		background-color: #fffc;
-		padding:1ex;
-		border:1px solid var(--silver);
 	}
 
-
-	/*
-	label:after { content:':'; }
-	label.noafter:after { content:''; }
-	*/
 
 	input[type=color] { width: 10ex; margin-right:0.7ex; }
 	input[type=range] { width: 10ex; }
 
-	/* label.theme { font-size:1.4em; vertical-align:middle; } */
+	input[name=zoom] { width: 16ex;}
 
 }/* form */
 
@@ -105,21 +97,25 @@ form {
 body.light {
 	color-scheme: light;
 	background-color:white;
-
+	color: black;
 	form {
-		color: black;
 		background-color:#eee9;
 		border-color: #bbbb;
 	}
+	.infoBox { background-color: #fffc; }
 
 }
 
 body.dark {
 	color-scheme: dark;
 	background-color: #222;
+	color: white;
 	form {
-		color: white;
 		background-color:#7779;
+		border-color: #9999;
+	}
+	.infoBox {
+		background-color: #222c;
 		border-color: #9999;
 	}
 }
