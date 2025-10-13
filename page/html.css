@@ -11,6 +11,11 @@ html {
 		margin:0px;
 		padding:0px;
 	}
+	scrollbar-width: none;
+	/*
+	there are 5 extra pixels on the body height coming from somewhere...
+	might be a line-box thing on the svg element
+	*/
 }
 
 summary {
