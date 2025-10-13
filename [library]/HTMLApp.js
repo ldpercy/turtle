@@ -13,7 +13,7 @@ class HTMLApp {
 
 
 	documentDOMContentLoaded() {
-		// by default event listeners like these receive HTMLDocument as 'this'
+		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
 		// and the event object as argument 0
 		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
 		// adding a `.bind(this)` to the addEventListener keeps 'this' as the instance scope
