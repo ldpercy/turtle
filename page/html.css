@@ -3,6 +3,7 @@
 html {
 	--silver: #bbbb;
 
+
 	margin:0px;
 	padding:0px;
 
@@ -100,11 +101,27 @@ body.light {
 
 	background-color:white;
 
+	form {
+		color: black;
+		background-color:#eee9;
+		border-color: #bbbb;
+	}
 
 }
 
 body.dark {
 	background-color:black;
+	form {
+		color: white;
+		background-color:#7779;
+		border-color: #9999;
+	}
+	button {
+		color:white;
+		background-color: #555;
+
+	}
+
 }
 
 
