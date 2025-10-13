@@ -2,13 +2,10 @@ Task
 ====
 
 
-
-
 Todo:
 -----
 
 * Grid reactive to zoom level
-* Dark theme
 * Multi-turtle
 * Looping
 * Custom space rules - size, boundaries, wrapping
@@ -32,6 +29,7 @@ Todo:
 
 ### Done
 
+* Dark theme
 * Conversion to conventional cartesian coordinates
 * Page zooming with scale transform (better than viewBox resize)
 * Add unit labels to the axis lines

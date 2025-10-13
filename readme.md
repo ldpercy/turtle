@@ -59,7 +59,7 @@ Coordinates
 -----------
 
 ### Cartesian
-I've recently changed this over to use conventional cartesian coordinates (y axis up) instead of SVG coordinates, but the ability to switch is still on the [my todo list](task/readme.md).
+I've recently changed this over to use conventional cartesian coordinates (y axis up) instead of SVG coordinates, but the ability to switch is still on the [todo list](task/readme.md).
 
 ### Polar
 * The polar axis (0°) extends up from the origin, ie the positive y-axis in conventional cartesian
@@ -73,4 +73,4 @@ Tasks
 More detail in the [task/](<./task/>) directory.
 
 * Ability to switch between SVG and conventional coordinates (`y` up/down)
-* Dark theme
+

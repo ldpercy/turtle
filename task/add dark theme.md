@@ -12,7 +12,7 @@ HTMLApp
 
 I've converted the main page script over to become an HTMLApp, a little class I'm experimenting with to organise some common features such as event registration.
 
-Still really early days so will see how it pans out, but has some advantages like not polluting the global namespace.
+Still really early days so will see how it pans out, but has some advantages like not polluting the global 'window' namespace.
 
 Registering event functions inside the instance requires a couple of tricks though:
 ```js
@@ -46,4 +46,33 @@ I have a quick knocked together light-dark switcher going, but there are some im
 Main thing are browser-native widgets like buttons, textareas, checkboxes etc.
 
 I need to see if there's a way to manually switch into the browser's dark/light modes as well so I can use its dark widget styles.
+
+Okay that wasn't difficult - these will set the scheme styles for things like native form widgets:
+```css
+	color-scheme: light;
+	color-scheme: dark;
+```
+
+
+Wrapup
+------
+
+There are a few extra bits and pieces that could be done here, but this is 95% of what i want for now.
+
+* Converted main page scripts to early version of HTMLApp that I'm experimenting with.
+* Turned off scrollbars - improves presentation on Chromium a bit, but there are 5 extra pixels that I still can't account for
+* Added scheme switcher and some basic light/dark css changes
+
+
+These follow ups can all come later:
+
+* The 5 extra vertical pixels
+* Add automatic scheme selection based on the user's preference
+* The commands box flashes white in ff after a dark reload - find out what's causing that
+* A little extra polish in general
+* See if I can use browser storage or similar to maintain some settings, esp the command box for Chrome
+
+
+
+
 
