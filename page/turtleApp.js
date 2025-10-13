@@ -8,8 +8,8 @@ class TurtleApp extends HTMLApp {
 	info = `
 		Turtle by ldpercy
 		https://github.com/ldpercy/turtle/
-		Version 0.4
-		https://github.com/ldpercy/turtle/pull/3
+		Version 0.5
+		https://github.com/ldpercy/turtle/pull/4
 	`;
 
 

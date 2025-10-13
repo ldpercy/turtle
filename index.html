@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>🐢 Turtle by ldpercy v0.4</title>
+	<title>🐢 Turtle by ldpercy v0.5</title>
 	<meta charset="utf-8">
-	 <meta name="description" content="Turtle by ldpercy v0.4 - SVG, JavaScript, HTML, CSS">
+	 <meta name="description" content="Turtle by ldpercy v0.5 - SVG, JavaScript, HTML, CSS">
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 	<script defer src="./[library]/Maths.js"></script>
@@ -47,7 +47,7 @@
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a> by <a href="https://github.com/ldpercy/">ldpercy</a>
-				<a href="https://github.com/ldpercy/turtle/pull/3">v0.4</a>
+				<a href="https://github.com/ldpercy/turtle/pull/4">v0.5</a>
 
 			</details>
 		</form>
@@ -57,17 +57,7 @@
 		<form id="form-page">
 			<h2>Page</h2>
 
-			<label for="input-zoom">
-				<input type="range" name="zoom" id="input-zoom" value="0" min="-2" max="2" list="datalist-zoom" />
-				<datalist id="datalist-zoom">
-					<option value="-2">-2</option>
-					<option value="-1">-1</option>
-					<option value="0">0</option>
-					<option value="1">+1</option>
-					<option value="2">+2</option>
-				</datalist>
-				zoom
-			</label>
+
 
 			<label for="input-showTurtle">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
@@ -102,6 +92,17 @@
 					▣
 				</label>
 				 -->
+			</label>
+			<label for="input-zoom" class="zoom">
+				<input type="range" name="zoom" id="input-zoom" value="0" min="-2" max="2" list="datalist-zoom" />
+				<datalist id="datalist-zoom">
+					<option value="-2">-2</option>
+					<option value="-1">-1</option>
+					<option value="0">0</option>
+					<option value="1">+1</option>
+					<option value="2">+2</option>
+				</datalist>
+				zoom
 			</label>
 		</form>
 
