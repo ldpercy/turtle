@@ -103,7 +103,7 @@ form {
 
 
 body.light {
-
+	color-scheme: light;
 	background-color:white;
 
 	form {
@@ -115,18 +115,13 @@ body.light {
 }
 
 body.dark {
-	background-color:black;
+	color-scheme: dark;
+	background-color: #222;
 	form {
 		color: white;
 		background-color:#7779;
 		border-color: #9999;
 	}
-	button {
-		color:white;
-		background-color: #555;
-
-	}
-
 }
 
 
