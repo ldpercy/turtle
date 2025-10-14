@@ -26,6 +26,9 @@ SVG.Rectangle = class {
 		this.width  = width;
 		this.height = height;
 	}
+
+	get xEnd() { return this.x + this.width; }
+	get yEnd() { return this.y + this.height; }
 }/* SVG.Rectangle */
 
 
@@ -80,8 +83,10 @@ SVG.CartesianGrid = class {
 
 	rectangle;
 
-	constructor(rect) {
-		this.rectangle = this.rectangle;
+	constructor(rectangle, spacingMajor=500, spacingMinor=100) {
+		this.rectangle = rectangle;
+		this.spacingMajor = spacingMajor;
+		this.spacingMinor = spacingMinor;
 	}
 
 	get labels() {
@@ -100,39 +105,48 @@ SVG.CartesianGrid = class {
 
 
 	get axes() {
+
+		// todo: add linecap arrows and axis labels
+
 		const result = `
 			<line class="axis" x1="-100%" y1="0" x2="100%" y2="0"><title>x axis</title></line>
 			<line class="axis" x1="0" y1="-100%" x2="0" y2="100%"><title>y axis</title></line>
 			<circle class="origin"><title>origin</title></circle>
 		`;
 		return result;
-	}
+	}/* get axes */
 
 
-	get minorGridlines() {
-		const result = `
-			<pattern id="pattern-gridMinor" width="100" height="100" patternUnits="userSpaceOnUse">
-				<polyline points="0,100 100,100 100,0"/>
-			</pattern>
-			<rect class="viewBox grid-minor"/>
+	/* getGridlines
+	*/
+	getGridlines(spacing, className) {
+		let result = '';
+		let xLines = '', yLines = '';
+		let x = this.rectangle.x - (this.rectangle.x % spacing);
+		let y = this.rectangle.y - (this.rectangle.y % spacing);
+
+		for (x; x <= this.rectangle.xEnd; x += spacing){
+			xLines += `<line x1="${x}" y1="-100%" x2="${x}" y2="+100%"/>`;
+		}
+		for (y; y <= this.rectangle.yEnd; y += spacing){
+			yLines += `<line x1="-100%" y1="${y}" x2="+100%" y2="${y}"/>`;
+		}
+
+		result = `
+			<g class="${className}">
+				<g class="x">${xLines}</g>
+				<g class="y">${yLines}</g>
+			</g>
 		`;
-		return result;
-	}/* minorGridlines */
 
-	get majorGridlines() {
-		const result = `
-			<pattern id="pattern-gridMajor" width="500" height="500" patternUnits="userSpaceOnUse">
-				<polyline points="0,500 500,500 500,0"/>
-			</pattern>
-			<rect class="viewBox grid-major"/>
-		`;
 		return result;
-	}/* majorGridlines */
+	}/* getGridlines */
+
 
 	toString() {
 		const result= `
-			${this.minorGridlines}
-			${this.majorGridlines}
+			${this.getGridlines(this.spacingMinor,'grid-minor')}
+			${this.getGridlines(this.spacingMajor,'grid-major')}
 			${this.axes}
 			${this.labels}
 		`;

@@ -46,7 +46,7 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
-		this.page = new SVG.Rectangle(-1200, -1200, 2400, 2400);
+		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
 
 		this.space = new PlanarSpace('turtle-space');
 		this.turtle = new SVGTurtle('Terry', this.space, 6);
