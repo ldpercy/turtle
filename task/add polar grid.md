@@ -32,3 +32,23 @@ I might change this to become a page setting.
 
 Also need to change the starting page translation, and maybe the turtle starting position.
 
+
+
+Polar grid
+----------
+
+I've added a quick first go at a polar grid, looks okay.
+
+I'm fiddling with line weights to try to make it look okay as it seems a bit 'heavy' on screen.
+I might actually change these over to some brightness or opacity settings as looking good could depend on other factors like screen size, brightness & contrast - might be better to give a little control to the user.
+
+Need to sort out labels next.
+
+
+Dynamic Labels
+--------------
+
+
+
+
+

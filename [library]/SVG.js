@@ -64,17 +64,13 @@ SVG.ViewBox = class {
 		return `${this.rectangle.x - padding} ${this.rectangle.y - padding} ${this.rectangle.width + 2*padding} ${this.rectangle.height + 2*padding}`;
 	}
 
-	/*
-	-1200 -1200 2400 2400
-	-2400 -2400 4800 4800
-	*/
-
 
 }/* SVG.ViewBox */
 
 
 
-
+/* SVG.CartesianGrid
+*/
 SVG.CartesianGrid = class {
 
 	rectangle;
@@ -155,8 +151,8 @@ SVG.CartesianGrid = class {
 
 
 
-
-
+/* SVG.PolarGrid
+*/
 SVG.PolarGrid = class {
 
 	rectangle;
@@ -176,8 +172,8 @@ SVG.PolarGrid = class {
 		this.angleMajor = angleMajor;
 		this.angleMinor = angleMinor;
 
-		this.radius = Math.max(rectangle.width, rectangle.height);
-	}
+		this.radius = Math.max(rectangle.width, rectangle.height) / 2;
+	}/* constructor */
 
 
 	toString() {
@@ -196,10 +192,10 @@ SVG.PolarGrid = class {
 		// todo: add linecap arrows and axis labels
 		const result = `
 			<line class="axis" x1="0" y1="0" x2="0" y2="${-this.radius}"><title>polar axis</title></line>
-			<circle class="origin"><title>origin</title></circle>
 		`;
+		//<circle class="origin"><title>origin</title></circle>
 		return result;
-	}/* get axes */
+	}/* get polarAxis */
 
 
 	/* getGridlines
@@ -211,19 +207,13 @@ SVG.PolarGrid = class {
 		const a = new this.space.Angle(0);
 		const p = this.space.newPoint('radial gridline');
 
-		//let r = this.radius - (this.radius % spacing);
-		//let y = this.rectangle.y - (this.rectangle.y % spacing);
-
 		for (let r = 0; r <= this.radius; r += spacing){
 			circles += `<circle cx="0" cy="0" r="${r}"/>`;
 		}
 
-		// these will need to be made space-aware, just hacking them in for now
-
 		for (let d = 0; d <= 360; d += angle){
 			a.degrees = d;
 			p.polar = new this.space.PolarCoordinates(a, this.radius);
-			//console.debug(p);
 			radials += `<line x1="0" y1="0" x2="${p.x}" y2="${p.y}"/>`;
 		}
 
@@ -236,7 +226,6 @@ SVG.PolarGrid = class {
 
 		return result;
 	}/* getGridlines */
-
 
 
 }/* SVG.PolarGrid */

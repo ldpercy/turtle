@@ -22,12 +22,20 @@
 	--colour-polar: #d0d;
 	fill:none;
 
+	stroke-width: 1px;
+
 	.grid-cartesian {
 		stroke: var(--colour-cartesian);
+		.axis  { stroke-width: 3px; }
+		.major { stroke-width: 2px; }
+		.minor { stroke-width: 1px; }
 	}
 
 	.grid-polar {
 		stroke: var(--colour-polar);
+		.axis  { stroke-width: 5px; }
+		.major { stroke-width: 1px; }
+		.minor { stroke-width: 0.5px; }
 	}
 
 	/* stroke-dasharray: 10 10;    dashes */
@@ -37,16 +45,6 @@
 		r:10px;
 		stroke-width: 2px;
 	}
-	.axis {
-		 stroke-width: 3px;
-	}
-	.major {
-		stroke-width: 2px;
-	}
-	.minor {
-		stroke-width: 1px;
-	}
-
 
 
 	.label {
