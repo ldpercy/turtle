@@ -79,7 +79,8 @@ SVG.CartesianGrid = class {
 
 	rectangle;
 
-	constructor(rectangle, spacingMajor=500, spacingMinor=100) {
+	constructor(space, rectangle, spacingMajor=500, spacingMinor=100) {
+		this.space = space;
 		this.rectangle = rectangle;
 		this.spacingMajor = spacingMajor;
 		this.spacingMinor = spacingMinor;
@@ -141,8 +142,8 @@ SVG.CartesianGrid = class {
 
 	toString() {
 		const result= `
-			${this.getGridlines(this.spacingMinor,'grid-minor')}
-			${this.getGridlines(this.spacingMajor,'grid-major')}
+			${this.getGridlines(this.spacingMinor,'minor')}
+			${this.getGridlines(this.spacingMajor,'major')}
 			${this.axes}
 			${this.labels}
 		`;
@@ -152,4 +153,91 @@ SVG.CartesianGrid = class {
 
 }/* SVG.CartesianGrid */
 
+
+
+
+
+SVG.PolarGrid = class {
+
+	rectangle;
+
+	constructor(
+			space,
+			rectangle,
+			spacingMajor=500,
+			spacingMinor=100,
+			angleMajor=45,
+			angleMinor=5,
+		) {
+		this.space = space;
+		this.rectangle = rectangle;
+		this.spacingMajor = spacingMajor;
+		this.spacingMinor = spacingMinor;
+		this.angleMajor = angleMajor;
+		this.angleMinor = angleMinor;
+
+		this.radius = Math.max(rectangle.width, rectangle.height);
+	}
+
+
+	toString() {
+		const result= `
+			${this.getGridlines(this.spacingMinor,'minor', this.angleMinor)}
+			${this.getGridlines(this.spacingMajor,'major', this.angleMajor)}
+			${this.polarAxis}
+			${this.labels || 'no labels yet'}
+		`;
+
+		return result;
+	}/* toString */
+
+
+	get polarAxis() {
+		// todo: add linecap arrows and axis labels
+		const result = `
+			<line class="axis" x1="0" y1="0" x2="0" y2="${-this.radius}"><title>polar axis</title></line>
+			<circle class="origin"><title>origin</title></circle>
+		`;
+		return result;
+	}/* get axes */
+
+
+	/* getGridlines
+	*/
+	getGridlines(spacing, className, angle) {
+		let result = '';
+		let circles = '', radials = '';
+
+		const a = new this.space.Angle(0);
+		const p = this.space.newPoint('radial gridline');
+
+		//let r = this.radius - (this.radius % spacing);
+		//let y = this.rectangle.y - (this.rectangle.y % spacing);
+
+		for (let r = 0; r <= this.radius; r += spacing){
+			circles += `<circle cx="0" cy="0" r="${r}"/>`;
+		}
+
+		// these will need to be made space-aware, just hacking them in for now
+
+		for (let d = 0; d <= 360; d += angle){
+			a.degrees = d;
+			p.polar = new this.space.PolarCoordinates(a, this.radius);
+			//console.debug(p);
+			radials += `<line x1="0" y1="0" x2="${p.x}" y2="${p.y}"/>`;
+		}
+
+		result = `
+			<g class="${className}">
+				<g class="circles">${circles}</g>
+				<g class="radials">${radials}</g>
+			</g>
+		`;
+
+		return result;
+	}/* getGridlines */
+
+
+
+}/* SVG.PolarGrid */
 

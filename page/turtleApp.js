@@ -60,7 +60,8 @@ class TurtleApp extends HTMLApp {
 
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-		this.gridElement = document.getElementById('group-grid');
+		this.gridCartesian = document.getElementById('group-gridCartesian');
+		this.gridPolar     = document.getElementById('group-gridPolar');
 		this.drawing    = document.getElementById('group-drawing');
 		this.turtleIcon = document.getElementById('icon-turtle');
 
@@ -81,12 +82,19 @@ class TurtleApp extends HTMLApp {
 			document.getElementById('icon-turtle').style.display = 'none';
 		}
 
-		if (pageForm.showGrid.checked) {
-			document.getElementById('group-grid').style.display = '';
+		if (pageForm.showCartesian.checked) {
+			document.getElementById('group-gridCartesian').style.display = '';
 		}
 		else {
-			document.getElementById('group-grid').style.display = 'none';
+			document.getElementById('group-gridCartesian').style.display = 'none';
 		}
+		if (pageForm.showPolar.checked) {
+			document.getElementById('group-gridPolar').style.display = '';
+		}
+		else {
+			document.getElementById('group-gridPolar').style.display = 'none';
+		}
+
 
 		if (pageForm.theme.value === 'light')
 		{
@@ -204,8 +212,11 @@ class TurtleApp extends HTMLApp {
 
 
 	updateGrid() {
-		const grid = new SVG.CartesianGrid(this.page);
-		this.gridElement.innerHTML = grid.toString();
+		const cartesianGrid = new SVG.CartesianGrid(this.space, this.page);
+		this.gridCartesian.innerHTML = cartesianGrid.toString();
+
+		const polarGrid = new SVG.PolarGrid(this.space, this.page);
+		this.gridPolar.innerHTML = polarGrid.toString();
 	}
 
 

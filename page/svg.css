@@ -17,35 +17,40 @@
 
 
 
-.graphPaper {
-	--teal: #088;
-	stroke: var(--teal);
+.grid {
+	--colour-cartesian: #088; /* teal: #088  */
+	--colour-polar: #d0d;
 	fill:none;
 
-	#pattern-gridMinor {
-		stroke-width: 1px;
-		/* stroke-dasharray: 10 10;    dashes */
-		/* stroke-dasharray: 10 80 20 80 10;  crosses  */
+	.grid-cartesian {
+		stroke: var(--colour-cartesian);
 	}
-	.viewBox {
-		x: -100%;
-		y: -100%;
-		width: 200%;
-		height: 200%;
+
+	.grid-polar {
+		stroke: var(--colour-polar);
 	}
-	.grid-minor { fill: url(#pattern-gridMinor); }
-	.grid-major { fill: url(#pattern-gridMajor); }
-	.axis {
-		 stroke-width: 2px;
-	}
+
+	/* stroke-dasharray: 10 10;    dashes */
+	/* stroke-dasharray: 10 80 20 80 10;  crosses  */
+
 	.origin {
 		r:10px;
 		stroke-width: 2px;
 	}
+	.axis {
+		 stroke-width: 3px;
+	}
+	.major {
+		stroke-width: 2px;
+	}
+	.minor {
+		stroke-width: 1px;
+	}
+
+
 
 	.label {
 		stroke: none;
-		fill: var(--teal);
 		text-anchor:end;
 		font-size: 25px;
 		dominant-baseline: ideographic;

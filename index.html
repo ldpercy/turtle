@@ -64,9 +64,13 @@
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
 				show turtle
 			</label>
-			<label for="input-showGrid">
-				<input type="checkbox" name="showGrid" id="input-showGrid" checked>
-				show grid
+			<label for="input-showCartesian">
+				<input type="checkbox" name="showCartesian" id="input-showCartesian" checked>
+				show cartesian
+			</label>
+			<label for="input-showPolar">
+				<input type="checkbox" name="showPolar" id="input-showPolar">
+				show polar
 			</label>
 			<label for="input-centerTurtle">
 				<input type="checkbox" name="centerTurtle" id="input-centerTurtle">
@@ -151,7 +155,10 @@
 		</defs>
 
 		<g id="group-page" class="page">
-			<g id="group-grid" class="graphPaper"></g>
+			<g id="group-grid" class="grid">
+				<g id="group-gridCartesian" class="grid-cartesian"></g>
+				<g id="group-gridPolar" class="grid-polar"></g>
+			</g>
 
 			<g id="group-drawing" class="drawing show-marker"></g>
 
