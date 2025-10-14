@@ -33,39 +33,35 @@ SVG.Rectangle = class {
 
 
 
-/* SVG.viewBox
+/* SVG.ViewBox
 */
-SVG.viewBox = class {
+SVG.ViewBox = class {
 
-	x;
-	y;
-	width;
-	height;
+	rectangle;
 
-	constructor(
-			x, y, width, height,
-		) {
-		this.x      = x;
-		this.y      = y;
-		this.width  = width;
-		this.height = height;
+	constructor(rectangle) {
+		this.rectangle = rectangle;
 	}
 
 	fromString(viewBoxString) {
 		const vba    = viewBoxString.split(' ');
-		this.x      = parseInt(vba[0]);
-		this.y      = parseInt(vba[1]);
-		this.width  = parseInt(vba[2]);
-		this.height = parseInt(vba[3]);
+		this.rectangle.x      = parseInt(vba[0]);
+		this.rectangle.y      = parseInt(vba[1]);
+		this.rectangle.width  = parseInt(vba[2]);
+		this.rectangle.height = parseInt(vba[3]);
 		return this;
 	}
 
 	toString() {
-		return `${this.x} ${this.y} ${this.width} ${this.height}`;
+		return `${this.rectangle.x} ${this.rectangle.y} ${this.rectangle.width} ${this.rectangle.height}`;
 	}
 
-	toStringScale(scale) {
-		return `${this.x * scale} ${this.y * scale} ${this.width * scale} ${this.height * scale}`;
+	toStringScaled(scale) {
+		return `${this.rectangle.x * scale} ${this.rectangle.y * scale} ${this.rectangle.width * scale} ${this.rectangle.height * scale}`;
+	}
+
+	toStringPadded(padding) {
+		return `${this.rectangle.x - padding} ${this.rectangle.y - padding} ${this.rectangle.width + 2*padding} ${this.rectangle.height + 2*padding}`;
 	}
 
 	/*
@@ -74,7 +70,7 @@ SVG.viewBox = class {
 	*/
 
 
-}/* SVG.viewBox */
+}/* SVG.ViewBox */
 
 
 
@@ -126,10 +122,10 @@ SVG.CartesianGrid = class {
 		let y = this.rectangle.y - (this.rectangle.y % spacing);
 
 		for (x; x <= this.rectangle.xEnd; x += spacing){
-			xLines += `<line x1="${x}" y1="-100%" x2="${x}" y2="+100%"/>`;
+			xLines += `<line x1="${x}" y1="${this.rectangle.y}" x2="${x}" y2="${this.rectangle.yEnd}"/>`;
 		}
 		for (y; y <= this.rectangle.yEnd; y += spacing){
-			yLines += `<line x1="-100%" y1="${y}" x2="+100%" y2="${y}"/>`;
+			yLines += `<line x1="${this.rectangle.x}" y1="${y}" x2="${this.rectangle.xEnd}" y2="${y}"/>`;
 		}
 
 		result = `

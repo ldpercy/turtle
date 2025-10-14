@@ -47,11 +47,18 @@ class TurtleApp extends HTMLApp {
 		super.documentDOMContentLoaded();
 
 		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
+		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
+		this.viewBox = new SVG.ViewBox(this.page);
+
+		// TODO: viewBox is now set to the page, but it's now zoomed out compared to before - see if can zoom in or change default zoom levels
+
+		this.svgElement = document.getElementById('svg-element');
+		this.svgElement.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
 		this.space = new PlanarSpace('turtle-space');
 		this.turtle = new SVGTurtle('Terry', this.space, 6);
 
-		this.svgElement = document.getElementById('svg-element');
+
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
 		this.gridElement = document.getElementById('group-grid');
 		this.drawing    = document.getElementById('group-drawing');
