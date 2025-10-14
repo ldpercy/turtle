@@ -1,6 +1,9 @@
 
 
 html {
+	--page-background-light: #fcfcfc;
+	--page-background-dark: #111111;
+
 	--silver: #bbbb;
 
 
@@ -96,7 +99,7 @@ form {
 
 body.light {
 	color-scheme: light;
-	background-color:#fafafa;
+	background-color: var(--page-background-light);
 	color: black;
 	form {
 		background-color:#eee9;
@@ -108,7 +111,7 @@ body.light {
 
 body.dark {
 	color-scheme: dark;
-	background-color: #111;
+	background-color: var(--page-background-dark);
 	color: white;
 	form {
 		background-color:#7779;

@@ -11,4 +11,8 @@ Add a polar grid option as an alternative to cartesian.
 Polar grid
 ----------
 
-This could
+The first worry that pops into my head is which angular units to show... will get degrees going first.
+
+Will do this programmatically, might as well update the cartesian grid while I'm at it.
+
+

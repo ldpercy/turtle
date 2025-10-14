@@ -46,17 +46,21 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
-		this.page = new PlanarSpace('page');
-		this.turtle = new SVGTurtle('Terry', this.page, 6);
+		this.page = new SVG.Rectangle(-1200, -1200, 2400, 2400);
+
+		this.space = new PlanarSpace('turtle-space');
+		this.turtle = new SVGTurtle('Terry', this.space, 6);
 
 		this.svgElement = document.getElementById('svg-element');
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-		this.drawing  = document.getElementById('group-drawing');
+		this.gridElement = document.getElementById('group-grid');
+		this.drawing    = document.getElementById('group-drawing');
 		this.turtleIcon = document.getElementById('icon-turtle');
 
 		this.updateTurtle();
 		this.updatePage();
 		this.updateDrawing();
+		this.updateGrid();
 	}/* documentDOMContentLoaded */
 
 
@@ -190,6 +194,12 @@ class TurtleApp extends HTMLApp {
 		document.getElementById('turtle-title').innerHTML = this.turtle.report;
 		document.getElementById('turtle-report').innerHTML = this.turtle.report;
 	}/* updateTurtle */
+
+
+	updateGrid() {
+		const grid = new SVG.CartesianGrid(this.page);
+		this.gridElement.innerHTML = grid.toString();
+	}
 
 
 
