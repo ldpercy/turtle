@@ -15,4 +15,4 @@ The first worry that pops into my head is which angular units to show... will ge
 
 Will do this programmatically, might as well update the cartesian grid while I'm at it.
 
-
+Actually doing this programmatically will mean i get to stop using the pattern to draw the grid, which could well end up faster/lighter.
