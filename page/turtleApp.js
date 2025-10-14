@@ -8,9 +8,9 @@ class TurtleApp extends HTMLApp {
 	info = `
 		Turtle by ldpercy
 		https://github.com/ldpercy/turtle/
-		Version 0.5
-		https://github.com/ldpercy/turtle/pull/4
-	`;
+		v0.6a
+		https://github.com/ldpercy/turtle/pull/5
+	`.replace(/\n\t/g,'\n');
 
 
 	eventListeners = [

@@ -96,7 +96,7 @@ form {
 
 body.light {
 	color-scheme: light;
-	background-color:white;
+	background-color:#fafafa;
 	color: black;
 	form {
 		background-color:#eee9;
@@ -108,7 +108,7 @@ body.light {
 
 body.dark {
 	color-scheme: dark;
-	background-color: #222;
+	background-color: #111;
 	color: white;
 	form {
 		background-color:#7779;
