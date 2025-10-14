@@ -29,6 +29,7 @@
 		.axis  { stroke-width: 3px; }
 		.major { stroke-width: 2px; }
 		.minor { stroke-width: 1px; }
+		.label { fill: var(--colour-cartesian); }
 	}
 
 	.grid-polar {
@@ -36,6 +37,7 @@
 		.axis  { stroke-width: 5px; }
 		.major { stroke-width: 1px; }
 		.minor { stroke-width: 0.5px; }
+		.label { fill: var(--colour-polar); }
 	}
 
 	/* stroke-dasharray: 10 10;    dashes */
@@ -46,7 +48,6 @@
 		stroke-width: 2px;
 	}
 
-
 	.label {
 		stroke: none;
 		text-anchor:end;
@@ -54,7 +55,8 @@
 		dominant-baseline: ideographic;
 		font-family: monospace;
 	}
-}
+
+}/* .grid */
 
 
 .drawing {

@@ -172,7 +172,7 @@ SVG.PolarGrid = class {
 		this.angleMajor = angleMajor;
 		this.angleMinor = angleMinor;
 
-		this.radius = Math.max(rectangle.width, rectangle.height) / 2;
+		this.radius = .6 * Math.max(rectangle.width, rectangle.height);
 	}/* constructor */
 
 
