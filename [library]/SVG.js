@@ -98,13 +98,13 @@ SVG.CartesianGrid = class {
 
 
 	get axes() {
-
 		// todo: add linecap arrows and axis labels
-
 		const result = `
-			<line class="axis" x1="-100%" y1="0" x2="100%" y2="0"><title>x axis</title></line>
-			<line class="axis" x1="0" y1="-100%" x2="0" y2="100%"><title>y axis</title></line>
-			<circle class="origin"><title>origin</title></circle>
+			<g class="axis">
+				<line x1="-100%" y1="0" x2="100%" y2="0"><title>x axis</title></line>
+				<line x1="0" y1="-100%" x2="0" y2="100%"><title>y axis</title></line>
+				<circle class="origin"><title>origin</title></circle>
+			</g>
 		`;
 		return result;
 	}/* get axes */

@@ -19,34 +19,33 @@
 
 .grid {
 	--colour-cartesian: #088; /* teal: #088  */
-	--colour-polar: #d0d;
+	--colour-polar: #b0b;
 	fill:none;
 
 	stroke-width: 1px;
 
 	.grid-cartesian {
 		stroke: var(--colour-cartesian);
-		.axis  { stroke-width: 3px; }
+		.axis  { stroke-width: 5px; }
 		.major { stroke-width: 2px; }
 		.minor { stroke-width: 1px; }
 		.label { fill: var(--colour-cartesian); }
+		.origin { r: 10px; stroke-width: 3px; }
 	}
+
 
 	.grid-polar {
 		stroke: var(--colour-polar);
-		.axis  { stroke-width: 5px; }
-		.major { stroke-width: 1px; }
-		.minor { stroke-width: 0.5px; }
+		.axis  { stroke-width: 10px; }
+		.major { stroke-width: 2px; }
+		.minor { stroke-width: 1px; }
 		.label { fill: var(--colour-polar); }
 	}
 
 	/* stroke-dasharray: 10 10;    dashes */
 	/* stroke-dasharray: 10 80 20 80 10;  crosses  */
 
-	.origin {
-		r:10px;
-		stroke-width: 2px;
-	}
+
 
 	.label {
 		stroke: none;

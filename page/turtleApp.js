@@ -104,6 +104,11 @@ class TurtleApp extends HTMLApp {
 			document.body.classList.replace('light','dark') ;
 		}
 
+		const cartesianOpacity = document.getElementById('input-cartesianOpacity').value;
+		document.getElementById('group-gridCartesian').style.setProperty('opacity', cartesianOpacity);
+		const polarOpacity = document.getElementById('input-polarOpacity').value;
+		document.getElementById('group-gridPolar').style.setProperty('opacity', polarOpacity);
+
 		this.updatePageTransform();
 	}/* updatePage */
 
@@ -130,7 +135,7 @@ class TurtleApp extends HTMLApp {
 		document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
 
 		const strokeWidth = document.getElementById('input-strokeWidth').value;
-		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width', strokeWidth);
 
 		if (document.getElementById('input-showMarkers').checked) {
 			document.getElementById('group-drawing').classList.add('show-marker');
@@ -140,10 +145,10 @@ class TurtleApp extends HTMLApp {
 		}
 
 		if (document.getElementById('input-showStroke').checked) {
-			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width', strokeWidth);
 		}
 		else {
-			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',0);
+			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width', 0);
 		}
 
 	}/* updateDrawing */
