@@ -98,11 +98,11 @@ SVG.CartesianGrid = class {
 
 
 	get axes() {
-		// todo: add linecap arrows and axis labels
+		// todo: add axis labels
 		const result = `
 			<g class="axis">
-				<line x1="-100%" y1="0" x2="100%" y2="0"><title>x axis</title></line>
-				<line x1="0" y1="-100%" x2="0" y2="100%"><title>y axis</title></line>
+				<line x1="-60%" y1="0" x2="60%" y2="0"><title>x axis</title></line>
+				<line x1="0" y1="-60%" x2="0" y2="60%"><title>y axis</title></line>
 				<circle class="origin"><title>origin</title></circle>
 			</g>
 		`;
@@ -189,11 +189,12 @@ SVG.PolarGrid = class {
 
 
 	get polarAxis() {
-		// todo: add linecap arrows and axis labels
+		// todo: add axis labels
 		const result = `
-			<line class="axis" x1="0" y1="0" x2="0" y2="${-this.radius}"><title>polar axis</title></line>
+			<g class="axis">
+				<line x1="0" y1="0" x2="0" y2="${-this.radius}"><title>polar axis</title></line>
+			</g>
 		`;
-		//<circle class="origin"><title>origin</title></circle>
 		return result;
 	}/* get polarAxis */
 

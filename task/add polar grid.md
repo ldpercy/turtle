@@ -48,7 +48,9 @@ Need to sort out labels next.
 Dynamic Labels
 --------------
 
-
-
+Before i get onto labels I've added some simple axis arrows - they could be improved a bit, but okay for now.
+Getting them going and styled was a bit fiddly though; the markers don't exist in the same cascade as the lines they're applied to, so styles don't transfer directly.
+Not sure if they exist in shadow-dom or something like that though - would like to see if there *is* a way of doing this a little more elegantly.
+I've also added sliders to independently change the opacity for the polar and cartesian grids to address the concerns I had last night.
 
 

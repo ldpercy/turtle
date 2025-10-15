@@ -31,8 +31,19 @@
 		.minor { stroke-width: 1px; }
 		.label { fill: var(--colour-cartesian); }
 		.origin { r: 10px; stroke-width: 3px; }
+
+		.axis line {
+			marker-start:url(#axisMarker-cartesian);
+			marker-end:url(#axisMarker-cartesian);
+		}
 	}
 
+	#axisMarker-cartesian {
+		fill: var(--colour-cartesian);
+		opacity: 50%;
+		/* stroke-width: 5px; */
+
+	}
 
 	.grid-polar {
 		stroke: var(--colour-polar);
@@ -40,6 +51,16 @@
 		.major { stroke-width: 2px; }
 		.minor { stroke-width: 1px; }
 		.label { fill: var(--colour-polar); }
+
+		.axis line {
+			marker-end:url(#axisMarker-polar);
+		}
+	}
+
+	#axisMarker-polar {
+		fill: var(--colour-polar);
+		opacity: 70%;
+		/* stroke-width: 10px; */
 	}
 
 	/* stroke-dasharray: 10 10;    dashes */
@@ -56,6 +77,9 @@
 	}
 
 }/* .grid */
+
+
+
 
 
 .drawing {
