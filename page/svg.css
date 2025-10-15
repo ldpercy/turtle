@@ -38,12 +38,6 @@
 		}
 	}
 
-	#axisMarker-cartesian {
-		fill: var(--colour-cartesian);
-		opacity: 50%;
-		/* stroke-width: 5px; */
-
-	}
 
 	.grid-polar {
 		stroke: var(--colour-polar);
@@ -57,11 +51,13 @@
 		}
 	}
 
-	#axisMarker-polar {
-		fill: var(--colour-polar);
-		opacity: 70%;
-		/* stroke-width: 10px; */
+	marker path {
+		/* stroke-width:10px; */
+		fill: context-stroke;
+		opacity: 60%;
+		/* stroke: context-stroke; */
 	}
+
 
 	/* stroke-dasharray: 10 10;    dashes */
 	/* stroke-dasharray: 10 80 20 80 10;  crosses  */

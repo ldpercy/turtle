@@ -53,4 +53,10 @@ Getting them going and styled was a bit fiddly though; the markers don't exist i
 Not sure if they exist in shadow-dom or something like that though - would like to see if there *is* a way of doing this a little more elegantly.
 I've also added sliders to independently change the opacity for the polar and cartesian grids to address the concerns I had last night.
 
+Okay, turns out there is a way of styling markers using their context - this is a bit of SVG2 that browsers have seen fit to implement:
+```css
+	fill: context-fill;
+	stroke: context-stroke;
+```
+Exactly what I need.
 
