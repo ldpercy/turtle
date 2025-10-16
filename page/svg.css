@@ -66,14 +66,22 @@
 
 	.label {
 		stroke: none;
-		text-anchor:end;
 		font-size: 25px;
 		dominant-baseline: ideographic;
 		font-family: monospace;
+	}
+
+	.grid-cartesian .label {
+		text-anchor: end;
 		.x {
 			writing-mode: vertical-lr;
 		}
 	}
+
+	.grid-polar .label {
+		text-anchor: start;
+	}
+
 
 }/* .grid */
 

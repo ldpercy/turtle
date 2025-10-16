@@ -67,3 +67,11 @@ Dynamic Labels
 
 Have cartesian going, though I've hacked in the y-inversion for now - needs to be done properly.
 
+Polar going as well now.
+* same goes for y inversions
+* polar-axis labels will need to be made space aware
+* angle labels will need to be made space aware
+
+A thought while considering those: for a space that uses mathematical conventions, that is the polar axis extends to the right, the turtle will have to start facing in that direction.
+Otherwise it would be weird.
+

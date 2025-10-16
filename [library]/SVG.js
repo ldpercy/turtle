@@ -123,28 +123,18 @@ SVG.CartesianGrid = class {
 
 
 	getLabels(spacing) {
-		/* const result = `
-			<text class="label axis-x" x="+1000" y="0" transform="rotate(90,+1000,0)"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
-			<text class="label axis-x" x="+2000" y="0" transform="rotate(90,+2000,0)"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
-			<text class="label axis-x" x="-1000" y="0" transform="rotate(90,-1000,0)"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
-			<text class="label axis-x" x="-2000" y="0" transform="rotate(90,-2000,0)"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
-			<text class="label axis-y" x="0" y="+1000"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
-			<text class="label axis-y" x="0" y="+2000"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
-			<text class="label axis-y" x="0" y="-1000"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
-			<text class="label axis-y" x="0" y="-2000"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
-		`; */
 
 		let xLabels = '', yLabels = '';
 		let x = this.rectangle.x - (this.rectangle.x % spacing);
 		let y = this.rectangle.y - (this.rectangle.y % spacing);
 
-		let d = -5;
+		const adjust = -5;
 
 		for (x; x <= this.rectangle.xEnd; x += spacing){
-			xLabels += (x !== 0) ? `<text x="${x}" y="${d}">${x}</text>` : '';
+			xLabels += (x !== 0) ? `<text x="${x}" y="${adjust}">${x}</text>` : '';
 		}
 		for (y; y <= this.rectangle.yEnd; y += spacing){
-			yLabels += (y !== 0) ? `<text x="${d}" y="${-y}">${y}</text>` : '';	/* note negative y in here - needs to be made space-aware  */
+			yLabels += (y !== 0) ? `<text x="${adjust}" y="${-y}">${y}</text>` : '';	/* note negative y in here - needs to be made space-aware  */
 		}
 
 		const result = `
@@ -208,7 +198,7 @@ SVG.PolarGrid = class {
 			${this.getGridlines(this.spacingMinor,'minor', this.angleMinor)}
 			${this.getGridlines(this.spacingMajor,'major', this.angleMajor)}
 			${this.polarAxis}
-			${this.labels || 'no labels yet'}
+			${this.getLabels(this.spacingMajor, this.angleMinor)}
 		`;
 
 		return result;
@@ -254,6 +244,43 @@ SVG.PolarGrid = class {
 
 		return result;
 	}/* getGridlines */
+
+
+	/* getLabels
+	*/
+	getLabels(spacing, angleSpacing) {
+		let result = '';
+		let rLabels = '', aLabels = '';
+
+		const a = new this.space.Angle(0);
+		const p = this.space.newPoint('radial gridline');
+
+		const adjust = 5;
+
+		for (let r = spacing; r <= this.radius; r += spacing){
+			rLabels += `<text x="${adjust}" y="${-r}">${r}</text>`;
+		}
+
+		for (let d = 0; d < 360; d += angleSpacing){
+			a.degrees = d;
+			p.polar = new this.space.PolarCoordinates(a, this.radius);
+			aLabels += `<text x="${p.x}" y="${-p.y}">${d}</text>`;
+		}
+
+		result = `
+			<g class="label">
+				<g class="r">
+					${rLabels}
+				</g>
+				<g class="a">
+					${aLabels}
+				</g>
+			</g>
+		`;
+
+		return result;
+	}/* getLabels */
+
 
 
 }/* SVG.PolarGrid */
