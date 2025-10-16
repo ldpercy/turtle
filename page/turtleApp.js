@@ -65,6 +65,13 @@ class TurtleApp extends HTMLApp {
 		this.drawing    = document.getElementById('group-drawing');
 		this.turtleIcon = document.getElementById('icon-turtle');
 
+
+		if (localStorage.commandStr) {
+			document.getElementById('input-command').value = localStorage.commandStr;
+		}
+
+
+
 		this.updateTurtle();
 		this.updatePage();
 		this.updateDrawing();
@@ -174,6 +181,9 @@ class TurtleApp extends HTMLApp {
 	doCommands() {
 		//console.log('--- doCommand ---');
 		const commandStr = document.getElementById('input-command').value;
+
+		localStorage.commandStr = commandStr;
+
 		const commands = Turtle.getCommands(commandStr);
 
 		//console.log('Commands:', commands);
