@@ -17,41 +17,81 @@
 
 
 
-.graphPaper {
-	--teal: #088;
-	stroke: var(--teal);
+.grid {
+	--colour-cartesian: #088; /* teal: #088  */
+	--colour-polar: #b0b;
 	fill:none;
 
-	#pattern-gridMinor {
-		stroke-width: 1px;
-		/* stroke-dasharray: 10 10;    dashes */
-		/* stroke-dasharray: 10 80 20 80 10;  crosses  */
+	stroke-width: 1px;
+
+	.grid-cartesian {
+		stroke: var(--colour-cartesian);
+		.axis  { stroke-width: 5px; }
+		.major { stroke-width: 2px; }
+		.minor { stroke-width: 1px; }
+		.label { fill: var(--colour-cartesian); }
+		.origin { r: 10px; stroke-width: 3px; }
+
+		.axis line {
+			marker-start:url(#axisMarker-cartesian);
+			marker-end:url(#axisMarker-cartesian);
+		}
 	}
-	.viewBox {
-		x: -100%;
-		y: -100%;
-		width: 200%;
-		height: 200%;
+
+
+	.grid-polar {
+		stroke: var(--colour-polar);
+		.axis  { stroke-width: 10px; }
+		.major { stroke-width: 2px; }
+		.minor { stroke-width: 1px; }
+		.label { fill: var(--colour-polar); }
+
+		.axis line {
+			marker-end:url(#axisMarker-polar);
+		}
 	}
-	.grid-minor { fill: url(#pattern-gridMinor); }
-	.grid-major { fill: url(#pattern-gridMajor); }
-	.axis {
-		 stroke-width: 2px;
+
+	marker path {
+		/* stroke-width:10px; */
+		fill: context-stroke;
+		opacity: 60%;
+		/* stroke: context-stroke; */
 	}
-	.origin {
-		r:10px;
-		stroke-width: 2px;
-	}
+
+
+	/* stroke-dasharray: 10 10;    dashes */
+	/* stroke-dasharray: 10 80 20 80 10;  crosses  */
+
+
 
 	.label {
 		stroke: none;
-		fill: var(--teal);
-		text-anchor:end;
 		font-size: 25px;
 		dominant-baseline: ideographic;
 		font-family: monospace;
 	}
-}
+
+	.grid-cartesian .label {
+		text-anchor: end;
+		.x {
+			writing-mode: vertical-lr;
+		}
+	}
+
+	.grid-polar .label {
+		text-anchor: start;
+	}
+
+	line:hover, circle:hover {
+		stroke-width: 10px;
+		filter: drop-shadow(0px 0px 10px #fa0f);
+	}
+
+
+}/* .grid */
+
+
+
 
 
 .drawing {

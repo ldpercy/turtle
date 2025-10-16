@@ -8,9 +8,9 @@ class TurtleApp extends HTMLApp {
 	info = `
 		Turtle by ldpercy
 		https://github.com/ldpercy/turtle/
-		Version 0.5
-		https://github.com/ldpercy/turtle/pull/4
-	`;
+		v0.6
+		https://github.com/ldpercy/turtle/pull/5
+	`.replace(/\n\t/g,'\n');
 
 
 	eventListeners = [
@@ -46,17 +46,37 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
-		this.page = new PlanarSpace('page');
-		this.turtle = new SVGTurtle('Terry', this.page, 6);
+		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
+		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
+		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
+		this.viewBox = new SVG.ViewBox(this.page);
+
+		// TODO: viewBox is now set to the page, but it's now zoomed out compared to before - see if can zoom in or change default zoom levels
 
 		this.svgElement = document.getElementById('svg-element');
+		this.svgElement.setAttribute('viewBox', this.viewBox.toStringPadded(100));
+
+		this.space = new PlanarSpace('turtle-space');
+		this.turtle = new SVGTurtle('Terry', this.space, 6);
+
+
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-		this.drawing  = document.getElementById('group-drawing');
+		this.gridCartesian = document.getElementById('group-gridCartesian');
+		this.gridPolar     = document.getElementById('group-gridPolar');
+		this.drawing    = document.getElementById('group-drawing');
 		this.turtleIcon = document.getElementById('icon-turtle');
+
+
+		if (localStorage.commandStr) {
+			document.getElementById('input-command').value = localStorage.commandStr;
+		}
+
+
 
 		this.updateTurtle();
 		this.updatePage();
 		this.updateDrawing();
+		this.updateGrid();
 	}/* documentDOMContentLoaded */
 
 
@@ -70,12 +90,19 @@ class TurtleApp extends HTMLApp {
 			document.getElementById('icon-turtle').style.display = 'none';
 		}
 
-		if (pageForm.showGrid.checked) {
-			document.getElementById('group-grid').style.display = '';
+		if (pageForm.showCartesian.checked) {
+			document.getElementById('group-gridCartesian').style.display = '';
 		}
 		else {
-			document.getElementById('group-grid').style.display = 'none';
+			document.getElementById('group-gridCartesian').style.display = 'none';
 		}
+		if (pageForm.showPolar.checked) {
+			document.getElementById('group-gridPolar').style.display = '';
+		}
+		else {
+			document.getElementById('group-gridPolar').style.display = 'none';
+		}
+
 
 		if (pageForm.theme.value === 'light')
 		{
@@ -84,6 +111,11 @@ class TurtleApp extends HTMLApp {
 		else {
 			document.body.classList.replace('light','dark') ;
 		}
+
+		const cartesianOpacity = document.getElementById('input-cartesianOpacity').value;
+		document.getElementById('group-gridCartesian').style.setProperty('opacity', cartesianOpacity);
+		const polarOpacity = document.getElementById('input-polarOpacity').value;
+		document.getElementById('group-gridPolar').style.setProperty('opacity', polarOpacity);
 
 		this.updatePageTransform();
 	}/* updatePage */
@@ -111,7 +143,7 @@ class TurtleApp extends HTMLApp {
 		document.getElementById('group-drawing').style.setProperty('--draw-colour', drawColour);
 
 		const strokeWidth = document.getElementById('input-strokeWidth').value;
-		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+		document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width', strokeWidth);
 
 		if (document.getElementById('input-showMarkers').checked) {
 			document.getElementById('group-drawing').classList.add('show-marker');
@@ -121,10 +153,10 @@ class TurtleApp extends HTMLApp {
 		}
 
 		if (document.getElementById('input-showStroke').checked) {
-			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',strokeWidth);
+			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width', strokeWidth);
 		}
 		else {
-			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width',0);
+			document.getElementById('group-drawing').style.setProperty('--drawing-stroke-width', 0);
 		}
 
 	}/* updateDrawing */
@@ -150,6 +182,9 @@ class TurtleApp extends HTMLApp {
 	doCommands() {
 		//console.log('--- doCommand ---');
 		const commandStr = document.getElementById('input-command').value;
+
+		localStorage.commandStr = commandStr;
+
 		const commands = Turtle.getCommands(commandStr);
 
 		//console.log('Commands:', commands);
@@ -190,6 +225,15 @@ class TurtleApp extends HTMLApp {
 		document.getElementById('turtle-title').innerHTML = this.turtle.report;
 		document.getElementById('turtle-report').innerHTML = this.turtle.report;
 	}/* updateTurtle */
+
+
+	updateGrid() {
+		const cartesianGrid = new SVG.CartesianGrid(this.space, this.page);
+		this.gridCartesian.innerHTML = cartesianGrid.toString();
+
+		const polarGrid = new SVG.PolarGrid(this.space, this.page);
+		this.gridPolar.innerHTML = polarGrid.toString();
+	}
 
 
 

@@ -1,6 +1,9 @@
 
 
 html {
+	--page-background-light: #fcfcfc;
+	--page-background-dark: #111111;
+
 	--silver: #bbbb;
 
 
@@ -32,6 +35,7 @@ form {
 
 	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
+	h3 { font-size:1em; margin-top:1ex; margin-bottom:1ex; }
 	h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
 	details { margin-top:1ex; margin-bottom: 0ex; }
@@ -63,6 +67,10 @@ form {
 	input[type=range] { width: 10ex; }
 
 	input[name=zoom] { width: 16ex;}
+
+
+	details { margin-top: 0em; }
+	details.project { margin-top: 1ex; }
 
 }/* form */
 
@@ -96,7 +104,7 @@ form {
 
 body.light {
 	color-scheme: light;
-	background-color:white;
+	background-color: var(--page-background-light);
 	color: black;
 	form {
 		background-color:#eee9;
@@ -108,7 +116,7 @@ body.light {
 
 body.dark {
 	color-scheme: dark;
-	background-color: #222;
+	background-color: var(--page-background-dark);
 	color: white;
 	form {
 		background-color:#7779;
