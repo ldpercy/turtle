@@ -105,7 +105,7 @@ SVG.CartesianGrid = class {
 		let y = this.rectangle.y - (this.rectangle.y % spacing);
 
 		for (x; x <= this.rectangle.xEnd; x += spacing){
-			xLines += `<line x1="${x}" y1="${this.rectangle.y}" x2="${x}" y2="${this.rectangle.yEnd}"><title>${x}</title></line>`;
+			xLines += `<line x1="${x}" y1="${-this.rectangle.y}" x2="${x}" y2="${-this.rectangle.yEnd}"><title>${x}</title></line>`;
 		}
 		for (y; y <= this.rectangle.yEnd; y += spacing){
 			yLines += `<line x1="${this.rectangle.x}" y1="${-y}" x2="${this.rectangle.xEnd}" y2="${-y}"><title>${y}</title></line>`;

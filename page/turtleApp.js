@@ -48,6 +48,7 @@ class TurtleApp extends HTMLApp {
 
 		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
 		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
+		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
 		this.viewBox = new SVG.ViewBox(this.page);
 
 		// TODO: viewBox is now set to the page, but it's now zoomed out compared to before - see if can zoom in or change default zoom levels
