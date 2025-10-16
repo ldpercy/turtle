@@ -82,20 +82,6 @@ SVG.CartesianGrid = class {
 		this.spacingMinor = spacingMinor;
 	}
 
-	get labels() {
-		const result = `
-			<text class="label axis-x" x="+1000" y="0" transform="rotate(90,+1000,0)"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
-			<text class="label axis-x" x="+2000" y="0" transform="rotate(90,+2000,0)"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
-			<text class="label axis-x" x="-1000" y="0" transform="rotate(90,-1000,0)"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
-			<text class="label axis-x" x="-2000" y="0" transform="rotate(90,-2000,0)"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
-			<text class="label axis-y" x="0" y="+1000"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
-			<text class="label axis-y" x="0" y="+2000"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
-			<text class="label axis-y" x="0" y="-1000"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
-			<text class="label axis-y" x="0" y="-2000"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
-		`;
-		return result;
-	}/* get labels */
-
 
 	get axes() {
 		// todo: add axis labels
@@ -136,12 +122,53 @@ SVG.CartesianGrid = class {
 	}/* getGridlines */
 
 
+	getLabels(spacing) {
+		/* const result = `
+			<text class="label axis-x" x="+1000" y="0" transform="rotate(90,+1000,0)"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
+			<text class="label axis-x" x="+2000" y="0" transform="rotate(90,+2000,0)"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
+			<text class="label axis-x" x="-1000" y="0" transform="rotate(90,-1000,0)"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
+			<text class="label axis-x" x="-2000" y="0" transform="rotate(90,-2000,0)"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
+			<text class="label axis-y" x="0" y="+1000"><title>-1000</title><tspan dx="-4">-1000</tspan></text>
+			<text class="label axis-y" x="0" y="+2000"><title>-2000</title><tspan dx="-4">-2000</tspan></text>
+			<text class="label axis-y" x="0" y="-1000"><title>+1000</title><tspan dx="-4">+1000</tspan></text>
+			<text class="label axis-y" x="0" y="-2000"><title>+2000</title><tspan dx="-4">+2000</tspan></text>
+		`; */
+
+		let xLabels = '', yLabels = '';
+		let x = this.rectangle.x - (this.rectangle.x % spacing);
+		let y = this.rectangle.y - (this.rectangle.y % spacing);
+
+		let d = -5;
+
+		for (x; x <= this.rectangle.xEnd; x += spacing){
+			xLabels += (x !== 0) ? `<text x="${x}" y="${d}">${x}</text>` : '';
+		}
+		for (y; y <= this.rectangle.yEnd; y += spacing){
+			yLabels += (y !== 0) ? `<text x="${d}" y="${-y}">${y}</text>` : '';	/* note negative y in here - needs to be made space-aware  */
+		}
+
+		const result = `
+			<g class="label">
+				<g class="x">
+					${xLabels}
+				</g>
+				<g class="y">
+					${yLabels}
+				</g>
+			</g>
+		`;
+
+		return result;
+	}/* get labels */
+
+
+
 	toString() {
 		const result= `
 			${this.getGridlines(this.spacingMinor,'minor')}
 			${this.getGridlines(this.spacingMajor,'major')}
 			${this.axes}
-			${this.labels}
+			${this.getLabels(this.spacingMajor)}
 		`;
 
 		return result;

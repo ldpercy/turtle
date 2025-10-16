@@ -42,16 +42,17 @@ I've added a quick first go at a polar grid, looks okay.
 I'm fiddling with line weights to try to make it look okay as it seems a bit 'heavy' on screen.
 I might actually change these over to some brightness or opacity settings as looking good could depend on other factors like screen size, brightness & contrast - might be better to give a little control to the user.
 
+I've added sliders to independently change the opacity for the polar and cartesian grids to address the concerns I had last night.
+
 Need to sort out labels next.
 
-
-Dynamic Labels
---------------
+Axis arrows
+-----------
 
 Before i get onto labels I've added some simple axis arrows - they could be improved a bit, but okay for now.
 Getting them going and styled was a bit fiddly though; the markers don't exist in the same cascade as the lines they're applied to, so styles don't transfer directly.
 Not sure if they exist in shadow-dom or something like that though - would like to see if there *is* a way of doing this a little more elegantly.
-I've also added sliders to independently change the opacity for the polar and cartesian grids to address the concerns I had last night.
+
 
 Okay, turns out there is a way of styling markers using their context - this is a bit of SVG2 that browsers have seen fit to implement:
 ```css
@@ -59,4 +60,10 @@ Okay, turns out there is a way of styling markers using their context - this is 
 	stroke: context-stroke;
 ```
 Exactly what I need.
+
+
+Dynamic Labels
+--------------
+
+Have cartesian going, though I've hacked in the y-inversion for now - needs to be done properly.
 
