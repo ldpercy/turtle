@@ -15,8 +15,11 @@ Todo
 
 ### Features
 
+* Get custom spaces, inclucidng polar axis and direction, working properly
+* SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
+* Add a couple of origin/reset variants - eg one to go to the origin without resetting the heading
+* Re above, a general go to x,y command with/without line
 * Add automatic scheme selection based on the user's preference
-* Use browser storage or similar to maintain some settings, esp the command box for Chrome
 * Grid reactive to zoom level
 * Multi-turtle
 * Looping
@@ -33,17 +36,17 @@ Todo
 
 
 
-
 In Progress
 -----------
 
-* Add a polar grid option
+* Using local storage to maintain app settings, eg the command box for Chrome
 * Continue working on transition to drawing spaces / geometric spaces
 
 
 Done
 ----
 
+* Add a polar grid option
 * Dark theme
 * Conversion to conventional cartesian coordinates
 * Page zooming with scale transform (better than viewBox resize)

@@ -75,3 +75,42 @@ Polar going as well now.
 A thought while considering those: for a space that uses mathematical conventions, that is the polar axis extends to the right, the turtle will have to start facing in that direction.
 Otherwise it would be weird.
 
+I've also added a little hover effect for the gridlines, not sure I'll keep it, but will leave for now, maybe tweak a little.
+
+Will wrap shortly.
+
+
+Local Storage
+-------------
+
+Just quickly hacked in a local storage save for the commands box - was totally way simpler than I'd anticipated (dunno why I thought it would be hard...).
+Will add a bunch of other settings in as well, in a later task.
+
+
+Wrapup
+------
+
+There are a couple of little details missing here but it's mostly done so will mop those up later.
+
+* Moved all the existing cartesian grid code into the SVG library
+* Grid drawing changed over to become dynamic
+* Some preliminary changes to allow for setting viewBox to page, needs work though
+* Added polar grid
+* Added opacity sliders for the cartesian and polar grids so can be tweaked a little for different screens
+* Added some axis arrows
+* Labels are also dynamically drwan now, polar only degrees so far though
+* Added title elements and a little hover effect for grid items - will need a little tweaking though
+* Added an experimental local storage save for the command box
+
+
+Follow up
+* Add labels for axes (x, y, polar axis)
+* Polish hover effects; add for labels
+* Need to start properly testing at different page sizes - it's still kinda buggy
+* Also different polar axis setups - these aren't working properly yet either
+
+There are a bunch of other kinds of improvements that could be made, such as automatically adding/removing grid resolution at different zoom levels, but those sort of niceties can come much later.
+Done for now.
+
+
+
