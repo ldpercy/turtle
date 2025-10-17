@@ -180,19 +180,16 @@ class TurtleApp extends HTMLApp {
 
 
 	doCommands() {
-		//console.log('--- doCommand ---');
 		const commandStr = document.getElementById('input-command').value;
-
-		localStorage.commandStr = commandStr;
-
 		const commands = Turtle.getCommands(commandStr);
 
 		//console.log('Commands:', commands);
 
 		const commandOutput = this.turtle.doCommands(commands);
-
 		this.updateTurtle();
 		this.draw(commandOutput);
+
+		localStorage.commandStr = commandStr; // could be moved to window before unload??
 	}/* doCommands */
 
 
