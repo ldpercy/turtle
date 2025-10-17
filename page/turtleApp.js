@@ -17,27 +17,27 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#input-do',
 			type: 'click',
-			listener: ()=>this.doCommands
+			listener: this.doCommands
 		},
 		{
 			query: '#input-clear',
 			type: 'click',
-			listener: ()=>this.clear
+			listener: this.clear
 		},
 		{
 			query: '#input-origin',
 			type: 'click',
-			listener: ()=>this.toOrigin
+			listener: this.toOrigin
 		},
 		{
 			query: '#form-page',
 			type: 'change',
-			listener: ()=>this.updatePage
+			listener: this.updatePage
 		},
 		{
 			query: '#form-drawing',
 			type: 'change',
-			listener: ()=>this.updateDrawing
+			listener: this.updateDrawing
 		},
 	];
 
