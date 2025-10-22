@@ -19,8 +19,8 @@ Todo
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
 * Add a couple of origin/reset variants - eg one to go to the origin without resetting the heading
 * Re above, a general go to x,y command with/without line
-* Add automatic scheme selection based on the user's preference
-* Grid reactive to zoom level
+* Add automatic colour scheme selection based on the user's preference
+* Grid reactive to zoom level and/or turtle position
 * Multi-turtle
 * Looping
 * Custom space rules - size, boundaries, wrapping
