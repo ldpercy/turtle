@@ -24,17 +24,23 @@ class HTMLApp {
 	}/* documentDOMContentLoaded */
 
 
-
 	addEventListeners() {
-		//console.debug('HTMLApp.addEventListeners', arguments, instance);
 		this.eventListeners.forEach(
 			(item) => {
-				document.querySelectorAll(item.query).forEach((node) => {
-					node.addEventListener(
+				if (item.element) {
+					item.element.addEventListener(
 						item.type,
 						item.listener.bind(this)
-					);//addEventListener
-				}); //
+					);
+				} else if (item.query) {
+					document.querySelectorAll(item.query).forEach((node) => {
+						//console.debug('HTMLApp.addEventListeners item.listener', item.listener);
+						node.addEventListener(
+							item.type,
+							item.listener.bind(this)
+						);//addEventListener
+					});
+				}
 			}//item
 		);
 	}/* addEventListeners */
