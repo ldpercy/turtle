@@ -81,8 +81,8 @@ class TurtleApp extends HTMLApp {
 
 
 	visibilitychangeListener() {
-		console.debug('visibilitychangeListener', arguments);
-		console.debug('document.visibilityState', document.visibilityState);
+		//console.debug('visibilitychangeListener', arguments);
+		//console.debug('document.visibilityState', document.visibilityState);
 		if (document.visibilityState === 'hidden')
 		{
 			this.saveSettings();
@@ -243,14 +243,35 @@ class TurtleApp extends HTMLApp {
 	saveSettings() {
 		// could be moved to window before unload??
 		// onvisibility state change
+
 		const commandStr = document.getElementById('input-command').value;
-		localStorage.commandStr = commandStr;
+		localStorage.setItem('commandStr',commandStr);
+
+		const pageFormData = new FormData(document.getElementById('form-page'));
+		const drawingFormData = new FormData(document.getElementById('form-drawing'));
+
+		// Note caveats: https://stackoverflow.com/a/55874235
+
+		const pageFormObj = Object.fromEntries(pageFormData);
+		const drawingFormObj = Object.fromEntries(drawingFormData);
+
+		console.debug('pageFormObj', pageFormObj);
+
+		const pageFormJson = JSON.stringify(pageFormObj);
+		const drawingFormJson = JSON.stringify(drawingFormObj);
+
+		console.debug('pageFormJson', pageFormJson);
+
+		localStorage.setItem('pageFormData', pageFormJson );
+		localStorage.setItem('drawingFormData', drawingFormJson );
+
 		console.log('Settings saved');
-	}
+	}/* saveSettings */
+
 
 	loadSettings() {
 		if (localStorage.commandStr) {
-			document.getElementById('input-command').value = localStorage.commandStr;
+			document.getElementById('input-command').value = localStorage.getItem('commandStr');
 		}
 		console.log('Settings loaded');
 	}
