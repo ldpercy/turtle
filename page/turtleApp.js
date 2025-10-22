@@ -39,8 +39,13 @@ class TurtleApp extends HTMLApp {
 			type: 'change',
 			listener: this.updateDrawing
 		},
-	];
+		{
+			element: document,
+			type: 'visibilitychange',
+			listener: this.visibilitychangeListener
+		},
 
+	];
 
 
 	documentDOMContentLoaded() {
@@ -66,12 +71,7 @@ class TurtleApp extends HTMLApp {
 		this.drawing    = document.getElementById('group-drawing');
 		this.turtleIcon = document.getElementById('icon-turtle');
 
-
-		if (localStorage.commandStr) {
-			document.getElementById('input-command').value = localStorage.commandStr;
-		}
-
-
+		this.loadSettings();
 
 		this.updateTurtle();
 		this.updatePage();
@@ -79,6 +79,15 @@ class TurtleApp extends HTMLApp {
 		this.updateGrid();
 	}/* documentDOMContentLoaded */
 
+
+	visibilitychangeListener() {
+		console.debug('visibilitychangeListener', arguments);
+		console.debug('document.visibilityState', document.visibilityState);
+		if (document.visibilityState === 'hidden')
+		{
+			this.saveSettings();
+		}
+	}
 
 
 	updatePage() {
@@ -188,8 +197,6 @@ class TurtleApp extends HTMLApp {
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
 		this.draw(commandOutput);
-
-		localStorage.commandStr = commandStr; // could be moved to window before unload??
 	}/* doCommands */
 
 
@@ -232,6 +239,21 @@ class TurtleApp extends HTMLApp {
 		this.gridPolar.innerHTML = polarGrid.toString();
 	}
 
+
+	saveSettings() {
+		// could be moved to window before unload??
+		// onvisibility state change
+		const commandStr = document.getElementById('input-command').value;
+		localStorage.commandStr = commandStr;
+		console.log('Settings saved');
+	}
+
+	loadSettings() {
+		if (localStorage.commandStr) {
+			document.getElementById('input-command').value = localStorage.commandStr;
+		}
+		console.log('Settings loaded');
+	}
 
 
 }/* TurtleApp */
