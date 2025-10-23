@@ -254,23 +254,31 @@ class TurtleApp extends HTMLApp {
 
 		localStorage.setItem('commandStr',this.element.commandInput.value);
 
-		const pageFormData = new FormData(this.element.pageForm);
-		const drawingFormData = new FormData(this.element.drawingForm);
+		// fp = document.getElementById('form-page');
+		// fd = document.getElementById('form-drawing');
+
 
 		// Note caveats: https://stackoverflow.com/a/55874235
 
-		const pageFormObj = Object.fromEntries(pageFormData);
-		const drawingFormObj = Object.fromEntries(drawingFormData);
+		const appSettings = {
+			page : this.getFormData(this.element.pageForm),
+			drawing : this.getFormData(this.element.drawingForm),
+		};
 
-		//console.debug('pageFormObj', pageFormObj);
+		const appSettingsJson = JSON.stringify(appSettings);
+		localStorage.setItem('appSettings', appSettingsJson );
 
-		const pageFormJson = JSON.stringify(pageFormObj);
-		const drawingFormJson = JSON.stringify(drawingFormObj);
+		const appSettings2 = {
+			page : this.getFormData2(this.element.pageForm),
+			drawing : this.getFormData2(this.element.drawingForm),
+		};
+		const appSettingsJson2 = JSON.stringify(appSettings2);
+		localStorage.setItem('appSettings2', appSettingsJson2 );
 
-		//console.debug('pageFormJson', pageFormJson);
 
-		localStorage.setItem('pageFormData', pageFormJson );
-		localStorage.setItem('drawingFormData', drawingFormJson );
+		//console.debug('appSettings', appSettings);
+
+		localStorage.setItem('savedAt', new Date());
 
 		//.log('Settings saved');
 	}/* saveSettings */
@@ -281,6 +289,11 @@ class TurtleApp extends HTMLApp {
 			this.element.commandInput.value = localStorage.getItem('commandStr');
 		}
 		//console.log('Settings loaded');
+
+		if (localStorage.appSettings) {
+
+		}
+
 	}
 
 

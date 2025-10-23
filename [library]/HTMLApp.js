@@ -58,4 +58,41 @@ class HTMLApp {
 	}/* buildElements */
 
 
+
+	getFormData(formElement) {
+		const formData = new FormData(formElement);
+		const result = Object.fromEntries(formData);
+
+		return result;
+	}
+
+	getFormData2(formElement) {
+		//console.debug('getFormData2 arguments', arguments);
+		//console.debug('getFormData2 formElement.elements', formElement.elements);
+		const result = {}
+		let input;
+
+		for (let i=0 ; i < formElement.elements.length; i++) {
+			input = formElement.elements[i];
+
+			if (input.type === 'checkbox')
+			{
+				result[input.name] = input.checked;
+			}
+			else
+			{
+				result[input.name] = input.value;
+			}
+		}
+
+		console.debug('getFormData2 result' , result);
+		return result;
+	}
+
+
+	populateForm(formElement, formData) {
+
+	}
+
+
 }/* HTMLApp */
