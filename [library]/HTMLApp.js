@@ -5,6 +5,9 @@ class HTMLApp {
 	//name = 'HTMLApp';
 	//info = 'HTMLApp by ldpercy';
 
+	element = {};
+	eventListeners = [];
+
 	constructor() {
 		//console.debug('HTMLApp.constructor', this);
 		document.addEventListener('DOMContentLoaded', this.documentDOMContentLoaded.bind(this));
@@ -19,6 +22,7 @@ class HTMLApp {
 		// adding a `.bind(this)` to the addEventListener keeps 'this' as the instance scope
 
 		//console.log('documentDOMContentLoaded', arguments, this);
+		this.buildElements();
 		this.addEventListeners();
 		console.info(this.info);
 	}/* documentDOMContentLoaded */
@@ -45,6 +49,13 @@ class HTMLApp {
 		);
 	}/* addEventListeners */
 
+
+	buildElements() {
+		for (let item in this.element) {
+			//console.debug(item);
+			this.element[item] = document.getElementById(this.element[item]);
+		}
+	}/* buildElements */
 
 
 }/* HTMLApp */
