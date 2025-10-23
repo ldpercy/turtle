@@ -105,10 +105,10 @@ SVG.CartesianGrid = class {
 		let y = this.rectangle.y - (this.rectangle.y % spacing);
 
 		for (x; x <= this.rectangle.xEnd; x += spacing){
-			xLines += `<line x1="${x}" y1="${-this.rectangle.y}" x2="${x}" y2="${-this.rectangle.yEnd}"><title>${x}</title></line>`;
+			xLines += `<line x1="${x}" y1="${-this.rectangle.y}" x2="${x}" y2="${-this.rectangle.yEnd}"><title>x: ${x}</title></line>`;
 		}
 		for (y; y <= this.rectangle.yEnd; y += spacing){
-			yLines += `<line x1="${this.rectangle.x}" y1="${-y}" x2="${this.rectangle.xEnd}" y2="${-y}"><title>${y}</title></line>`;
+			yLines += `<line x1="${this.rectangle.x}" y1="${-y}" x2="${this.rectangle.xEnd}" y2="${-y}"><title>y: ${y}</title></line>`;
 		}
 
 		result = `
@@ -131,10 +131,10 @@ SVG.CartesianGrid = class {
 		const adjust = -5;
 
 		for (x; x <= this.rectangle.xEnd; x += spacing){
-			xLabels += (x !== 0) ? `<text x="${x}" y="${adjust}"><title>${x}</title>${x}</text>` : '';
+			xLabels += (x !== 0) ? `<text x="${x}" y="${adjust}"><title>x: ${x}</title>${x}</text>` : '';
 		}
 		for (y; y <= this.rectangle.yEnd; y += spacing){
-			yLabels += (y !== 0) ? `<text x="${adjust}" y="${-y}"><title>${y}</title>${y}</text>` : '';	/* note negative y in here - needs to be made space-aware  */
+			yLabels += (y !== 0) ? `<text x="${adjust}" y="${-y}"><title>y: ${y}</title>${y}</text>` : '';	/* note negative y in here - needs to be made space-aware  */
 		}
 
 		const result = `
@@ -226,7 +226,7 @@ SVG.PolarGrid = class {
 		const p = this.space.newPoint('radial gridline');
 
 		for (let r = 0; r <= this.radius; r += spacing){
-			circles += `<circle cx="0" cy="0" r="${r}"><title>${r}</title></circle>`;
+			circles += `<circle cx="0" cy="0" r="${r}"><title>r: ${r}</title></circle>`;
 		}
 
 		for (let d = 0; d <= 360; d += angle){
@@ -258,7 +258,7 @@ SVG.PolarGrid = class {
 		const adjust = 5;
 
 		for (let r = spacing; r <= this.radius; r += spacing){
-			rLabels += `<text x="${adjust}" y="${-r}"><title>${r}</title>${r}</text>`;
+			rLabels += `<text x="${adjust}" y="${-r}"><title>r: ${r}</title>${r}</text>`;
 		}
 
 		for (let d = 0; d < 360; d += angleSpacing){
