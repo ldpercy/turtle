@@ -83,9 +83,9 @@ class TurtleApp extends HTMLApp {
 
 
 		this.loadSettings();
-
-		this.updateTurtle();
 		this.updatePage();
+		this.updateTurtle();
+
 		this.updateDrawing();
 		this.updateGrid();
 	}/* documentDOMContentLoaded */
@@ -125,10 +125,12 @@ class TurtleApp extends HTMLApp {
 
 		if (this.element.pageForm.theme.value === 'light')
 		{
-			document.body.classList.replace('dark','light') ;
+			document.body.classList.remove('dark');
+			document.body.classList.add('light');
 		}
 		else {
-			document.body.classList.replace('light','dark') ;
+			document.body.classList.remove('light');
+			document.body.classList.add('dark');
 		}
 
 		this.element.gridCartesian.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
@@ -267,13 +269,13 @@ class TurtleApp extends HTMLApp {
 
 		const appSettingsJson = JSON.stringify(appSettings);
 		localStorage.setItem('appSettings', appSettingsJson );
-
+/*
 		const appSettings2 = {
 			page : this.getFormData2(this.element.pageForm),
 			drawing : this.getFormData2(this.element.drawingForm),
 		};
 		const appSettingsJson2 = JSON.stringify(appSettings2);
-		localStorage.setItem('appSettings2', appSettingsJson2 );
+		localStorage.setItem('appSettings2', appSettingsJson2 ); */
 
 
 		//console.debug('appSettings', appSettings);
@@ -292,6 +294,9 @@ class TurtleApp extends HTMLApp {
 
 		if (localStorage.appSettings) {
 
+			const appSettings = JSON.parse(localStorage.appSettings);
+			this.populateForm(this.element.pageForm, appSettings.page);
+			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
 
 	}

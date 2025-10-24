@@ -58,24 +58,27 @@ class HTMLApp {
 	}/* buildElements */
 
 
-
+	/*
 	getFormData(formElement) {
 		const formData = new FormData(formElement);
 		const result = Object.fromEntries(formData);
-
 		return result;
-	}
+	} */
 
-	getFormData2(formElement) {
-		//console.debug('getFormData2 arguments', arguments);
-		//console.debug('getFormData2 formElement.elements', formElement.elements);
+	getFormData(formElement) {
+		//console.debug('getFormData arguments', arguments);
+		//console.debug('getFormData formElement.elements', formElement.elements);
 		const result = {}
 		let input;
 
 		for (let i=0 ; i < formElement.elements.length; i++) {
 			input = formElement.elements[i];
 
-			if (input.type === 'checkbox')
+			if (input.type === 'radio') {
+				//console.debug('radio', input);
+				result[input.name] = formElement[input.name].value;
+			}
+			else if (input.type === 'checkbox')
 			{
 				result[input.name] = input.checked;
 			}
@@ -85,13 +88,26 @@ class HTMLApp {
 			}
 		}
 
-		console.debug('getFormData2 result' , result);
+		//console.debug('getFormData result' , result);
 		return result;
 	}
 
 
 	populateForm(formElement, formData) {
+		//console.debug('populateForm');
+		for (let item in formData) {
+			//console.debug(item);
 
+			if (formElement.elements[item].type === 'checkbox')
+			{
+				formElement.elements[item].checked = formData[item];
+			}
+			else
+			{
+				formElement.elements[item].value = formData[item];
+			}
+
+		}
 	}
 
 

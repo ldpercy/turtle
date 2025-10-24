@@ -33,14 +33,12 @@ Something weird was happening with it yesterday, it was including the prototype,
 Unfortunately I don't think there's an easy reverse equivalent for populating a form from some data, but writing one will be quick.
 
 
-
 HTMLApp buildElements
 ---------------------
 
 I've added a buildElements method to the HTMLApp to set up references for commonly reused elements so document.getElementById('foo') doesn't have to be called all the time.
 I don't know if this actually saves much other than some visual clutter, but will try it out for a while.
 It might prove more more confusing in some ways because i have to maintain two sets of names, will see.
-
 
 
 Saving and reloading form data
@@ -52,7 +50,12 @@ Hmm there's a few complications with FormData - they were some noted on the SO p
 
 For one thing, unchecked checkboxes don't get included - I'd prefer they were.
 
-
-
 	formData = new FormData(formElement);
 	formDataObject = Object.fromEntries(formData),
+
+
+Also radio inputs need to be handled differently...
+I've rolled my own for now.
+
+Need to figure out a decent way to handle themes at load time too.
+
