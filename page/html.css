@@ -74,6 +74,39 @@ form {
 	details { margin-top: 0em; }
 	details.project { margin-top: 1ex; }
 
+	.tab-body { z-index:10; }
+
+	.tabbar {
+		font-size:1.4ex;
+		margin-left:0.2em;
+		position: relative;
+		top: -2px;
+		/* z-index:5; */
+		a {
+			position: relative;
+			display: inline-block;
+			text-decoration: none;
+		}
+
+		a.active { z-index:15; }
+
+		&.top a {
+			border-width: 1px 1px 0px;
+			border-style: solid solid none;
+			border-radius: 0.5ex 0.5ex 0ex 0ex;
+			padding: 0ex 1ex 0ex;
+		}
+		&.bottom a {
+			border-width: 0px 1px 1px;
+			border-style: none solid solid ;
+			border-radius: 0ex 0ex 0.5ex 0.5ex;
+			padding: 0.2ex 1ex 0ex;
+			margin-top: 0em ;
+			margin-bottom: 0.2em;
+		}
+
+	}
+
 }/* form */
 
 
@@ -114,6 +147,11 @@ body.light {
 	}
 	.infoBox { background-color: #fffc; }
 
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #ffffff;
+	}
+
 }
 
 body.dark {
@@ -128,6 +166,13 @@ body.dark {
 		background-color: #222c;
 		border-color: #9999;
 	}
+
+
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #2b2a33;
+	}
+
 }
 
 
