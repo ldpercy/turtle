@@ -38,6 +38,8 @@ form {
 	h3 { font-size:1em; margin-top:1ex; margin-bottom:1ex; }
 	h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
+	h1 + h2 { margin-top: 0ex; }
+
 	details { margin-top:1ex; margin-bottom: 0ex; }
 
 	hr { width:100%; }

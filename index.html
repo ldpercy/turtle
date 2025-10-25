@@ -22,8 +22,18 @@
 		<form id="form-turtle">
 			<h1>Turtle</h1>
 
+			<h2>Commands</h2>
+
+			<textarea id="input-command" class="tab-body" type="string" name="command" title="command">right 60,500</textarea>
+			<button id="input-do" type="button">do</button>
+			<button id="input-clear" type="button">clear</button>
+			<button id="input-origin" type="button">to origin</button>
+
+
+			<br/>
+
 			<details>
-				<summary>Commands</summary>
+				<summary>Command help</summary>
 				<output class="infoBox" id="turtle-instructions">
 					<div>left degrees,distance</div>
 					<div>right degrees,distance</div>
@@ -38,12 +48,7 @@
 				</output>
 			</details>
 
-			<textarea id="input-command" type="string" name="command" title="command">right 60,500</textarea>
-			<button id="input-do" type="button">do</button>
-			<button id="input-clear" type="button">clear</button>
-			<button id="input-origin" type="button">to origin</button>
-
-			<h2>Current:</h2>
+			<h2>Position</h2>
 			<output id="turtle-report" class="infoBox"></output>
 			<details class="project">
 				<summary>🛈</summary>

@@ -35,6 +35,10 @@ Todo
 * Change or have options for line drawing - line, polygon, polyline, path
 
 
+### Improvements
+* Get Firefox & chrome's form styling more in sync
+
+
 
 In Progress
 -----------
