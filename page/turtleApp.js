@@ -15,6 +15,7 @@ class TurtleApp extends HTMLApp {
 
 	element = {
 		commandInput	: 'input-command',
+		turtleForm		: 'form-turtle',
 		pageForm		: 'form-page',
 		drawingForm		: 'form-drawing',
 		svg				: 'svg-element',
@@ -250,35 +251,20 @@ class TurtleApp extends HTMLApp {
 	}
 
 
+	/* saveSettings
+	*/
 	saveSettings() {
-		// could be moved to window before unload??
-		// onvisibility state change
-
-		localStorage.setItem('commandStr',this.element.commandInput.value);
-
-		// fp = document.getElementById('form-page');
-		// fd = document.getElementById('form-drawing');
-
 
 		// Note caveats: https://stackoverflow.com/a/55874235
 
 		const appSettings = {
-			page : this.getFormData(this.element.pageForm),
-			drawing : this.getFormData(this.element.drawingForm),
+			turtle	: this.getFormData(this.element.turtleForm),
+			page	: this.getFormData(this.element.pageForm),
+			drawing	: this.getFormData(this.element.drawingForm),
 		};
 
 		const appSettingsJson = JSON.stringify(appSettings);
 		localStorage.setItem('appSettings', appSettingsJson );
-/*
-		const appSettings2 = {
-			page : this.getFormData2(this.element.pageForm),
-			drawing : this.getFormData2(this.element.drawingForm),
-		};
-		const appSettingsJson2 = JSON.stringify(appSettings2);
-		localStorage.setItem('appSettings2', appSettingsJson2 ); */
-
-
-		//console.debug('appSettings', appSettings);
 
 		localStorage.setItem('savedAt', new Date());
 
@@ -287,19 +273,15 @@ class TurtleApp extends HTMLApp {
 
 
 	loadSettings() {
-		if (localStorage.commandStr) {
-			this.element.commandInput.value = localStorage.getItem('commandStr');
-		}
 		//console.log('Settings loaded');
-
 		if (localStorage.appSettings) {
 
 			const appSettings = JSON.parse(localStorage.appSettings);
+			this.populateForm(this.element.turtleForm, appSettings.turtle);
 			this.populateForm(this.element.pageForm, appSettings.page);
 			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
-
-	}
+	}/* loadSettings */
 
 
 }/* TurtleApp */
