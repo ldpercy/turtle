@@ -74,17 +74,20 @@ class HTMLApp {
 		for (let i=0 ; i < formElement.elements.length; i++) {
 			input = formElement.elements[i];
 
-			if (input.type === 'radio') {
-				//console.debug('radio', input);
-				result[input.name] = formElement[input.name].value;
-			}
-			else if (input.type === 'checkbox')
-			{
-				result[input.name] = input.checked;
-			}
-			else
-			{
-				result[input.name] = input.value;
+			if (input.name) { // need to ignore unnamed form elements like buttons
+
+				if (input.type === 'radio') {
+					//console.debug('radio', input);
+					result[input.name] = formElement[input.name].value;
+				}
+				else if (input.type === 'checkbox')
+				{
+					result[input.name] = input.checked;
+				}
+				else
+				{
+					result[input.name] = input.value;
+				}
 			}
 		}
 
@@ -94,7 +97,7 @@ class HTMLApp {
 
 
 	populateForm(formElement, formData) {
-		//console.debug('populateForm');
+		//console.debug('populateForm', arguments);
 		for (let item in formData) {
 			//console.debug(item);
 
