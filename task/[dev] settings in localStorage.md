@@ -59,3 +59,14 @@ I've rolled my own for now.
 
 Need to figure out a decent way to handle themes at load time too.
 
+
+Chrome & firefox style parity
+-----------------------------
+
+Never been a terribly high priority for me, but I've added a few things to bring them more in line with each other:
+* set accent colours for light and dark
+* Tweaking some font sizes
+* Adding 'Noto sans' as preferred san-serif font
+
+The font sizes will need more testing though, I don't mess around with those very often, and have forgotten how some things work.
+

@@ -22,6 +22,9 @@ html {
 	}
 	scrollbar-width: none;
 
+	font-size: 14px;
+
+
 	/*
 	there are 5 extra pixels on the body height coming from somewhere...
 	might be a line-box thing on the svg element
@@ -38,7 +41,8 @@ form {
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
-	font-family:sans-serif;
+	font-family:'Noto sans', sans-serif;
+	font-size: 1em;
 
 	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
@@ -49,6 +53,8 @@ form {
 
 	details { margin-top:1ex; margin-bottom: 0ex; }
 
+	a { font-size: 1.2em; }
+
 	hr { width:100%; }
 
 	#input-command {
@@ -58,7 +64,7 @@ form {
 
 	.infoBox {
 		font-family: monospace;
-		font-size: 1em;
+		font-size: 1.6ex;
 		padding:1ex;
 		border:1px solid var(--silver);
 	}
@@ -77,6 +83,7 @@ form {
 
 	input[name=zoom] { width: 16ex;}
 
+	textarea { font-size: 1.6ex; }
 
 	details { margin-top: 0em; }
 	details.project { margin-top: 1ex; }
@@ -93,6 +100,7 @@ form {
 			position: relative;
 			display: inline-block;
 			text-decoration: none;
+			line-height: 3ex;
 		}
 
 		a.active { z-index:15; }
