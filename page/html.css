@@ -5,6 +5,12 @@ html {
 	--page-background-dark: #111111;
 
 	--silver: #bbbb;
+	--teal: #088;		/* cartesian grid */
+	--purple: #b0b;	/* polar grid */
+
+
+	--accent-light: #08c;
+	--accent-dark: #0cf;
 
 
 	margin:0px;
@@ -15,6 +21,7 @@ html {
 		padding:0px;
 	}
 	scrollbar-width: none;
+
 	/*
 	there are 5 extra pixels on the body height coming from somewhere...
 	might be a line-box thing on the svg element
@@ -139,8 +146,12 @@ form {
 
 body.light {
 	color-scheme: light;
+	accent-color: var(--accent-light);
 	background-color: var(--page-background-light);
 	color: black;
+
+	a { color: var(--accent-light); }
+
 	form {
 		background-color:#eee9;
 		border-color: #bbbb;
@@ -156,8 +167,12 @@ body.light {
 
 body.dark {
 	color-scheme: dark;
+	accent-color: var(--accent-dark);
 	background-color: var(--page-background-dark);
 	color: white;
+
+	a { color: var(--accent-dark); }
+
 	form {
 		background-color:#7779;
 		border-color: #9999;

@@ -18,8 +18,8 @@
 
 
 .grid {
-	--colour-cartesian: #088; /* teal: #088  */
-	--colour-polar: #b0b;
+	--colour-cartesian: var(--teal);
+	--colour-polar: var(--purple);
 	fill:none;
 
 	stroke-width: 1px;
