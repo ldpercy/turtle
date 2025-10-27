@@ -5,6 +5,12 @@ html {
 	--page-background-dark: #111111;
 
 	--silver: #bbbb;
+	--teal: #088;		/* cartesian grid */
+	--purple: #b0b;	/* polar grid */
+
+
+	--accent-light: #08c;
+	--accent-dark: #0cf;
 
 
 	margin:0px;
@@ -15,6 +21,10 @@ html {
 		padding:0px;
 	}
 	scrollbar-width: none;
+
+	font-size: 16px; /* 14px; */
+
+
 	/*
 	there are 5 extra pixels on the body height coming from somewhere...
 	might be a line-box thing on the svg element
@@ -28,28 +38,34 @@ summary {
 form {
 	display: grid;
 	border:1px solid silver;
+	/* filter: drop-shadow(0px 5px 5px var(--accent)); */
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
-	font-family:sans-serif;
+	font-family:'Noto sans', sans-serif;
+	font-size: 1em;
 
 	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
 	h3 { font-size:1em; margin-top:1ex; margin-bottom:1ex; }
 	h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
+	h1 + h2 { margin-top: 0ex; }
+
 	details { margin-top:1ex; margin-bottom: 0ex; }
+
+	a { color: var(--accent); }
 
 	hr { width:100%; }
 
 	#input-command {
 		height:15em;
+		min-width: 15em;
 	}
-
 
 	.infoBox {
 		font-family: monospace;
-		font-size: 1em;
+		font-size: 1.6ex;
 		padding:1ex;
 		border:1px solid var(--silver);
 	}
@@ -68,9 +84,51 @@ form {
 
 	input[name=zoom] { width: 16ex;}
 
+	textarea { font-size: 1.6ex; }
+
+	br { margin-top:1ex; }
 
 	details { margin-top: 0em; }
 	details.project { margin-top: 1ex; }
+
+	/*
+	details>summary { list-style: none; }
+	summary::after { content: " ⯇";  }
+	details[open] summary::after { content: " ⯆"; text-align:right; } */
+
+	.tab-body { z-index:10; }
+
+	.tabbar {
+		font-size:1.4ex;
+		margin-left:0.2em;
+		position: relative;
+		top: -2px;
+		/* z-index:5; */
+		.tab {
+			position: relative;
+			display: inline-block;
+			text-decoration: none;
+			line-height: 3ex;
+		}
+
+		.tab.active { z-index:15; }
+
+		&.top .tab {
+			border-width: 1px 1px 0px;
+			border-style: solid solid none;
+			border-radius: 0.5ex 0.5ex 0ex 0ex;
+			padding: 0ex 1ex 0ex;
+		}
+		&.bottom .tab {
+			border-width: 0px 1px 1px;
+			border-style: none solid solid ;
+			border-radius: 0ex 0ex 0.5ex 0.5ex;
+			padding: 0.2ex 1ex 0ex;
+			margin-top: 0em ;
+			margin-bottom: 0.2em;
+		}
+
+	}
 
 }/* form */
 
@@ -104,20 +162,30 @@ form {
 
 body.light {
 	color-scheme: light;
+	--accent: var(--accent-light);
+	accent-color: var(--accent);
 	background-color: var(--page-background-light);
 	color: black;
+
 	form {
 		background-color:#eee9;
 		border-color: #bbbb;
 	}
 	.infoBox { background-color: #fffc; }
 
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #ffffff;
+	}
 }
 
 body.dark {
 	color-scheme: dark;
+	--accent: var(--accent-dark);
+	accent-color: var(--accent);
 	background-color: var(--page-background-dark);
 	color: white;
+
 	form {
 		background-color:#7779;
 		border-color: #9999;
@@ -125,6 +193,11 @@ body.dark {
 	.infoBox {
 		background-color: #222c;
 		border-color: #9999;
+	}
+
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #2b2a33;
 	}
 }
 

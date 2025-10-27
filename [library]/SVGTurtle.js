@@ -93,7 +93,7 @@ class SVGTurtle {
 			`	${this.heading.radians.toPrecision(this.precision.report)} rad`,
 			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
-			`polar coordinates:`,
+			`polar:`,
 			`	r: ${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
 			`	a: ${originAngle.degrees.toPrecision(this.precision.report)}°`,
 			`	a: ${originAngle.radians.toPrecision(this.precision.report)} rad`,

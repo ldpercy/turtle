@@ -7,20 +7,25 @@ Todo
 
 ### Bugs
 
+* Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen
-* The commands box flashes white in ff after a dark reload - find out what's causing that
+* The command box flashes white in ff after a dark reload - find out what's causing that
 * Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
 
 
-### Features
+### General
 
+* Think about enforcing quotes for text commands, see below
+* Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
+* See if the summary/details markers can be styled a little more nicely
+* Check out what validation/cleaning I need for the command textarea & string
 * Get custom spaces, inclucidng polar axis and direction, working properly
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
 * Add a couple of origin/reset variants - eg one to go to the origin without resetting the heading
 * Re above, a general go to x,y command with/without line
-* Add automatic scheme selection based on the user's preference
-* Grid reactive to zoom level
+* Add automatic colour scheme selection based on the user's preference
+* Grid reactive to zoom level and/or turtle position
 * Multi-turtle
 * Looping
 * Custom space rules - size, boundaries, wrapping
@@ -36,16 +41,20 @@ Todo
 
 
 
+
+
 In Progress
 -----------
 
-* Using local storage to maintain app settings, eg the command box for Chrome
+* Get Firefox & chrome's form styling more in sync
 * Continue working on transition to drawing spaces / geometric spaces
 
 
 Done
 ----
 
+* Command textarea tabs
+* Use local storage to maintain app settings
 * Add a polar grid option
 * Dark theme
 * Conversion to conventional cartesian coordinates

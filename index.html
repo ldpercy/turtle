@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>🐢 Turtle by ldpercy v0.6</title>
+	<title>🐢 Turtle by ldpercy v0.7</title>
 	<meta charset="utf-8">
 	<meta name="color-scheme" content="dark light">
 	<meta name="description" content="Turtle by ldpercy v0.6 - SVG, JavaScript, HTML, CSS">
@@ -16,19 +16,38 @@
 	<script defer src="./[library]/HTMLApp.js"></script>
 	<script defer src="./page/turtleApp.js"></script>
 </head>
-<body class="light">
+<body class="dark">
 
 	<div class="control-group control-left">
 		<form id="form-turtle">
 			<h1>Turtle</h1>
 
+			<h2>Commands</h2>
+
+			<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set">right 60,500</textarea>
+			<div id="command-tabs" class="tabbar bottom">
+				<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab" title="Command set 1">set 1</a>
+				<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
+				<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab" title="Command set 3">set 3</a>
+			</div>
+			<button id="input-do" type="button" title="Perform the current commands">do</button>
+			<button id="input-clear" type="button" title="Clear the drawing">clear</button>
+			<button id="input-origin" type="button" title="Return the turtle to the origin">to origin</button>
+
+			<input type="hidden" id="input-commandSet-active" name="commandSet-active" value="1">
+			<input type="hidden" id="input-commandSet-1" name="commandSet-1" value="// command set 1">
+			<input type="hidden" id="input-commandSet-2" name="commandSet-2" value="// command set 2">
+			<input type="hidden" id="input-commandSet-3" name="commandSet-3" value="// command set 3">
+
+			<br/>
+
 			<details>
-				<summary>Commands</summary>
+				<summary>Command summary</summary>
 				<output class="infoBox" id="turtle-instructions">
-					<div>left degrees,distance</div>
-					<div>right degrees,distance</div>
-					<div>bear degrees,distance</div>
-					<div>jump degrees,distance</div>
+					<div>left degrees[,distance]</div>
+					<div>right degrees[,distance]</div>
+					<div>bear degrees[,distance]</div>
+					<div>jump degrees[,distance]</div>
 					<div>move dx,dy</div>
 					<div>circle radius</div>
 					<div>ellipse width,height</div>
@@ -38,17 +57,12 @@
 				</output>
 			</details>
 
-			<textarea id="input-command" type="string" name="command" title="command">right 60,500</textarea>
-			<button id="input-do" type="button">do</button>
-			<button id="input-clear" type="button">clear</button>
-			<button id="input-origin" type="button">to origin</button>
-
-			<h2>Current:</h2>
+			<h2>Position</h2>
 			<output id="turtle-report" class="infoBox"></output>
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a> by <a href="https://github.com/ldpercy/">ldpercy</a>
-				<a href="https://github.com/ldpercy/turtle/pull/5">v0.6</a>
+				<a href="https://github.com/ldpercy/turtle/pull/6">v0.7</a>
 
 			</details>
 		</form>
@@ -58,27 +72,25 @@
 		<form id="form-page">
 			<h2>Page</h2>
 
-			<label for="input-showTurtle">
+			<label for="input-showTurtle" title="Show the turtle">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
 				show turtle
 			</label>
-			<label for="input-centerTurtle">
+			<label for="input-centerTurtle" title="Center the turtle on the page">
 				<input type="checkbox" name="centerTurtle" id="input-centerTurtle" checked>
 				center turtle
 			</label>
-			<label for="input-rotatePage">
+			<label for="input-rotatePage" title="Rotate the page to the turtle's heading">
 				<input type="checkbox" name="rotatePage" id="input-rotatePage">
 				rotate page
 			</label>
 
-
-
-			<label class="theme">
-				<label title="light">
+			<label class="theme" title="Colour scheme">
+				<label title="Light scheme">
 					<input type="radio" name="theme" value="light" checked>
 					light
 				</label>
-				<label title="dark">
+				<label title="Dark scheme">
 					<input type="radio" name="theme" value="dark">
 					dark
 				</label>
@@ -89,8 +101,8 @@
 				</label>
 				 -->
 			</label>
-			<label for="input-zoom" class="zoom">
-				<input type="range" name="zoom" id="input-zoom" value="1" min="-1" max="3" list="datalist-zoom" />
+			<label for="input-zoom" class="zoom" title="Page zoom">
+				<input type="range" name="zoom" id="input-zoom" value="1" min="-1" max="3" list="datalist-zoom"/>
 				<datalist id="datalist-zoom">
 					<option value="-1">-1</option>
 					<option value="0">0</option>
@@ -104,22 +116,22 @@
 			<h3>Grid</h3>
 			<details>
 				<summary>
-					<label for="input-showCartesian">
+					<label for="input-showCartesian" title="Show the cartesian grid">
 						<input type="checkbox" name="showCartesian" id="input-showCartesian" checked>
 						cartesian
 					</label>
 				</summary>
-				<input name="cartesianOpacity" id="input-cartesianOpacity" type="range" min="0.1" max="1" step="0.1" value="1">
+				<input name="cartesianOpacity" id="input-cartesianOpacity" type="range" min="0.1" max="1" step="0.1" value="1" title="Cartesian grid opacity">
 			</details>
 
 			<details>
 				<summary>
-					<label for="input-showPolar">
+					<label for="input-showPolar" title="Show the polar grid">
 						<input type="checkbox" name="showPolar" id="input-showPolar">
 						polar
 					</label>
 				</summary>
-				<input name="polarOpacity" id="input-polarOpacity" type="range" min="0.1" max="1" step="0.1" value="0.7">
+				<input name="polarOpacity" id="input-polarOpacity" type="range" min="0.1" max="1" step="0.1" value="0.7" title="Polar grid opacity">
 			</details>
 
 
@@ -127,20 +139,20 @@
 
 		<form id="form-drawing">
 			<h2>Drawing</h2>
-			<label for="input-colour">
+			<label for="input-colour" title="Drawing colour">
 				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
 				colour
 			</label>
-			<label for="input-strokeWidth">
+			<label for="input-strokeWidth" title="Drawing stroke-width">
 				<input type="range" name="strokeWidth" id="input-strokeWidth" value="10" min="1" max="20"/>
 				stroke-width
 			</label>
-			<label for="input-showStroke">
+			<label for="input-showStroke" title="Show the drawing stroke">
 				<input type="checkbox" name="showStroke" id="input-showStroke" checked>
 				stroke
 			</label>
-			<label for="input-showMarkers">
-				<input type="checkbox" name="showGrid" id="input-showMarkers" checked>
+			<label for="input-showMarkers" title="Show markers">
+				<input type="checkbox" name="showMarkers" id="input-showMarkers" checked>
 				markers
 			</label>
 		</form>
