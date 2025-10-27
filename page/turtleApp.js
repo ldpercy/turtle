@@ -89,7 +89,9 @@ class TurtleApp extends HTMLApp {
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
 
 		this.loadSettings();
-		this.showCommandSet(Number.parseInt(document.getElementById(`input-commandSet-active`).value), false);
+
+		const commandSet = Number.parseInt(document.getElementById(`input-commandSet-active`).value) || 1;
+		this.showCommandSet((commandSet), false);
 		this.updatePage();
 		this.updateTurtle();
 
