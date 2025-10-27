@@ -116,12 +116,13 @@ class TurtleApp extends HTMLApp {
 	}
 
 	showCommandSet(commandSet, save=true) {
-		console.debug('showCommandSet', commandSet);
+		//console.debug('showCommandSet', commandSet);
 
 		if (save) {
 			// copy command textarea into it's hidden input
 			document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
 			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.remove('active');
+			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).title = this.element.commandInput.value;
 		}
 
 		// copy new tab's command set into the texarea
