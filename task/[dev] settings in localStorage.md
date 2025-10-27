@@ -70,3 +70,20 @@ Never been a terribly high priority for me, but I've added a few things to bring
 
 The font sizes will need more testing though, I don't mess around with those very often, and have forgotten how some things work.
 
+I read somewhere that the default font-size used by a lot of browsers is 16px, going to set that to make it clear.
+Also should probably shift to using `rem` and `rex` for some things instead of `em` and `ex` that i'm in the habit of using.
+
+
+Command sets
+------------
+
+I have three command sets going now with an el-cheapo tabbed ui under the textarea.
+Works okay so far, and they'll also be included in the localstorage saving which is nice.
+
+I think I might want to do some input cleaning/validation for these - people could try dropping arbitrary code in there, or overloading it or god knows whatever else.
+I can't do a whole lot to stop anyone who knows what they're doing, and it'll *probably* only be their own computer affected, but I'll add some cleaning just in case.
+
+For instance if someone could edit someone else's localstorage while they're away from their pc?
+There are probably easier ways tbh if you have that access.
+But I'm curious anyway - should try to find a sqllite viewer.
+

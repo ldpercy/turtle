@@ -13,6 +13,8 @@ class TurtleApp extends HTMLApp {
 	`.replace(/\n\t/g,'\n');
 
 
+	currentCommandSet = 1;
+
 	element = {
 		commandInput	: 'input-command',
 		turtleForm		: 'form-turtle',
@@ -57,7 +59,11 @@ class TurtleApp extends HTMLApp {
 			type: 'visibilitychange',
 			listener: this.visibilitychangeListener
 		},
-
+		{
+			query: '#command-tabs .tab',
+			type: 'click',
+			listener: this.tabListener
+		},
 	];
 
 
@@ -100,6 +106,28 @@ class TurtleApp extends HTMLApp {
 			this.saveSettings();
 		}
 	}
+
+
+	tabListener(event) {
+		//console.debug('tabListener', arguments);
+		//console.debug('tabListener', event.target);
+		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
+		this.showCommandSet(newCommandSet);
+	}
+
+	showCommandSet(commandSet) {
+		//console.debug('showCommandSet', commandSet);
+
+		// copy command textarea into it's hidden input
+		document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
+		document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.remove('active');
+
+		// copy new tab's command set into the texarea
+		this.currentCommandSet = commandSet;
+		this.element.commandInput.value = document.getElementById(`input-commandSet-${commandSet}`).value;
+		document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.add('active');
+	}
+
 
 
 	updatePage() {

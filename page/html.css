@@ -53,12 +53,11 @@ form {
 
 	details { margin-top:1ex; margin-bottom: 0ex; }
 
-	a { font-size: 1.2em; }
-
 	hr { width:100%; }
 
 	#input-command {
 		height:15em;
+		min-width: 15em;
 	}
 
 
@@ -85,8 +84,14 @@ form {
 
 	textarea { font-size: 1.6ex; }
 
+
 	details { margin-top: 0em; }
 	details.project { margin-top: 1ex; }
+
+	/*
+	details>summary { list-style: none; }
+	summary::after { content: " ⯇";  }
+	details[open] summary::after { content: " ⯆"; text-align:right; } */
 
 	.tab-body { z-index:10; }
 
@@ -96,22 +101,22 @@ form {
 		position: relative;
 		top: -2px;
 		/* z-index:5; */
-		a {
+		.tab {
 			position: relative;
 			display: inline-block;
 			text-decoration: none;
 			line-height: 3ex;
 		}
 
-		a.active { z-index:15; }
+		.tab.active { z-index:15; }
 
-		&.top a {
+		&.top .tab {
 			border-width: 1px 1px 0px;
 			border-style: solid solid none;
 			border-radius: 0.5ex 0.5ex 0ex 0ex;
 			padding: 0ex 1ex 0ex;
 		}
-		&.bottom a {
+		&.bottom .tab {
 			border-width: 0px 1px 1px;
 			border-style: none solid solid ;
 			border-radius: 0ex 0ex 0.5ex 0.5ex;
