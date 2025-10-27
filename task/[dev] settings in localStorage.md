@@ -6,6 +6,7 @@ Add more settings to localStorage.
 
 ```
 2025-10-22		New Task
+2025-10-27		Wrapup
 ```
 
 
@@ -91,3 +92,17 @@ But I'm curious anyway - should try to find a sqllite viewer.
 
 Wrapup
 ------
+
+
+* Now using `visibilitychange` to `hidden` to save page settings
+* Have rolled my own form data and form populate fns for HTMLApp to handle things like radios and checkboxes
+* Also added a `buildElements` to create commonly reused element references
+* Have added specific light and dark accent colours to bring Chrome and Firefox styling more in line
+* Also some font and size changes in the same vein
+* Have added 3 tabs to swap between command set buffers, also saved to localstorage
+
+
+Follow up
+* Chrome complaining about checkboxes in summary: "Interactive element inside of a <summary> element"
+* Input validation/cleaning for the command box and strings
+

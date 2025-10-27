@@ -46,13 +46,14 @@ In Progress
 -----------
 
 * Get Firefox & chrome's form styling more in sync
-* Using local storage to maintain app settings, eg the command box for Chrome
 * Continue working on transition to drawing spaces / geometric spaces
 
 
 Done
 ----
 
+* Command textarea tabs
+* Use local storage to maintain app settings
 * Add a polar grid option
 * Dark theme
 * Conversion to conventional cartesian coordinates
