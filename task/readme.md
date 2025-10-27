@@ -7,9 +7,10 @@ Todo
 
 ### Bugs
 
+* Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen
-* The commands box flashes white in ff after a dark reload - find out what's causing that
+* The command box flashes white in ff after a dark reload - find out what's causing that
 * Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
 
 
