@@ -26,7 +26,7 @@
 
 			<textarea id="input-command" class="tab-body" type="string" name="command" title="command">right 60,500</textarea>
 			<div id="command-tabs" class="tabbar bottom">
-				<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab active">set 1</a>
+				<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab">set 1</a>
 				<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab">set 2</a>
 				<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab">set 3</a>
 			</div>
@@ -34,6 +34,7 @@
 			<button id="input-clear" type="button">clear</button>
 			<button id="input-origin" type="button">to origin</button>
 
+			<input type="hidden" id="input-commandSet-active" name="commandSet-active" value="1">
 			<input type="hidden" id="input-commandSet-1" name="commandSet-1" value="// command set 1">
 			<input type="hidden" id="input-commandSet-2" name="commandSet-2" value="// command set 2">
 			<input type="hidden" id="input-commandSet-3" name="commandSet-3" value="// command set 3">

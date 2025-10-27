@@ -88,8 +88,8 @@ class TurtleApp extends HTMLApp {
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
 
-
 		this.loadSettings();
+		this.showCommandSet(Number.parseInt(document.getElementById(`input-commandSet-active`).value), false);
 		this.updatePage();
 		this.updateTurtle();
 
@@ -115,15 +115,19 @@ class TurtleApp extends HTMLApp {
 		this.showCommandSet(newCommandSet);
 	}
 
-	showCommandSet(commandSet) {
-		//console.debug('showCommandSet', commandSet);
+	showCommandSet(commandSet, save=true) {
+		console.debug('showCommandSet', commandSet);
 
-		// copy command textarea into it's hidden input
-		document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
-		document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.remove('active');
+		if (save) {
+			// copy command textarea into it's hidden input
+			document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
+			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.remove('active');
+		}
 
 		// copy new tab's command set into the texarea
 		this.currentCommandSet = commandSet;
+		document.getElementById(`input-commandSet-active`).value = commandSet;
+
 		this.element.commandInput.value = document.getElementById(`input-commandSet-${commandSet}`).value;
 		document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.add('active');
 	}
