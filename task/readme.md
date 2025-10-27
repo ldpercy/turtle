@@ -13,8 +13,12 @@ Todo
 * Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
 
 
-### Features
+### General
 
+* Think about enforcing quotes for text commands, see below
+* Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
+* See if the summary/details markers can be styled a little more nicely
+* Check out what validation/cleaning I need for the command textarea & string
 * Get custom spaces, inclucidng polar axis and direction, working properly
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
 * Add a couple of origin/reset variants - eg one to go to the origin without resetting the heading
@@ -35,14 +39,13 @@ Todo
 * Change or have options for line drawing - line, polygon, polyline, path
 
 
-### Improvements
-* Get Firefox & chrome's form styling more in sync
 
 
 
 In Progress
 -----------
 
+* Get Firefox & chrome's form styling more in sync
 * Using local storage to maintain app settings, eg the command box for Chrome
 * Continue working on transition to drawing spaces / geometric spaces
 

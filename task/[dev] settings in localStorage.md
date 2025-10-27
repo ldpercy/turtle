@@ -87,3 +87,7 @@ For instance if someone could edit someone else's localstorage while they're awa
 There are probably easier ways tbh if you have that access.
 But I'm curious anyway - should try to find a sqllite viewer.
 
+
+
+Wrapup
+------

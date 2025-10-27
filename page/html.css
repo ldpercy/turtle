@@ -38,6 +38,7 @@ summary {
 form {
 	display: grid;
 	border:1px solid silver;
+	/* filter: drop-shadow(0px 5px 5px var(--accent)); */
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
@@ -53,13 +54,14 @@ form {
 
 	details { margin-top:1ex; margin-bottom: 0ex; }
 
+	a { color: var(--accent); }
+
 	hr { width:100%; }
 
 	#input-command {
 		height:15em;
 		min-width: 15em;
 	}
-
 
 	.infoBox {
 		font-family: monospace;
@@ -84,6 +86,7 @@ form {
 
 	textarea { font-size: 1.6ex; }
 
+	br { margin-top:1ex; }
 
 	details { margin-top: 0em; }
 	details.project { margin-top: 1ex; }
@@ -159,11 +162,10 @@ form {
 
 body.light {
 	color-scheme: light;
-	accent-color: var(--accent-light);
+	--accent: var(--accent-light);
+	accent-color: var(--accent);
 	background-color: var(--page-background-light);
 	color: black;
-
-	a { color: var(--accent-light); }
 
 	form {
 		background-color:#eee9;
@@ -175,16 +177,14 @@ body.light {
 		border-color: #8f8f9d;
 		background-color: #ffffff;
 	}
-
 }
 
 body.dark {
 	color-scheme: dark;
-	accent-color: var(--accent-dark);
+	--accent: var(--accent-dark);
+	accent-color: var(--accent);
 	background-color: var(--page-background-dark);
 	color: white;
-
-	a { color: var(--accent-dark); }
 
 	form {
 		background-color:#7779;
@@ -195,12 +195,10 @@ body.dark {
 		border-color: #9999;
 	}
 
-
 	.tabbar a {
 		border-color: #8f8f9d;
 		background-color: #2b2a33;
 	}
-
 }
 
 
