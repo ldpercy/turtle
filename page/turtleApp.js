@@ -9,7 +9,7 @@ class TurtleApp extends HTMLApp {
 		Turtle by ldpercy
 		https://github.com/ldpercy/turtle/
 		v0.7
-		https://github.com/ldpercy/turtle/pull/5
+		https://github.com/ldpercy/turtle/pull/6
 	`.replace(/\n\t/g,'\n');
 
 
