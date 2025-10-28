@@ -6,8 +6,8 @@
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.7.1 by ldpercy
-		https://github.com/ldpercy/turtle/pull/7
+		Turtle v🐢⮕🖱️ by ldpercy
+		https://github.com/ldpercy/turtle/pull/?
 	`.replace(/\n\t/g,'\n');
 
 
@@ -62,6 +62,12 @@ class TurtleApp extends HTMLApp {
 			type: 'click',
 			listener: this.tabListener
 		},
+		{
+			query: '#svg-element',
+			type: 'click',
+			listener: this.svgClickListener
+		},
+
 	];
 
 
@@ -317,6 +323,28 @@ class TurtleApp extends HTMLApp {
 		}
 		localStorage.setItem('loadedAt', new Date().toISOString());
 	}/* loadSettings */
+
+
+
+
+	svgClickListener(event) {
+		console.debug('svgClickListener', event);
+
+		// Create an SVGPoint for future math
+		//const pt = svg.createSVGPoint();
+
+		const pt = new DOMPoint(event.clientX, event.clientY);
+
+		const pageElement = document.getElementById('group-page');
+
+		// Get point in global SVG space
+
+		const cursorPoint = pt.matrixTransform(pageElement.getScreenCTM().inverse());
+		console.debug('cursorPoint', cursorPoint);
+
+	}/* svgClickListener */
+
+
 
 
 }/* TurtleApp */
