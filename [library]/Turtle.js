@@ -267,7 +267,7 @@ class Turtle {
 		const argArray = argString.split(',');
 
 		const result = argArray.map(
-			(element) => { return Number.parseInt(element); }
+			(element) => { return Number.parseFloat(element); }
 		);
 		return result;
 	}

@@ -6,10 +6,8 @@
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle by ldpercy
-		https://github.com/ldpercy/turtle/
-		v0.7
-		https://github.com/ldpercy/turtle/pull/6
+		Turtle v0.7.1 by ldpercy
+		https://github.com/ldpercy/turtle/pull/7
 	`.replace(/\n\t/g,'\n');
 
 
@@ -97,6 +95,9 @@ class TurtleApp extends HTMLApp {
 
 		this.updateDrawing();
 		this.updateGrid();
+
+		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
+		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 	}/* documentDOMContentLoaded */
 
 
@@ -300,9 +301,7 @@ class TurtleApp extends HTMLApp {
 
 		const appSettingsJson = JSON.stringify(appSettings);
 		localStorage.setItem('appSettings', appSettingsJson );
-
-		localStorage.setItem('savedAt', new Date());
-
+		localStorage.setItem('savedAt', new Date().toISOString());
 		//.log('Settings saved');
 	}/* saveSettings */
 
@@ -316,6 +315,7 @@ class TurtleApp extends HTMLApp {
 			this.populateForm(this.element.pageForm, appSettings.page);
 			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
+		localStorage.setItem('loadedAt', new Date().toISOString());
 	}/* loadSettings */
 
 
