@@ -7,7 +7,6 @@ Todo
 
 ### Bugs
 
-* In parseArgs change parseInt to parseFloat - can't do fractional degrees at the moment
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen
@@ -17,7 +16,7 @@ Todo
 
 ### General
 
-* Maybe save a few copies of the settings history with dates in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
+* Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
 * Turtle follows mouse clicks? Probably really gnarly and hard to accurately map between mouse and page coords though.
 * Export/save the svg output...???
 * Think about enforcing quotes for text commands, see below
@@ -55,6 +54,7 @@ In Progress
 Done
 ----
 
+* Changed cmd arg parseInt to parseFloat to allow for fractional degrees
 * Command textarea tabs
 * Use local storage to maintain app settings
 * Add a polar grid option
