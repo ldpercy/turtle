@@ -6,7 +6,7 @@
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.7.1b by ldpercy
+		Turtle v0.7.1 by ldpercy
 		https://github.com/ldpercy/turtle/pull/7
 	`.replace(/\n\t/g,'\n');
 
