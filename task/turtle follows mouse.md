@@ -1,5 +1,6 @@
-Turtle follows mouse
-====================
+Turtle follows mouse 🐢👉🐭
+===========================
+
 
 A random idea I had, not really traditional turtle at all.
 Click the mouse on the page, and the turtle goes there.
@@ -45,7 +46,7 @@ It works
 --------
 
 Yeah okay tbh didn't think it would be that quick or easy...
-To be fair, it's only easy because whoevever designed the SVG apis did darn solid job of it, so kudos to that guy.
+To be fair, it's only easy because whoevever designed the SVG apis did a darn solid job of it, so kudos to that guy.
 
 So what to do with this now...
 

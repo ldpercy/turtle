@@ -10,9 +10,6 @@
 .svg-element {
 	width: 100vw;
 	height: 100vh;
-
-	--turtle: #0a07;
-	--turtle-stroke: #0a0f;
 }
 
 
@@ -145,6 +142,8 @@
 
 
 .turtle {
+	--turtle: #0a07;
+	--turtle-stroke: #0a0f;
 	fill: var(--turtle);
 	stroke: var(--turtle-stroke);
 	stroke-width: 3px;
