@@ -16,6 +16,7 @@ Todo
 
 ### General
 
+* See if details/summary open/closed state can be saved in storage as well
 * Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
 * Turtle follows mouse clicks? Probably really gnarly and hard to accurately map between mouse and page coords though.
 * Export/save the svg output...???

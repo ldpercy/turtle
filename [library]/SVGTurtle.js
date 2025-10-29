@@ -105,9 +105,12 @@ class SVGTurtle {
 
 
 		const result = `
+			<line x1="${svgX}" y1="0" x2="${svgX}" y2="${svgY}"/>
+			<line x1="0" y1="${svgY}" x2="${svgX}" y2="${svgY}"/>
 			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
 				<title>${pointReport}</title>
 			</use>
+
 		`;
 		return result;
 	}

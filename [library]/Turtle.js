@@ -239,10 +239,13 @@ class Turtle {
 	static getCommands = function(string) {
 		const result = [];
 		const lineArray = string.trim().split('\n');
+		let lineText = '';
 
 		lineArray.forEach(
 			(line) => {
-				const match = line.match(/^(\w+)(\s.*)?/);	// standard command structure
+				lineText = line.trim();
+
+				const match = lineText.match(/^(\w+)(\s.*)?/);	// standard command structure
 				if (match) {
 					const cmd = match[1].trim();
 					let arg;

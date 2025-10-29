@@ -94,16 +94,22 @@
 	stroke-width: 20px;
 }
 
+.group-point line {
+	stroke-width: 5px;
+	stroke: #f00c;
+	stroke-dasharray: 10 10;
+}
+
 .light {
 	.use-point {
-		fill: #000c;
-		stroke: #777a;
+		fill: #f00c;
+		stroke: #f00a;
 	}
 }
 .dark {
 	.use-point {
-		fill: #fffc;
-		stroke: #777a;
+		fill: #f00c;
+		stroke: #f00a;
 	}
 }
 
