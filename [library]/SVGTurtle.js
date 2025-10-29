@@ -77,10 +77,36 @@ class SVGTurtle {
 		return result;
 	}
 
-	static point(svgX, svgY) {
+
+	point(x, y) {
+
+		const coords = new this.turtle.space.CartesianCoordinates(x,y);
+
+		const p = this.turtle.space.newPoint('point marker');
+		p.cartesian = coords;
+
+		const svgX = x;
+		const svgY = -y;
+
+		const pointReport = [
+			`cartesian:`,
+			`	x: ${p.x.toPrecision(this.precision.report)}`,
+			`	y: ${p.y.toPrecision(this.precision.report)}`,
+			`polar:`,
+			`	r: ${p.radius.toPrecision(this.precision.report)}`,
+			`	a: ${p.angle.degrees.toPrecision(this.precision.report)}°`,
+			`	a: ${p.angle.radians.toPrecision(this.precision.report)} rad`,
+			`	a: ${p.angle.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	a: ${p.angle.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`svg:`,
+			`	x: ${svgX.toPrecision(this.precision.report)}`,
+			`	y: ${svgY.toPrecision(this.precision.report)}`,
+		].join('\n');
+
+
 		const result = `
 			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
-				<title>svgX: ${svgX} svgY: ${svgY}</title>
+				<title>${pointReport}</title>
 			</use>
 		`;
 		return result;

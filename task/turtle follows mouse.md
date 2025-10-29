@@ -69,3 +69,12 @@ The multiple points idea isn't too bad, but it would need a cleaner button, thin
 This also reminds me that the SVGTurtle isn't properly abstracted from the cartesian space yet.
 
 
+### Update hover
+
+Have changed over to use some planar space point math to get the polar position for the point as well - pretty cool.
+
+The angle is reporting negative in the second quadrant (cw) though, need to fix that so it's positive instead.
+Actually might need some sort of solution for angle reporting generally - the polar grid angles go from 0 to 360, so they're inconsistent too.
+It's mostly a presentational matter though.
+
+

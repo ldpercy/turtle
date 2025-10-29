@@ -342,7 +342,7 @@ class TurtleApp extends HTMLApp {
 		const svgPoint = pt.matrixTransform(pageElement.getScreenCTM().inverse());
 		//console.debug('svgPoint', svgPoint);
 
-		const pointSvg = SVGTurtle.point(svgPoint.x, svgPoint.y);
+		const pointSvg = this.turtle.point(svgPoint.x, -svgPoint.y);
 
 		document.getElementById('group-point').innerHTML = pointSvg;
 
