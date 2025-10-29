@@ -5,6 +5,11 @@
 	transition: all 0.5s ease-in;
 }
 
+.svg-element {
+	--turtle-size: 10;
+}
+
+
 
 
 .svg-element {
@@ -97,7 +102,7 @@
 .group-point line {
 	stroke-width: 5px;
 	stroke: #f00c;
-	stroke-dasharray: 10 10;
+	stroke-dasharray: 15 5;
 }
 
 .light {
@@ -167,6 +172,7 @@
 
 
 .turtle {
+	--size: var(--turtle-size);
 	--turtle: #0a07;
 	--turtle-stroke: #0a0f;
 	fill: var(--turtle);
@@ -178,7 +184,7 @@
 	.feet { fill: var(--turtle-stroke); }
 	.eyes { fill: yellow; stroke:none;}
 
-	--size: 10;
+
 	--body: calc(var(--size) * 4px);
 	--head: calc(var(--size) * 2px);
 	--foot: calc(var(--size) * 1px);
@@ -189,9 +195,9 @@
 
 	/* I could have done most of this with a transform... */
 
-	&:hover {
+	/* &:hover {
 		--size:15;
-	}
+	} */
 
 	.body { r: var(--body); cx:0px; cy:0px; }
 	.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
@@ -203,7 +209,9 @@
 	.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
 }
 
-
+#icon-turtle:hover {
+	--turtle-size:15;
+}
 
 
 
