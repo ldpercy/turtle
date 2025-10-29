@@ -77,6 +77,15 @@ class SVGTurtle {
 		return result;
 	}
 
+	static point(svgX, svgY) {
+		const result = `
+			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
+				<title>svgX: ${svgX} svgY: ${svgY}</title>
+			</use>
+		`;
+		return result;
+	}
+
 
 	get report() {
 		const originAngle = this.turtle.position.angle;
@@ -107,6 +116,9 @@ class SVGTurtle {
 		].join('\n');
 		return result;
 	}
+
+
+
 
 
 
@@ -192,6 +204,8 @@ class SVGTurtle {
 		const result = `<line x1="${point1.x}" y1="${-point1.y}" x2="${point2.x}" y2="${-point2.y}"/>`;
 		return result;
 	}
+
+
 
 
 

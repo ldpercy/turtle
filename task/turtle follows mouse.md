@@ -50,4 +50,22 @@ To be fair, it's only easy because whoevever designed the SVG apis did a darn so
 
 So what to do with this now...
 
+I think I'll try to implement the follows idea, but how it gets integrated into the main UI not sure yet.
+To begin with should probably be an option that is off by default.
+There's also whether it should draw or jump, and I want both I think, so need to sort that out as well.
+As well as precision...
+
+I'll start by having a click leave a single point marker on the page that moves to wherever you click.
+You could have multiple, an array or groups etc, but just one for now.
+
+
+Point markers
+-------------
+
+Have added a quick spot dropper, needs some work.
+Thinking about changing them to a fuzzy point with a radial gradient.
+The multiple points idea isn't too bad, but it would need a cleaner button, think I'll just change it to overwrite for now.
+
+This also reminds me that the SVGTurtle isn't properly abstracted from the cartesian space yet.
+
 

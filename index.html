@@ -160,10 +160,13 @@
 	</div><!-- control-right -->
 
 
+	<!-- svg-element
+	-->
 	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
 
 		<defs>
 			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
+			<circle id="def-point" class="def-point"/>
 
 			<g class="grid">
 				<marker id="axisMarker-cartesian" class="axis" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-50 -50 100 100" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
@@ -172,6 +175,7 @@
 				<marker id="axisMarker-polar" class="axis" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-50 -50 100 100" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
 					<path d="m20,-20 L0,50 L-20,-20"/>
 				</marker>
+
 			</g>
 
 			<g id="def-turtle" class="turtle">
@@ -194,6 +198,7 @@
 			<g id="group-grid" class="grid">
 				<g id="group-gridPolar" class="grid-polar"></g>
 				<g id="group-gridCartesian" class="grid-cartesian"></g>
+				<g id="group-point" class="group-point"></g>
 			</g>
 
 			<g id="group-drawing" class="drawing show-marker"></g>

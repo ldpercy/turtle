@@ -328,7 +328,7 @@ class TurtleApp extends HTMLApp {
 
 
 	svgClickListener(event) {
-		console.debug('svgClickListener', event);
+		//console.debug('svgClickListener', event);
 
 		// Create an SVGPoint for future math
 		//const pt = svg.createSVGPoint();
@@ -339,8 +339,12 @@ class TurtleApp extends HTMLApp {
 
 		// Get point in global SVG space
 
-		const cursorPoint = pt.matrixTransform(pageElement.getScreenCTM().inverse());
-		console.debug('cursorPoint', cursorPoint);
+		const svgPoint = pt.matrixTransform(pageElement.getScreenCTM().inverse());
+		//console.debug('svgPoint', svgPoint);
+
+		const pointSvg = SVGTurtle.point(svgPoint.x, svgPoint.y);
+
+		document.getElementById('group-point').innerHTML = pointSvg;
 
 	}/* svgClickListener */
 

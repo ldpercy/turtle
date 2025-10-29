@@ -85,8 +85,27 @@
 	}
 
 
+
+
 }/* .grid */
 
+.def-point {
+	r: 20px;
+	stroke-width: 20px;
+}
+
+.light {
+	.use-point {
+		fill: #000c;
+		stroke: #777a;
+	}
+}
+.dark {
+	.use-point {
+		fill: #fffc;
+		stroke: #777a;
+	}
+}
 
 
 
