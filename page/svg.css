@@ -84,7 +84,7 @@
 		text-anchor: start;
 	}
 
-	line:hover, circle:hover {
+	line:hover, circle:hover, path:hover {
 		stroke-width: 10px;
 		filter: drop-shadow(0px 0px 10px #fa0f);
 	}
@@ -99,7 +99,9 @@
 	stroke-width: 20px;
 }
 
-.cartesian-point line, .polar-point line {
+.cartesian-point line,
+.polar-point line,
+.polar-point path {
 	stroke-width: 5px;
 	stroke: #f00c;
 	stroke-dasharray: 15 5;
