@@ -26,7 +26,7 @@
 
 	stroke-width: 1px;
 
-	.grid-cartesian {
+	.cartesian-grid {
 		stroke: var(--colour-cartesian);
 		.axis  { stroke-width: 5px; }
 		.major { stroke-width: 2px; }
@@ -41,7 +41,7 @@
 	}
 
 
-	.grid-polar {
+	.polar-grid {
 		stroke: var(--colour-polar);
 		.axis  { stroke-width: 10px; }
 		.major { stroke-width: 2px; }
@@ -73,14 +73,14 @@
 		font-family: monospace;
 	}
 
-	.grid-cartesian .label {
+	.cartesian-grid .label {
 		text-anchor: end;
 		.x {
 			writing-mode: vertical-lr;
 		}
 	}
 
-	.grid-polar .label {
+	.polar-grid .label {
 		text-anchor: start;
 	}
 
@@ -99,7 +99,7 @@
 	stroke-width: 20px;
 }
 
-.group-point line {
+.cartesian-point line {
 	stroke-width: 5px;
 	stroke: #f00c;
 	stroke-dasharray: 15 5;

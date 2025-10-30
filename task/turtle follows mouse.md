@@ -79,3 +79,15 @@ It's mostly a presentational matter though.
 
 
 ### Axis lines
+
+Quickly added some dashed lines to the cartesian axes which look kind of neat.
+But it immediately suggests a few things:
+* Adding polar lines & angles as well
+* Polar representation would need to be standardised or have options: 0 < a < 360 / -180 < a < 180
+* Points and lines should probably be depedant on grid-type visibility
+* Customising color + weight and/or zoom reactivity
+
+For now I'm going to group points and lines with their respective grids so that visibility is applied together, but opinions may vary on this one.
+
+
+

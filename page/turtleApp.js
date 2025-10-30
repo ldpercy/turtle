@@ -20,8 +20,8 @@ class TurtleApp extends HTMLApp {
 		drawingForm		: 'form-drawing',
 		svg				: 'svg-element',
 		page			: 'group-page',
-		gridCartesian	: 'group-gridCartesian',
-		gridPolar		: 'group-gridPolar',
+		groupCartesian	: 'group-cartesian',
+		groupPolar		: 'group-polar',
 		drawing			: 'group-drawing',
 		turtleIcon		: 'icon-turtle',
 	};
@@ -100,7 +100,7 @@ class TurtleApp extends HTMLApp {
 		this.updateTurtle();
 
 		this.updateDrawing();
-		this.updateGrid();
+		this.drawGrid();
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
@@ -153,16 +153,16 @@ class TurtleApp extends HTMLApp {
 		}
 
 		if (this.element.pageForm.showCartesian.checked) {
-			this.element.gridCartesian.style.display = '';
+			this.element.groupCartesian.style.display = '';
 		}
 		else {
-			this.element.gridCartesian.style.display = 'none';
+			this.element.groupCartesian.style.display = 'none';
 		}
 		if (this.element.pageForm.showPolar.checked) {
-			this.element.gridPolar.style.display = '';
+			this.element.groupPolar.style.display = '';
 		}
 		else {
-			this.element.gridPolar.style.display = 'none';
+			this.element.groupPolar.style.display = 'none';
 		}
 
 
@@ -176,8 +176,8 @@ class TurtleApp extends HTMLApp {
 			document.body.classList.add('dark');
 		}
 
-		this.element.gridCartesian.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
-		this.element.gridPolar.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
+		this.element.groupCartesian.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
+		this.element.groupPolar.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
 
 		this.updatePageTransform();
 	}/* updatePage */
@@ -284,12 +284,12 @@ class TurtleApp extends HTMLApp {
 	}/* updateTurtle */
 
 
-	updateGrid() {
+	drawGrid() {
 		const cartesianGrid = new SVG.CartesianGrid(this.space, this.page);
-		this.element.gridCartesian.innerHTML = cartesianGrid.toString();
+		document.getElementById('group-cartesianGrid').innerHTML = cartesianGrid.toString();
 
 		const polarGrid = new SVG.PolarGrid(this.space, this.page);
-		this.element.gridPolar.innerHTML = polarGrid.toString();
+		document.getElementById('group-polarGrid').innerHTML = polarGrid.toString();
 	}
 
 
@@ -344,7 +344,7 @@ class TurtleApp extends HTMLApp {
 
 		const pointSvg = this.turtle.point(svgPoint.x, -svgPoint.y);
 
-		document.getElementById('group-point').innerHTML = pointSvg;
+		document.getElementById('group-cartesianPoint').innerHTML = pointSvg;
 
 	}/* svgClickListener */
 
