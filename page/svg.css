@@ -101,10 +101,17 @@
 
 .cartesian-point line,
 .polar-point line,
-.polar-point path {
+.polar-point path,
+.polar-point circle
+{
 	stroke-width: 5px;
 	stroke: #f00c;
-	stroke-dasharray: 15 5;
+	/* stroke-dasharray: 15 5; */
+}
+
+.polar-point circle {
+	opacity:35%;
+	/* stroke-dasharray: 10 10; */
 }
 
 .light {

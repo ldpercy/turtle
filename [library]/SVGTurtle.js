@@ -119,12 +119,11 @@ class SVGTurtle {
 		const angle180 = Maths.degrees180(point.angle.degrees);
 		const sweepFlag = (angle180 >= 0) ? 1 : 0;
 
-		const polarReport = [
-
-		].join('\n');
-
 		result.polar = `
-			<line x1="0" y1="0" x2="${point.x}" y2="${-point.y}"><title>r: ${point.radius.toPrecision(this.precision.report)}</title></line>
+			<line x1="0" y1="0" x2="${point.x}" y2="${-point.y}"><title>a: ${point.angle.degrees.toPrecision(this.precision.report)}°</title></line>
+			<circle r="${point.radius}">
+				<title>r: ${point.radius.toPrecision(this.precision.report)}</title>
+			</circle>
 			<path d="M 0,${-point.radius} A ${point.radius},${point.radius} 0 0 ${sweepFlag} ${svgX},${svgY}">
 				<title>a: ${point.angle.degrees.toPrecision(this.precision.report)}°</title>
 			</path>
