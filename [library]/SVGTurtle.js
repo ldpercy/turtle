@@ -82,22 +82,22 @@ class SVGTurtle {
 
 		const coords = new this.turtle.space.CartesianCoordinates(x,y);
 
-		const p = this.turtle.space.newPoint('point marker');
-		p.cartesian = coords;
+		const point = this.turtle.space.newPoint('point marker');
+		point.cartesian = coords;
 
 		const svgX = x;
 		const svgY = -y;
 
 		const pointReport = [
 			`cartesian:`,
-			`	x: ${p.x.toPrecision(this.precision.report)}`,
-			`	y: ${p.y.toPrecision(this.precision.report)}`,
+			`	x: ${point.x.toPrecision(this.precision.report)}`,
+			`	y: ${point.y.toPrecision(this.precision.report)}`,
 			`polar:`,
-			`	r: ${p.radius.toPrecision(this.precision.report)}`,
-			`	a: ${p.angle.degrees.toPrecision(this.precision.report)}°`,
-			`	a: ${p.angle.radians.toPrecision(this.precision.report)} rad`,
-			`	a: ${p.angle.radiansPi.toPrecision(this.precision.report)} π rad`,
-			`	a: ${p.angle.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	r: ${point.radius.toPrecision(this.precision.report)}`,
+			`	a: ${point.angle.degrees.toPrecision(this.precision.report)}°`,
+			`	a: ${point.angle.radians.toPrecision(this.precision.report)} rad`,
+			`	a: ${point.angle.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	a: ${point.angle.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`svg:`,
 			`	x: ${svgX.toPrecision(this.precision.report)}`,
 			`	y: ${svgY.toPrecision(this.precision.report)}`,
@@ -105,8 +105,8 @@ class SVGTurtle {
 
 
 		const result = `
-			<line x1="${svgX}" y1="0" x2="${svgX}" y2="${svgY}"/>
-			<line x1="0" y1="${svgY}" x2="${svgX}" y2="${svgY}"/>
+			<line x1="${svgX}" y1="0" x2="${svgX}" y2="${svgY}"><title>x: ${point.x.toPrecision(this.precision.report)}</title></line>
+			<line x1="0" y1="${svgY}" x2="${svgX}" y2="${svgY}"><title>y: ${point.y.toPrecision(this.precision.report)}</title></line>
 			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
 				<title>${pointReport}</title>
 			</use>
