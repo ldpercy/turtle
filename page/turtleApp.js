@@ -30,17 +30,17 @@ class TurtleApp extends HTMLApp {
 
 	eventListeners = [
 		{
-			query: '#input-do',
+			query: '#button-do',
 			type: 'click',
 			listener: this.doCommands
 		},
 		{
-			query: '#input-clear',
+			query: '#button-clear',
 			type: 'click',
 			listener: this.clear
 		},
 		{
-			query: '#input-origin',
+			query: '#button-origin',
 			type: 'click',
 			listener: this.toOrigin
 		},
@@ -68,6 +68,11 @@ class TurtleApp extends HTMLApp {
 			query: '#svg-element',
 			type: 'click',
 			listener: this.svgClickListener
+		},
+		{
+			query: '#button-clearPoint',
+			type: 'click',
+			listener: this.clearPoint,
 		},
 
 	];
@@ -348,7 +353,10 @@ class TurtleApp extends HTMLApp {
 		document.getElementById('group-polarPoint').innerHTML = pointSvg.polar;
 	}
 
-
+	clearPoint() {
+		document.getElementById('group-cartesianPoint').innerHTML = '';
+		document.getElementById('group-polarPoint').innerHTML = '';
+	}
 
 
 }/* TurtleApp */

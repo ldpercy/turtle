@@ -90,7 +90,6 @@ But it immediately suggests a few things:
 For now I'm going to group points and lines with their respective grids so that visibility is applied together, but opinions may vary on this one.
 
 
-
 ### Aside: Display point?
 
 Still need a consistent way of transforming abstract space points into points for display on the drawing area.
@@ -99,8 +98,11 @@ Maybe just having a more abstract `DisplayPoint` with is own transform, possibly
 Will ponder.
 
 
-
 ### Points Lines
 
 Point lines are now only on or off with their grids (no opacity changes) - works better for my brain.
+Need to add a way to clear the points though - either click it to remove it or a clear button.
+Click to clear is probably more complicated as at the moment there are two points being drawn, and click is more likely to be useful for other things.
+I'll just add a clear button for now, but this will probably be temporary.
+
 
