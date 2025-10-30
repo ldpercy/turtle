@@ -99,7 +99,7 @@
 	stroke-width: 20px;
 }
 
-.cartesian-point line {
+.cartesian-point line, .polar-point line {
 	stroke-width: 5px;
 	stroke: #f00c;
 	stroke-dasharray: 15 5;

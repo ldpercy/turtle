@@ -91,3 +91,16 @@ For now I'm going to group points and lines with their respective grids so that 
 
 
 
+### Aside: Display point?
+
+Still need a consistent way of transforming abstract space points into points for display on the drawing area.
+In the past having an SVGPoint extension proved not super good, at the time at least, but i do need something like it somewhere.
+Maybe just having a more abstract `DisplayPoint` with is own transform, possibly as an extension, might be a better approach.
+Will ponder.
+
+
+
+### Points Lines
+
+Point lines are now only on or off with their grids (no opacity changes) - works better for my brain.
+

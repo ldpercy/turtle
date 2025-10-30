@@ -20,8 +20,10 @@ class TurtleApp extends HTMLApp {
 		drawingForm		: 'form-drawing',
 		svg				: 'svg-element',
 		page			: 'group-page',
-		groupCartesian	: 'group-cartesian',
-		groupPolar		: 'group-polar',
+		cartesianGroup  : 'group-cartesian',
+		cartesianGrid	: 'group-cartesianGrid',
+		polarGroup 		: 'group-polar',
+		polarGrid 		: 'group-polarGrid',
 		drawing			: 'group-drawing',
 		turtleIcon		: 'icon-turtle',
 	};
@@ -153,18 +155,18 @@ class TurtleApp extends HTMLApp {
 		}
 
 		if (this.element.pageForm.showCartesian.checked) {
-			this.element.groupCartesian.style.display = '';
+			this.element.cartesianGroup.style.display = '';
 		}
 		else {
-			this.element.groupCartesian.style.display = 'none';
-		}
-		if (this.element.pageForm.showPolar.checked) {
-			this.element.groupPolar.style.display = '';
-		}
-		else {
-			this.element.groupPolar.style.display = 'none';
+			this.element.cartesianGroup.style.display = 'none';
 		}
 
+		if (this.element.pageForm.showPolar.checked) {
+			this.element.polarGroup.style.display = '';
+		}
+		else {
+			this.element.polarGroup.style.display = 'none';
+		}
 
 		if (this.element.pageForm.theme.value === 'light')
 		{
@@ -176,8 +178,8 @@ class TurtleApp extends HTMLApp {
 			document.body.classList.add('dark');
 		}
 
-		this.element.groupCartesian.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
-		this.element.groupPolar.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
+		this.element.cartesianGrid.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
+		this.element.polarGrid.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
 
 		this.updatePageTransform();
 	}/* updatePage */
@@ -329,29 +331,31 @@ class TurtleApp extends HTMLApp {
 
 	svgClickListener(event) {
 		//console.debug('svgClickListener', event);
-
-		// Create an SVGPoint for future math
-		//const pt = svg.createSVGPoint();
-
-		const pt = new DOMPoint(event.clientX, event.clientY);
-
+		const domPoint = new DOMPoint(event.clientX, event.clientY);
 		const pageElement = document.getElementById('group-page');
 
-		// Get point in global SVG space
-
-		const svgPoint = pt.matrixTransform(pageElement.getScreenCTM().inverse());
-		//console.debug('svgPoint', svgPoint);
-
-		const pointSvg = this.turtle.point(svgPoint.x, -svgPoint.y);
-
-		document.getElementById('group-cartesianPoint').innerHTML = pointSvg;
-
+		// Get point in page SVG space
+		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
+		//console.debug('pagePoint', pagePoint);
+		this.drawPoint(pagePoint.x, pagePoint.y);
 	}/* svgClickListener */
+
+
+	drawPoint(svgX, svgY) {
+		const pointSvg = this.turtle.point(svgX, -svgY);
+
+		document.getElementById('group-cartesianPoint').innerHTML = pointSvg.cartesian;
+		document.getElementById('group-polarPoint').innerHTML = pointSvg.polar;
+	}
 
 
 
 
 }/* TurtleApp */
+
+
+
+
 
 
 turtleApp = new TurtleApp();

@@ -79,6 +79,10 @@ class SVGTurtle {
 
 
 	point(x, y) {
+		const result = {
+			cartesian: '',
+			polar : '',
+		};
 
 		const coords = new this.turtle.space.CartesianCoordinates(x,y);
 
@@ -104,14 +108,18 @@ class SVGTurtle {
 		].join('\n');
 
 
-		const result = `
+		result.cartesian = `
 			<line x1="${svgX}" y1="0" x2="${svgX}" y2="${svgY}"><title>x: ${point.x.toPrecision(this.precision.report)}</title></line>
 			<line x1="0" y1="${svgY}" x2="${svgX}" y2="${svgY}"><title>y: ${point.y.toPrecision(this.precision.report)}</title></line>
 			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
 				<title>${pointReport}</title>
 			</use>
-
 		`;
+
+		result.polar = `
+			<line x1="0" y1="0" x2="${point.x}" y2="${-point.y}"><title>r: ${point.radius.toPrecision(this.precision.report)}</title></line>
+		`;
+
 		return result;
 	}
 
