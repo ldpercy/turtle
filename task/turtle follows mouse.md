@@ -106,3 +106,21 @@ Click to clear is probably more complicated as at the moment there are two point
 I'll just add a clear button for now, but this will probably be temporary.
 
 
+Turtle moving
+-------------
+
+As I said at the top, this is a bit of a step away from traditional turtle implementations, but it's all definitely related in terms of geometry, so happy to keep exploring.
+
+I can already foresee a bunch of potential things that could be done with this such as recording and turning the moves into commands, but I'll start with a simple version.
+
+There is a move command I'll need first though so will have to poach it from the [new commands](<new commands.md>) task:
+
+* go to x,y plus set polar
+
+While I'm thinking about it, move commands could be grouped in few ways.
+
+
+
+
+
+
