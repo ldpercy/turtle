@@ -112,4 +112,6 @@ Actually on that point - a lot of this could well preclude or complicate any (mu
 I'm seriously not intent on adding it *any* time in the foreseeable future, but it's a feature of most turtle/logo iirc, and someone might want to fork my project....???
 
 Might open a totally speculative task to thought-experiment it and see if can leave the possibility open.
+-> [Mindless waffling](<variables and maths.md>)
+
 

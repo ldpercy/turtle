@@ -160,7 +160,8 @@ turtle = turtle + xy(123,456)		// not this
 + xy(123,456)						// just this
 ```
 
-**plus is the default operator**
+So...
+**plus is the default or assumed operator**
 
 ### Command equivalence
 
@@ -176,13 +177,22 @@ Which also works for things like left, right and bear, and other polar operation
 It's still not clear to me whether this is relative to the heading (the moving frame) though.... I mean I think it is...
 Everything else is...
 That means that relative, aka addition, has different kinds of addition - page addition, where all coordinates/deltas are page respective, and turtle addition where all coordinates/deltas are relative the turtles current frame.
-So I might need to go over arithmetic again.
+So I might need to go over arithmetic again to be clear.
 
-I need a word for things that have position and direction (or orientation), an abstraction of a turtle, and vector doesn't seem right.
+I really need a word for things that have position and direction (or orientation), an abstraction of a turtle, and vector doesn't seem right.
 I can't think of a proper mathsy term for it yet - just like a pointer or arrow or 'orientable' or something.
 Need to find this out as Turtle maths is "pointer" maths.
 Practically everything in the universe could have this property...
 Is it just a position vector in disguise?
+
+
+Turtle maths vs page (space) maths
+----------------------------------
+
+
+
+
+
 
 
 Some tentative takeaways
@@ -191,8 +201,10 @@ Some tentative takeaways
 * plus, aka relative movement, is the default operator
 * Evaluating expressions shouldn't have any side effects
 * The command executor should accumulate pointer* operations (and output) and apply mutations at the end - actually not 100% about this one, might need to reconsider for SVG
-* Page-relative addition and turtle-relative addition are different
+* Page-relative addition and turtle-relative (pointer*) addition are different
 * Points don't intrinsically have a heading, whereas the turtle does, so plain point math only applies in particular circumstances, not in general
-* Underlying turtle functions should be pure operations that return other pointers*
-* (*)"Pointer" terminology to be determined
-* Absolute or page arithmetic can be done purely with points i think
+* Underlying turtle functions should be pure pointer* operations that return other pointers*
+* Absolute or page arithmetic can be done purely with plain points i think
+
+(*) "Pointer" terminology to be determined
+
