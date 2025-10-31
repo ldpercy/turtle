@@ -186,6 +186,18 @@ Practically everything in the universe could have this property...
 Is it just a position vector in disguise?
 
 
+https://en.wikipedia.org/wiki/Six_degrees_of_freedom
+https://en.wikipedia.org/wiki/Degrees_of_freedom_(mechanics)
+https://engineeringstatics.org/Chapter_05-degree-of-freedom.html
+
+Probably just position (2d):
+	x
+	y
+	orientation/direction
+
+
+
+
 Turtle maths vs page (space) maths
 ----------------------------------
 
