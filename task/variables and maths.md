@@ -201,7 +201,37 @@ Probably just position (2d):
 Turtle maths vs page (space) maths
 ----------------------------------
 
+So this really becomes position maths vs point maths.
 
+* point + point = point
+* position + cartesian point = position		- equivalent to my current move(x,y)
+* position + polar point = position			- left, right, bear etc
+* position + position = position			- with an extra turn at the end i think
+
+* point arithmetic is commutative (equiv to position vector addition i think)
+* not sure whether position + point === point + position yet - might depend
+* same for position arithmetic - not sure yet whether they commute either
+
+The ordering of how you interpret location and orientation matters, which means that point and rotation addition is *not* commutative.
+For instance these are different:
+* starting point + rotation + point
+* starting point + point + rotation
+
+
+**The 'natural' interpretation of a position triple is a point *then* a rotation.**
+
+This will probably end up being pretty fundamental to everything, and probably become a core rule or axiom for PlanarSpace.
+(Other spaces are available.)
+
+It will mean that:
+* position + point != point + position		- non-commutative
+* position1 + position2 != position2 + position1 - also non-commutative
+
+
+If these are all correct and reasonable and consistent, then I should be able to push a bunch of this new 'position maths' into the PlanarSpace.
+Set up some Position classes as Types and have the turtles become a bit dumber in a good way.
+
+I'll return to what it means for syntax shortly.
 
 
 
@@ -210,13 +240,18 @@ Turtle maths vs page (space) maths
 Some tentative takeaways
 ------------------------
 
-* plus, aka relative movement, is the default operator
+* The turtle is the assumed thing being operated on - for instance current commands could be read as `turtle.right 123,456`
+* Plus, aka relative movement, is the default or assumed operator
 * Evaluating expressions shouldn't have any side effects
-* The command executor should accumulate pointer* operations (and output) and apply mutations at the end - actually not 100% about this one, might need to reconsider for SVG
-* Page-relative addition and turtle-relative (pointer*) addition are different
-* Points don't intrinsically have a heading, whereas the turtle does, so plain point math only applies in particular circumstances, not in general
-* Underlying turtle functions should be pure pointer* operations that return other pointers*
-* Absolute or page arithmetic can be done purely with plain points i think
+* Points don't intrinsically have an orientation, whereas positions do, so plain point math only applies in particular circumstances, not in general
+* 'Position' - location and orientation - is the turtle abstraction to think in terms of
+* The 'natural' interpretation of a position is a point *then* a rotation
+* Point addition and position addition are different - point addition commutes, position addition does not
+* Adding points to positions and vice-versa is also non-commutative
+* Underlying turtle functions should be pure position operations that return other positions
+* Position arithmetic should be moved to the PlanarSpace
 
-(*) "Pointer" terminology to be determined
+Plus something like:
+* The command executor should accumulate position operations (and output) and apply mutations at the end - actually not 100% about this one, might need to reconsider for SVG
+
 
