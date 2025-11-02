@@ -255,3 +255,61 @@ Plus something like:
 * The command executor should accumulate position operations (and output) and apply mutations at the end - actually not 100% about this one, might need to reconsider for SVG
 
 
+
+Back to syntax for a bit
+------------------------
+
+Still fuzzy on this, so just going to dump some ideas and see what might make sense.
+
+The default turtle is the assumed thing being operated on, and plus is the default or assumed operator.
+So these could be equiavelent:
+```
+right 45,500					// what I have currently
+turtle.right 45,500				// method syntax, apply this operation (mutation) to the turtle
+turtle.right(45,500)			// as above, but more typically
++ right 45,500
+turtle + right 45,500			// arithmetic syntax - add this position to the turtle's position
+```
+
+I think under the hood the method syntax will actually perform the add operation (last one above), that is 'add this position to the turtle'.
+However there's kind of a twist here:
+
+**I said earlier that the 'natural' interpretation of a position triple is 'location then rotation'.
+These operations however are applied the other way around - 'rotate then move'.**
+
+So is this inconsistent, or do i just need to clarify the meanings of some things?
+
+For example, it would mean that 'right(45,500)' is equivalent to constructing these positions:
+(The convention for polar coordinates has the distance first)
+
+	polar (dist, ang, rot)		: (500, 45, 45)
+	cartesian (x, y, rot)		: (353.6, 353.6, 45)
+
+And if you break the rotations out, these should all be the same:
+
+	position = rotate(45) + xy(0,500)					// left,right,bear are this
+	position = rotate(45) + polar(500,0)				// or this, depending how you view things
+	position = xy(353.6, 353.6)	+ rotate(45)
+	position = polar(500,45)	+ rotate(45)
+
+
+So left, right and bear do the rotations first, and *point* moves second.
+That seems probably okay, as long as everyone understands that's what it means.
+
+### Subtraction & negatives
+What about subtractions - how would they work?
+I'm pretty certain that $rot - $rot = 0 and $point - $point = 0, but does $pos - $pos equal 0?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
