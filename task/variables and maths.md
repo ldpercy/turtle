@@ -300,6 +300,29 @@ That seems probably okay, as long as everyone understands that's what it means.
 What about subtractions - how would they work?
 I'm pretty certain that $rot - $rot = 0 and $point - $point = 0, but does $pos - $pos equal 0?
 
+Generally, I don't think so.
+
+If we take the 'natural' interpretation from earlier:
+
+	position = location + rotation  	// in that order
+
+Then to reverse that then you'll need to undo the rotation first, then subtract the location.
+
+So there are two different operations being described here, and not sure yet what each are properly called.
+
+	position 'undo/inverse'		= -rotation, -location
+	position 'subtract' 		= -location, -rotation
+
+Like most of this stuff this will prob be a pretty well-worn topic in maths or engineering.
+And as usual I don't know the right words to find it yet, because my maths is really lacking.
+It probably maps to some kind of algebraic structure, and the rotation stuff reminds me of some of the tiny little bit of group theory that I'm aware of.
+But the fact that addition doesn't commute ... ???
+No idea.
+Maybe I'm thinking about it wrong.
+
+
+
+
 
 
 
