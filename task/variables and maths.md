@@ -308,7 +308,7 @@ If we take the 'natural' interpretation from earlier:
 
 Then to reverse that then you'll need to undo the rotation first, then subtract the location.
 
-So there are two different operations being described here, and not yet what each are properly called.
+So there are two different operations being described here, and not sure yet what each are properly called.
 
 	position 'undo/inverse'		= -rotation, -location
 	position 'subtract' 		= -location, -rotation
