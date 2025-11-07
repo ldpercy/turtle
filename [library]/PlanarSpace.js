@@ -103,8 +103,7 @@ class PlanarSpace {
 	}
 
 
-	// Convenience Constructors
-	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
+
 
 	/* Attach constructed items to their parent space instance:
 	Doing something like the following:
@@ -117,13 +116,28 @@ class PlanarSpace {
 
 	Having these convenience constructors allows use of standard 'new instance.Foo()' type constructs.
 	But they make connecting the subinstances to the parent instance hard.
-
 	*/
 
+	// Convenience Constructors
+	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
+	// newPoint and newPosition use a factory style instead because they need parent space instance references, which can't be done with class style used for the others.
+	// They may need changing over also if they require space instance references.
 
+
+	/* newPoint
+	Automatically passes in the required reference to the parent space instance for the new point.
+	*/
 	newPoint(name) {
 		return new PlanarSpace.Point(name, this);
 	}/* newPoint */
+
+
+	/* newPosition
+	Automatically passes in the required reference to the parent space instance for the new position.
+	*/
+	newPosition(name) {
+		return new PlanarSpace.Position(name, this);
+	}/* newPosition */
 
 
 	Angle = class {
@@ -312,3 +326,28 @@ PlanarSpace.Point = class {
 This can be culled  - there might be some sort of need for it in the future but in a greatly cut-down version.
 For now though Point is the combined version.
 */
+
+
+
+/* PlanarSpace.Position
+*/
+PlanarSpace.Position = class {
+	#name		= 'Initial Position name';
+	#space;
+	#location;			// point in space
+	#direction;			// angle in space
+
+
+	constructor(name, space) {
+		this.#name = name;
+		this.#space = space;
+		this.#location    = space.newPoint(`${name}.location`);
+		this.#direction   = new space.Angle();
+	}
+
+	get x()			{ return this.#location.x; }
+	get y()			{ return this.#location.y; }
+	get angle()		{ return this.#location.angle; }
+	get radius()	{ return this.#location.radius; }
+
+}/* PlanarSpace.Position */
