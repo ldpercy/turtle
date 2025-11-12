@@ -33,7 +33,9 @@ class SVGTurtle {
 
 	get x()         { return this.turtle.position.x; }
 	get y()         { return this.turtle.position.y; }
-	get heading()   { return this.turtle.heading; }
+	get position()  { return this.turtle.position; }
+	get heading()   { return this.turtle.position.direction; }
+	get direction() { return this.turtle.position.direction; }
 	get svgX()      { return +this.x;}
 	get svgY()      { return -this.y; }
 
@@ -137,9 +139,11 @@ class SVGTurtle {
 
 
 	get report() {
-		const originAngle = this.turtle.position.angle;
+		const originAngle = this.turtle.position.direction;
 
 		//console.debug('coordinates:...', this.turtle.coordinates);
+		//console.debug('this.position:...', this.position);
+
 
 		// title text preserves whitespace, so:
 		const result = [
@@ -147,10 +151,10 @@ class SVGTurtle {
 			`	x: ${this.x.toPrecision(this.precision.report)}`,
 			`	y: ${this.y.toPrecision(this.precision.report)}`,
 			`heading:`,
-			`	${this.heading.degrees.toPrecision(this.precision.report)}°`,
-			`	${this.heading.radians.toPrecision(this.precision.report)} rad`,
-			`	${this.heading.radiansPi.toPrecision(this.precision.report)} π rad`,
-			`	${this.heading.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	${this.position.direction.degrees.toPrecision(this.precision.report)}°`,
+			`	${this.position.direction.radians.toPrecision(this.precision.report)} rad`,
+			`	${this.position.direction.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`	${this.position.direction.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`polar:`,
 			`	r: ${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
 			`	a: ${originAngle.degrees.toPrecision(this.precision.report)}°`,
@@ -232,11 +236,11 @@ class SVGTurtle {
 	/* A shallow copy of a point suitable for sticking into the history array
 	*/
 	getHistoryItem(turtleCoordinates) {
-
+		//console.log(turtleCoordinates);
 		const result = {
 			x : turtleCoordinates.position.x,
 			y : turtleCoordinates.position.y,
-			heading : new this.turtle.space.Angle(turtleCoordinates.heading.degrees),
+			direction : new this.turtle.space.Angle(turtleCoordinates.direction.degrees),
 		};
 
 		return result;

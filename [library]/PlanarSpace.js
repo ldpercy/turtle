@@ -291,10 +291,7 @@ PlanarSpace.Point = class {
 	//
 
 	resetToOrigin() {
-		this.#cartesian.x = 0;
-		this.#cartesian.y = 0;
-		this.#polar.angle.degrees = 0;
-		this.#polar.radius = 0;
+		this.cartesian = new this.#space.CartesianCoordinates();
 	}
 
 	add(point) {
@@ -347,7 +344,80 @@ PlanarSpace.Position = class {
 
 	get x()			{ return this.#location.x; }
 	get y()			{ return this.#location.y; }
-	get angle()		{ return this.#location.angle; }
+	get degrees()   { return this.#direction.degrees; }
+	get direction()	{ return this.#direction; }
 	get radius()	{ return this.#location.radius; }
+
+
+	bear(bearingDegrees, distance) {
+
+		let delta, angle;
+		this.#direction.degrees += bearingDegrees;
+
+		if (distance) { // could also be subject to float comparison
+			delta = this.#space.newPoint('bearing delta');
+			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
+			delta.polar = new this.#space.PolarCoordinates(this.#direction, distance);
+
+			console.debug('Position.bear delta', delta);
+
+			this.addPoint(delta);
+		}
+
+	}/* bear */
+
+
+	addPoint(point) {
+		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
+		this.#location.cartesian = newCartesian;
+	}
+
+	setPoint(point) {
+		this.#location.cartesian = point;
+	}
+
+
+	resetToOrigin() {
+		this.#location.resetToOrigin();
+		this.#direction.degrees = 0;
+	}
+
+
+
+	move(dx, dy) {
+		//console.debug('Turtle.move:', arguments);
+
+		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
+		//const offset = new Point(dx,dy).rotate(this.heading.radians);
+
+		const newPoint = this.#space.newPoint('Move newPoint');
+		newPoint.cartesian = currentCartesian;
+
+		let delta = this.#space.newPoint('delta');
+		let deltaCartesian = new this.#space.CartesianCoordinates(dx, dy);
+		//console.debug('Position.move deltaCartesian:', deltaCartesian);
+
+
+		delta.cartesian = deltaCartesian; // { x: 123, y: 456 };
+		//console.debug('Position.move delta:', delta);
+
+
+		delta.rotate(this.#direction);
+		//console.debug('Turtle.move delta rotate:', delta);
+
+		//const newPoint = currentPoint.add(delta);
+		newPoint.add(delta);
+
+		//console.debug('Turtle.move newPoint:', newPoint);
+
+		const newDirection = this.#space.getAngleFrom(currentCartesian, newPoint);
+
+		console.debug('Turtle.move new direction:', newDirection);
+		this.#direction = newDirection;
+
+		this.setPoint(newPoint);
+	}
+
+
 
 }/* PlanarSpace.Position */

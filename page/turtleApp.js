@@ -261,7 +261,9 @@ class TurtleApp extends HTMLApp {
 
 	updatePageTransform() {
 
-		const rotate = this.turtle.heading.degrees;
+		//console.log(this.turtle);
+
+		const rotate = this.turtle.position.degrees;
 
 		const rotateTransform    = (this.element.pageForm.rotatePage.checked)   ? `rotate(${-rotate},0,0)` : '';
 		const translateTransform = (this.element.pageForm.centerTurtle.checked) ? `translate(${-this.turtle.svgX},${-this.turtle.svgY})` : '';
@@ -281,7 +283,7 @@ class TurtleApp extends HTMLApp {
 		this.element.turtleIcon.setAttribute('x', this.turtle.svgX);
 		this.element.turtleIcon.setAttribute('y', this.turtle.svgY);
 		this.element.turtleIcon.setAttribute('transform',
-			`rotate(${this.turtle.heading.degrees},${this.turtle.svgX},${this.turtle.svgY})`
+			`rotate(${this.turtle.position.degrees},${this.turtle.svgX},${this.turtle.svgY})`
 		);
 
 		this.updatePageTransform();
@@ -311,6 +313,8 @@ class TurtleApp extends HTMLApp {
 			page	: this.getFormData(this.element.pageForm),
 			drawing	: this.getFormData(this.element.drawingForm),
 		};
+
+		console.log(appSettings);
 
 		const appSettingsJson = JSON.stringify(appSettings);
 		localStorage.setItem('appSettings', appSettingsJson );

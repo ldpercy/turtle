@@ -7,6 +7,7 @@ Todo
 
 ### Bugs
 
+* Bug in current cmd set not saving
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen
@@ -18,7 +19,6 @@ Todo
 
 * See if details/summary open/closed state can be saved in storage as well
 * Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
-* Turtle follows mouse clicks? Probably really gnarly and hard to accurately map between mouse and page coords though.
 * Export/save the svg output...???
 * Think about enforcing quotes for text commands, see below
 * Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
@@ -47,7 +47,7 @@ Todo
 In Progress
 -----------
 
-* Get Firefox & chrome's form styling more in sync
+* Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API.
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
 * Continue working on transition to drawing spaces / geometric spaces
 
@@ -55,6 +55,7 @@ In Progress
 Done
 ----
 
+* Get Firefox & chrome's form styling more in sync
 * Changed cmd arg parseInt to parseFloat to allow for fractional degrees
 * Command textarea tabs
 * Use local storage to maintain app settings
