@@ -124,6 +124,7 @@ class TurtleApp extends HTMLApp {
 	}
 
 
+
 	tabListener(event) {
 		//console.debug('tabListener', arguments);
 		//console.debug('tabListener', event.target);
@@ -251,6 +252,9 @@ class TurtleApp extends HTMLApp {
 	doCommands() {
 		const commands = Turtle.getCommands(this.element.commandInput.value);
 		//console.log('Commands:', commands);
+
+		// update the hidden command input - this is a hack, the current textarea value need to be saved properly onchange
+		document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
 
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
