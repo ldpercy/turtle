@@ -200,7 +200,8 @@ class SVGTurtle {
 			case 'l'            :
 			case 'left'         :
 			case 'r'            :
-			case 'right'        : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
+			case 'right'        :
+			case 'bear'         : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 			case 'jump'         :
 			case 'origin'       :

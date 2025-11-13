@@ -359,7 +359,7 @@ PlanarSpace.Position = class {
 			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.#direction, distance);
 
-			console.debug('Position.bear delta', delta);
+			//console.debug('Position.bear delta', delta);
 
 			this.addPoint(delta);
 		}
@@ -411,8 +411,11 @@ PlanarSpace.Position = class {
 		//console.debug('Turtle.move newPoint:', newPoint);
 
 		const newDirection = this.#space.getAngleFrom(currentCartesian, newPoint);
+		// There is a pre-existing quirk/bug here that the angles chosen aren't ideal
+		// They need to calculated better as deltas from the previous direction
 
-		console.debug('Turtle.move new direction:', newDirection);
+
+		//console.debug('Turtle.move new direction:', newDirection);
 		this.#direction = newDirection;
 
 		this.setPoint(newPoint);
