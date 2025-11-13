@@ -131,6 +131,16 @@ class SVGTurtle {
 	}
 
 
+	moveToXY(x,y) {
+		this.turtle.moveToXY(x,y);
+	}
+
+	moveToXYwithRotate(x,y) {
+		this.turtle.moveToXYwithRotate(x,y);
+	}
+
+
+
 	get report() {
 		const originAngle = this.turtle.location.angle;
 

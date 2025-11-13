@@ -66,6 +66,11 @@ class TurtleApp extends HTMLApp {
 		},
 		{
 			query: '#svg-element',
+			type: 'dblclick',
+			listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
+		},
+		{
+			query: '#svg-element',
 			type: 'click',
 			listener: this.svgClickListener
 		},
@@ -262,6 +267,14 @@ class TurtleApp extends HTMLApp {
 	}/* doCommands */
 
 
+	doCommand(cmdString) {
+		const commands = Turtle.getCommands(cmdString);
+		//console.log(commands);
+		const commandOutput = this.turtle.doCommands(commands);
+		this.updateTurtle();
+		this.draw(commandOutput);
+	}
+
 
 	updatePageTransform() {
 
@@ -318,7 +331,7 @@ class TurtleApp extends HTMLApp {
 			drawing	: this.getFormData(this.element.drawingForm),
 		};
 
-		console.log(appSettings);
+		//console.log(appSettings);
 
 		const appSettingsJson = JSON.stringify(appSettings);
 		localStorage.setItem('appSettings', appSettingsJson );
@@ -350,8 +363,34 @@ class TurtleApp extends HTMLApp {
 		// Get point in page SVG space
 		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
 		//console.debug('pagePoint', pagePoint);
-		this.drawPoint(pagePoint.x, pagePoint.y);
+
+		// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
+
+		//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		//console.debug('svgClickListener', cmd);
+		//this.doCommand(cmd);
+
 	}/* svgClickListener */
+
+
+	svgDblClickListener(event) {   // not firing for some reason???
+		//console.log('svgDblClickListener', event);
+
+		const domPoint = new DOMPoint(event.clientX, event.clientY);
+		const pageElement = document.getElementById('group-page');
+
+		// Get point in page SVG space
+		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
+
+		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+
+		//console.debug('svgClickListener', cmd);
+
+		this.doCommand(cmd);
+
+	}/* svgClickListener */
+
+
 
 
 	drawPoint(svgX, svgY) {
