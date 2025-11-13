@@ -5,7 +5,7 @@ class Turtle {
 	#name;
 	#space;
 	#position;
-	//#heading;
+
 
 	commands = [
 		'b',
@@ -29,16 +29,13 @@ class Turtle {
 			name,
 			space = new PlanarSpace('page'),
 			position = space.newPosition(`${name}-position`),
-			heading = new space.Angle(),
 			digits = 12
 		) {
 		//console.log('Turtle args:',arguments)
 		this.#name =  `Turtle-${name}`;
 		this.#space = space;
 		this.#position = position;
-		//this.#heading = heading;
 		this.precision.digits = digits;
-		//console.log('Turtle this:',this);
 	}
 
 
@@ -50,11 +47,12 @@ class Turtle {
 	get position() { return this.#position; }
 	get x()  { return this.#position.x; }
 	get y()  { return this.#position.y; }
-	get heading() { return this.#position.direction; }
+	get location() { return this.#position.location; }
+	get direction() { return this.#position.direction; }
 	get radius() { return this.#position.radius; }
-	get coordinates() { return { position: this.#position, direction: this.heading } };
+	get coordinates() { return { position: this.#position, direction: this.direction } };
 
-	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
+	get report() { return `x:${this.x}; y:${this.y}; direction:${this.direction.degrees};`; }
 
 
 
@@ -80,16 +78,6 @@ class Turtle {
 	}
 
 
-	setHeading(heading) {
-
-		const equal = Maths.equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
-		//console.log('set #heading', heading, equal);
-		/*
-		this isn't very clean - need better solutions for this stuff
-		*/
-
-		this.heading.degrees = (equal) ? 0.0 : heading;
-	}
 
 
 	/* bear
@@ -143,7 +131,7 @@ class Turtle {
 
 
 	toString() {
-		return `Turtle - x:${this.x}; y:${this.y}; heading:${this.#position.direction.degrees};`;
+		return `Turtle - x:${this.x}; y:${this.y}; direction:${this.#position.direction.degrees};`;
 	}
 
 	log(prefix) {
@@ -172,13 +160,7 @@ class Turtle {
 			case 'm'            :
 			case 'move'         : result = this.move(...command.argument); break;
 			case 'o'            : result = this.toOrigin(); break;
-			/*
-			case 'circle'       : result = this.circle(...command.argument); break;
-			case 'rect'         : result = this.rect(...command.argument); break;
-			case 'ellipse'      : result = this.ellipse(...command.argument); break;
-			case 'text'         : result = this.text(...command.argument); break;
-			case 'marker'       : result = this.marker; break;
-			*/
+			//case 'marker'       : result = this.marker; break;
 
 			default             : console.warn(`Unknown command: ${command}`); break;
 		}

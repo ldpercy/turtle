@@ -344,8 +344,9 @@ PlanarSpace.Position = class {
 
 	get x()			{ return this.#location.x; }
 	get y()			{ return this.#location.y; }
-	get degrees()   { return this.#direction.degrees; }
+	get location()	{ return this.#location; }
 	get direction()	{ return this.#direction; }
+	get degrees()   { return this.#direction.degrees; }
 	get radius()	{ return this.#location.radius; }
 
 
@@ -356,7 +357,6 @@ PlanarSpace.Position = class {
 
 		if (distance) { // could also be subject to float comparison
 			delta = this.#space.newPoint('bearing delta');
-			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
 			delta.polar = new this.#space.PolarCoordinates(this.#direction, distance);
 
 			//console.debug('Position.bear delta', delta);
@@ -385,10 +385,9 @@ PlanarSpace.Position = class {
 
 
 	move(dx, dy) {
-		//console.debug('Turtle.move:', arguments);
+		//console.debug('Position.move:', arguments);
 
 		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
-		//const offset = new Point(dx,dy).rotate(this.heading.radians);
 
 		const newPoint = this.#space.newPoint('Move newPoint');
 		newPoint.cartesian = currentCartesian;
@@ -403,19 +402,19 @@ PlanarSpace.Position = class {
 
 
 		delta.rotate(this.#direction);
-		//console.debug('Turtle.move delta rotate:', delta);
+		//console.debug('Position.move delta rotate:', delta);
 
 		//const newPoint = currentPoint.add(delta);
 		newPoint.add(delta);
 
-		//console.debug('Turtle.move newPoint:', newPoint);
+		//console.debug('Position.move newPoint:', newPoint);
 
 		const newDirection = this.#space.getAngleFrom(currentCartesian, newPoint);
 		// There is a pre-existing quirk/bug here that the angles chosen aren't ideal
 		// They need to calculated better as deltas from the previous direction
 
 
-		//console.debug('Turtle.move new direction:', newDirection);
+		//console.debug('Position.move new direction:', newDirection);
 		this.#direction = newDirection;
 
 		this.setPoint(newPoint);

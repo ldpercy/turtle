@@ -10,18 +10,12 @@ class SVGTurtle {
 	constructor(
 			name,
 			space = new PlanarSpace('page'),
-			//position = space.newPoint('SVGTurtle position'),
-			//heading = new space.Angle(),
 			reportPrecision = 6,
 		) {
 
 		this.name = `SVGTurtle-${name}`;
 		this.turtle = new Turtle(name, space);
-		//this.#position = position;
-		//this.#heading = heading;
-
 		this.precision.report = reportPrecision;
-
 		this.history.length = 5;
 		this.history.push(this.getHistoryItem(this.turtle.coordinates));
 		this.history.shift();
@@ -34,7 +28,6 @@ class SVGTurtle {
 	get x()         { return this.turtle.position.x; }
 	get y()         { return this.turtle.position.y; }
 	get position()  { return this.turtle.position; }
-	get heading()   { return this.turtle.position.direction; }
 	get direction() { return this.turtle.position.direction; }
 	get svgX()      { return +this.x;}
 	get svgY()      { return -this.y; }
@@ -54,25 +47,25 @@ class SVGTurtle {
 	}
 
 	rect(width, height) {
-		const result = `<rect x="${this.x - width/2}" y="${this.svgY - height/2}" width="${width}" height="${height}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})"/>`;
+		const result = `<rect x="${this.x - width/2}" y="${this.svgY - height/2}" width="${width}" height="${height}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
 	ellipse(width, height) {
 		const rx = width / 2;
 		const ry = height / 2;
-		const result = `<ellipse cx="${this.x}" cy="${this.svgY}" rx="${rx}" ry="${ry}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})"/>`;
+		const result = `<ellipse cx="${this.x}" cy="${this.svgY}" rx="${rx}" ry="${ry}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
 	text(text) {
-		const result = `<text x="${this.x}" y="${this.svgY}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})">${text}</text>`;
+		const result = `<text x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">${text}</text>`;
 		return result;
 	}
 
 	marker() {
 		const result = `
-			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.heading.degrees},${this.x},${this.svgY})">
+			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">
 				<title>${this.report}</title>
 			</use>
 		`;
@@ -139,7 +132,7 @@ class SVGTurtle {
 
 
 	get report() {
-		const originAngle = this.turtle.position.direction;
+		const originAngle = this.turtle.location.angle;
 
 		//console.debug('coordinates:...', this.turtle.coordinates);
 		//console.debug('this.position:...', this.position);
@@ -150,7 +143,7 @@ class SVGTurtle {
 			`cartesian:`,
 			`	x: ${this.x.toPrecision(this.precision.report)}`,
 			`	y: ${this.y.toPrecision(this.precision.report)}`,
-			`heading:`,
+			`direction:`,
 			`	${this.position.direction.degrees.toPrecision(this.precision.report)}°`,
 			`	${this.position.direction.radians.toPrecision(this.precision.report)} rad`,
 			`	${this.position.direction.radiansPi.toPrecision(this.precision.report)} π rad`,
@@ -165,7 +158,7 @@ class SVGTurtle {
 			`	x: ${this.svgX.toPrecision(this.precision.report)}`,
 			`	y: ${this.svgY.toPrecision(this.precision.report)}`,
 			//`history:`,
-			//`	${this.history.map((item) => { return `heading:${item.heading.degrees}; x:${item.x}; y:${item.y};`;}).join('\n	')}`,
+			//`	${this.history.map((item) => { return `direction:${item.direction.degrees}; x:${item.x}; y:${item.y};`;}).join('\n	')}`,
 		].join('\n');
 		return result;
 	}
@@ -229,7 +222,7 @@ class SVGTurtle {
 
 	toString() {
 		//let result = super.toString();
-		let result = `SVGTurtle| x:${this.x.toPrecision(this.precision.report)}; y:${this.y.toPrecision(this.precision.report)}; heading:${this.heading.degrees};`;
+		let result = `SVGTurtle| x:${this.x.toPrecision(this.precision.report)}; y:${this.y.toPrecision(this.precision.report)}; direction:${this.direction.degrees};`;
 		return result;
 	}
 
