@@ -182,26 +182,29 @@ class SVGTurtle {
 
 
 		switch(command.name) {
-			// these are presentation only
+			// presentation only commands
 			case 'circle'       : result = this.circle(...command.argument); break;
 			case 'rect'         : result = this.rect(...command.argument); break;
 			case 'ellipse'      : result = this.ellipse(...command.argument); break;
 			case 'text'         : result = this.text(...command.argument); break;
 			case 'marker'       : result = this.marker(); break;
 
+			// movement commands
 			case 'move'         :
 			case 'l'            :
 			case 'left'         :
 			case 'r'            :
 			case 'right'        :
-			case 'bear'         : result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
+			case 'bear'         :
+			case 'xy'           :
+			case 'xyr'          :
+				result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 			case 'jump'         :
 			case 'origin'       :
 			case 'o'            : break;
 
 			default             : console.warn(`Unknown command: ${command}`); result = `<!-- Unknown command: ${command} -->`; break;
-
 		}
 
 

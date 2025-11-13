@@ -422,4 +422,21 @@ PlanarSpace.Position = class {
 
 
 
+	moveToXY(x,y) {
+		const newCartesian = new this.#space.CartesianCoordinates(x, y);
+		this.setPoint(newCartesian);
+	}
+
+	moveToXYwithRotate(x,y) {
+		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
+		const newCartesian = new this.#space.CartesianCoordinates(x, y);
+
+		const newDirection = this.#space.getAngleFrom(currentCartesian, newCartesian);
+		this.#direction = newDirection;
+
+		this.setPoint(newCartesian);
+	}
+
+
+
 }/* PlanarSpace.Position */

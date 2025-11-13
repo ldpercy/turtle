@@ -18,6 +18,8 @@ class Turtle {
 		'm',
 		'move',
 		'o',
+		'xy',
+		'xyr',
 	];
 
 	precision = {
@@ -78,8 +80,6 @@ class Turtle {
 	}
 
 
-
-
 	/* bear
 	*/
 	bear(bearingDegrees, distance=0) {
@@ -96,6 +96,16 @@ class Turtle {
 	move(dx, dy) {
 		this.#position.move(dx,dy);
 	}
+
+
+	moveToXY(x,y) {
+		this.#position.moveToXY(x,y);
+	}
+
+	moveToXYwithRotate(x,y) {
+		this.#position.moveToXYwithRotate(x,y);
+	}
+
 
 	//
 	// Static
@@ -159,6 +169,8 @@ class Turtle {
 			case 'right'        : result = this.right(...command.argument); break;
 			case 'm'            :
 			case 'move'         : result = this.move(...command.argument); break;
+			case 'xy'           : result = this.moveToXY(...command.argument); break;
+			case 'xyr'          : result = this.moveToXYwithRotate(...command.argument); break;
 			case 'o'            : result = this.toOrigin(); break;
 			//case 'marker'       : result = this.marker; break;
 
