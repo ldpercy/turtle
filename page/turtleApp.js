@@ -372,7 +372,7 @@ class TurtleApp extends HTMLApp {
 
 
 		if (this.element.pageForm['mouse-click'].value === 'info') {
-			this.drawPoint(pagePoint.x, pagePoint.y);
+			this.drawPointInfo(pagePoint.x, pagePoint.y);
 		}
 		else if (this.element.pageForm['mouse-click'].value === 'draw') {
 			const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
@@ -409,11 +409,11 @@ class TurtleApp extends HTMLApp {
 
 
 
-	drawPoint(svgX, svgY) {
-		const pointSvg = this.turtle.point(svgX, -svgY);
+	drawPointInfo(svgX, svgY) {
+		const pointInfoSvg = this.turtle.pointInfo(svgX, -svgY);
 
-		document.getElementById('group-cartesianPoint').innerHTML = pointSvg.cartesian;
-		document.getElementById('group-polarPoint').innerHTML = pointSvg.polar;
+		document.getElementById('group-cartesianPoint').innerHTML = pointInfoSvg.cartesian;
+		document.getElementById('group-polarPoint').innerHTML = pointInfoSvg.polar;
 	}
 
 	clearPoint() {

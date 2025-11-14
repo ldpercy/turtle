@@ -72,8 +72,9 @@ class SVGTurtle {
 		return result;
 	}
 
-
-	point(x, y) {
+	/* pointInfo
+	*/
+	pointInfo(x, y) {
 		const result = {
 			cartesian: '',
 			polar : '',
@@ -87,16 +88,24 @@ class SVGTurtle {
 		const svgX = x;
 		const svgY = -y;
 
+		const cartesianInfo = [
+			`x: ${point.x.toPrecision(this.precision.report)}`,
+			`y: ${point.y.toPrecision(this.precision.report)}`,
+		];
+
+		const polarInfo = [
+			`r: ${point.radius.toPrecision(this.precision.report)}`,
+			`a: ${point.angle.degrees.toPrecision(this.precision.report)}°`,
+			`a: ${point.angle.radians.toPrecision(this.precision.report)} rad`,
+			`a: ${point.angle.radiansPi.toPrecision(this.precision.report)} π rad`,
+			`a: ${point.angle.radiansTau.toPrecision(this.precision.report)} τ rad`,
+		];
+
 		const pointReport = [
 			`cartesian:`,
-			`	x: ${point.x.toPrecision(this.precision.report)}`,
-			`	y: ${point.y.toPrecision(this.precision.report)}`,
+			`	${cartesianInfo.join('\n\t')}`,
 			`polar:`,
-			`	r: ${point.radius.toPrecision(this.precision.report)}`,
-			`	a: ${point.angle.degrees.toPrecision(this.precision.report)}°`,
-			`	a: ${point.angle.radians.toPrecision(this.precision.report)} rad`,
-			`	a: ${point.angle.radiansPi.toPrecision(this.precision.report)} π rad`,
-			`	a: ${point.angle.radiansTau.toPrecision(this.precision.report)} τ rad`,
+			`	${polarInfo.join('\n\t')}`,
 			`svg:`,
 			`	x: ${svgX.toPrecision(this.precision.report)}`,
 			`	y: ${svgY.toPrecision(this.precision.report)}`,
@@ -104,8 +113,8 @@ class SVGTurtle {
 
 
 		result.cartesian = `
-			<line x1="${svgX}" y1="0" x2="${svgX}" y2="${svgY}"><title>x: ${point.x.toPrecision(this.precision.report)}</title></line>
-			<line x1="0" y1="${svgY}" x2="${svgX}" y2="${svgY}"><title>y: ${point.y.toPrecision(this.precision.report)}</title></line>
+			<line x1="${svgX}" y1="0" x2="${svgX}" y2="${svgY}"><title>${cartesianInfo.join('\n')}</title></line>
+			<line x1="0" y1="${svgY}" x2="${svgX}" y2="${svgY}"><title>${cartesianInfo.join('\n')}</title></line>
 			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
 				<title>${pointReport}</title>
 			</use>
@@ -115,12 +124,12 @@ class SVGTurtle {
 		const sweepFlag = (angle180 >= 0) ? 1 : 0;
 
 		result.polar = `
-			<line x1="0" y1="0" x2="${point.x}" y2="${-point.y}"><title>a: ${point.angle.degrees.toPrecision(this.precision.report)}°</title></line>
+			<line x1="0" y1="0" x2="${point.x}" y2="${-point.y}"><title>${polarInfo.join('\n')}</title></line>
 			<circle r="${point.radius}">
 				<title>r: ${point.radius.toPrecision(this.precision.report)}</title>
 			</circle>
 			<path d="M 0,${-point.radius} A ${point.radius},${point.radius} 0 0 ${sweepFlag} ${svgX},${svgY}">
-				<title>a: ${point.angle.degrees.toPrecision(this.precision.report)}°</title>
+				<title>${polarInfo.join('\n')}</title>
 			</path>
 			<use href="#def-point" class="use-point" x="${svgX}" y="${svgY}">
 				<title>${pointReport}</title>
@@ -128,7 +137,7 @@ class SVGTurtle {
 		`;
 
 		return result;
-	}
+	}/* pointInfo */
 
 
 	moveToXY(x,y) {
