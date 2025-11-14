@@ -106,29 +106,29 @@
 {
 	stroke-width: 5px;
 	/* stroke: #f00c; */
-	stroke: var(--purple);
+	stroke: var(--fadedred);
 
 	/* stroke-dasharray: 15 5; */
 }
 
 .polar-point circle {
-	opacity:35%;
+	opacity:30%;
 	/* stroke-dasharray: 10 10; */
 }
 
 .light {
 	.use-point {
-		fill: var(--purple);
+		fill: var(--fadedred);
 		fill-opacity: 30%;
-		stroke: var(--purple);
+		stroke: var(--fadedred);
 		stroke-opacity: 30%;
 	}
 }
 .dark {
 	.use-point {
-		fill: var(--purple);
+		fill: var(--fadedred);
 		fill-opacity: 30%;
-		stroke: var(--purple);
+		stroke: var(--fadedred);
 		stroke-opacity: 30%;
 	}
 }

@@ -8,7 +8,8 @@ html {
 	--teal: #088;		/* cartesian grid */
 
 	--pink: #c7a;		/* polar grid new */
-	--purple: #b0b;	/* point info */
+	--purple: #b0b;
+	--fadedred: #f07;	/* point info */
 
 	--accent-light: #08c;
 	--accent-dark: #0cf;
