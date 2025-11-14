@@ -192,31 +192,51 @@ class Turtle {
 		const result = [];
 		const lineArray = string.trim().split('\n');
 		let lineText = '';
+		let command;
 
 		lineArray.forEach(
 			(line) => {
 				lineText = line.trim();
-
-				const match = lineText.match(/^(\w+)(\s.*)?/);	// standard command structure
-				if (match) {
-					const cmd = match[1].trim();
-					let arg;
-					if (cmd === 'text') {
-						arg = (match[2]) ? [match[2]] : [''];
-					}
-					else {
-						arg = (match[2]) ? this.parseArgs(match[2]) : [];
-					}
-					result.push(new Turtle.Command(cmd, arg));
-				}
-				else {
-					// result.push(new Turtle.Command('', line));
+				command = Turtle.parseCmd(lineText);
+				if (command) {
+					result.push(command);
 				}
 			}
 		);
 
 		return result;
 	}
+
+
+	static parseCmd(cmdString) {
+		let result = new Turtle.Command();
+		let arg;
+		let match;
+
+		if (cmdString.startsWith('^')) {
+			result.draw = false;
+			cmdString = cmdString.substring(1);
+		}
+
+		match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
+		if (match) {
+
+			result.name = match[1].trim();
+
+			if (result.name === 'text') {
+				arg = (match[2]) ? [match[2]] : [''];
+			}
+			else {
+				arg = (match[2]) ? this.parseArgs(match[2]) : [];
+			}
+			result.argument = arg;
+		}
+		else {
+			result = undefined;
+		}
+		return result;
+	}
+
 
 	static parseArgs(argString) {
 		const argArray = argString.split(',');
@@ -231,11 +251,22 @@ class Turtle {
 
 
 Turtle.Command = class {
-	constructor(name, argument) {
+	name;
+	argument;
+	operator;
+	draw;
+
+	constructor(
+		name = '',
+		argument = [],
+		operator = '',
+		draw = true
+	) {
 		this.name = name;
 		this.argument = argument;
+		this.operator = operator;
+		this.draw = draw;
 	}
-	name = '';
-	argument = [];
+
 	toString() { return `${this.name} ${this.argument}`}
 }
