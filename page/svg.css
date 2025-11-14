@@ -21,7 +21,7 @@
 
 .grid {
 	--colour-cartesian: var(--teal);
-	--colour-polar: var(--purple);
+	--colour-polar: var(--pink);
 	fill:none;
 
 	stroke-width: 1px;
@@ -105,7 +105,9 @@
 .polar-point circle
 {
 	stroke-width: 5px;
-	stroke: #f00c;
+	/* stroke: #f00c; */
+	stroke: var(--purple);
+
 	/* stroke-dasharray: 15 5; */
 }
 
@@ -116,14 +118,18 @@
 
 .light {
 	.use-point {
-		fill: #f00c;
-		stroke: #f00a;
+		fill: var(--purple);
+		fill-opacity: 30%;
+		stroke: var(--purple);
+		stroke-opacity: 30%;
 	}
 }
 .dark {
 	.use-point {
-		fill: #f00c;
-		stroke: #f00a;
+		fill: var(--purple);
+		fill-opacity: 30%;
+		stroke: var(--purple);
+		stroke-opacity: 30%;
 	}
 }
 

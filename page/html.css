@@ -6,8 +6,9 @@ html {
 
 	--silver: #bbbb;
 	--teal: #088;		/* cartesian grid */
-	--purple: #b0b;	/* polar grid */
 
+	--pink: #c7a;		/* polar grid new */
+	--purple: #b0b;	/* point info */
 
 	--accent-light: #08c;
 	--accent-dark: #0cf;
