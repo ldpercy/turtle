@@ -378,7 +378,7 @@ class TurtleApp extends HTMLApp {
 			const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
 			this.doCommand(cmd);
 		}
-		else if (this.element.pageForm['mouse-click'].value === 'jump')
+		else if (this.element.pageForm['mouse-click'].value === 'move')
 		{
 			const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
 			this.doCommand(cmd);
