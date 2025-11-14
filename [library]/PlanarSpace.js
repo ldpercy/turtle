@@ -103,8 +103,7 @@ class PlanarSpace {
 	}
 
 
-	// Convenience Constructors
-	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
+
 
 	/* Attach constructed items to their parent space instance:
 	Doing something like the following:
@@ -117,13 +116,28 @@ class PlanarSpace {
 
 	Having these convenience constructors allows use of standard 'new instance.Foo()' type constructs.
 	But they make connecting the subinstances to the parent instance hard.
-
 	*/
 
+	// Convenience Constructors
+	// These constructors are here so that space clients can create new objects from a space instance without knowing their canonical names
+	// newPoint and newPosition use a factory style instead because they need parent space instance references, which can't be done with class style used for the others.
+	// They may need changing over also if they require space instance references.
 
+
+	/* newPoint
+	Automatically passes in the required reference to the parent space instance for the new point.
+	*/
 	newPoint(name) {
 		return new PlanarSpace.Point(name, this);
 	}/* newPoint */
+
+
+	/* newPosition
+	Automatically passes in the required reference to the parent space instance for the new position.
+	*/
+	newPosition(name) {
+		return new PlanarSpace.Position(name, this);
+	}/* newPosition */
 
 
 	Angle = class {
@@ -277,10 +291,7 @@ PlanarSpace.Point = class {
 	//
 
 	resetToOrigin() {
-		this.#cartesian.x = 0;
-		this.#cartesian.y = 0;
-		this.#polar.angle.degrees = 0;
-		this.#polar.radius = 0;
+		this.cartesian = new this.#space.CartesianCoordinates();
 	}
 
 	add(point) {
@@ -312,3 +323,120 @@ PlanarSpace.Point = class {
 This can be culled  - there might be some sort of need for it in the future but in a greatly cut-down version.
 For now though Point is the combined version.
 */
+
+
+
+/* PlanarSpace.Position
+*/
+PlanarSpace.Position = class {
+	#name		= 'Initial Position name';
+	#space;
+	#location;			// point in space
+	#direction;			// angle in space
+
+
+	constructor(name, space) {
+		this.#name = name;
+		this.#space = space;
+		this.#location    = space.newPoint(`${name}.location`);
+		this.#direction   = new space.Angle();
+	}
+
+	get x()			{ return this.#location.x; }
+	get y()			{ return this.#location.y; }
+	get location()	{ return this.#location; }
+	get direction()	{ return this.#direction; }
+	get degrees()   { return this.#direction.degrees; }
+	get radius()	{ return this.#location.radius; }
+
+
+	bear(bearingDegrees, distance) {
+
+		let delta, angle;
+		this.#direction.degrees += bearingDegrees;
+
+		if (distance) { // could also be subject to float comparison
+			delta = this.#space.newPoint('bearing delta');
+			delta.polar = new this.#space.PolarCoordinates(this.#direction, distance);
+
+			//console.debug('Position.bear delta', delta);
+
+			this.addPoint(delta);
+		}
+
+	}/* bear */
+
+
+	addPoint(point) {
+		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
+		this.#location.cartesian = newCartesian;
+	}
+
+	setPoint(point) {
+		this.#location.cartesian = point;
+	}
+
+
+	resetToOrigin() {
+		this.#location.resetToOrigin();
+		this.#direction.degrees = 0;
+	}
+
+
+
+	move(dx, dy) {
+		//console.debug('Position.move:', arguments);
+
+		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
+
+		const newPoint = this.#space.newPoint('Move newPoint');
+		newPoint.cartesian = currentCartesian;
+
+		let delta = this.#space.newPoint('delta');
+		let deltaCartesian = new this.#space.CartesianCoordinates(dx, dy);
+		//console.debug('Position.move deltaCartesian:', deltaCartesian);
+
+
+		delta.cartesian = deltaCartesian; // { x: 123, y: 456 };
+		//console.debug('Position.move delta:', delta);
+
+
+		delta.rotate(this.#direction);
+		//console.debug('Position.move delta rotate:', delta);
+
+		//const newPoint = currentPoint.add(delta);
+		newPoint.add(delta);
+
+		//console.debug('Position.move newPoint:', newPoint);
+
+		const newDirection = this.#space.getAngleFrom(currentCartesian, newPoint);
+		// There is a pre-existing quirk/bug here that the angles chosen aren't ideal
+		// They need to calculated better as deltas from the previous direction
+
+
+		//console.debug('Position.move new direction:', newDirection);
+		this.#direction = newDirection;
+
+		this.setPoint(newPoint);
+	}
+
+
+
+	moveToXY(x,y) {
+		const newCartesian = new this.#space.CartesianCoordinates(x, y);
+		this.setPoint(newCartesian);
+	}
+
+	moveToXYwithRotate(x,y) {
+		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
+		const newCartesian = new this.#space.CartesianCoordinates(x, y);
+
+		const newDirection = this.#space.getAngleFrom(currentCartesian, newCartesian);
+		this.#direction = newDirection;
+
+		this.setPoint(newCartesian);
+	}
+
+
+
+}/* PlanarSpace.Position */

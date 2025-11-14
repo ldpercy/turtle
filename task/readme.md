@@ -7,6 +7,8 @@ Todo
 
 ### Bugs
 
+* The moveXY cmd doesn't calculate direction angles nicely - see if it can be updated to +/-180 from current direction (a **lot** of angles need to be normalised in general, they're very inconsistent in presentation at the moment)
+* Bug in current cmd set not saving - have put in a small remedial fix to save on 'do', but needs to save on change, or revisit the form loading
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen
@@ -16,8 +18,10 @@ Todo
 
 ### General
 
+
+* Different modes/command sets etc - basic/advanced for example
+* See if details/summary open/closed state can be saved in storage as well
 * Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
-* Turtle follows mouse clicks? Probably really gnarly and hard to accurately map between mouse and page coords though.
 * Export/save the svg output...???
 * Think about enforcing quotes for text commands, see below
 * Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
@@ -46,7 +50,8 @@ Todo
 In Progress
 -----------
 
-* Get Firefox & chrome's form styling more in sync
+* Figuring out position+point arithmetic
+* Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API.
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
 * Continue working on transition to drawing spaces / geometric spaces
 
@@ -54,6 +59,8 @@ In Progress
 Done
 ----
 
+* Use 'direction' instead 'heading' - there is a difference, but for the near future direction is much clearer
+* Get Firefox & chrome's form styling more in sync
 * Changed cmd arg parseInt to parseFloat to allow for fractional degrees
 * Command textarea tabs
 * Use local storage to maintain app settings

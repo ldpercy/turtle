@@ -51,7 +51,7 @@ class Maths{
 	}
 
 
-	degrees180(degrees) {
+	static degrees180(degrees) {
 		// https://stackoverflow.com/questions/2320986/easy-way-to-keeping-angles-between-179-and-180-degrees
 		// my brain is mushy
 

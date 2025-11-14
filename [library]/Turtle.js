@@ -5,7 +5,7 @@ class Turtle {
 	#name;
 	#space;
 	#position;
-	#heading;
+
 
 	commands = [
 		'b',
@@ -18,6 +18,8 @@ class Turtle {
 		'm',
 		'move',
 		'o',
+		'xy',
+		'xyr',
 	];
 
 	precision = {
@@ -28,17 +30,14 @@ class Turtle {
 	constructor(
 			name,
 			space = new PlanarSpace('page'),
-			position = space.newPoint(`${name}-position`),
-			heading = new space.Angle(),
+			position = space.newPosition(`${name}-position`),
 			digits = 12
 		) {
 		//console.log('Turtle args:',arguments)
 		this.#name =  `Turtle-${name}`;
 		this.#space = space;
 		this.#position = position;
-		this.#heading = heading;
 		this.precision.digits = digits;
-		//console.log('Turtle this:',this);
 	}
 
 
@@ -50,11 +49,12 @@ class Turtle {
 	get position() { return this.#position; }
 	get x()  { return this.#position.x; }
 	get y()  { return this.#position.y; }
-	get heading() { return this.#heading; }
+	get location() { return this.#position.location; }
+	get direction() { return this.#position.direction; }
 	get radius() { return this.#position.radius; }
-	get coordinates() { return { position: this.#position, heading: this.#heading } };
+	get coordinates() { return { position: this.#position, direction: this.direction } };
 
-	get report() { return `x:${this.x}; y:${this.y}; heading:${this.heading.degrees};`; }
+	get report() { return `x:${this.x}; y:${this.y}; direction:${this.direction.degrees};`; }
 
 
 
@@ -77,41 +77,13 @@ class Turtle {
 
 	toOrigin() {
 		this.#position.resetToOrigin();
-		this.#heading.degrees = 0;
-	}
-
-
-	setHeading(heading) {
-
-		const equal = Maths.equalToFixed(this.precision.digits, Math.abs(heading), 0.0);
-		//console.log('set #heading', heading, equal);
-		/*
-		this isn't very clean - need better solutions for this stuff
-		*/
-
-		this.heading.degrees = (equal) ? 0.0 : heading;
 	}
 
 
 	/* bear
 	*/
 	bear(bearingDegrees, distance=0) {
-		//console.debug(`${this.#name}.bear:`, arguments);
-		let delta, angle;
-		this.heading.degrees += bearingDegrees;
-
-		if (distance) { // could also be subject to float comparison
-			delta = this.#space.newPoint('bearing delta');
-			//(angle = new this.#space.Angle()).degrees = this.heading.degrees;
-			delta.polar = new this.#space.PolarCoordinates(this.heading, distance);
-
-			//console.debug('Turtle.bear delta', delta);
-
-			//const newPoint = this.plusPolar(delta);
-			//console.log('newPoint', newPoint);
-			this.#position.add(delta);
-		}
-		//console.debug(`${this.#name}.bear position:`, this.#position);
+		this.#position.bear(bearingDegrees, distance);
 	}/* bear */
 
 
@@ -122,34 +94,18 @@ class Turtle {
 	/* moves dx,dy in the turtles current local frame
 	*/
 	move(dx, dy) {
-		//console.debug('Turtle.move:', arguments);
-
-		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
-		//const offset = new Point(dx,dy).rotate(this.heading.radians);
-
-		let delta = this.#space.newPoint('delta');
-		let deltaCartesian = new this.#space.CartesianCoordinates(dx, dy);
-		//console.debug('Turtle.move deltaCartesian:', deltaCartesian);
-
-
-		delta.cartesian = deltaCartesian; // { x: 123, y: 456 };
-		//console.debug('Turtle.move delta:', delta);
-
-
-		delta.rotate(this.heading);
-		//console.debug('Turtle.move delta rotate:', delta);
-
-		const newPoint = this.#position.plus(delta);
-
-		//console.debug('Turtle.move newPoint:', newPoint);
-
-		const newHeading = this.#space.getAngleFrom(currentCartesian, newPoint);
-
-		//console.debug('Turtle.move new heading:', newHeading);
-		this.#heading = newHeading;
-
-		this.position = newPoint;
+		this.#position.move(dx,dy);
 	}
+
+
+	moveToXY(x,y) {
+		this.#position.moveToXY(x,y);
+	}
+
+	moveToXYwithRotate(x,y) {
+		this.#position.moveToXYwithRotate(x,y);
+	}
+
 
 	//
 	// Static
@@ -185,7 +141,7 @@ class Turtle {
 
 
 	toString() {
-		return `Turtle - x:${this.x}; y:${this.y}; heading:${this.#heading.degrees};`;
+		return `Turtle - x:${this.x}; y:${this.y}; direction:${this.#position.direction.degrees};`;
 	}
 
 	log(prefix) {
@@ -213,14 +169,10 @@ class Turtle {
 			case 'right'        : result = this.right(...command.argument); break;
 			case 'm'            :
 			case 'move'         : result = this.move(...command.argument); break;
+			case 'xy'           : result = this.moveToXY(...command.argument); break;
+			case 'xyr'          : result = this.moveToXYwithRotate(...command.argument); break;
 			case 'o'            : result = this.toOrigin(); break;
-			/*
-			case 'circle'       : result = this.circle(...command.argument); break;
-			case 'rect'         : result = this.rect(...command.argument); break;
-			case 'ellipse'      : result = this.ellipse(...command.argument); break;
-			case 'text'         : result = this.text(...command.argument); break;
-			case 'marker'       : result = this.marker; break;
-			*/
+			//case 'marker'       : result = this.marker; break;
 
 			default             : console.warn(`Unknown command: ${command}`); break;
 		}
@@ -239,29 +191,52 @@ class Turtle {
 	static getCommands = function(string) {
 		const result = [];
 		const lineArray = string.trim().split('\n');
+		let lineText = '';
+		let command;
 
 		lineArray.forEach(
 			(line) => {
-				const match = line.match(/^(\w+)(\s.*)?/);	// standard command structure
-				if (match) {
-					const cmd = match[1].trim();
-					let arg;
-					if (cmd === 'text') {
-						arg = (match[2]) ? [match[2]] : [''];
-					}
-					else {
-						arg = (match[2]) ? this.parseArgs(match[2]) : [];
-					}
-					result.push(new Turtle.Command(cmd, arg));
-				}
-				else {
-					// result.push(new Turtle.Command('', line));
+				lineText = line.trim();
+				command = Turtle.parseCmd(lineText);
+				if (command) {
+					result.push(command);
 				}
 			}
 		);
 
 		return result;
 	}
+
+
+	static parseCmd(cmdString) {
+		let result = new Turtle.Command();
+		let arg;
+		let match;
+
+		if (cmdString.startsWith('^')) {
+			result.draw = false;
+			cmdString = cmdString.substring(1);
+		}
+
+		match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
+		if (match) {
+
+			result.name = match[1].trim();
+
+			if (result.name === 'text') {
+				arg = (match[2]) ? [match[2]] : [''];
+			}
+			else {
+				arg = (match[2]) ? this.parseArgs(match[2]) : [];
+			}
+			result.argument = arg;
+		}
+		else {
+			result = undefined;
+		}
+		return result;
+	}
+
 
 	static parseArgs(argString) {
 		const argArray = argString.split(',');
@@ -276,11 +251,22 @@ class Turtle {
 
 
 Turtle.Command = class {
-	constructor(name, argument) {
+	name;
+	argument;
+	operator;
+	draw;
+
+	constructor(
+		name = '',
+		argument = [],
+		operator = '',
+		draw = true
+	) {
 		this.name = name;
 		this.argument = argument;
+		this.operator = operator;
+		this.draw = draw;
 	}
-	name = '';
-	argument = [];
+
 	toString() { return `${this.name} ${this.argument}`}
 }

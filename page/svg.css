@@ -5,26 +5,28 @@
 	transition: all 0.5s ease-in;
 }
 
+.svg-element {
+	--turtle-size: 10;
+}
+
+
 
 
 .svg-element {
 	width: 100vw;
 	height: 100vh;
-
-	--turtle: #0a07;
-	--turtle-stroke: #0a0f;
 }
 
 
 
 .grid {
 	--colour-cartesian: var(--teal);
-	--colour-polar: var(--purple);
+	--colour-polar: var(--pink);
 	fill:none;
 
 	stroke-width: 1px;
 
-	.grid-cartesian {
+	.cartesian-grid {
 		stroke: var(--colour-cartesian);
 		.axis  { stroke-width: 5px; }
 		.major { stroke-width: 2px; }
@@ -39,7 +41,7 @@
 	}
 
 
-	.grid-polar {
+	.polar-grid {
 		stroke: var(--colour-polar);
 		.axis  { stroke-width: 10px; }
 		.major { stroke-width: 2px; }
@@ -71,25 +73,65 @@
 		font-family: monospace;
 	}
 
-	.grid-cartesian .label {
+	.cartesian-grid .label {
 		text-anchor: end;
 		.x {
 			writing-mode: vertical-lr;
 		}
 	}
 
-	.grid-polar .label {
+	.polar-grid .label {
 		text-anchor: start;
 	}
 
-	line:hover, circle:hover {
+	line:hover, circle:hover, path:hover {
 		stroke-width: 10px;
 		filter: drop-shadow(0px 0px 10px #fa0f);
 	}
 
 
+
+
 }/* .grid */
 
+.def-point {
+	r: 20px;
+	stroke-width: 20px;
+}
+
+.cartesian-point line,
+.polar-point line,
+.polar-point path,
+.polar-point circle
+{
+	stroke-width: 5px;
+	/* stroke: #f00c; */
+	stroke: var(--fadedred);
+
+	/* stroke-dasharray: 15 5; */
+}
+
+.polar-point circle {
+	opacity:30%;
+	/* stroke-dasharray: 10 10; */
+}
+
+.light {
+	.use-point {
+		fill: var(--fadedred);
+		fill-opacity: 30%;
+		stroke: var(--fadedred);
+		stroke-opacity: 30%;
+	}
+}
+.dark {
+	.use-point {
+		fill: var(--fadedred);
+		fill-opacity: 30%;
+		stroke: var(--fadedred);
+		stroke-opacity: 30%;
+	}
+}
 
 
 
@@ -145,6 +187,9 @@
 
 
 .turtle {
+	--size: var(--turtle-size);
+	--turtle: #0a07;
+	--turtle-stroke: #0a0f;
 	fill: var(--turtle);
 	stroke: var(--turtle-stroke);
 	stroke-width: 3px;
@@ -154,7 +199,7 @@
 	.feet { fill: var(--turtle-stroke); }
 	.eyes { fill: yellow; stroke:none;}
 
-	--size: 10;
+
 	--body: calc(var(--size) * 4px);
 	--head: calc(var(--size) * 2px);
 	--foot: calc(var(--size) * 1px);
@@ -165,9 +210,9 @@
 
 	/* I could have done most of this with a transform... */
 
-	&:hover {
+	/* &:hover {
 		--size:15;
-	}
+	} */
 
 	.body { r: var(--body); cx:0px; cy:0px; }
 	.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
@@ -179,7 +224,9 @@
 	.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
 }
 
-
+#icon-turtle:hover {
+	--turtle-size:15;
+}
 
 
 

@@ -6,8 +6,10 @@ html {
 
 	--silver: #bbbb;
 	--teal: #088;		/* cartesian grid */
-	--purple: #b0b;	/* polar grid */
 
+	--pink: #c7a;		/* polar grid new */
+	--purple: #b0b;
+	--fadedred: #f07;	/* point info */
 
 	--accent-light: #08c;
 	--accent-dark: #0cf;
@@ -53,6 +55,7 @@ form {
 	h1 + h2 { margin-top: 0ex; }
 
 	details { margin-top:1ex; margin-bottom: 0ex; }
+	details > label { display: block; }
 
 	a { color: var(--accent); }
 

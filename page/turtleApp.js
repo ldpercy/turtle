@@ -6,8 +6,8 @@
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.7.1 by ldpercy
-		https://github.com/ldpercy/turtle/pull/7
+		Turtle v0.8 by ldpercy
+		https://github.com/ldpercy/turtle/pull/8
 	`.replace(/\n\t/g,'\n');
 
 
@@ -20,25 +20,27 @@ class TurtleApp extends HTMLApp {
 		drawingForm		: 'form-drawing',
 		svg				: 'svg-element',
 		page			: 'group-page',
-		gridCartesian	: 'group-gridCartesian',
-		gridPolar		: 'group-gridPolar',
+		cartesianGroup  : 'group-cartesian',
+		cartesianGrid	: 'group-cartesianGrid',
+		polarGroup 		: 'group-polar',
+		polarGrid 		: 'group-polarGrid',
 		drawing			: 'group-drawing',
 		turtleIcon		: 'icon-turtle',
 	};
 
 	eventListeners = [
 		{
-			query: '#input-do',
+			query: '#button-do',
 			type: 'click',
 			listener: this.doCommands
 		},
 		{
-			query: '#input-clear',
+			query: '#button-clear',
 			type: 'click',
 			listener: this.clear
 		},
 		{
-			query: '#input-origin',
+			query: '#button-origin',
 			type: 'click',
 			listener: this.toOrigin
 		},
@@ -62,6 +64,22 @@ class TurtleApp extends HTMLApp {
 			type: 'click',
 			listener: this.tabListener
 		},
+		/* {
+			query: '#svg-element',
+			type: 'dblclick',
+			listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
+		}, */
+		{
+			query: '#svg-element',
+			type: 'click',
+			listener: this.svgClickListener
+		},
+		{
+			query: '#button-clearPoint',
+			type: 'click',
+			listener: this.clearPoint,
+		},
+
 	];
 
 
@@ -94,7 +112,7 @@ class TurtleApp extends HTMLApp {
 		this.updateTurtle();
 
 		this.updateDrawing();
-		this.updateGrid();
+		this.drawGrid();
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
@@ -109,6 +127,7 @@ class TurtleApp extends HTMLApp {
 			this.saveSettings();
 		}
 	}
+
 
 
 	tabListener(event) {
@@ -147,18 +166,18 @@ class TurtleApp extends HTMLApp {
 		}
 
 		if (this.element.pageForm.showCartesian.checked) {
-			this.element.gridCartesian.style.display = '';
+			this.element.cartesianGroup.style.display = '';
 		}
 		else {
-			this.element.gridCartesian.style.display = 'none';
-		}
-		if (this.element.pageForm.showPolar.checked) {
-			this.element.gridPolar.style.display = '';
-		}
-		else {
-			this.element.gridPolar.style.display = 'none';
+			this.element.cartesianGroup.style.display = 'none';
 		}
 
+		if (this.element.pageForm.showPolar.checked) {
+			this.element.polarGroup.style.display = '';
+		}
+		else {
+			this.element.polarGroup.style.display = 'none';
+		}
 
 		if (this.element.pageForm.theme.value === 'light')
 		{
@@ -170,8 +189,8 @@ class TurtleApp extends HTMLApp {
 			document.body.classList.add('dark');
 		}
 
-		this.element.gridCartesian.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
-		this.element.gridPolar.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
+		this.element.cartesianGrid.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
+		this.element.polarGrid.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
 
 		this.updatePageTransform();
 	}/* updatePage */
@@ -239,16 +258,29 @@ class TurtleApp extends HTMLApp {
 		const commands = Turtle.getCommands(this.element.commandInput.value);
 		//console.log('Commands:', commands);
 
+		// update the hidden command input - this is a hack, the current textarea value need to be saved properly onchange
+		document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
+
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
 		this.draw(commandOutput);
 	}/* doCommands */
 
 
+	doCommand(cmdString) {
+		const commands = Turtle.getCommands(cmdString);
+		//console.log(commands);
+		const commandOutput = this.turtle.doCommands(commands);
+		this.updateTurtle();
+		this.draw(commandOutput);
+	}
+
 
 	updatePageTransform() {
 
-		const rotate = this.turtle.heading.degrees;
+		//console.log(this.turtle);
+
+		const rotate = this.turtle.position.degrees;
 
 		const rotateTransform    = (this.element.pageForm.rotatePage.checked)   ? `rotate(${-rotate},0,0)` : '';
 		const translateTransform = (this.element.pageForm.centerTurtle.checked) ? `translate(${-this.turtle.svgX},${-this.turtle.svgY})` : '';
@@ -268,7 +300,7 @@ class TurtleApp extends HTMLApp {
 		this.element.turtleIcon.setAttribute('x', this.turtle.svgX);
 		this.element.turtleIcon.setAttribute('y', this.turtle.svgY);
 		this.element.turtleIcon.setAttribute('transform',
-			`rotate(${this.turtle.heading.degrees},${this.turtle.svgX},${this.turtle.svgY})`
+			`rotate(${this.turtle.position.degrees},${this.turtle.svgX},${this.turtle.svgY})`
 		);
 
 		this.updatePageTransform();
@@ -278,12 +310,12 @@ class TurtleApp extends HTMLApp {
 	}/* updateTurtle */
 
 
-	updateGrid() {
+	drawGrid() {
 		const cartesianGrid = new SVG.CartesianGrid(this.space, this.page);
-		this.element.gridCartesian.innerHTML = cartesianGrid.toString();
+		document.getElementById('group-cartesianGrid').innerHTML = cartesianGrid.toString();
 
 		const polarGrid = new SVG.PolarGrid(this.space, this.page);
-		this.element.gridPolar.innerHTML = polarGrid.toString();
+		document.getElementById('group-polarGrid').innerHTML = polarGrid.toString();
 	}
 
 
@@ -298,6 +330,8 @@ class TurtleApp extends HTMLApp {
 			page	: this.getFormData(this.element.pageForm),
 			drawing	: this.getFormData(this.element.drawingForm),
 		};
+
+		//console.log(appSettings);
 
 		const appSettingsJson = JSON.stringify(appSettings);
 		localStorage.setItem('appSettings', appSettingsJson );
@@ -319,7 +353,80 @@ class TurtleApp extends HTMLApp {
 	}/* loadSettings */
 
 
+
+
+	svgClickListener(event) {
+		//console.debug('svgClickListener', event);
+		const domPoint = new DOMPoint(event.clientX, event.clientY);
+		const pageElement = document.getElementById('group-page');
+
+		// Get point in page SVG space
+		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
+		//console.debug('pagePoint', pagePoint);
+
+		// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
+
+		//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		//console.debug('svgClickListener', cmd);
+		//this.doCommand(cmd);
+
+
+		if (this.element.pageForm['mouse-click'].value === 'info') {
+			this.drawPointInfo(pagePoint.x, pagePoint.y);
+		}
+		else if (this.element.pageForm['mouse-click'].value === 'draw') {
+			const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+			this.doCommand(cmd);
+		}
+		else if (this.element.pageForm['mouse-click'].value === 'move')
+		{
+			const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
+			this.doCommand(cmd);
+		}
+
+	}/* svgClickListener */
+
+
+	/* svgDblClickListener
+	* /
+	svgDblClickListener(event) {   // not firing for some reason???
+		//console.log('svgDblClickListener', event);
+
+		const domPoint = new DOMPoint(event.clientX, event.clientY);
+		const pageElement = document.getElementById('group-page');
+
+		// Get point in page SVG space
+		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
+
+		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+
+		//console.debug('svgClickListener', cmd);
+
+		this.doCommand(cmd);
+
+	}/ * svgDblClickListener */
+
+
+
+
+	drawPointInfo(svgX, svgY) {
+		const pointInfoSvg = this.turtle.pointInfo(svgX, -svgY);
+
+		document.getElementById('group-cartesianPoint').innerHTML = pointInfoSvg.cartesian;
+		document.getElementById('group-polarPoint').innerHTML = pointInfoSvg.polar;
+	}
+
+	clearPoint() {
+		document.getElementById('group-cartesianPoint').innerHTML = '';
+		document.getElementById('group-polarPoint').innerHTML = '';
+	}
+
+
 }/* TurtleApp */
+
+
+
+
 
 
 turtleApp = new TurtleApp();

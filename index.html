@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>🐢 Turtle v0.7.1 by ldpercy</title>
+	<title>Turtle v0.8 by ldpercy</title>
 	<meta charset="utf-8">
 	<meta name="color-scheme" content="dark light">
 	<meta name="description" content="Turtle by ldpercy v0.6 - SVG, JavaScript, HTML, CSS">
+	<link rel="icon" href="./page/turtle.svg"/>
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 	<script defer src="./[library]/Maths.js"></script>
@@ -30,9 +31,9 @@
 				<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
 				<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab" title="Command set 3">set 3</a>
 			</div>
-			<button id="input-do" type="button" title="Perform the current commands">do</button>
-			<button id="input-clear" type="button" title="Clear the drawing">clear</button>
-			<button id="input-origin" type="button" title="Return the turtle to the origin">to origin</button>
+			<button id="button-do" type="button" title="Perform the current commands">do</button>
+			<button id="button-clear" type="button" title="Clear the drawing">clear</button>
+			<button id="button-origin" type="button" title="Return the turtle to the origin">to origin</button>
 
 			<input type="hidden" id="input-commandSet-active" name="commandSet-active" value="1">
 			<input type="hidden" id="input-commandSet-1" name="commandSet-1" value="// command set 1">
@@ -62,7 +63,7 @@
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-				<a href="https://github.com/ldpercy/turtle/pull/7">v0.7.1</a>
+				<a href="https://github.com/ldpercy/turtle/pull/8">v0.8</a>
 				by <a href="https://github.com/ldpercy/">ldpercy</a>
 			</details>
 		</form>
@@ -80,7 +81,7 @@
 				<input type="checkbox" name="centerTurtle" id="input-centerTurtle" checked>
 				center turtle
 			</label>
-			<label for="input-rotatePage" title="Rotate the page to the turtle's heading">
+			<label for="input-rotatePage" title="Rotate the page with the turtle's direction">
 				<input type="checkbox" name="rotatePage" id="input-rotatePage">
 				rotate page
 			</label>
@@ -134,6 +135,26 @@
 				<input name="polarOpacity" id="input-polarOpacity" type="range" min="0.1" max="1" step="0.1" value="0.7" title="Polar grid opacity">
 			</details>
 
+			<h3>Mouse</h3>
+			<label title="No action">
+				<input type="radio" name="mouse-click" value="na" checked>
+				no action
+			</label>
+			<label title="Point information">
+				<input type="radio" name="mouse-click" value="info">
+				point info
+				<button id="button-clearPoint" type="button" title="Clear point">clear</button><!--  <strong>⌧</strong> -->
+			</label>
+			<label title="Move the turtle">
+				<input type="radio" name="mouse-click" value="move">
+				move
+			</label>
+			<label title="Move and draw">
+				<input type="radio" name="mouse-click" value="draw">
+				draw
+			</label>
+
+
 
 		</form><!-- page -->
 
@@ -159,10 +180,13 @@
 	</div><!-- control-right -->
 
 
+	<!-- svg-element
+	-->
 	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
 
 		<defs>
 			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
+			<circle id="def-point" class="def-point"/>
 
 			<g class="grid">
 				<marker id="axisMarker-cartesian" class="axis" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-50 -50 100 100" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
@@ -171,6 +195,7 @@
 				<marker id="axisMarker-polar" class="axis" markerWidth="100" markerHeight="100" refX="0" refY="0" viewBox="-50 -50 100 100" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
 					<path d="m20,-20 L0,50 L-20,-20"/>
 				</marker>
+
 			</g>
 
 			<g id="def-turtle" class="turtle">
@@ -191,13 +216,19 @@
 
 		<g id="group-page" class="page">
 			<g id="group-grid" class="grid">
-				<g id="group-gridPolar" class="grid-polar"></g>
-				<g id="group-gridCartesian" class="grid-cartesian"></g>
+				<g id="group-polar">
+					<g id="group-polarGrid" class="polar-grid"></g>
+					<g id="group-polarPoint" class="polar-point"></g>
+				</g>
+				<g id="group-cartesian">
+					<g id="group-cartesianGrid" class="cartesian-grid"></g>
+					<g id="group-cartesianPoint" class="cartesian-point"></g>
+				</g>
 			</g>
 
 			<g id="group-drawing" class="drawing show-marker"></g>
 
-			<use id="icon-turtle" href="#def-turtle" class="turtle" x="0" y="0"><title id="turtle-title"></title></use>
+			<use id="icon-turtle" href="#def-turtle" x="0" y="0"><title id="turtle-title"></title></use> <!-- class="turtle" -->
 		</g><!-- page -->
 	</svg>
 
