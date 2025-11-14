@@ -64,11 +64,11 @@ class TurtleApp extends HTMLApp {
 			type: 'click',
 			listener: this.tabListener
 		},
-		{
+		/* {
 			query: '#svg-element',
 			type: 'dblclick',
 			listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
-		},
+		}, */
 		{
 			query: '#svg-element',
 			type: 'click',
@@ -370,9 +370,25 @@ class TurtleApp extends HTMLApp {
 		//console.debug('svgClickListener', cmd);
 		//this.doCommand(cmd);
 
+
+		if (this.element.pageForm['mouse-click'].value === 'info') {
+			this.drawPoint(pagePoint.x, pagePoint.y);
+		}
+		else if (this.element.pageForm['mouse-click'].value === 'draw') {
+			const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+			this.doCommand(cmd);
+		}
+		else if (this.element.pageForm['mouse-click'].value === 'jump')
+		{
+			const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
+			this.doCommand(cmd);
+		}
+
 	}/* svgClickListener */
 
 
+	/* svgDblClickListener
+	* /
 	svgDblClickListener(event) {   // not firing for some reason???
 		//console.log('svgDblClickListener', event);
 
@@ -388,7 +404,7 @@ class TurtleApp extends HTMLApp {
 
 		this.doCommand(cmd);
 
-	}/* svgClickListener */
+	}/ * svgDblClickListener */
 
 
 

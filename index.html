@@ -136,27 +136,26 @@
 			</details>
 
 			<h3>Mouse</h3>
-			<details>
-				<summary>
-					Click
-				</summary>
+			<label title="No action">
+				<input type="radio" name="mouse-click" value="na" checked>
+				No action
+			</label>
+			<label title="Point info">
+				<input type="radio" name="mouse-click" value="info">
+				Point info
+				<button id="button-clearPoint" type="button" title="Clear point">clear</button><!--  <strong>⌧</strong> -->
+			</label>
+			<label title="jump">
+				<input type="radio" name="mouse-click" value="jump">
+				jump
+			</label>
+			<label title="draw">
+				<input type="radio" name="mouse-click" value="draw">
+				draw
+			</label>
 
-				<label title="Point info">
-					<input type="radio" name="mouse-click" value="info" checked>
-					Point info
-				</label>
-				<label title="draw">
-					<input type="radio" name="mouse-click" value="draw">
-					draw
-				</label>
-				<label title="jump">
-					<input type="radio" name="mouse-click" value="jump">
-					jump
-				</label>
-			</details>
-			<!--
-			<button id="button-clearPoint" type="button" title="Clear points">clear</button>
-			-->
+
+
 		</form><!-- page -->
 
 		<form id="form-drawing">
