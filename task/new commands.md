@@ -115,3 +115,21 @@ Might open a totally speculative task to thought-experiment it and see if can le
 -> [Mindless waffling](<variables and maths.md>)
 
 
+Plus
+----
+
+Coming back after the 🐢👉🐭 release, it's clearer that there are more kinds of arithmetic operations than I'd originally realised.
+
+For example:
+
+* turtle + point	- ignoring direction
+* turtle + point	- relative to direction
+* turtle + position - coord piecewise addition
+* turtle + position - addition relative to direction
+
+
+Need to get the exact arithmetic and order of operations for each sorted out.
+
+(Subtraction is potentially going to be even more complicated.)
+
+
