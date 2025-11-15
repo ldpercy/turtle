@@ -46,6 +46,9 @@ class PlanarSpace {
 	//
 
 
+	/* getAngleFrom
+	TODO: Needs a bit of attention...
+	*/
 	getAngleFrom(center, cartesian) {
 		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
 		const result = new PlanarSpace.Angle();
@@ -414,8 +417,20 @@ PlanarSpace.Position = class {
 		// They need to calculated better as deltas from the previous direction
 
 
+		console.log('newDirection', newDirection);
+
+		const newDirection180 = Maths.degrees180(newDirection.degrees);
+		console.log('newDirection180', newDirection180);
+
+		const heading180 = Maths.degrees180(this.#direction.degrees);
+		const degreesDelta = Maths.degrees180(newDirection180 - this.#direction.degrees);
+		console.log('degreesDelta', degreesDelta);
+
+		this.#direction.degrees += degreesDelta;
+
+
 		//console.debug('Position.move new direction:', newDirection);
-		this.#direction = newDirection;
+		//this.#direction = newDirection;
 
 		this.setPoint(newPoint);
 	}
