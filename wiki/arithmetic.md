@@ -83,37 +83,67 @@ Point
 
 
 
-Direction
----------
 
-As a part of a **position**
+
+
+
+Position
+--------
 
 ```
-{
-	direction Angle
-}
+	{
+		location Point
+		direction Angle
+	}
 ```
 
 ### Assignment
 
-* Assignment to **direction** is absolute and in terms of the space's angular coordinate system
+* Assignment to **position** is absolute and in terms of the space's coordinate systems
+* Assignment to **location** *or* **direction** are independent of one another
+* Assignment to **location** is equivalent to **point** assignment as above
+* Assignment to **direction** is equivalent to **angle** assignment as above
+
+* Assignment to **location** is independent of **direction**
 * Assignment to **direction** is independent of **location**
+
+
+### Direction component
+
+* Assignment, addition and subtraction to the direction component *alone* are equivalent to the corresponding **Angle** operations
+* Assignment, addition and subtraction to the direction component *alone* are indedepent of **location**
+
+
+
+
+### Location Component
+
+* Assignment, addition and subtraction to the location component *alone* are equivalent to the corresponding **Point** operations
+* Assignment, addition and subtraction to the location component *alone* are indedepent of **direction**
+
+
+* Addition to **direction** is independent of **location**
+* Subtraction from **direction** is independent of **location**
+
+
+
+
 
 
 ### Addition
 
 * Addition to **direction** is relative to the current direction
-* Addition to **direction** is independent of **location**
+
 * Addition to **direction** is commutative
 
 
 ### Subtraction
 
 * Subtraction from **direction** is relative to the current direction
-* Subtraction from **direction** is independent of **location**
+
 * Subtraction from **direction** is non-commutative
 
-
+### Location component
 
 Location
 --------
@@ -130,7 +160,6 @@ As a part of a **position**
 * Assignment to **location** is absolute and in terms of the space's coordinate system(s)
 * Assignment to one or both of the cartesian coordinates will change the **location** and will have have an implied effect on the polar coordinates
 * Assignment to one or both of the polar coordinates will change the **location** and will have have an implied effect on the cartesian coordinates
-* Assignment to **location** is independent of **direction**
 
 
 
@@ -154,28 +183,4 @@ Direction independent location subtraction is the same as **point subtraction** 
 ### Subtraction - direction dependent
 
 Direction dependent location subtraction is **position subtraction** - see below.
-
-
-
-
-Position
---------
-
-```
-	{
-		location Point
-		direction Angle
-	}
-```
-
-### Assignment
-
-* Assignment to **position** is absolute and in terms of the space's coordinate systems
-* Assignment to **location** *or* **direction** are independent of one another
-* Assignment to **location** is equivalent to **point** assignment as above
-* Assignment to **direction** is equivalent to **angle** assignment as above
-
-
-
-
 
