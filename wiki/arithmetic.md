@@ -1,9 +1,17 @@
 Arithmetic
 ==========
 
-
 > [!NOTE]
 > In progress, subject to revision
+>
+
+
+* [Type definitions](types.md)
+
+
+Turtle
+------
+
 
 
 * The turtle has a **position** which is comprised of a **location** and a **direction**.
@@ -12,17 +20,9 @@ Arithmetic
 * Direction is represented by an absolute **angle** in the space
 
 
+
 Angle
 ------
-```
-	{
-		// all equivalent to one another, changing one changes all
-		degrees
-		radians
-		radiansPi
-		radiansTau
-	}
-```
 
 ### Assignment
 
@@ -47,13 +47,12 @@ Angle
 Point
 -----
 
+```js
+Point {
+	cartesian	: CartesianCoordinates
+	polar		: PolarCoordinates
+}
 ```
-	{	// equivalent to each other, changing one changes the other
-		(x, y)			CartesianCoordinates
-		(r, a)			PolarCoordinates
-	}
-```
-
 
 ### Assignment
 
@@ -66,23 +65,20 @@ Point
 
 ### Addition
 
-* Addition of **points** is equivalent to element-wise addition of cartesian coordinates
-
-	p1 + p2 = (p1.x + p2.x, p1.y + p2.y)
-
+* Addition of **points** is equivalent to component-wise addition of cartesian coordinates
+```js
+	p1 + p2 = (p1.cartesian.x + p2.cartesian.x, p1.cartesian.y + p2.cartesian.y)
+```
 * Addition of points is **commutative**
 
 
 ### Subtraction
 
-* Subtraction of **points** is equivalent to element-wise subtraction of cartesian coordinates
-
-	p1 - p2 = (p1.x - p2.x, p1.y - p2.y)
-
+* Subtraction of **points** is equivalent to component-wise subtraction of cartesian coordinates
+```js
+	p1 - p2 = (p1.cartesian.x - p2.cartesian.x, p1.cartesian.y - p2.cartesian.y)
+```
 * Subtraction of points is **non-commutative**
-
-
-
 
 
 
@@ -90,22 +86,21 @@ Point
 Position
 --------
 
-```
-	{
-		location Point
-		direction Angle
-	}
+```js
+Position {
+	location : Point
+	direction : Angle
+}
 ```
 
 ### Assignment
 
 * Assignment to **position** is absolute and in terms of the space's coordinate systems
-* Assignment to **location** *or* **direction** are independent of one another
+* Assignment to **location** is independent of **direction**
 * Assignment to **location** is equivalent to **point** assignment as above
+* Assignment to **direction** is independent of **location**
 * Assignment to **direction** is equivalent to **angle** assignment as above
 
-* Assignment to **location** is independent of **direction**
-* Assignment to **direction** is independent of **location**
 
 
 ### Direction component
@@ -122,65 +117,14 @@ Position
 * Assignment, addition and subtraction to the location component *alone* are indedepent of **direction**
 
 
-* Addition to **direction** is independent of **location**
-* Subtraction from **direction** is independent of **location**
 
-
-
-
-
-
-### Addition
-
-* Addition to **direction** is relative to the current direction
-
-* Addition to **direction** is commutative
-
-
-### Subtraction
-
-* Subtraction from **direction** is relative to the current direction
-
-* Subtraction from **direction** is non-commutative
-
-### Location component
-
-Location
---------
-
-As a part of a **position**
-```
-{
-	location Point
-}
-```
-
-### Assignment
-
-* Assignment to **location** is absolute and in terms of the space's coordinate system(s)
-* Assignment to one or both of the cartesian coordinates will change the **location** and will have have an implied effect on the polar coordinates
-* Assignment to one or both of the polar coordinates will change the **location** and will have have an implied effect on the cartesian coordinates
-
-
-
-### Addition - direction independent
-
-Direction independent location addition is the same as **point addition** (above).
-
-
-
-### Addition - direction dependent
-
+### Position addition - direction dependent
 
 Direction dependent location addition is **position addition** - see below.
 
 
-### Subtraction - direction independent
 
-Direction independent location subtraction is the same as **point subtraction** (above).
-
-
-### Subtraction - direction dependent
+### Position Subtraction - direction dependent
 
 Direction dependent location subtraction is **position subtraction** - see below.
 
