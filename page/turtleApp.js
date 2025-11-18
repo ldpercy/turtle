@@ -6,8 +6,8 @@
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.8 by ldpercy
-		https://github.com/ldpercy/turtle/pull/8
+		Turtle v0.🄹§ by ldpercy
+		https://github.com/ldpercy/turtle/pull/??
 	`.replace(/\n\t/g,'\n');
 
 
@@ -87,6 +87,14 @@ class TurtleApp extends HTMLApp {
 
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
+
+
+		const protocol = new URL(window.location).protocol;
+
+		if (protocol === 'file:') {
+			alert("You are using `file:` protocol - modules won't work");
+		}
+
 
 		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
 		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
