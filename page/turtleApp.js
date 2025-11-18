@@ -2,6 +2,12 @@
 //	turtleApp.js
 //
 
+import { HTMLApp } from "../[library]/HTMLApp.js";
+import { SVGTurtle } from "../[library]/SVGTurtle.js";
+import { Turtle } from "../[library]/Turtle.js";
+import { SVG } from "../[library]/SVG.js";
+import { PlanarSpace } from "../[library]/PlanarSpace.js";
+
 
 class TurtleApp extends HTMLApp {
 
@@ -437,5 +443,5 @@ class TurtleApp extends HTMLApp {
 
 
 
-turtleApp = new TurtleApp();
+const turtleApp = new TurtleApp();
 

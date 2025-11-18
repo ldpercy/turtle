@@ -2,8 +2,10 @@
 //	PlanarSpace
 //
 
+import { Maths } from "./Maths.js";
 
-class PlanarSpace {
+
+export class PlanarSpace {
 
 	static origin = {x:0, y:0};
 	#name;

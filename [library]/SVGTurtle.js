@@ -1,6 +1,12 @@
 /* SVGTurtle
 */
-class SVGTurtle {
+
+
+import { Turtle } from "./Turtle.js";
+import { Maths } from "./Maths.js";
+
+
+export class SVGTurtle {
 
 	name;
 	turtle;

@@ -1,6 +1,6 @@
 /* Turtle
 */
-class Turtle {
+export class Turtle {
 
 	#name;
 	#space;

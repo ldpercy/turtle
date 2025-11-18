@@ -1,7 +1,7 @@
 //
 // Maths
 //
-class Maths{
+export class Maths{
 
 
 	static TAU = 2 * Math.PI;
