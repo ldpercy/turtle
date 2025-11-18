@@ -7,8 +7,6 @@ Todo
 
 ### Bugs
 
-
-
 * Bug in current cmd set not saving - have put in a small remedial fix to save on 'do', but needs to save on change, or revisit the form loading
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
@@ -19,7 +17,6 @@ Todo
 
 ### General
 
-* Improve/normalise general angle presentation, they're very inconsistent at the moment - doing this properly will be space or customisation option dependant
 * Improve/normalise general angle presentation, they're very inconsistent at the moment - doing this properly will be space or customisation option dependant
 * Different modes/command sets etc - basic/advanced for example
 * See if details/summary open/closed state can be saved in storage as well
@@ -53,7 +50,6 @@ In Progress
 -----------
 
 * Conversion to JS modules + http-only mode
-* The moveXY cmd doesn't calculate direction angles nicely - see if it can be updated to +/-180 from current direction
 * Figuring out position+point arithmetic
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
 * Continue working on transition to drawing spaces / geometric spaces
@@ -62,7 +58,7 @@ In Progress
 Done
 ----
 
-* Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API
+* Fix some excessive turtle rotation in some circumstances
 * Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API
 * Use 'direction' instead 'heading' - there is a difference, but for the near future direction is much clearer
 * Get Firefox & chrome's form styling more in sync

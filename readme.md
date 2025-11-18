@@ -13,12 +13,13 @@ I ended up so close to doing this while working out some polar maths for the [ye
 > Live on github pages: [ldpercy.github.io/turtle/](https://ldpercy.github.io/turtle/)
 
 
-Syntax
-------
+Command Syntax
+--------------
 
 * All angles are in degrees
 * All distances are in SVG units (or 'pixels')
 * Items in square brackets are optional and can be omitted
+* NB some of these are likely to change soon
 
 
 ### Movement Commands
@@ -67,10 +68,23 @@ I've recently changed this over to use conventional cartesian coordinates (y axi
 
 
 
+How to run
+----------
+
+> [!IMPORTANT]
+> From version 0.9 onwards **turtle** only runs in http mode as it utilises JavaScript modules.
+> Versions prior to that were runnable with `file://` protocol.
+
+
+
+
+
+
 Tasks
 -----
 
 More detail in the [task/](<./task/>) directory.
 
+* Working on position maths
 * Ability to switch between SVG and conventional coordinates (`y` up/down)
 
