@@ -44,6 +44,20 @@ ellipse 900,200
 ^xy 0,0
 right 110
 ```
+```
+// command set 3
+^left 25,200
+^left 65
+ellipse 900,200
+//^xy 0,0
+left 115,200
+left 125, 200
+right 60
+ellipse 900,200
+//^xy 0,0
+right 115,200
+//^right 110
+```
 
 
 
