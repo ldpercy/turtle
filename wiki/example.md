@@ -15,7 +15,22 @@ right 180,300
 left 72,300
 ```
 
+```
+^left 20,800
+^right 175,300
+ellipse 125,900
+^left 80,700
+ellipse 250,750
+^xy 0,0
+```
 
+```
+right 115,200
+ellipse 700,200
+left 85,400
+ellipse 600,200
+^xy 0,0
+```
 
 
 
