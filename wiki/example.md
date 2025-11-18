@@ -32,6 +32,19 @@ ellipse 600,200
 ^xy 0,0
 ```
 
+```
+// command set 3
+left 25,200
+left 65
+ellipse 900,200
+^xy 0,0
+right 120,200
+right 60
+ellipse 900,200
+^xy 0,0
+right 110
+```
+
 
 
 Testing
