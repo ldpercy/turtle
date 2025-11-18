@@ -9,6 +9,14 @@
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 
+	<script>
+		const protocol = new URL(window.location).protocol;
+
+		if (protocol === 'file:') {
+			alert("You are using `file:` protocol - modules won't work");
+		}
+	</script>
+
 	<script type="module" src="./page/turtleApp.js"></script>
 </head>
 <body class="dark">

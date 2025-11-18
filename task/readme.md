@@ -50,6 +50,7 @@ Todo
 In Progress
 -----------
 
+* Conversion to JS modules + http-only mode
 * The moveXY cmd doesn't calculate direction angles nicely - see if it can be updated to +/-180 from current direction
 * Figuring out position+point arithmetic
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
