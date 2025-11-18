@@ -2,7 +2,7 @@
 //	PlanarSpace
 //
 
-import { Maths } from "./Maths.js";
+import * as Maths from "./Maths.js";
 
 
 export class PlanarSpace {
