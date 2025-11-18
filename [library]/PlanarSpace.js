@@ -46,10 +46,14 @@ class PlanarSpace {
 	//
 
 
+	/* getAngleFrom
+	TODO: Needs a bit of attention...
+	*/
 	getAngleFrom(center, cartesian) {
 		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
 		const result = new PlanarSpace.Angle();
 		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
+		result.normalise180();
 		//console.debug(`${this.#name}.getAngleFrom:`, result);
 		return result;
 	}/* getAngleFrom */
@@ -206,8 +210,37 @@ PlanarSpace.Angle = class {
 	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; return this; }
 	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; return this; }
 
-	plus(angle) {
-		this.#degrees += angle.degrees;
+
+	//
+	//	mutators
+	//
+
+	add(angle)		{	this.#degrees += angle.degrees;	return this; }
+	subtract(angle)	{	this.#degrees -= angle.degrees;	return this; }
+
+	/* normalise180 (mutator)
+	Normalise the angle to +/-180 degrees, or -/+ pi radians.
+	*/
+	normalise180() {
+		// https://stackoverflow.com/questions/2320986/easy-way-to-keeping-angles-between-179-and-180-degrees
+
+		// reduce the angle
+		let result = this.degrees % 360;
+
+		// force it to be the positive remainder, so that 0 <= angle < 360
+		result = (result + 360) % 360;
+
+		// force into the minimum absolute value residue class, so that -180 < angle <= 180
+		if (result > 180)
+			result -= 360;
+		this.degrees = result;
+		return this;
+	}
+
+
+	// return a new copy of the angle
+	new() {
+		return new PlanarSpace.Angle(this.degrees);
 	}
 
 }/* PlanarSpace.Angle */
@@ -414,12 +447,23 @@ PlanarSpace.Position = class {
 		// They need to calculated better as deltas from the previous direction
 
 
+		//console.log('newDirection', newDirection);
+
+		const newDirection180 = Maths.degrees180(newDirection.degrees);
+		//console.log('newDirection180', newDirection180);
+
+		const heading180 = Maths.degrees180(this.#direction.degrees);
+		const degreesDelta = Maths.degrees180(newDirection180 - this.#direction.degrees);
+		//console.log('degreesDelta', degreesDelta);
+
+		this.#direction.degrees += degreesDelta;
+
+
 		//console.debug('Position.move new direction:', newDirection);
-		this.#direction = newDirection;
+		//this.#direction = newDirection;
 
 		this.setPoint(newPoint);
 	}
-
 
 
 	moveToXY(x,y) {
@@ -427,12 +471,26 @@ PlanarSpace.Position = class {
 		this.setPoint(newCartesian);
 	}
 
+
 	moveToXYwithRotate(x,y) {
 		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
 		const newCartesian = new this.#space.CartesianCoordinates(x, y);
 
-		const newDirection = this.#space.getAngleFrom(currentCartesian, newCartesian);
-		this.#direction = newDirection;
+		const spaceAngle = this.#space.getAngleFrom(currentCartesian, newCartesian);
+		//const delta = Maths.degrees180(spaceAngle.degrees - this.#direction.degrees);
+
+
+		//console.log('spaceAngle', spaceAngle);
+
+		//console.log('this.direction', this.direction);
+
+		const delta = spaceAngle.new().subtract(this.direction);
+
+		//delta.subtract(this.direction);
+		//console.log('delta', delta);
+		delta.normalise180();
+		//console.log('delta', delta);
+		this.direction.add(delta);
 
 		this.setPoint(newCartesian);
 	}
