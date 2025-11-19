@@ -17,6 +17,7 @@ Todo
 
 ### General
 
+
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
 * Add some initial command sets to the tabs as examples for new users
@@ -61,6 +62,7 @@ In Progress
 Done
 ----
 
+* Added a turtle intro that writes 'Turtle' on the page on the very first load (eg if no storage present)
 * Fix some excessive turtle rotation in some circumstances
 * Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API
 * Use 'direction' instead 'heading' - there is a difference, but for the near future direction is much clearer
