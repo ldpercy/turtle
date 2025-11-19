@@ -19,7 +19,7 @@ export class SVGTurtle {
 			reportPrecision = 6,
 		) {
 
-		this.name = `SVGTurtle-${name}`;
+		this.name = name;
 		this.turtle = new Turtle(name, space);
 		this.precision.report = reportPrecision;
 		this.history.length = 5;
@@ -165,6 +165,7 @@ export class SVGTurtle {
 
 		// title text preserves whitespace, so:
 		const result = [
+			`turtle: ${this.name}`,
 			`cartesian:`,
 			`	x: ${this.x.toPrecision(this.precision.report)}`,
 			`	y: ${this.y.toPrecision(this.precision.report)}`,
