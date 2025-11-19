@@ -112,8 +112,13 @@ right 130,1400
 What's the angle?
 -----------------
 
-Mystery angle:
+### Mystery angle:
+
+Something weird going on with these - not sure if bug:
 
 // command set 1
 left 99.30133,999
 left 55,555
+
+left 100,1000
+left 53.3333,800

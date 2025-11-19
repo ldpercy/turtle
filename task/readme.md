@@ -17,6 +17,8 @@ Todo
 
 ### General
 
+* An undo feature?
+* Add some initial command sets to the tabs as examples for new users
 * Improve/normalise general angle presentation, they're very inconsistent at the moment - doing this properly will be space or customisation option dependant
 * Different modes/command sets etc - basic/advanced for example
 * See if details/summary open/closed state can be saved in storage as well
@@ -28,8 +30,6 @@ Todo
 * Check out what validation/cleaning I need for the command textarea & string
 * Get custom spaces, including polar axis and direction, working properly
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
-* Add a couple of origin/reset variants - eg one to go to the origin without resetting the heading
-* Re above, a general go to x,y command with/without line
 * Add automatic colour scheme selection based on the user's preference
 * Grid reactive to zoom level and/or turtle position
 * Multi-turtle
@@ -49,6 +49,8 @@ Todo
 In Progress
 -----------
 
+* Origin/reset variants - eg one to go to the origin without resetting the heading
+* Go to x,y command with/without line
 * Conversion to JS modules + http-only mode
 * Figuring out position+point arithmetic
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
