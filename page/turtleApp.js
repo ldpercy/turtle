@@ -12,8 +12,8 @@ import { PlanarSpace } from "../[library]/PlanarSpace.js";
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.🄹§ by ldpercy
-		https://github.com/ldpercy/turtle/pull/??
+		Turtle v0.9 by ldpercy
+		https://github.com/ldpercy/turtle/pull/10?
 	`.replace(/\n\t/g,'\n');
 
 
