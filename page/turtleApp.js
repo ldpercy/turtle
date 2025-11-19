@@ -2,12 +2,18 @@
 //	turtleApp.js
 //
 
+import { HTMLApp } from "../[library]/HTMLApp.js";
+import { SVGTurtle } from "../[library]/SVGTurtle.js";
+import { Turtle } from "../[library]/Turtle.js";
+import { SVG } from "../[library]/SVG.js";
+import { PlanarSpace } from "../[library]/PlanarSpace.js";
+
 
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.8.1 by ldpercy
-		https://github.com/ldpercy/turtle/pull/9
+		Turtle v0.9 by ldpercy
+		https://github.com/ldpercy/turtle/pull/10?
 	`.replace(/\n\t/g,'\n');
 
 
@@ -88,21 +94,21 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
+
 		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
 		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
 		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
 		this.viewBox = new SVG.ViewBox(this.page);
 
-		// TODO: viewBox is now set to the page, but it's now zoomed out compared to before - see if can zoom in or change default zoom levels
-
-
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
 		this.space = new PlanarSpace('turtle-space');
-		this.turtle = new SVGTurtle('Terry', this.space, 6);
+		this.turtle = new SVGTurtle('Terry', this.space, 6);		// Pratchett & Tao
 
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
+
+		const firstLoad = !localStorage.appSettings;
 
 		this.loadSettings();
 
@@ -116,6 +122,12 @@ class TurtleApp extends HTMLApp {
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
+
+		if (firstLoad) {
+			console.log('first load')
+			this.element.commandInput.value = this.writeTurtleCommandString();
+			this.doCommands();
+		}
 	}/* documentDOMContentLoaded */
 
 
@@ -349,6 +361,10 @@ class TurtleApp extends HTMLApp {
 			this.populateForm(this.element.pageForm, appSettings.page);
 			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
+		else {
+			// first load
+
+		}
 		localStorage.setItem('loadedAt', new Date().toISOString());
 	}/* loadSettings */
 
@@ -422,6 +438,52 @@ class TurtleApp extends HTMLApp {
 	}
 
 
+
+ 	writeTurtleCommandString() {
+		// intro for initial load
+		const result = `
+			// Turtle
+			^left 60,800
+			right 140,400
+			right 175,200
+			left 85,400
+			marker
+
+			^left 160,220
+			right 165,200
+			left 55,100
+			left 55,70
+			left 69,190
+
+			^right 90,70
+			right 92,200
+			left 183,183
+			right 88,113
+
+			^left 131,81
+			right 134,174
+
+			^left 137,111
+			left 127,313
+			left 49,49
+
+			^left 54,90
+			left 81,400
+
+			^right 171,331
+			left 79,142
+			left 119,99
+			left 62,79
+			left 68,94
+			left 58,94
+			left 44,74
+			left 49,19
+		`.trim().replace(/\n\t+/g,'\n');
+		return result;
+	}
+
+
+
 }/* TurtleApp */
 
 
@@ -429,5 +491,5 @@ class TurtleApp extends HTMLApp {
 
 
 
-turtleApp = new TurtleApp();
+const turtleApp = new TurtleApp();
 

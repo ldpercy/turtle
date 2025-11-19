@@ -1,6 +1,6 @@
 /* SVG
 */
-class SVG {
+export class SVG {
 
 
 	static scaleViewBox(scale, viewBox) {

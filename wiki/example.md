@@ -44,6 +44,20 @@ ellipse 900,200
 ^xy 0,0
 right 110
 ```
+```
+// command set 3
+^left 25,200
+^left 65
+ellipse 900,200
+//^xy 0,0
+left 115,200
+left 125, 200
+right 60
+ellipse 900,200
+//^xy 0,0
+right 115,200
+//^right 110
+```
 
 
 
@@ -92,3 +106,19 @@ right 110,1400
 
 right 130,200
 right 130,1400
+
+
+
+What's the angle?
+-----------------
+
+### Mystery angle:
+
+Something weird going on with these - not sure if bug:
+
+// command set 1
+left 99.30133,999
+left 55,555
+
+left 100,1000
+left 53.3333,800

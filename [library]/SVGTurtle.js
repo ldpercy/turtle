@@ -1,6 +1,12 @@
 /* SVGTurtle
 */
-class SVGTurtle {
+
+
+import { Turtle } from "./Turtle.js";
+import * as Maths from "./Maths.js";
+
+
+export class SVGTurtle {
 
 	name;
 	turtle;
@@ -13,7 +19,7 @@ class SVGTurtle {
 			reportPrecision = 6,
 		) {
 
-		this.name = `SVGTurtle-${name}`;
+		this.name = name;
 		this.turtle = new Turtle(name, space);
 		this.precision.report = reportPrecision;
 		this.history.length = 5;
@@ -159,6 +165,7 @@ class SVGTurtle {
 
 		// title text preserves whitespace, so:
 		const result = [
+			`turtle: ${this.name}`,
 			`cartesian:`,
 			`	x: ${this.x.toPrecision(this.precision.report)}`,
 			`	y: ${this.y.toPrecision(this.precision.report)}`,

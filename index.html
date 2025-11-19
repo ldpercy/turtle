@@ -1,21 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Turtle v0.8.1 by ldpercy</title>
+	<title>Turtle v0.9 by ldpercy</title>
 	<meta charset="utf-8">
 	<meta name="color-scheme" content="dark light">
 	<meta name="description" content="Turtle by ldpercy v0.6 - SVG, JavaScript, HTML, CSS">
 	<link rel="icon" href="./page/turtle.svg"/>
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
-	<script defer src="./[library]/Maths.js"></script>
-	<!-- <script defer src="./[library]/geometry.js"></script> -->
-	<script defer src="./[library]/PlanarSpace.js"></script>
-	<script defer src="./[library]/SVG.js"></script>
-	<script defer src="./[library]/Turtle.js"></script>
-	<script defer src="./[library]/SVGTurtle.js"></script>
-	<script defer src="./[library]/HTMLApp.js"></script>
-	<script defer src="./page/turtleApp.js"></script>
+
+	<script>
+		const protocol = new URL(window.location).protocol;
+
+		if (protocol === 'file:') {
+			alert("You are using `file:` protocol - modules won't work");
+		}
+	</script>
+
+	<script type="module" src="./page/turtleApp.js"></script>
 </head>
 <body class="dark">
 
@@ -45,15 +47,15 @@
 			<details>
 				<summary>Command summary</summary>
 				<output class="infoBox" id="turtle-instructions">
-					<div>left degrees[,distance]</div>
-					<div>right degrees[,distance]</div>
-					<div>bear degrees[,distance]</div>
-					<div>jump degrees[,distance]</div>
-					<div>move dx,dy</div>
-					<div>circle radius</div>
-					<div>ellipse width,height</div>
-					<div>rect width,height</div>
-					<div>text string</div>
+					<div>left <em>degrees[,distance]</em></div>
+					<div>right <em>degrees[,distance]</em></div>
+					<div>bear <em>degrees[,distance]</em></div>
+					<div>jump <em>degrees[,distance]</em></div>
+					<div>move <em>dx,dy</em></div>
+					<div>circle <em>radius</em></div>
+					<div>ellipse <em>width,height</em></div>
+					<div>rect <em>width,height</em></div>
+					<div>text <em>string</em></div>
 					<div>marker</div>
 				</output>
 			</details>
@@ -63,7 +65,7 @@
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-				<a href="https://github.com/ldpercy/turtle/pull/9">v0.8.1</a>
+				<a href="https://github.com/ldpercy/turtle/pull/10?">v0.9</a>
 				by <a href="https://github.com/ldpercy/">ldpercy</a>
 			</details>
 		</form>
@@ -161,7 +163,7 @@
 		<form id="form-drawing">
 			<h2>Drawing</h2>
 			<label for="input-colour" title="Drawing colour">
-				<input type="color" name="colour" id="input-colour" value="#ff0000"/>
+				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
 				colour
 			</label>
 			<label for="input-strokeWidth" title="Drawing stroke-width">

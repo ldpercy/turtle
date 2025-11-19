@@ -7,7 +7,6 @@ Todo
 
 ### Bugs
 
-
 * Bug in current cmd set not saving - have put in a small remedial fix to save on 'do', but needs to save on change, or revisit the form loading
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
@@ -18,6 +17,10 @@ Todo
 
 ### General
 
+
+* Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
+* An undo feature?
+* Add some initial command sets to the tabs as examples for new users
 * Improve/normalise general angle presentation, they're very inconsistent at the moment - doing this properly will be space or customisation option dependant
 * Different modes/command sets etc - basic/advanced for example
 * See if details/summary open/closed state can be saved in storage as well
@@ -29,8 +32,6 @@ Todo
 * Check out what validation/cleaning I need for the command textarea & string
 * Get custom spaces, including polar axis and direction, working properly
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
-* Add a couple of origin/reset variants - eg one to go to the origin without resetting the heading
-* Re above, a general go to x,y command with/without line
 * Add automatic colour scheme selection based on the user's preference
 * Grid reactive to zoom level and/or turtle position
 * Multi-turtle
@@ -50,7 +51,9 @@ Todo
 In Progress
 -----------
 
-* The moveXY cmd doesn't calculate direction angles nicely - see if it can be updated to +/-180 from current direction
+* Origin/reset variants - eg one to go to the origin without resetting the heading
+* Go to x,y command with/without line
+* Conversion to JS modules + http-only mode
 * Figuring out position+point arithmetic
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
 * Continue working on transition to drawing spaces / geometric spaces
@@ -59,6 +62,8 @@ In Progress
 Done
 ----
 
+* Added a turtle intro that writes 'Turtle' on the page on the very first load (eg if no storage present)
+* Fix some excessive turtle rotation in some circumstances
 * Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API
 * Use 'direction' instead 'heading' - there is a difference, but for the near future direction is much clearer
 * Get Firefox & chrome's form styling more in sync

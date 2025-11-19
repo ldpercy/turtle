@@ -1,6 +1,6 @@
 /* HTMLApp
 */
-class HTMLApp {
+export class HTMLApp {
 
 	//name = 'HTMLApp';
 	//info = 'HTMLApp by ldpercy';
