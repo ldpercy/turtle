@@ -1,9 +1,9 @@
 Arithmetic
 ==========
 
-> [!NOTE]
-> In progress, subject to revision
->
+> [!IMPORTANT]
+> In progress - not yet finalised
+
 
 
 * [Type definitions](types.md)

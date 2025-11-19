@@ -9,6 +9,7 @@ A simple implementation of Turtle graphics using SVG and JavaScript.
 I ended up so close to doing this while working out some polar maths for the [year clock](<https://github.com/ldpercy/year-clock>) that I thought I might as well have a crack at it, a version of it at least.
 I'm inventing my own syntax, but it is inspired by the original.
 
+The turtle is named Terry.
 
 > [!TIP]
 > Live on github pages: [ldpercy.github.io/turtle/](https://ldpercy.github.io/turtle/)
@@ -28,8 +29,8 @@ Command Syntax
 |-------------------------------|---------------|---------------------------------------|
 | left *angle[,distance]*		| left 30,500	| bear left for the given distance		|
 | right *angle[,distance]*		| right 45,500	| bear right for the given distance		|
-| bear *angle[,distance]*		| bear 60,200	| bear wrt to the polar direction		|
-| jump *angle[,distance]*		| jump 90,400	| bear without drawing line				|
+| bear *angle[,distance]*		| bear 60,200	| bear w.r.t. to the polar direction	|
+| jump *angle[,distance]*		| jump 90,400	| bear without drawing a line			|
 | move *dx,dy*					| move 400,300	| move in the turtle's local frame		|
 
 
@@ -46,7 +47,7 @@ These do not move the turtle, but draw items at its current location and orienta
 | circle *radius*			| circle 100		| draw a circle with the given radius				|
 | ellipse *width,height*	| ellipse 150,50	| draw an ellipse with the given width & height		|
 | rect *width,height*		| rect 250,100		| draw a rectangle with the given width & height	|
-| text *string*				| text Hello 🐢		| draw text with given string						|
+| text *string*				| text Hello 🐢		| draw text with a given string						|
 | marker					| marker			| drop a marker flag - hover for position info		|
 
 

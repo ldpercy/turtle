@@ -100,13 +100,10 @@ class TurtleApp extends HTMLApp {
 		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
 		this.viewBox = new SVG.ViewBox(this.page);
 
-		// TODO: viewBox is now set to the page, but it's now zoomed out compared to before - see if can zoom in or change default zoom levels
-
-
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
 		this.space = new PlanarSpace('turtle-space');
-		this.turtle = new SVGTurtle('Terry', this.space, 6);
+		this.turtle = new SVGTurtle('Terry', this.space, 6);		// Pratchett & Tao
 
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
