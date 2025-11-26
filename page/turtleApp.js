@@ -16,7 +16,7 @@ class TurtleApp extends HTMLApp {
 	info = `
 		Turtle v0.🖮🎛 by ldpercy
 		https://github.com/ldpercy/turtle/pull/??
-	`.replace(/\n\t/g,'\n');
+	`.replace(/\n\t\t/g,'\n');
 
 
 	currentCommandSet = 1;
@@ -81,6 +81,11 @@ class TurtleApp extends HTMLApp {
 			query: '#svg-element',
 			type: 'click',
 			listener: this.svgClickListener
+		},
+		{
+			query: '#svg-element',
+			type: 'keydown',
+			listener: this.svgKeyListener
 		},
 		{
 			query: '#button-clearPoint',
@@ -424,6 +429,11 @@ class TurtleApp extends HTMLApp {
 
 	}/ * svgDblClickListener */
 
+
+
+	svgKeyListener() {
+		console.log('svgKeyListener');
+	}
 
 
 
