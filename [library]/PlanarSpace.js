@@ -95,13 +95,6 @@ export class PlanarSpace {
 	}
 
 
-	static setAngle(point, angle) {
-		// Set the angle absolutely
-		const newPoint = new PlanarSpace.PolarPoint(angle.radians, point.distanceFromOrigin).toPoint();
-		point.x = newPoint.x;
-		point.y = newPoint.y;
-	}
-
 
 	static areEqual(point1, point2) {
 		// could depend on more,
@@ -207,10 +200,10 @@ PlanarSpace.Angle = class {
 	get radiansPi()  { return this.#degrees / 180; }
 	get radiansTau() { return this.#degrees / 360; }
 
-	set degrees(degrees)         { this.#degrees = degrees; return this; }
-	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; return this; }
-	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; return this; }
-	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; return this; }
+	set degrees(degrees)         { this.#degrees = degrees; }
+	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
+	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
+	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
 
 
 	//
@@ -345,7 +338,7 @@ PlanarSpace.Point = class {
 
 
 	toString() {
-		return `${this.name} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
+		return `${this.#name} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
 	}
 
 }/* PlanarSpace.Point */

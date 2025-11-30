@@ -2,9 +2,10 @@
 */
 export class HTMLApp {
 
-	//name = 'HTMLApp';
-	//info = 'HTMLApp by ldpercy';
+	name;
+	info;
 
+	elementId = {};
 	element = {};
 	eventListeners = [];
 
@@ -51,9 +52,9 @@ export class HTMLApp {
 
 
 	buildElements() {
-		for (let item in this.element) {
+		for (let item in this.elementId) {
 			//console.debug(item);
-			this.element[item] = document.getElementById(this.element[item]);
+			this.element[item] = document.getElementById(this.elementId[item]);
 		}
 	}/* buildElements */
 

@@ -21,7 +21,7 @@ class TurtleApp extends HTMLApp {
 
 	currentCommandSet = 1;
 
-	element = {
+	elementId = {
 		commandInput	: 'input-command',
 		turtleForm		: 'form-turtle',
 		pageForm		: 'form-page',
@@ -119,7 +119,7 @@ class TurtleApp extends HTMLApp {
 
 		this.loadSettings();
 
-		const commandSet = Number.parseInt(document.getElementById(`input-commandSet-active`).value) || 1;
+		const commandSet = Number.parseInt(this.element.turtleForm['input-commandSet-active'].value) || 1;
 		this.showCommandSet((commandSet), false);
 		this.updatePage();
 		this.updateTurtle();
@@ -161,16 +161,16 @@ class TurtleApp extends HTMLApp {
 
 		if (save) {
 			// copy command textarea into it's hidden input
-			document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
+			this.element.turtleForm[`input-commandSet-${this.currentCommandSet}`].value = this.element.commandInput.value;
 			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.remove('active');
 			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).title = this.element.commandInput.value;
 		}
 
 		// copy new tab's command set into the texarea
 		this.currentCommandSet = commandSet;
-		document.getElementById(`input-commandSet-active`).value = commandSet;
+		this.element.turtleForm['input-commandSet-active'].value = commandSet;
 
-		this.element.commandInput.value = document.getElementById(`input-commandSet-${commandSet}`).value;
+		this.element.commandInput.value = this.element.turtleForm[`input-commandSet-${this.currentCommandSet}`].value;
 		document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.add('active');
 	}
 
@@ -278,7 +278,7 @@ class TurtleApp extends HTMLApp {
 		//console.log('Commands:', commands);
 
 		// update the hidden command input - this is a hack, the current textarea value need to be saved properly onchange
-		document.getElementById(`input-commandSet-${this.currentCommandSet}`).value = this.element.commandInput.value;
+		this.element.turtleForm[`input-commandSet-${this.currentCommandSet}`].value = this.element.commandInput.value;
 
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
@@ -381,7 +381,8 @@ class TurtleApp extends HTMLApp {
 	svgClickListener(event) {
 		//console.debug('svgClickListener', event);
 		const domPoint = new DOMPoint(event.clientX, event.clientY);
-		const pageElement = document.getElementById('group-page');
+
+		const pageElement = this.element.svg.getElementById('group-page');
 
 		// Get point in page SVG space
 		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());

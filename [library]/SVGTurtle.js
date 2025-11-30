@@ -15,7 +15,7 @@ export class SVGTurtle {
 
 	constructor(
 			name,
-			space = new PlanarSpace('page'),
+			space,
 			reportPrecision = 6,
 		) {
 
