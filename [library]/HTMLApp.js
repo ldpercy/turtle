@@ -17,11 +17,6 @@ export class HTMLApp {
 
 
 	documentDOMContentLoaded() {
-		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
-		// and the event object as argument 0
-		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
-		// adding a `.bind(this)` to the addEventListener keeps 'this' as the instance scope
-
 		//console.log('documentDOMContentLoaded', arguments, this);
 		this.buildElements();
 		this.addEventListeners();
@@ -30,6 +25,14 @@ export class HTMLApp {
 
 
 	addEventListeners() {
+		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
+		// and the event object as argument 0
+		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
+		// adding a `.bind(this)` to the addEventListener keeps 'this' as the instance scope
+
+		// NB Might need updating for other modules/classes/components
+		// Also the root node might need changing for SVG? Not sure yet.
+
 		this.eventListeners.forEach(
 			(item) => {
 				if (item.element) {
