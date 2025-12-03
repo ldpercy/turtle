@@ -22,7 +22,7 @@
 <body class="dark">
 
 	<div class="control-group control-left">
-		<form id="form-turtle">
+		<form id="form-turtle" tabindex="0">
 			<h1>Turtle</h1>
 
 			<h2>Commands</h2>
@@ -72,7 +72,7 @@
 	</div><!-- control-left -->
 
 	<div class="control-group control-right">
-		<form id="form-page">
+		<form id="form-page" tabindex="0">
 			<h2>Page</h2>
 
 			<label for="input-showTurtle" title="Show the turtle">
@@ -155,12 +155,10 @@
 				<input type="radio" name="mouse-click" value="draw">
 				draw
 			</label>
-
-
-
 		</form><!-- page -->
 
-		<form id="form-drawing">
+
+		<form id="form-drawing" tabindex="0">
 			<h2>Drawing</h2>
 			<label for="input-colour" title="Drawing colour">
 				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
@@ -184,7 +182,7 @@
 
 	<!-- svg-element
 	-->
-	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" tabindex="0">
 
 		<defs>
 			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->

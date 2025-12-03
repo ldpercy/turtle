@@ -133,6 +133,13 @@ form {
 
 	}
 
+
+	&:focus-within {
+		outline: 1px solid var(--accent);
+		/* filter: drop-shadow(0px 0px 2px var(--accent)); */
+		/* transition: 1s; */
+	}
+
 }/* form */
 
 
