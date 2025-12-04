@@ -105,15 +105,16 @@ export class HTMLApp {
 		for (let item in formData) {
 			//console.debug(item);
 
-			if (formElement.elements[item].type === 'checkbox')
-			{
-				formElement.elements[item].checked = formData[item];
+			if (formElement.elements[item]) {	// don't try to populate a form field that isn't there
+				if (formElement.elements[item].type === 'checkbox')
+				{
+					formElement.elements[item].checked = formData[item];
+				}
+				else
+				{
+					formElement.elements[item].value = formData[item];
+				}
 			}
-			else
-			{
-				formElement.elements[item].value = formData[item];
-			}
-
 		}
 	}
 
