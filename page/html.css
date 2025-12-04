@@ -137,7 +137,6 @@ form {
 	&:focus-within {
 		outline: 1px solid var(--accent);
 		/* filter: drop-shadow(0px 0px 2px var(--accent)); */
-		/* transition: 1s; */
 	}
 
 }/* form */
@@ -171,6 +170,7 @@ form {
 
 
 body.light {
+	transition: all 0.5s ease-in;
 	color-scheme: light;
 	--accent: var(--accent-light);
 	accent-color: var(--accent);
@@ -190,6 +190,7 @@ body.light {
 }
 
 body.dark {
+	transition: all 0.5s ease-in;
 	color-scheme: dark;
 	--accent: var(--accent-dark);
 	accent-color: var(--accent);
