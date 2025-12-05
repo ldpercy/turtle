@@ -33,7 +33,7 @@ class TurtleApp extends HTMLApp {
 		polarGroup 		: 'group-polar',
 		polarGrid 		: 'group-polarGrid',
 		drawing			: 'group-drawing',
-		turtleIcon		: 'icon-turtle',
+		turtleIcon		: 'turtle-terry',
 	};
 
 	eventListeners = [
@@ -324,7 +324,7 @@ class TurtleApp extends HTMLApp {
 
 		this.updatePageTransform();
 
-		document.getElementById('turtle-title').innerHTML = this.turtle.report;
+		document.getElementById('title-terry').innerHTML = this.turtle.report;
 		document.getElementById('turtle-report').innerHTML = this.turtle.report;
 	}/* updateTurtle */
 
