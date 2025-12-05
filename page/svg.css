@@ -215,9 +215,6 @@ svg:focus-within {
 	.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
 }
 
-/* #icon-turtle:hover {
-	--turtle-size:15;
-} */
 
 .turtle {
 	--body-fill: #0a07;
@@ -239,6 +236,7 @@ svg:focus-within {
 	--eye-colour: yellow;
 }
 
+/*
 .leonardo {
 	--head-fill: #05f;
 	--eye-colour: yellow;
@@ -258,5 +256,6 @@ svg:focus-within {
 	--head-fill: yellow;
 	--eye-colour: black;
 }
+*/
 
 
