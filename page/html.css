@@ -144,11 +144,18 @@ form {
 
 	&:focus-within {
 		transition-duration: 0s;
-		outline: 1px solid var(--accent);
+		outline: 2px solid var(--accent);
 		/* filter: drop-shadow(0px 0px 2px var(--accent)); */
 	}
 
+	*:focus-visible {
+		transition-duration: 0s;
+		outline: 2px solid var(--accent);
+	}
+
 }/* form */
+
+
 
 
 
