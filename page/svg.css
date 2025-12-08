@@ -228,6 +228,10 @@ svg:focus-within {
 		--turtle-size:15;
 	}
 	filter: drop-shadow(0px 0px 30px #ff07);
+	&:focus {
+		/* transition: 0s; */
+		outline: 2px solid var(--accent);
+	}
 }
 
 
