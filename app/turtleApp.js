@@ -61,7 +61,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#form-drawing',
 			type: 'change',
-			listener: this.updateDrawing
+			listener: svg.updateDrawing
 		},
 		{
 			element: document,
@@ -142,8 +142,8 @@ class TurtleApp extends HTMLApp {
 		this.updatePage();
 		this.updateTurtle();
 
-		this.updateDrawing();
 		svg.drawGrid();
+		svg.updateDrawing();
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
@@ -218,48 +218,6 @@ class TurtleApp extends HTMLApp {
 
 
 
-	getScale() {
-
-		const zoomPower = Number.parseInt(this.element.pageForm.zoom.value);
-
-		const scale = 2 ** zoomPower;
-
-		//console.log(scale);
-
-		//const newViewBox = viewBox.toStringScale(scale);
-		//console.log(newViewBox);
-		//svgElement.setAttribute('viewBox',newViewBox);
-		return scale;
-	}
-
-
-	updateDrawing() {
-
-		const drawColour = this.element.drawingForm.colour.value;
-		this.element.drawing.style.setProperty('--draw-colour', drawColour);
-
-		const strokeWidth = this.element.drawingForm.strokeWidth.value;
-		this.element.drawing.style.setProperty('--drawing-stroke-width', strokeWidth);
-
-		if (this.element.drawingForm.showMarkers.checked) {
-			this.element.drawing.classList.add('show-marker');
-		}
-		else {
-			this.element.drawing.classList.remove('show-marker');
-		}
-
-		if (this.element.drawingForm.showStroke.checked) {
-			this.element.drawing.style.setProperty('--drawing-stroke-width', strokeWidth);
-		}
-		else {
-			this.element.drawing.style.setProperty('--drawing-stroke-width', 0);
-		}
-
-	}/* updateDrawing */
-
-
-
-
 
 
 	toOrigin() {
@@ -297,7 +255,7 @@ class TurtleApp extends HTMLApp {
 		const rotateTransform    = (this.element.pageForm.rotatePage.checked)   ? `rotate(${-rotate},0,0)` : '';
 		const translateTransform = (this.element.pageForm.centerTurtle.checked) ? `translate(${-this.turtle.svgX},${-this.turtle.svgY})` : '';
 
-		const scaleTransform = `scale(${this.getScale()})`;
+		const scaleTransform = `scale(${ui.getScale()})`;
 
 		// TODO: see if this can be applied as separate attributes, or combined into a single transform matrix
 

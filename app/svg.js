@@ -196,3 +196,26 @@ export function pointInfo(x, y) {
 
 
 
+
+
+
+export function updateDrawing() {
+
+	element.drawing.style.setProperty('--draw-colour', ui.getDrawColour());
+	element.drawing.style.setProperty('--drawing-stroke-width', ui.getStrokeWidth());
+
+	if (ui.getShowMarkers()) {
+		element.drawing.classList.add('show-marker');
+	}
+	else {
+		element.drawing.classList.remove('show-marker');
+	}
+
+	if (ui.getShowStroke()) {
+		element.drawing.style.setProperty('--drawing-stroke-width', ui.getStrokeWidth());
+	}
+	else {
+		element.drawing.style.setProperty('--drawing-stroke-width', 0);
+	}
+
+}/* updateDrawing */

@@ -55,7 +55,38 @@ export function updateHiddenInput() {
 	element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
 }
 
-export function getMouseMode()
-{
+export function getMouseMode() {
 	return element.pageForm['mouse-click'].value;
+}
+
+export function getDrawColour() {
+	return element.drawingForm.colour.value;
+}
+
+export function getStrokeWidth() {
+	return element.drawingForm.strokeWidth.value;
+}
+
+export function getShowMarkers() {
+	return element.drawingForm.showMarkers.checked;
+}
+
+export function getShowStroke() {
+	return element.drawingForm.showStroke.checked;
+}
+
+
+
+export function getScale() {
+
+	const zoomPower = Number.parseInt(element.pageForm.zoom.value);
+
+	const scale = 2 ** zoomPower;
+
+	//console.log(scale);
+
+	//const newViewBox = viewBox.toStringScale(scale);
+	//console.log(newViewBox);
+	//svgElement.setAttribute('viewBox',newViewBox);
+	return scale;
 }
