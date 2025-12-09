@@ -29,12 +29,7 @@ class TurtleApp extends HTMLApp {
 		drawingForm		: 'form-drawing',
 		svg				: 'svg-element',
 		page			: 'group-page',
-		cartesianGroup  : 'group-cartesian',
-		cartesianGrid	: 'group-cartesianGrid',
-		polarGroup 		: 'group-polar',
-		polarGrid 		: 'group-polarGrid',
 		drawing			: 'group-drawing',
-		turtleIcon		: 'turtle-terry',
 	};
 
 	eventListeners = [
@@ -56,7 +51,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#form-page',
 			type: 'change',
-			listener: this.updatePage
+			listener: svg.updatePage
 		},
 		{
 			query: '#form-drawing',
@@ -71,7 +66,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#command-tabs .tab',
 			type: 'click',
-			listener: this.tabListener
+			listener: ui.tabListener
 		},
 		/* {
 			query: '#svg-element',
@@ -139,11 +134,12 @@ class TurtleApp extends HTMLApp {
 		svg.init();
 
 
-		this.updatePage();
-		this.updateTurtle();
+		svg.updatePage();
+		svg.updateTurtle();
 
 		svg.drawGrid();
 		svg.updateDrawing();
+		ui.updateTurtleInfo();
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
@@ -156,74 +152,12 @@ class TurtleApp extends HTMLApp {
 	}/* documentDOMContentLoaded */
 
 
-	visibilitychangeListener() {
-		//console.debug('visibilitychangeListener', arguments);
-		//console.debug('document.visibilityState', document.visibilityState);
-		if (document.visibilityState === 'hidden')
-		{
-			this.saveSettings();
-		}
-	}
-
-
-
-	tabListener(event) {
-		//console.debug('tabListener', arguments);
-		//console.debug('tabListener', event.target);
-		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
-		ui.showCommandSet(newCommandSet);
-	}
-
-
-
-
-
-	updatePage() {
-		if (this.element.pageForm.showTurtle.checked) {
-			this.element.turtleIcon.style.display = '';
-		}
-		else {
-			this.element.turtleIcon.style.display = 'none';
-		}
-
-		if (this.element.pageForm.showCartesian.checked) {
-			this.element.cartesianGroup.style.display = '';
-		}
-		else {
-			this.element.cartesianGroup.style.display = 'none';
-		}
-
-		if (this.element.pageForm.showPolar.checked) {
-			this.element.polarGroup.style.display = '';
-		}
-		else {
-			this.element.polarGroup.style.display = 'none';
-		}
-
-		if (this.element.pageForm.theme.value === 'light')
-		{
-			document.body.classList.remove('dark');
-			document.body.classList.add('light');
-		}
-		else {
-			document.body.classList.remove('light');
-			document.body.classList.add('dark');
-		}
-
-		this.element.cartesianGrid.style.setProperty('opacity', this.element.pageForm.cartesianOpacity.value);
-		this.element.polarGrid.style.setProperty('opacity', this.element.pageForm.polarOpacity.value);
-
-		this.updatePageTransform();
-	}/* updatePage */
-
-
-
-
 
 	toOrigin() {
 		//turtle.toOrigin();
 		this.turtle.doCommand({name:'o'});
-		this.updateTurtle();
+		svg.updateTurtle();
+		ui.updateTurtleInfo();
 	}
 
 
@@ -232,8 +166,9 @@ class TurtleApp extends HTMLApp {
 		//console.log('Commands:', commands);
 
 		const commandOutput = this.turtle.doCommands(commands);
-		this.updateTurtle();
+		svg.updateTurtle();
 		svg.draw(commandOutput);
+		ui.updateTurtleInfo();
 	}/* doCommands */
 
 
@@ -241,45 +176,27 @@ class TurtleApp extends HTMLApp {
 		const commands = Turtle.getCommands(cmdString);
 		//console.log(commands);
 		const commandOutput = this.turtle.doCommands(commands);
-		this.updateTurtle();
+		svg.updateTurtle();
 		svg.draw(commandOutput);
+		ui.updateTurtleInfo();
 	}
 
 
-	updatePageTransform() {
-
-		//console.log(this.turtle);
-
-		const rotate = this.turtle.position.degrees;
-
-		const rotateTransform    = (this.element.pageForm.rotatePage.checked)   ? `rotate(${-rotate},0,0)` : '';
-		const translateTransform = (this.element.pageForm.centerTurtle.checked) ? `translate(${-this.turtle.svgX},${-this.turtle.svgY})` : '';
-
-		const scaleTransform = `scale(${ui.getScale()})`;
-
-		// TODO: see if this can be applied as separate attributes, or combined into a single transform matrix
-
-		const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
-
-		this.element.page.setAttribute('transform', transform);
-	}/* updatePageTransform */
 
 
-
-	updateTurtle() {
-		this.element.turtleIcon.setAttribute('x', this.turtle.svgX);
-		this.element.turtleIcon.setAttribute('y', this.turtle.svgY);
-		this.element.turtleIcon.setAttribute('transform',
-			`rotate(${this.turtle.position.degrees},${this.turtle.svgX},${this.turtle.svgY})`
-		);
-
-		this.updatePageTransform();
-
-		document.getElementById('title-terry').innerHTML = this.turtle.report;
-		document.getElementById('turtle-report').innerHTML = this.turtle.report;
-	}/* updateTurtle */
+	//
+	// application lifecycle
+	//
 
 
+	visibilitychangeListener() {
+		//console.debug('visibilitychangeListener', arguments);
+		//console.debug('document.visibilityState', document.visibilityState);
+		if (document.visibilityState === 'hidden')
+		{
+			this.saveSettings();
+		}
+	}
 
 
 
@@ -319,8 +236,6 @@ class TurtleApp extends HTMLApp {
 		}
 		localStorage.setItem('loadedAt', new Date().toISOString());
 	}/* loadSettings */
-
-
 
 
 

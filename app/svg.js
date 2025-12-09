@@ -9,7 +9,7 @@ import { turtleApp } from "./turtleApp.js";
 import * as ui from "./html-ui.js";
 
 
-let element;
+let element = {};
 const elementMap = {
 	page			: 'group-page',
 	cartesianGroup  : 'group-cartesian',
@@ -18,12 +18,14 @@ const elementMap = {
 	polarGrid 		: 'group-polarGrid',
 	drawing			: 'group-drawing',
 	turtleIcon		: 'turtle-terry',
+	turtleTitle		: 'title-terry',
 };
 
 const svgElement = document.getElementById('svg-element');
 const precision = {
 	report : 6
 };
+
 
 
 export function init() {
@@ -219,3 +221,84 @@ export function updateDrawing() {
 	}
 
 }/* updateDrawing */
+
+
+
+export function updateTurtle() {
+	element.turtleIcon.setAttribute('x', turtleApp.turtle.svgX);
+	element.turtleIcon.setAttribute('y', turtleApp.turtle.svgY);
+	element.turtleIcon.setAttribute('transform',
+		`rotate(${turtleApp.turtle.position.degrees},${turtleApp.turtle.svgX},${turtleApp.turtle.svgY})`
+	);
+
+	updatePageTransform();
+
+	element.turtleTitle.innerHTML = turtleApp.turtle.report;
+
+}/* updateTurtle */
+
+
+
+export function updatePageTransform() {
+
+	//console.log(this.turtle);
+
+	const rotate = turtleApp.turtle.position.degrees;
+
+	const rotateTransform    = (ui.getRotatePage())   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
+	const translateTransform = (ui.getCenterTurtle()) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
+
+	const scaleTransform = `scale(${ui.getScale()})`;
+
+	// TODO: see if this can be applied as separate attributes, or combined into a single transform matrix
+
+	const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
+
+	element.page.setAttribute('transform', transform);
+}/* updatePageTransform */
+
+
+
+
+
+
+export function updatePage() {
+	if (ui.getShowTurtle()) {
+		element.turtleIcon.style.display = '';
+	}
+	else {
+		element.turtleIcon.style.display = 'none';
+	}
+
+	if (ui.getShowCartesian()) {
+		element.cartesianGroup.style.display = '';
+	}
+	else {
+		element.cartesianGroup.style.display = 'none';
+	}
+
+	if (ui.getShowPolar()) {
+		element.polarGroup.style.display = '';
+	}
+	else {
+		element.polarGroup.style.display = 'none';
+	}
+
+	if (ui.getColourScheme() === 'light')
+	{
+		document.body.classList.remove('dark');
+		document.body.classList.add('light');
+	}
+	else {
+		document.body.classList.remove('light');
+		document.body.classList.add('dark');
+	}
+
+	element.cartesianGrid.style.setProperty('opacity', ui.getCartesianOpacity());
+	element.polarGrid.style.setProperty('opacity', ui.getPolarOpacity());
+
+	updatePageTransform();
+
+}/* updatePage */
+
+

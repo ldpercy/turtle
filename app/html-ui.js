@@ -7,11 +7,11 @@ import { turtleApp } from "./turtleApp.js";
 
 let element;
 const elementMap = {
-	commandInput	: 'input-command',
 	turtleForm		: 'form-turtle',
 	pageForm		: 'form-page',
 	drawingForm		: 'form-drawing',
-	svg				: 'svg-element',
+	commandInput	: 'input-command',
+	turtleInfo		: 'turtle-info',
 };
 
 let currentCommandSet = 1;
@@ -28,6 +28,19 @@ export function init() {
 	showCommandSet((commandSet), false);
 }
 
+
+export function updateTurtleInfo() {
+	element.turtleInfo.innerHTML = turtleApp.turtle.report;
+}
+
+
+
+export function tabListener(event) {
+	//console.debug('tabListener', arguments);
+	//console.debug('tabListener', event.target);
+	const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
+	showCommandSet(newCommandSet);
+}
 
 
 export function showCommandSet(commandSet, save=true) {
@@ -50,9 +63,54 @@ export function showCommandSet(commandSet, save=true) {
 
 
 
+
+
+
+
+
+
+
 export function updateHiddenInput() {
-	// update the hidden command input - this is a hack, the current textarea value need to be saved properly onchange
 	element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
+}
+
+
+
+//
+//	ui getters
+//
+
+export function getShowTurtle() {
+	return element.pageForm.showTurtle.checked;
+}
+
+export function getRotatePage() {
+	return element.pageForm.rotatePage.checked;
+}
+
+export function getCenterTurtle() {
+	return element.pageForm.centerTurtle.checked;
+}
+
+export function getShowCartesian() {
+	return element.pageForm.showCartesian.checked;
+}
+
+export function getShowPolar() {
+	return element.pageForm.showPolar.checked;
+}
+
+export function getColourScheme() {
+	return element.pageForm.colourScheme.value;
+}
+
+
+export function getCartesianOpacity() {
+	return element.pageForm.cartesianOpacity.value;
+}
+
+export function getPolarOpacity() {
+	return element.pageForm.polarOpacity.value;
 }
 
 export function getMouseMode() {
