@@ -9,6 +9,7 @@ import { SVG } from "../[library]/SVG.js";
 import { PlanarSpace } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
+import * as keyboard from './keyboard.js';
 
 
 class TurtleApp extends HTMLApp {
@@ -38,14 +39,14 @@ class TurtleApp extends HTMLApp {
 
 	eventListeners = [
 		{
-			query: '#button-do',
+			query: '#button-doCommands',
 			type: 'click',
 			listener: this.doCommands
 		},
 		{
-			query: '#button-clear',
+			query: '#button-clearDrawing',
 			type: 'click',
-			listener: this.clear
+			listener: this.clearDrawing
 		},
 		{
 			query: '#button-origin',
@@ -85,7 +86,17 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#svg-element',
 			type: 'keydown',
-			listener: this.svgKeyListener
+			listener: keyboard.svgKeyListener
+		},
+		{
+			element: document,
+			type: 'keydown',
+			listener: keyboard.documentKeyListener
+		},
+		{
+			query: 'textarea',
+			type: 'keydown',
+			listener: (event)=>event.stopPropagation()
 		},
 		{
 			query: '#button-clearPoint',
@@ -262,7 +273,7 @@ class TurtleApp extends HTMLApp {
 		this.element.drawing.innerHTML += string;
 	}
 
-	clear() {
+	clearDrawing() {
 		this.element.drawing.innerHTML = '';
 	}
 
@@ -432,9 +443,6 @@ class TurtleApp extends HTMLApp {
 
 
 
-	svgKeyListener() {
-		console.log('svgKeyListener');
-	}
 
 
 
@@ -459,5 +467,5 @@ class TurtleApp extends HTMLApp {
 
 
 
-const turtleApp = new TurtleApp();
+export const turtleApp = new TurtleApp();
 
