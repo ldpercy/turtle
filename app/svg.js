@@ -69,11 +69,6 @@ export function clearPoint() {
 
 
 
-
-
-
-
-
 export function clickListener(event) {
 	//console.debug('svgClickListener', event);
 	const domPoint = new DOMPoint(event.clientX, event.clientY);
@@ -89,7 +84,7 @@ export function clickListener(event) {
 	//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
 	//console.debug('svgClickListener', cmd);
 	//this.doCommand(cmd);
-	const mouseMode = ui.getMouseMode()
+	const mouseMode = ui.mouseMode;
 
 	if (mouseMode === 'info') {
 		drawPointInfo(pagePoint.x, pagePoint.y);
@@ -198,23 +193,20 @@ export function pointInfo(x, y) {
 
 
 
-
-
-
 export function updateDrawing() {
 
-	element.drawing.style.setProperty('--draw-colour', ui.getDrawColour());
-	element.drawing.style.setProperty('--drawing-stroke-width', ui.getStrokeWidth());
+	element.drawing.style.setProperty('--draw-colour', ui.drawColour);
+	element.drawing.style.setProperty('--drawing-stroke-width', ui.strokeWidth);
 
-	if (ui.getShowMarkers()) {
+	if (ui.showMarkers) {
 		element.drawing.classList.add('show-marker');
 	}
 	else {
 		element.drawing.classList.remove('show-marker');
 	}
 
-	if (ui.getShowStroke()) {
-		element.drawing.style.setProperty('--drawing-stroke-width', ui.getStrokeWidth());
+	if (ui.showStroke) {
+		element.drawing.style.setProperty('--drawing-stroke-width', ui.strokeWidth);
 	}
 	else {
 		element.drawing.style.setProperty('--drawing-stroke-width', 0);
@@ -245,8 +237,8 @@ export function updatePageTransform() {
 
 	const rotate = turtleApp.turtle.position.degrees;
 
-	const rotateTransform    = (ui.getRotatePage())   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
-	const translateTransform = (ui.getCenterTurtle()) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
+	const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
+	const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
 
 	const scaleTransform = `scale(${ui.getScale()})`;
 
@@ -259,32 +251,29 @@ export function updatePageTransform() {
 
 
 
-
-
-
 export function updatePage() {
-	if (ui.getShowTurtle()) {
+	if (ui.showTurtle) {
 		element.turtleIcon.style.display = '';
 	}
 	else {
 		element.turtleIcon.style.display = 'none';
 	}
 
-	if (ui.getShowCartesian()) {
+	if (ui.showCartesian) {
 		element.cartesianGroup.style.display = '';
 	}
 	else {
 		element.cartesianGroup.style.display = 'none';
 	}
 
-	if (ui.getShowPolar()) {
+	if (ui.showPolar) {
 		element.polarGroup.style.display = '';
 	}
 	else {
 		element.polarGroup.style.display = 'none';
 	}
 
-	if (ui.getColourScheme() === 'light')
+	if (ui.colourScheme === 'light')
 	{
 		document.body.classList.remove('dark');
 		document.body.classList.add('light');
@@ -294,8 +283,8 @@ export function updatePage() {
 		document.body.classList.add('dark');
 	}
 
-	element.cartesianGrid.style.setProperty('opacity', ui.getCartesianOpacity());
-	element.polarGrid.style.setProperty('opacity', ui.getPolarOpacity());
+	element.cartesianGrid.style.setProperty('opacity', ui.cartesianOpacity);
+	element.polarGrid.style.setProperty('opacity', ui.polarOpacity);
 
 	updatePageTransform();
 

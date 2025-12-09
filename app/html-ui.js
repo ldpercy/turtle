@@ -24,7 +24,6 @@ class HTMLUserInterface {
 
 	constructor() {
 		element = HTMLApp.buildElementMap(document, elementMap);
-
 		//console.log(element);
 
 		const commandSet = Number.parseInt(element.turtleForm['input-commandSet-active'].value) || 1;
@@ -32,10 +31,72 @@ class HTMLUserInterface {
 	}
 
 
+	//
+	//	getters
+	//
+
+	get showTurtle() {
+		return element.pageForm.showTurtle.checked;
+	}
+
+	get rotatePage() {
+		return element.pageForm.rotatePage.checked;
+	}
+
+	get centerTurtle() {
+		return element.pageForm.centerTurtle.checked;
+	}
+
+	get showCartesian() {
+		return element.pageForm.showCartesian.checked;
+	}
+
+	get showPolar() {
+		return element.pageForm.showPolar.checked;
+	}
+
+	get colourScheme() {
+		return element.pageForm.colourScheme.value;
+	}
+
+	get cartesianOpacity() {
+		return element.pageForm.cartesianOpacity.value;
+	}
+
+	get polarOpacity() {
+		return element.pageForm.polarOpacity.value;
+	}
+
+	get mouseMode() {
+		return element.pageForm['mouse-click'].value;
+	}
+
+	get drawColour() {
+		return element.drawingForm.colour.value;
+	}
+
+	get strokeWidth() {
+		return element.drawingForm.strokeWidth.value;
+	}
+
+	get showMarkers() {
+		return element.drawingForm.showMarkers.checked;
+	}
+
+	get showStroke() {
+		return element.drawingForm.showStroke.checked;
+	}
+
+
+
+	//
+	//	other
+	//
+
+
 	updateTurtleInfo() {
 		element.turtleInfo.innerHTML = turtleApp.turtle.report;
 	}
-
 
 
 	tabListener(event) {
@@ -66,75 +127,10 @@ class HTMLUserInterface {
 
 
 
-
-
-
-
-
-
-
 	updateHiddenInput() {
 		element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
 	}
 
-
-
-	//
-	//	ui getters
-	//
-
-	getShowTurtle() {
-		return element.pageForm.showTurtle.checked;
-	}
-
-	getRotatePage() {
-		return element.pageForm.rotatePage.checked;
-	}
-
-	getCenterTurtle() {
-		return element.pageForm.centerTurtle.checked;
-	}
-
-	getShowCartesian() {
-		return element.pageForm.showCartesian.checked;
-	}
-
-	getShowPolar() {
-		return element.pageForm.showPolar.checked;
-	}
-
-	getColourScheme() {
-		return element.pageForm.colourScheme.value;
-	}
-
-
-	getCartesianOpacity() {
-		return element.pageForm.cartesianOpacity.value;
-	}
-
-	getPolarOpacity() {
-		return element.pageForm.polarOpacity.value;
-	}
-
-	getMouseMode() {
-		return element.pageForm['mouse-click'].value;
-	}
-
-	getDrawColour() {
-		return element.drawingForm.colour.value;
-	}
-
-	getStrokeWidth() {
-		return element.drawingForm.strokeWidth.value;
-	}
-
-	getShowMarkers() {
-		return element.drawingForm.showMarkers.checked;
-	}
-
-	getShowStroke() {
-		return element.drawingForm.showStroke.checked;
-	}
 
 
 
