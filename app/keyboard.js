@@ -1,6 +1,8 @@
 
 import { turtleApp } from "./turtleApp.js";
+import { ui } from './html-ui.js';
 import * as svg from "./svg.js";
+
 
 
 export function svgKeyListener(event) {

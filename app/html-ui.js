@@ -5,6 +5,7 @@
 import { HTMLApp } from "../[library]/HTMLApp.js";
 import { turtleApp } from "./turtleApp.js";
 
+
 let element;
 const elementMap = {
 	turtleForm		: 'form-turtle',
@@ -17,52 +18,51 @@ const elementMap = {
 let currentCommandSet = 1;
 
 
-/* init
-*/
-export function init() {
-	element = HTMLApp.buildElementMap(document, elementMap);
 
-	//console.log(element);
-
-	const commandSet = Number.parseInt(element.turtleForm['input-commandSet-active'].value) || 1;
-	showCommandSet((commandSet), false);
-}
+class HTMLUserInterface {
 
 
-export function updateTurtleInfo() {
-	element.turtleInfo.innerHTML = turtleApp.turtle.report;
-}
+	constructor() {
+		element = HTMLApp.buildElementMap(document, elementMap);
 
+		//console.log(element);
 
-
-export function tabListener(event) {
-	//console.debug('tabListener', arguments);
-	//console.debug('tabListener', event.target);
-	const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
-	showCommandSet(newCommandSet);
-}
-
-
-export function showCommandSet(commandSet, save=true) {
-	//console.debug('showCommandSet', commandSet);
-
-	if (save) {
-		// copy command textarea into it's hidden input
-		element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
-		document.getElementById(`tab-commandSet-${currentCommandSet}`).classList.remove('active');
-		document.getElementById(`tab-commandSet-${currentCommandSet}`).title = element.commandInput.value;
+		const commandSet = Number.parseInt(element.turtleForm['input-commandSet-active'].value) || 1;
+		this.showCommandSet((commandSet), false);
 	}
 
-	// copy new tab's command set into the texarea
-	currentCommandSet = commandSet;
-	element.turtleForm['input-commandSet-active'].value = commandSet;
 
-	element.commandInput.value = element.turtleForm[`input-commandSet-${currentCommandSet}`].value;
-	document.getElementById(`tab-commandSet-${currentCommandSet}`).classList.add('active');
-}
+	updateTurtleInfo() {
+		element.turtleInfo.innerHTML = turtleApp.turtle.report;
+	}
 
 
 
+	tabListener(event) {
+		//console.debug('tabListener', arguments);
+		//console.debug('tabListener', event.target);
+		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
+		this.showCommandSet(newCommandSet);
+	}
+
+
+	showCommandSet(commandSet, save=true) {
+		//console.debug('showCommandSet', commandSet);
+
+		if (save) {
+			// copy command textarea into it's hidden input
+			element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
+			document.getElementById(`tab-commandSet-${currentCommandSet}`).classList.remove('active');
+			document.getElementById(`tab-commandSet-${currentCommandSet}`).title = element.commandInput.value;
+		}
+
+		// copy new tab's command set into the texarea
+		currentCommandSet = commandSet;
+		element.turtleForm['input-commandSet-active'].value = commandSet;
+
+		element.commandInput.value = element.turtleForm[`input-commandSet-${currentCommandSet}`].value;
+		document.getElementById(`tab-commandSet-${currentCommandSet}`).classList.add('active');
+	}
 
 
 
@@ -70,81 +70,90 @@ export function showCommandSet(commandSet, save=true) {
 
 
 
-export function updateHiddenInput() {
-	element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
-}
 
 
 
-//
-//	ui getters
-//
-
-export function getShowTurtle() {
-	return element.pageForm.showTurtle.checked;
-}
-
-export function getRotatePage() {
-	return element.pageForm.rotatePage.checked;
-}
-
-export function getCenterTurtle() {
-	return element.pageForm.centerTurtle.checked;
-}
-
-export function getShowCartesian() {
-	return element.pageForm.showCartesian.checked;
-}
-
-export function getShowPolar() {
-	return element.pageForm.showPolar.checked;
-}
-
-export function getColourScheme() {
-	return element.pageForm.colourScheme.value;
-}
-
-
-export function getCartesianOpacity() {
-	return element.pageForm.cartesianOpacity.value;
-}
-
-export function getPolarOpacity() {
-	return element.pageForm.polarOpacity.value;
-}
-
-export function getMouseMode() {
-	return element.pageForm['mouse-click'].value;
-}
-
-export function getDrawColour() {
-	return element.drawingForm.colour.value;
-}
-
-export function getStrokeWidth() {
-	return element.drawingForm.strokeWidth.value;
-}
-
-export function getShowMarkers() {
-	return element.drawingForm.showMarkers.checked;
-}
-
-export function getShowStroke() {
-	return element.drawingForm.showStroke.checked;
-}
+	updateHiddenInput() {
+		element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
+	}
 
 
 
-export function getScale() {
+	//
+	//	ui getters
+	//
 
-	const zoomPower = Number.parseInt(element.pageForm.zoom.value);
+	getShowTurtle() {
+		return element.pageForm.showTurtle.checked;
+	}
 
-	const scale = 2 ** zoomPower;
+	getRotatePage() {
+		return element.pageForm.rotatePage.checked;
+	}
 
-	//console.log(scale);
+	getCenterTurtle() {
+		return element.pageForm.centerTurtle.checked;
+	}
 
-	//const newViewBox = viewBox.toStringScale(scale);
-	//console.log(newViewBox);
-	//svgElement.setAttribute('viewBox',newViewBox);
-	return scale;
-}
+	getShowCartesian() {
+		return element.pageForm.showCartesian.checked;
+	}
+
+	getShowPolar() {
+		return element.pageForm.showPolar.checked;
+	}
+
+	getColourScheme() {
+		return element.pageForm.colourScheme.value;
+	}
+
+
+	getCartesianOpacity() {
+		return element.pageForm.cartesianOpacity.value;
+	}
+
+	getPolarOpacity() {
+		return element.pageForm.polarOpacity.value;
+	}
+
+	getMouseMode() {
+		return element.pageForm['mouse-click'].value;
+	}
+
+	getDrawColour() {
+		return element.drawingForm.colour.value;
+	}
+
+	getStrokeWidth() {
+		return element.drawingForm.strokeWidth.value;
+	}
+
+	getShowMarkers() {
+		return element.drawingForm.showMarkers.checked;
+	}
+
+	getShowStroke() {
+		return element.drawingForm.showStroke.checked;
+	}
+
+
+
+	getScale() {
+
+		const zoomPower = Number.parseInt(element.pageForm.zoom.value);
+
+		const scale = 2 ** zoomPower;
+
+		//console.log(scale);
+
+		//const newViewBox = viewBox.toStringScale(scale);
+		//console.log(newViewBox);
+		//svgElement.setAttribute('viewBox',newViewBox);
+		return scale;
+	}
+
+
+}/* HTMLUserInterface */
+
+
+export const ui = new HTMLUserInterface();

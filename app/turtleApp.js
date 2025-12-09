@@ -11,7 +11,7 @@ import { PlanarSpace } from "../[library]/PlanarSpace.js";
 import * as introduction from './introduction.js';
 import * as keyboard from './keyboard.js';
 import * as svg from './svg.js';
-import * as ui from './html-ui.js';
+import { ui } from './html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
@@ -130,7 +130,7 @@ class TurtleApp extends HTMLApp {
 
 		this.loadSettings();
 
-		ui.init();
+		//ui.init();
 		svg.init();
 
 
