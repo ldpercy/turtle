@@ -46,7 +46,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-clearDrawing',
 			type: 'click',
-			listener: this.clearDrawing
+			listener: svg.clearDrawing
 		},
 		{
 			query: '#button-origin',
@@ -143,7 +143,7 @@ class TurtleApp extends HTMLApp {
 		this.updateTurtle();
 
 		this.updateDrawing();
-		this.drawGrid();
+		svg.drawGrid();
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
@@ -260,13 +260,7 @@ class TurtleApp extends HTMLApp {
 
 
 
-	draw(string) {
-		this.element.drawing.innerHTML += string;
-	}
 
-	clearDrawing() {
-		this.element.drawing.innerHTML = '';
-	}
 
 	toOrigin() {
 		//turtle.toOrigin();
@@ -281,7 +275,7 @@ class TurtleApp extends HTMLApp {
 
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
-		this.draw(commandOutput);
+		svg.draw(commandOutput);
 	}/* doCommands */
 
 
@@ -290,7 +284,7 @@ class TurtleApp extends HTMLApp {
 		//console.log(commands);
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
-		this.draw(commandOutput);
+		svg.draw(commandOutput);
 	}
 
 
@@ -328,13 +322,7 @@ class TurtleApp extends HTMLApp {
 	}/* updateTurtle */
 
 
-	drawGrid() {
-		const cartesianGrid = new SVG.CartesianGrid(this.space, this.page);
-		document.getElementById('group-cartesianGrid').innerHTML = cartesianGrid.toString();
 
-		const polarGrid = new SVG.PolarGrid(this.space, this.page);
-		document.getElementById('group-polarGrid').innerHTML = polarGrid.toString();
-	}
 
 
 	/* saveSettings

@@ -1,5 +1,6 @@
 
 import { turtleApp } from "./turtleApp.js";
+import * as svg from "./svg.js";
 
 
 export function svgKeyListener(event) {
@@ -14,7 +15,7 @@ export function documentKeyListener(event) {
 
 	switch(event.key) {
 		case 'd'	: turtleApp.doCommands(); break;
-		case 'c'	: turtleApp.clearDrawing(); break;
+		case 'c'	: svg.clearDrawing(); break;
 		case 'o'	: turtleApp.toOrigin(); break;
 		//case '+'	: turtleApp.toOrigin(); break;
 		//case '-'	: turtleApp.toOrigin(); break;

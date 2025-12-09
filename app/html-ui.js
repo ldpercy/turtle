@@ -22,7 +22,7 @@ let currentCommandSet = 1;
 export function init() {
 	element = HTMLApp.buildElementMap(document, elementMap);
 
-	console.log(element);
+	//console.log(element);
 
 	const commandSet = Number.parseInt(element.turtleForm['input-commandSet-active'].value) || 1;
 	showCommandSet((commandSet), false);

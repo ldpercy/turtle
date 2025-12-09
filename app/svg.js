@@ -4,6 +4,7 @@
 
 import { HTMLApp } from "../[library]/HTMLApp.js";
 import * as Maths from "../[library]/Maths.js";
+import * as SVG from "../[library]/SVG.js";
 import { turtleApp } from "./turtleApp.js";
 
 
@@ -31,6 +32,24 @@ export function init() {
 }
 
 
+
+export function	drawGrid() {
+	const cartesianGrid = new SVG.CartesianGrid(turtleApp.space, turtleApp.page);
+	document.getElementById('group-cartesianGrid').innerHTML = cartesianGrid.toString();
+
+	const polarGrid = new SVG.PolarGrid(turtleApp.space, turtleApp.page);
+	document.getElementById('group-polarGrid').innerHTML = polarGrid.toString();
+}
+
+
+
+export function draw(string) {
+	element.drawing.innerHTML += string;
+}
+
+export function clearDrawing() {
+	element.drawing.innerHTML = '';
+}
 
 
 export function	drawPointInfo(svgX, svgY) {

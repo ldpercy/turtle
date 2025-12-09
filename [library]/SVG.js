@@ -71,7 +71,7 @@ SVG.ViewBox = class {
 
 /* SVG.CartesianGrid
 */
-SVG.CartesianGrid = class {
+export class CartesianGrid {
 
 	rectangle;
 
@@ -170,7 +170,7 @@ SVG.CartesianGrid = class {
 
 /* SVG.PolarGrid
 */
-SVG.PolarGrid = class {
+export class PolarGrid {
 
 	rectangle;
 
