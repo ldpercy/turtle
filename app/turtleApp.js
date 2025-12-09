@@ -22,7 +22,7 @@ class TurtleApp extends HTMLApp {
 
 	currentCommandSet = 1;
 
-	elementId = {
+	elementMap = {
 		commandInput	: 'input-command',
 		turtleForm		: 'form-turtle',
 		pageForm		: 'form-page',

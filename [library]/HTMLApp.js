@@ -5,7 +5,7 @@ export class HTMLApp {
 	name;
 	info;
 
-	elementId = {};
+	elementMap = {};
 	element = {};
 	eventListeners = [];
 
@@ -18,7 +18,7 @@ export class HTMLApp {
 
 	documentDOMContentLoaded() {
 		//console.log('documentDOMContentLoaded', arguments, this);
-		this.buildElements();
+		this.element = this.buildElementMap(document, this.elementMap);
 		this.addEventListeners();
 		console.info(this.info);
 	}/* documentDOMContentLoaded */
@@ -54,12 +54,20 @@ export class HTMLApp {
 	}/* addEventListeners */
 
 
-	buildElements() {
-		for (let item in this.elementId) {
+	/* buildElementMap
+	There are different ways this could be done.
+	For instance SVG has it's own version of 'getElementById' that is sometimes needed.
+	Also a query selector could be used.
+	Also might need to change in type sensitive contexts.
+	*/
+	buildElementMap(baseElement, elementMap) {
+		const result = {};
+		for (let item in elementMap) {
 			//console.debug(item);
-			this.element[item] = document.getElementById(this.elementId[item]);
+			result[item] = baseElement.getElementById(elementMap[item]);
 		}
-	}/* buildElements */
+		return result;
+	}/* buildElementMap */
 
 
 	/*
