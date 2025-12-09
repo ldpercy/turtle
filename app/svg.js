@@ -6,6 +6,7 @@ import { HTMLApp } from "../[library]/HTMLApp.js";
 import * as Maths from "../[library]/Maths.js";
 import * as SVG from "../[library]/SVG.js";
 import { turtleApp } from "./turtleApp.js";
+import * as ui from "./html-ui.js";
 
 
 let element;
@@ -63,6 +64,66 @@ export function clearPoint() {
 	document.getElementById('group-cartesianPoint').innerHTML = '';
 	document.getElementById('group-polarPoint').innerHTML = '';
 }
+
+
+
+
+
+
+
+
+export function clickListener(event) {
+	//console.debug('svgClickListener', event);
+	const domPoint = new DOMPoint(event.clientX, event.clientY);
+
+	const pageElement = this.element.svg.getElementById('group-page');
+
+	// Get point in page SVG space
+	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
+	//console.debug('pagePoint', pagePoint);
+
+	// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
+
+	//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+	//console.debug('svgClickListener', cmd);
+	//this.doCommand(cmd);
+	const mouseMode = ui.getMouseMode()
+
+	if (mouseMode === 'info') {
+		drawPointInfo(pagePoint.x, pagePoint.y);
+	}
+	else if (mouseMode === 'draw') {
+		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		this.doCommand(cmd);
+	}
+	else if (mouseMode === 'move')
+	{
+		const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		this.doCommand(cmd);
+	}
+
+}/* svgClickListener */
+
+
+/* svgDblClickListener
+* /
+svgDblClickListener(event) {   // not firing for some reason???
+	//console.log('svgDblClickListener', event);
+
+	const domPoint = new DOMPoint(event.clientX, event.clientY);
+	const pageElement = document.getElementById('group-page');
+
+	// Get point in page SVG space
+	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
+
+	const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+
+	//console.debug('svgClickListener', cmd);
+
+	this.doCommand(cmd);
+
+}/ * svgDblClickListener */
+
 
 
 
@@ -132,4 +193,6 @@ export function pointInfo(x, y) {
 
 	return result;
 }/* pointInfo */
+
+
 

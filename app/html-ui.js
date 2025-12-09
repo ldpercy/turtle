@@ -54,3 +54,8 @@ export function updateHiddenInput() {
 	// update the hidden command input - this is a hack, the current textarea value need to be saved properly onchange
 	element.turtleForm[`input-commandSet-${currentCommandSet}`].value = element.commandInput.value;
 }
+
+export function getMouseMode()
+{
+	return element.pageForm['mouse-click'].value;
+}

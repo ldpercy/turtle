@@ -81,7 +81,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#svg-element',
 			type: 'click',
-			listener: this.svgClickListener
+			listener: svg.clickListener
 		},
 		{
 			query: '#svg-element',
@@ -363,59 +363,6 @@ class TurtleApp extends HTMLApp {
 	}/* loadSettings */
 
 
-
-
-	svgClickListener(event) {
-		//console.debug('svgClickListener', event);
-		const domPoint = new DOMPoint(event.clientX, event.clientY);
-
-		const pageElement = this.element.svg.getElementById('group-page');
-
-		// Get point in page SVG space
-		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
-		//console.debug('pagePoint', pagePoint);
-
-		// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
-
-		//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
-		//console.debug('svgClickListener', cmd);
-		//this.doCommand(cmd);
-
-
-		if (this.element.pageForm['mouse-click'].value === 'info') {
-			svg.drawPointInfo(pagePoint.x, pagePoint.y);
-		}
-		else if (this.element.pageForm['mouse-click'].value === 'draw') {
-			const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
-			this.doCommand(cmd);
-		}
-		else if (this.element.pageForm['mouse-click'].value === 'move')
-		{
-			const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
-			this.doCommand(cmd);
-		}
-
-	}/* svgClickListener */
-
-
-	/* svgDblClickListener
-	* /
-	svgDblClickListener(event) {   // not firing for some reason???
-		//console.log('svgDblClickListener', event);
-
-		const domPoint = new DOMPoint(event.clientX, event.clientY);
-		const pageElement = document.getElementById('group-page');
-
-		// Get point in page SVG space
-		const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
-
-		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
-
-		//console.debug('svgClickListener', cmd);
-
-		this.doCommand(cmd);
-
-	}/ * svgDblClickListener */
 
 
 
