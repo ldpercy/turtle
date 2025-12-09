@@ -18,7 +18,7 @@ export class HTMLApp {
 
 	documentDOMContentLoaded() {
 		//console.log('documentDOMContentLoaded', arguments, this);
-		this.element = this.buildElementMap(document, this.elementMap);
+		this.element = HTMLApp.buildElementMap(document, this.elementMap);
 		this.addEventListeners();
 		console.info(this.info);
 	}/* documentDOMContentLoaded */
@@ -60,7 +60,7 @@ export class HTMLApp {
 	Also a query selector could be used.
 	Also might need to change in type sensitive contexts.
 	*/
-	buildElementMap(baseElement, elementMap) {
+	static buildElementMap(baseElement, elementMap) {
 		const result = {};
 		for (let item in elementMap) {
 			//console.debug(item);

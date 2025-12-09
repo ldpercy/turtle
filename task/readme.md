@@ -8,7 +8,7 @@ Todo
 ### Bugs
 
 * Zoom effects on `use:hover` (turtle, marker) are trouble - shadow-dom style, transform origin, browser differences etc. Find something consistent, or replace with a different UI effect.
-* Bug in current cmd set not saving - have put in a small remedial fix to save on 'do', but needs to save on change, or revisit the form loading
+
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen
@@ -52,6 +52,7 @@ Todo
 In Progress
 -----------
 
+* Current cmd set now saving on change
 * Origin/reset variants - eg one to go to the origin without resetting the heading
 * Go to x,y command with/without line
 * Conversion to JS modules + http-only mode

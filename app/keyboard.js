@@ -3,13 +3,13 @@ import { turtleApp } from "./turtleApp.js";
 
 
 export function svgKeyListener(event) {
-	console.log('svgKeyListener', event);
+	//console.log('svgKeyListener', event);
 	//event.stopPropagation();
 }
 
 
 export function documentKeyListener(event) {
-	console.log('documentKeyListener', event);
+	//console.log('documentKeyListener', event);
 
 
 	switch(event.key) {

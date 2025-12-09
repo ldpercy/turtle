@@ -10,6 +10,8 @@ import { PlanarSpace } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as keyboard from './keyboard.js';
+import * as svg from './svg.js';
+import * as ui from './html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
@@ -19,8 +21,6 @@ class TurtleApp extends HTMLApp {
 		https://github.com/ldpercy/turtle/pull/??
 	`.replace(/\n\t\t/g,'\n');
 
-
-	currentCommandSet = 1;
 
 	elementMap = {
 		commandInput	: 'input-command',
@@ -99,9 +99,14 @@ class TurtleApp extends HTMLApp {
 			listener: (event)=>event.stopPropagation()
 		},
 		{
+			query: 'textarea',
+			type: 'change',
+			listener: ui.updateHiddenInput
+		},
+		{
 			query: '#button-clearPoint',
 			type: 'click',
-			listener: this.clearPoint,
+			listener: svg.clearPoint,
 		},
 
 	];
@@ -130,8 +135,10 @@ class TurtleApp extends HTMLApp {
 
 		this.loadSettings();
 
-		const commandSet = Number.parseInt(this.element.turtleForm['input-commandSet-active'].value) || 1;
-		this.showCommandSet((commandSet), false);
+		ui.init();
+		svg.init();
+
+
 		this.updatePage();
 		this.updateTurtle();
 
@@ -164,26 +171,10 @@ class TurtleApp extends HTMLApp {
 		//console.debug('tabListener', arguments);
 		//console.debug('tabListener', event.target);
 		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
-		this.showCommandSet(newCommandSet);
+		ui.showCommandSet(newCommandSet);
 	}
 
-	showCommandSet(commandSet, save=true) {
-		//console.debug('showCommandSet', commandSet);
 
-		if (save) {
-			// copy command textarea into it's hidden input
-			this.element.turtleForm[`input-commandSet-${this.currentCommandSet}`].value = this.element.commandInput.value;
-			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.remove('active');
-			document.getElementById(`tab-commandSet-${this.currentCommandSet}`).title = this.element.commandInput.value;
-		}
-
-		// copy new tab's command set into the texarea
-		this.currentCommandSet = commandSet;
-		this.element.turtleForm['input-commandSet-active'].value = commandSet;
-
-		this.element.commandInput.value = this.element.turtleForm[`input-commandSet-${this.currentCommandSet}`].value;
-		document.getElementById(`tab-commandSet-${this.currentCommandSet}`).classList.add('active');
-	}
 
 
 
@@ -287,9 +278,6 @@ class TurtleApp extends HTMLApp {
 	doCommands() {
 		const commands = Turtle.getCommands(this.element.commandInput.value);
 		//console.log('Commands:', commands);
-
-		// update the hidden command input - this is a hack, the current textarea value need to be saved properly onchange
-		this.element.turtleForm[`input-commandSet-${this.currentCommandSet}`].value = this.element.commandInput.value;
 
 		const commandOutput = this.turtle.doCommands(commands);
 		this.updateTurtle();
@@ -407,7 +395,7 @@ class TurtleApp extends HTMLApp {
 
 
 		if (this.element.pageForm['mouse-click'].value === 'info') {
-			this.drawPointInfo(pagePoint.x, pagePoint.y);
+			svg.drawPointInfo(pagePoint.x, pagePoint.y);
 		}
 		else if (this.element.pageForm['mouse-click'].value === 'draw') {
 			const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
@@ -440,24 +428,6 @@ class TurtleApp extends HTMLApp {
 		this.doCommand(cmd);
 
 	}/ * svgDblClickListener */
-
-
-
-
-
-
-	drawPointInfo(svgX, svgY) {
-		const pointInfoSvg = this.turtle.pointInfo(svgX, -svgY);
-
-		document.getElementById('group-cartesianPoint').innerHTML = pointInfoSvg.cartesian;
-		document.getElementById('group-polarPoint').innerHTML = pointInfoSvg.polar;
-	}
-
-	clearPoint() {
-		document.getElementById('group-cartesianPoint').innerHTML = '';
-		document.getElementById('group-polarPoint').innerHTML = '';
-	}
-
 
 
 
