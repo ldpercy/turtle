@@ -18,7 +18,7 @@ Todo
 
 ### General
 
-
+* Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
 * Add some initial command sets to the tabs as examples for new users
