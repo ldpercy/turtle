@@ -66,7 +66,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#command-tabs .tab',
 			type: 'click',
-			listener: ui.tabListener
+			listener: this.commandTabListener
 		},
 		/* {
 			query: '#svg-element',
@@ -181,6 +181,17 @@ class TurtleApp extends HTMLApp {
 		ui.updateTurtleInfo();
 	}
 
+
+
+
+	commandTabListener(event) {
+		//console.debug('tabListener', arguments);
+		//console.debug('tabListener', event.target);
+		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
+		//console.log(this);
+		//this.showCommandSet(newCommandSet);
+		ui.showCommandSet(newCommandSet);
+	}
 
 
 

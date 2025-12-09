@@ -7,8 +7,8 @@ Todo
 
 ### Bugs
 
+* (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?
 * Zoom effects on `use:hover` (turtle, marker) are trouble - shadow-dom style, transform origin, browser differences etc. Find something consistent, or replace with a different UI effect.
-
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical pixels
 * Chromium's colour picker goes offscreen

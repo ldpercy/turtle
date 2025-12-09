@@ -99,14 +99,12 @@ class HTMLUserInterface {
 	}
 
 
-	tabListener(event) {
-		//console.debug('tabListener', arguments);
-		//console.debug('tabListener', event.target);
-		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
-		this.showCommandSet(newCommandSet);
-	}
 
 
+	/**
+	 * @param {number} [commandSet]
+	 * @param {boolean} [save]
+	 */
 	showCommandSet(commandSet, save=true) {
 		//console.debug('showCommandSet', commandSet);
 
