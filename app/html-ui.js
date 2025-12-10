@@ -32,64 +32,95 @@ class HTMLUserInterface {
 
 
 	//
-	//	getters
+	//	Getters
 	//
 
+
+	/** @returns {string} */
 	get commandString() {
 		return element.commandInput.value;
 	}
 
+	/** @returns {boolean} */
 	get showTurtle() {
 		return element.pageForm.showTurtle.checked;
 	}
 
-	get rotatePage() {
-		return element.pageForm.rotatePage.checked;
-	}
-
+	/** @returns {boolean} */
 	get centerTurtle() {
 		return element.pageForm.centerTurtle.checked;
 	}
 
-	get showCartesian() {
-		return element.pageForm.showCartesian.checked;
+	/** @returns {boolean} */
+	get rotatePage() {
+		return element.pageForm.rotatePage.checked;
 	}
 
-	get showPolar() {
-		return element.pageForm.showPolar.checked;
-	}
-
+	/** @returns {string} */
 	get colourScheme() {
 		return element.pageForm.colourScheme.value;
 	}
 
+	/** @returns {number} */
+	get zoom() {
+		return element.pageForm.zoom.value;
+	}
+
+	/** @returns {boolean} */
+	get showCartesian() {
+		return element.pageForm.showCartesian.checked;
+	}
+
+	/** @returns {boolean} */
+	get showPolar() {
+		return element.pageForm.showPolar.checked;
+	}
+
+	/** @returns {number} */
 	get cartesianOpacity() {
 		return element.pageForm.cartesianOpacity.value;
 	}
 
+	/** @returns {number} */
 	get polarOpacity() {
 		return element.pageForm.polarOpacity.value;
 	}
 
+	/** @returns {string} */
 	get mouseMode() {
 		return element.pageForm['mouse-click'].value;
 	}
 
+	/** @returns {string} */
 	get drawColour() {
 		return element.drawingForm.colour.value;
 	}
 
+	/** @returns {string} */
 	get strokeWidth() {
 		return element.drawingForm.strokeWidth.value;
 	}
 
+	/** @returns {boolean} */
 	get showMarkers() {
 		return element.drawingForm.showMarkers.checked;
 	}
 
+	/** @returns {boolean} */
 	get showStroke() {
 		return element.drawingForm.showStroke.checked;
 	}
+
+
+	//
+	//	Setters
+	//
+
+	/** @param {number} zoomLevel */
+	set zoom(zoomLevel) {
+		element.pageForm.zoom.value = zoomLevel;
+	}
+
 
 
 
@@ -106,7 +137,7 @@ class HTMLUserInterface {
 
 
 	/**
-	 * @param {number} [commandSet]
+	 * @param {number} commandSet
 	 * @param {boolean} [save]
 	 */
 	showCommandSet(commandSet, save=true) {

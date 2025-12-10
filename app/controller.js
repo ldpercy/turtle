@@ -14,11 +14,7 @@ import { turtleApp } from "./turtleApp.js";
 //
 
 export function commandTabListener(event) {
-	//console.debug('tabListener', arguments);
-	//console.debug('tabListener', event.target);
 	const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
-	//console.log(this);
-	//this.showCommandSet(newCommandSet);
 	ui.showCommandSet(newCommandSet);
 }
 
@@ -32,7 +28,6 @@ export function svgKeyListener(event) {
 export function documentKeyListener(event) {
 	//console.log('documentKeyListener', event);
 
-
 	switch(event.key) {
 		case 'd'	: doCommands(); break;
 		case 'c'	: svg.clearDrawing(); break;
@@ -43,8 +38,8 @@ export function documentKeyListener(event) {
 		case '#'	: ui.showCommandSet(3); break;
 
 		//case 'C'	: ui.showCommandSet(3); break;
-		//case '+'	: ui.zoomIn(); break;
-		//case '-'	: ui.zoomOut(); break;
+		case '+'	: zoomIn(); break;
+		case '-'	: zoomOut(); break;
 
 		default     : /* do nothing */; break;
 	}
@@ -146,4 +141,19 @@ function doCommand(cmdString) {
 	svg.updateTurtle();
 	svg.draw(commandOutput);
 	ui.updateTurtleInfo();
+}
+
+
+
+
+function zoomIn() {
+	//console.log('zoomIn');
+	ui.zoom++;
+	svg.updatePageTransform();
+}
+
+function zoomOut() {
+	//console.log('zoomOut');
+	ui.zoom--;
+	svg.updatePageTransform();
 }
