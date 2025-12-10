@@ -2,11 +2,11 @@
 //	controller
 //
 
-
-import { ui } from './html-ui.js';
-import * as svg from "./svg.js";
 import { Turtle } from "../[library]/Turtle.js";
 import { turtleApp } from "./turtleApp.js";
+import { ui } from './view-html-ui.js';
+import * as svg from "./view-svg.js";
+
 
 
 //

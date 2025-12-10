@@ -6,7 +6,7 @@ import { HTMLApp } from "../[library]/HTMLApp.js";
 import * as Maths from "../[library]/Maths.js";
 import * as SVG from "../[library]/SVG.js";
 import { turtleApp } from "./turtleApp.js";
-import { ui } from './html-ui.js';
+import { ui } from './view-html-ui.js';
 
 
 let element = {};

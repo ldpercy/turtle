@@ -10,8 +10,8 @@ import { PlanarSpace } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as controller from './controller.js';
-import * as svg from './svg.js';
-import { ui } from './html-ui.js';
+import * as svg from './view-svg.js';
+import { ui } from './view-html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
