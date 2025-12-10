@@ -4,12 +4,12 @@
 
 import { HTMLApp } from "../[library]/HTMLApp.js";
 import { SVGTurtle } from "../[library]/SVGTurtle.js";
-import { Turtle } from "../[library]/Turtle.js";
+
 import { SVG } from "../[library]/SVG.js";
 import { PlanarSpace } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
-import * as keyboard from './keyboard.js';
+import * as controller from './controller.js';
 import * as svg from './svg.js';
 import { ui } from './html-ui.js';
 
@@ -36,7 +36,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-doCommands',
 			type: 'click',
-			listener: this.doCommands
+			listener: controller.doCommands
 		},
 		{
 			query: '#button-clearDrawing',
@@ -46,7 +46,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-origin',
 			type: 'click',
-			listener: this.toOrigin
+			listener: controller.toOrigin
 		},
 		{
 			query: '#form-page',
@@ -66,7 +66,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#command-tabs .tab',
 			type: 'click',
-			listener: this.commandTabListener
+			listener: controller.commandTabListener
 		},
 		/* {
 			query: '#svg-element',
@@ -76,17 +76,17 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#svg-element',
 			type: 'click',
-			listener: svg.clickListener
+			listener: controller.clickListener
 		},
 		{
 			query: '#svg-element',
 			type: 'keydown',
-			listener: keyboard.svgKeyListener
+			listener: controller.svgKeyListener
 		},
 		{
 			element: document,
 			type: 'keydown',
-			listener: keyboard.documentKeyListener
+			listener: controller.documentKeyListener
 		},
 		{
 			query: 'textarea',
@@ -147,51 +147,17 @@ class TurtleApp extends HTMLApp {
 		if (firstLoad) {
 			console.log('first load')
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
-			this.doCommands();
+			controller.doCommands();
 		}
 	}/* documentDOMContentLoaded */
 
 
 
-	toOrigin() {
-		//turtle.toOrigin();
-		this.turtle.doCommand({name:'o'});
-		svg.updateTurtle();
-		ui.updateTurtleInfo();
-	}
-
-
-	doCommands() {
-		const commands = Turtle.getCommands(this.element.commandInput.value);
-		//console.log('Commands:', commands);
-
-		const commandOutput = this.turtle.doCommands(commands);
-		svg.updateTurtle();
-		svg.draw(commandOutput);
-		ui.updateTurtleInfo();
-	}/* doCommands */
-
-
-	doCommand(cmdString) {
-		const commands = Turtle.getCommands(cmdString);
-		//console.log(commands);
-		const commandOutput = this.turtle.doCommands(commands);
-		svg.updateTurtle();
-		svg.draw(commandOutput);
-		ui.updateTurtleInfo();
-	}
 
 
 
 
-	commandTabListener(event) {
-		//console.debug('tabListener', arguments);
-		//console.debug('tabListener', event.target);
-		const newCommandSet = Number.parseInt(event.target.attributes['data-commandSet'].value);
-		//console.log(this);
-		//this.showCommandSet(newCommandSet);
-		ui.showCommandSet(newCommandSet);
-	}
+
 
 
 

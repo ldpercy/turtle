@@ -35,6 +35,10 @@ class HTMLUserInterface {
 	//	getters
 	//
 
+	get commandString() {
+		return element.commandInput.value;
+	}
+
 	get showTurtle() {
 		return element.pageForm.showTurtle.checked;
 	}

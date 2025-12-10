@@ -69,60 +69,6 @@ export function clearPoint() {
 
 
 
-export function clickListener(event) {
-	//console.debug('svgClickListener', event);
-	const domPoint = new DOMPoint(event.clientX, event.clientY);
-
-	const pageElement = this.element.svg.getElementById('group-page');
-
-	// Get point in page SVG space
-	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
-	//console.debug('pagePoint', pagePoint);
-
-	// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
-
-	//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
-	//console.debug('svgClickListener', cmd);
-	//this.doCommand(cmd);
-	const mouseMode = ui.mouseMode;
-
-	if (mouseMode === 'info') {
-		drawPointInfo(pagePoint.x, pagePoint.y);
-	}
-	else if (mouseMode === 'draw') {
-		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
-		this.doCommand(cmd);
-	}
-	else if (mouseMode === 'move')
-	{
-		const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
-		this.doCommand(cmd);
-	}
-
-}/* svgClickListener */
-
-
-/* svgDblClickListener
-* /
-svgDblClickListener(event) {   // not firing for some reason???
-	//console.log('svgDblClickListener', event);
-
-	const domPoint = new DOMPoint(event.clientX, event.clientY);
-	const pageElement = document.getElementById('group-page');
-
-	// Get point in page SVG space
-	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
-
-	const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
-
-	//console.debug('svgClickListener', cmd);
-
-	this.doCommand(cmd);
-
-}/ * svgDblClickListener */
-
-
-
 
 /* pointInfo
 */
