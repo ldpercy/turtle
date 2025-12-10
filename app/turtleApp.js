@@ -68,21 +68,21 @@ class TurtleApp extends HTMLApp {
 			type: 'click',
 			listener: controller.commandTabListener
 		},
-		/* {
-			query: '#svg-element',
-			type: 'dblclick',
-			listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
-		}, */
+		// {
+		// 	query: '#svg-element',
+		// 	type: 'dblclick',
+		// 	listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
+		// },
 		{
 			query: '#svg-element',
 			type: 'click',
-			listener: controller.clickListener
+			listener: controller.svgClickListener
 		},
-		{
-			query: '#svg-element',
-			type: 'keydown',
-			listener: controller.svgKeyListener
-		},
+		// {
+		// 	query: '#svg-element',
+		// 	type: 'keydown',
+		// 	listener: controller.svgKeyListener
+		// },
 		{
 			element: document,
 			type: 'keydown',

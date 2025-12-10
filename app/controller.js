@@ -19,10 +19,10 @@ export function commandTabListener(event) {
 }
 
 
-export function svgKeyListener(event) {
+/* export function svgKeyListener(event) {
 	//console.log('svgKeyListener', event);
 	//event.stopPropagation();
-}
+} */
 
 
 export function documentKeyListener(event) {
@@ -55,7 +55,7 @@ export function documentKeyListener(event) {
 
 
 
-export function clickListener(event) {
+export function svgClickListener(event) {
 	//console.debug('svgClickListener', event);
 	const domPoint = new DOMPoint(event.clientX, event.clientY);
 
