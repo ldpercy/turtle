@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Turtle v0.9 by ldpercy</title>
+	<title>Turtle v0.10 by ldpercy</title>
 	<meta charset="utf-8">
 	<meta name="color-scheme" content="dark light">
 	<meta name="description" content="Turtle by ldpercy v0.6 - SVG, JavaScript, HTML, CSS">
@@ -17,12 +17,12 @@
 		}
 	</script>
 
-	<script type="module" src="./page/turtleApp.js"></script>
+	<script type="module" src="./app/turtleApp.js"></script>
 </head>
 <body class="dark">
 
 	<div class="control-group control-left">
-		<form id="form-turtle">
+		<form id="form-turtle" tabindex="0">
 			<h1>Turtle</h1>
 
 			<h2>Commands</h2>
@@ -33,8 +33,8 @@
 				<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
 				<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab" title="Command set 3">set 3</a>
 			</div>
-			<button id="button-do" type="button" title="Perform the current commands">do</button>
-			<button id="button-clear" type="button" title="Clear the drawing">clear</button>
+			<button id="button-doCommands" type="button" title="Perform the current commands">do</button>
+			<button id="button-clearDrawing" type="button" title="Clear the drawing">clear</button>
 			<button id="button-origin" type="button" title="Return the turtle to the origin">to origin</button>
 
 			<input type="hidden" id="input-commandSet-active" name="commandSet-active" value="1">
@@ -60,19 +60,19 @@
 				</output>
 			</details>
 
-			<h2>Position</h2>
-			<output id="turtle-report" class="infoBox"></output>
+			<h2>Info</h2>
+			<output id="turtle-info" class="infoBox"></output>
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-				<a href="https://github.com/ldpercy/turtle/pull/10?">v0.9</a>
+				<a href="https://github.com/ldpercy/turtle/pull/11">v0.10</a>
 				by <a href="https://github.com/ldpercy/">ldpercy</a>
 			</details>
 		</form>
 	</div><!-- control-left -->
 
 	<div class="control-group control-right">
-		<form id="form-page">
+		<form id="form-page" tabindex="0">
 			<h2>Page</h2>
 
 			<label for="input-showTurtle" title="Show the turtle">
@@ -88,18 +88,18 @@
 				rotate page
 			</label>
 
-			<label class="theme" title="Colour scheme">
+			<label class="scheme" title="Colour scheme">
 				<label title="Light scheme">
-					<input type="radio" name="theme" value="light" checked>
+					<input type="radio" name="colourScheme" value="light" checked>
 					light
 				</label>
 				<label title="Dark scheme">
-					<input type="radio" name="theme" value="dark">
+					<input type="radio" name="colourScheme" value="dark">
 					dark
 				</label>
 				<!--
 				<label title="auto">
-					<input type="radio" name="theme" value="auto" checked>
+					<input type="radio" name="scheme" value="auto" checked>
 					▣
 				</label>
 				 -->
@@ -155,12 +155,10 @@
 				<input type="radio" name="mouse-click" value="draw">
 				draw
 			</label>
-
-
-
 		</form><!-- page -->
 
-		<form id="form-drawing">
+
+		<form id="form-drawing" tabindex="0">
 			<h2>Drawing</h2>
 			<label for="input-colour" title="Drawing colour">
 				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
@@ -184,10 +182,10 @@
 
 	<!-- svg-element
 	-->
-	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+	<svg id="svg-element" class="svg-element" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" tabindex="0">
 
 		<defs>
-			<path id="def-marker" class="marker" d="m0,-30 L10,10 L-10 10 z"/>  <!--  -->
+			<path id="def-marker"  d="m0,-30 L10,10 L-10 10 z"/>  <!-- class="marker" -->
 			<circle id="def-point" class="def-point"/>
 
 			<g class="grid">
@@ -200,7 +198,7 @@
 
 			</g>
 
-			<g id="def-turtle" class="turtle">
+			<g id="def-turtle">
 				<g class="feet">
 					<circle class="fl"/>
 					<circle class="fr"/>
@@ -228,9 +226,30 @@
 				</g>
 			</g>
 
-			<g id="group-drawing" class="drawing show-marker"></g>
+			<g id="group-drawing" class="drawing show-marker">
+				<!-- drawing elements go in here -->
+			</g>
 
-			<use id="icon-turtle" href="#def-turtle" x="0" y="0"><title id="turtle-title"></title></use> <!-- class="turtle" -->
+			<use id="turtle-terry" href="#def-turtle" class="turtle terry" x="0" y="0" ><!-- tabindex="0" -->
+				<title id="title-terry"></title>
+			</use>
+
+			<!--
+			<use id="turtle-leonardo" href="#def-turtle" class="turtle leonardo" x="000" y="100">
+				<title id="title-leonardo"></title>
+			</use>
+			<use id="turtle-michelangelo" href="#def-turtle" class="turtle michelangelo" x="100" y="100">
+				<title id="title-michelangelo"></title>
+			</use>
+			<use id="turtle-donatello" href="#def-turtle" class="turtle donatello" x="200" y="100">
+				<title id="title-donatello"></title>
+			</use>
+			<use id="turtle-raphael" href="#def-turtle" class="turtle raphael" x="300" y="100">
+				<title id="title-raphael"></title>
+			</use>
+			-->
+
+
 		</g><!-- page -->
 	</svg>
 

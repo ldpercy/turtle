@@ -1,4 +1,4 @@
-Repeat and command grouping
+Command grouping and repeat
 ===========================
 
 

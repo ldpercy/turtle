@@ -29,7 +29,7 @@ export class Turtle {
 
 	constructor(
 			name,
-			space = new PlanarSpace('page'),
+			space,
 			position = space.newPosition(`${name}-position`),
 			digits = 12
 		) {
@@ -58,16 +58,16 @@ export class Turtle {
 
 
 
-	set position(point) {  // I'd rather this was private, but can't use the same name - review
-		// console.log('Turtle.set position:', arguments);
+	// set position(point) {  // I'd rather this was private, but can't use the same name - review
+	// 	// console.log('Turtle.set position:', arguments);
 
-		const x = (Maths.equalToFixed(this.precision.digits, Math.abs(point.x), 0.0)) ? 0.0 : point.x;
-		const y = (Maths.equalToFixed(this.precision.digits, Math.abs(point.y), 0.0)) ? 0.0 : point.y;
+	// 	const x = (Maths.equalToFixed(this.precision.digits, Math.abs(point.x), 0.0)) ? 0.0 : point.x;
+	// 	const y = (Maths.equalToFixed(this.precision.digits, Math.abs(point.y), 0.0)) ? 0.0 : point.y;
 
-		const newCartesian = new this.#space.CartesianCoordinates(x,y);
+	// 	const newCartesian = new this.#space.CartesianCoordinates(x,y);
 
-		this.#position.cartesian = newCartesian;
-	}
+	// 	this.#position.cartesian = newCartesian;
+	// }
 
 
 	//
@@ -118,26 +118,6 @@ export class Turtle {
 	//	Convertors
 	//
 
-	toPoint() {
-		let tp = new Point(this.#position.x, this.#position.y);
-		//console.log('tp:', tp, this.x);
-		return tp;
-	}
-
-	plusPoint = function(point) {
-		return new Point(
-			this.x + point.x,
-			this.y + point.y
-		);
-	}
-
-	plusPolar = function(polarPoint) { // new
-		//console.log('Turtle.plusPolar:', arguments);
-		const temp = polarPoint.toPoint();
-		const result = this.plusPoint(temp);
-		//console.log('Turtle.plusPolar:', temp, result);
-		return result;
-	}
 
 
 	toString() {
@@ -159,7 +139,6 @@ export class Turtle {
 		let result = '';
 
 		switch(command.name) {
-			case 'p'            : result = this.toPoint(instruction.p); break;
 			case 'b'            :
 			case 'jump'         :
 			case 'bear'         : result = this.bear(...command.argument); break;

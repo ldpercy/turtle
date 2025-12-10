@@ -7,9 +7,10 @@ Todo
 
 ### Bugs
 
-* Bug in current cmd set not saving - have put in a small remedial fix to save on 'do', but needs to save on change, or revisit the form loading
+* (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?
+* Zoom effects on `use:hover` (turtle, marker) are trouble - shadow-dom style, transform origin, browser differences etc. Find something consistent, or replace with a different UI effect.
 * Initial colour scheme loading is still a bit wonky
-* Eliminate the 5 extra vertical pixels
+* Eliminate the 5 extra vertical page pixels
 * Chromium's colour picker goes offscreen
 * The command box flashes white in ff after a dark reload - find out what's causing that
 * Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
@@ -17,7 +18,7 @@ Todo
 
 ### General
 
-
+* Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
 * Add some initial command sets to the tabs as examples for new users
@@ -34,8 +35,8 @@ Todo
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
 * Add automatic colour scheme selection based on the user's preference
 * Grid reactive to zoom level and/or turtle position
-* Multi-turtle
-* Looping
+* [Multi-turtle](<ꙮ🐢 - multi-turtle.md>)
+* [Command grouping and repeat](<command grouping and repeat.md>)
 * Custom space rules - size, boundaries, wrapping
 * Ability to switch between SVG and conventional coordinates (`y` up/down)
 * Work out how to apply different transition speeds to different items
@@ -51,9 +52,9 @@ Todo
 In Progress
 -----------
 
+* JSDoc type annotations
 * Origin/reset variants - eg one to go to the origin without resetting the heading
 * Go to x,y command with/without line
-* Conversion to JS modules + http-only mode
 * Figuring out position+point arithmetic
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
 * Continue working on transition to drawing spaces / geometric spaces
@@ -62,6 +63,11 @@ In Progress
 Done
 ----
 
+* Added some keyboard controls
+* The turtleApp monolith has been broken up
+* Added jsconfig & checkJs
+* Current cmd set now saving on change
+* Conversion to JS modules + http-only mode
 * Added a turtle intro that writes 'Turtle' on the page on the very first load (eg if no storage present)
 * Fix some excessive turtle rotation in some circumstances
 * Turtle follows mouse clicks. Turns out mapping between mouse and page coords is built in to the API

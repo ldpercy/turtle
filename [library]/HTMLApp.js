@@ -2,9 +2,10 @@
 */
 export class HTMLApp {
 
-	//name = 'HTMLApp';
-	//info = 'HTMLApp by ldpercy';
+	name;
+	info;
 
+	elementMap = {};
 	element = {};
 	eventListeners = [];
 
@@ -16,19 +17,22 @@ export class HTMLApp {
 
 
 	documentDOMContentLoaded() {
-		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
-		// and the event object as argument 0
-		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
-		// adding a `.bind(this)` to the addEventListener keeps 'this' as the instance scope
-
 		//console.log('documentDOMContentLoaded', arguments, this);
-		this.buildElements();
+		this.element = HTMLApp.buildElementMap(document, this.elementMap);
 		this.addEventListeners();
 		console.info(this.info);
 	}/* documentDOMContentLoaded */
 
 
 	addEventListeners() {
+		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
+		// and the event object as argument 0
+		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
+		// adding a `.bind(this)` to the addEventListener keeps 'this' as the instance scope
+
+		// NB Might need updating for other modules/classes/components
+		// Also the root node might need changing for SVG? Not sure yet.
+
 		this.eventListeners.forEach(
 			(item) => {
 				if (item.element) {
@@ -50,12 +54,20 @@ export class HTMLApp {
 	}/* addEventListeners */
 
 
-	buildElements() {
-		for (let item in this.element) {
+	/* buildElementMap
+	There are different ways this could be done.
+	For instance SVG has it's own version of 'getElementById' that is sometimes needed.
+	Also a query selector could be used.
+	Also might need to change in type sensitive contexts.
+	*/
+	static buildElementMap(baseElement, elementMap) {
+		const result = {};
+		for (let item in elementMap) {
 			//console.debug(item);
-			this.element[item] = document.getElementById(this.element[item]);
+			result[item] = baseElement.getElementById(elementMap[item]);
 		}
-	}/* buildElements */
+		return result;
+	}/* buildElementMap */
 
 
 	/*
@@ -101,15 +113,16 @@ export class HTMLApp {
 		for (let item in formData) {
 			//console.debug(item);
 
-			if (formElement.elements[item].type === 'checkbox')
-			{
-				formElement.elements[item].checked = formData[item];
+			if (formElement.elements[item]) {	// don't try to populate a form field that isn't there
+				if (formElement.elements[item].type === 'checkbox')
+				{
+					formElement.elements[item].checked = formData[item];
+				}
+				else
+				{
+					formElement.elements[item].value = formData[item];
+				}
 			}
-			else
-			{
-				formElement.elements[item].value = formData[item];
-			}
-
 		}
 	}
 

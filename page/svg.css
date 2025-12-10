@@ -1,23 +1,18 @@
 /* Turtle
 */
 
-* {
-	transition: all 0.5s ease-in;
-}
-
-.svg-element {
-	--turtle-size: 10;
-}
-
-
-
 
 .svg-element {
 	width: 100vw;
 	height: 100vh;
 }
 
-
+svg:focus-within {
+	outline: 1px dotted var(--accent);
+	outline-offset: -1px;
+	/* filter: drop-shadow(0px 0px 2px var(--accent)); */
+	/* transition: 1s; */
+}
 
 .grid {
 	--colour-cartesian: var(--teal);
@@ -186,20 +181,22 @@
 
 
 
-.turtle {
+
+#def-turtle {
+	/* transition: all ease-in var(--transition-duration); */
+
 	--size: var(--turtle-size);
-	--turtle: #0a07;
-	--turtle-stroke: #0a0f;
-	fill: var(--turtle);
-	stroke: var(--turtle-stroke);
-	stroke-width: 3px;
-	filter: drop-shadow(0px 0px 30px #ff07);
 
-	.head { fill: var(--turtle-stroke); }
-	.feet { fill: var(--turtle-stroke); }
-	.eyes { fill: yellow; stroke:none;}
+	fill: var(--body-fill);
+	stroke: var(--body-stroke);
+	.head {
+		fill: var(--head-fill);
+		stroke: var(--head-stroke);
+	}
+	.feet { fill: var(--body-stroke); }
+	.eyes { fill: var(--eye-colour); stroke:none;}
 
-
+	/* I could have done most of this with a transform... */
 	--body: calc(var(--size) * 4px);
 	--head: calc(var(--size) * 2px);
 	--foot: calc(var(--size) * 1px);
@@ -207,12 +204,6 @@
 
 	--threeFifths: calc((3/5) * var(--size) * 4px);
 	--fourFifths:  calc((4/5) * var(--size) * 4px);
-
-	/* I could have done most of this with a transform... */
-
-	/* &:hover {
-		--size:15;
-	} */
 
 	.body { r: var(--body); cx:0px; cy:0px; }
 	.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
@@ -224,9 +215,51 @@
 	.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
 }
 
-#icon-turtle:hover {
-	--turtle-size:15;
+
+.turtle {
+	--body-fill: #0a07;
+	--body-stroke: #0a0f;
+	--head-stroke: var(--body-stroke);
+	--turtle-size: 10;
+	stroke-width: 3px;
+
+	/* transition: all ease-in var(--transition-duration); */
+	&:hover {
+		--turtle-size:15;
+	}
+	filter: drop-shadow(0px 0px 30px #ff07);
+	&:focus {
+		/* transition: 0s; */
+		outline: 2px solid var(--accent);
+	}
 }
 
+
+.terry {
+	--head-fill: var(--body-stroke);
+	--eye-colour: yellow;
+}
+
+/*
+.leonardo {
+	--head-fill: #05f;
+	--eye-colour: yellow;
+}
+
+.michelangelo {
+	--head-fill: red;
+	--eye-colour: yellow;
+}
+
+.donatello {
+	--head-fill: purple;
+	--eye-colour: yellow;
+}
+
+.raphael {
+	--head-fill: yellow;
+	--eye-colour: black;
+}
+*/
 
 

@@ -122,3 +122,13 @@ left 55,555
 
 left 100,1000
 left 53.3333,800
+
+
+The mystery angle is derived from 30 divided by 7 = 4.285714
+
+	left 100,1000
+	marker
+	left 54.285714,600
+	marker
+
+The paired lines aren't parallel, even though they look like they should be.

@@ -8,10 +8,10 @@ export class SVG {
 	}
 
 
-	padViewBox(padding, viewBox = '-1200 -1200 2400 2400') {
-		const vb = splitViewBox(viewBox);
-		return `${vb.x-padding} ${vb.y-padding} ${vb.width + 2*padding} ${vb.height + 2*padding}`;
-	}
+	// padViewBox(padding, viewBox = '-1200 -1200 2400 2400') {
+	// 	const vb = splitViewBox(viewBox);
+	// 	return `${vb.x-padding} ${vb.y-padding} ${vb.width + 2*padding} ${vb.height + 2*padding}`;
+	// }
 
 
 }/* SVG */
@@ -71,7 +71,7 @@ SVG.ViewBox = class {
 
 /* SVG.CartesianGrid
 */
-SVG.CartesianGrid = class {
+export class CartesianGrid {
 
 	rectangle;
 
@@ -170,7 +170,7 @@ SVG.CartesianGrid = class {
 
 /* SVG.PolarGrid
 */
-SVG.PolarGrid = class {
+export class PolarGrid {
 
 	rectangle;
 

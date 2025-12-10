@@ -58,6 +58,25 @@ These do not move the turtle, but draw items at its current location and orienta
 * You can comment out a line by turning it into an unknown command, eg `//right 45,500`
 
 
+Keyboard Controls
+-----------------
+
+
+
+	d				Do commands
+	c				Clear the drawing
+	o				Return turtle to origin
+
+	! (shift 1)		Show command tab 1
+	@ (shift 2)		Show command tab 2
+	# (shift 3)		Show command tab 3
+
+	T				Toggle turtle visibility
+	C				Toggle turtle centering
+	R				Toggle page rotation
+
+	+				Zoom in
+	-				Zoom out
 
 
 Coordinates
@@ -93,7 +112,21 @@ Tasks
 
 More detail in the [task/](<./task/>) directory.
 
+### Recently Completed
+
+* Added keyboard controls
+* Turtle can follow mouse clicks
+
+
+### Currently working on
+
+* Adding JSDoc type annotations
 * Figuring out position maths
 * Page/space customisation (dimensions/coordinates/precision)
-* Adding some keyboard controls
+
+
+### Future work
+
+* Multi-turtle
 * Command grouping for things like repeats and colours
+*
