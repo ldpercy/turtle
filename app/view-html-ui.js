@@ -126,6 +126,15 @@ class HTMLUserInterface {
 		element.pageForm.showTurtle.checked = show;
 	}
 
+	/** @param {boolean} center */
+	set centerTurtle(center) {
+		element.pageForm.centerTurtle.checked = center;
+	}
+
+	/** @param {boolean} rotate */
+	set rotatePage(rotate) {
+		element.pageForm.rotatePage.checked = rotate;
+	}
 
 
 

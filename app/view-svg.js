@@ -199,13 +199,14 @@ class SVGView {
 
 
 
+	/** @param {boolean} show */
+	set showTurtle(show) {
+		element.turtleIcon.style.display = (show) ? '' : 'none';
+	}
+
+
 	updatePage() {
-		if (ui.showTurtle) {
-			element.turtleIcon.style.display = '';
-		}
-		else {
-			element.turtleIcon.style.display = 'none';
-		}
+		this.showTurtle = ui.showTurtle;
 
 		if (ui.showCartesian) {
 			element.cartesianGroup.style.display = '';

@@ -38,8 +38,8 @@ export function documentKeyListener(event) {
 		case '#'	: ui.showCommandSet(3); break;
 
 		case 'T'	: toggleTurtle(); break;
-		//case 'C'	: ui.showCommandSet(3); break;
-		//case 'R'	: ui.showCommandSet(3); break;
+		case 'C'	: toggleCenter(); break;
+		case 'R'	: toggleRotate(); break;
 
 		case '+'	: zoomIn(); break;
 		case '-'	: zoomOut(); break;
@@ -121,7 +121,7 @@ export function updatePage() {
 }
 
 export function toOrigin() {
-	console.log('toOrigin');
+	//console.log('toOrigin');
 	doCommand('^o');
 	svg.updateTurtle();
 	ui.updateTurtleInfo();
@@ -141,7 +141,7 @@ export function doCommands() {
 
 function doCommand(cmdString) {
 	const commands = Turtle.getCommands(cmdString);
-	console.log(commands);
+	//console.log(commands);
 	const commandOutput = turtleApp.turtle.doCommands(commands);
 	svg.updateTurtle();
 	svg.draw(commandOutput);
@@ -152,7 +152,17 @@ function doCommand(cmdString) {
 
 function toggleTurtle() {
 	ui.showTurtle = !ui.showTurtle;
-	//svg.
+	svg.showTurtle = ui.showTurtle;
+}
+
+function toggleCenter() {
+	ui.centerTurtle = !ui.centerTurtle;
+	svg.updatePageTransform();
+}
+
+function toggleRotate() {
+	ui.rotatePage = !ui.rotatePage;
+	svg.updatePageTransform();
 }
 
 
