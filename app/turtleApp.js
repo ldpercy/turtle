@@ -10,7 +10,7 @@ import { PlanarSpace } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as controller from './controller.js';
-import * as svg from './view-svg.js';
+import { svg } from './view-svg.js';
 import { ui } from './view-html-ui.js';
 
 
@@ -51,7 +51,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#form-page',
 			type: 'change',
-			listener: svg.updatePage
+			listener: controller.updatePage
 		},
 		{
 			query: '#form-drawing',
@@ -129,9 +129,6 @@ class TurtleApp extends HTMLApp {
 		const firstLoad = !localStorage.appSettings;
 
 		this.loadSettings();
-
-		//ui.init();
-		svg.init();
 
 
 		svg.updatePage();

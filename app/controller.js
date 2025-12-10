@@ -5,7 +5,7 @@
 import { Turtle } from "../[library]/Turtle.js";
 import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
-import * as svg from "./view-svg.js";
+import { svg } from "./view-svg.js";
 
 
 
@@ -37,7 +37,10 @@ export function documentKeyListener(event) {
 		case '@'	: ui.showCommandSet(2); break;
 		case '#'	: ui.showCommandSet(3); break;
 
+		case 'T'	: toggleTurtle(); break;
 		//case 'C'	: ui.showCommandSet(3); break;
+		//case 'R'	: ui.showCommandSet(3); break;
+
 		case '+'	: zoomIn(); break;
 		case '-'	: zoomOut(); break;
 
@@ -113,11 +116,13 @@ svgDblClickListener(event) {   // not firing for some reason???
 //	handlers
 //
 
-
+export function updatePage() {
+	svg.updatePage();
+}
 
 export function toOrigin() {
-	//turtle.toOrigin();
-	this.turtle.doCommand({name:'o'});
+	console.log('toOrigin');
+	doCommand('^o');
 	svg.updateTurtle();
 	ui.updateTurtleInfo();
 }
@@ -136,13 +141,19 @@ export function doCommands() {
 
 function doCommand(cmdString) {
 	const commands = Turtle.getCommands(cmdString);
-	//console.log(commands);
+	console.log(commands);
 	const commandOutput = turtleApp.turtle.doCommands(commands);
 	svg.updateTurtle();
 	svg.draw(commandOutput);
 	ui.updateTurtleInfo();
 }
 
+
+
+function toggleTurtle() {
+	ui.showTurtle = !ui.showTurtle;
+	//svg.
+}
 
 
 

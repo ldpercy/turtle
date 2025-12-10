@@ -121,6 +121,11 @@ class HTMLUserInterface {
 		element.pageForm.zoom.value = zoomLevel;
 	}
 
+	/** @param {boolean} show */
+	set showTurtle(show) {
+		element.pageForm.showTurtle.checked = show;
+	}
+
 
 
 
