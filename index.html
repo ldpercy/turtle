@@ -44,6 +44,7 @@
 
 			<br/>
 
+			<!--
 			<details>
 				<summary>Command summary</summary>
 				<output class="infoBox" id="turtle-instructions">
@@ -59,26 +60,26 @@
 					<div>marker</div>
 				</output>
 			</details>
+			-->
 
-			<h2>Info</h2>
+
+			<h2>Position</h2>
 			<output id="turtle-info" class="infoBox"></output>
+
+
+			<!--
 			<details class="project">
 				<summary>🛈</summary>
 				<a href="https://github.com/ldpercy/turtle/">Turtle</a>
 				<a href="https://github.com/ldpercy/turtle/pull/11">v0.10.1</a>
 				by <a href="https://github.com/ldpercy/">ldpercy</a>
 			</details>
+			-->
 
-			<button type="button" popovertarget="my-popover">🛈🆘🯄🛈⍰❔⁈⁉🚑❓</button>
+			<br/>
+			<button type="button" popovertarget="info-popover"><strong>🛈 Turtle help</strong></button>
 
-			<div popover id="my-popover">
-				<h2>This is Turtle. Welcome to Turtle!</h2>
 
-				<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-				<a href="https://github.com/ldpercy/turtle/pull/11">v0.10.1</a>
-				by <a href="https://github.com/ldpercy/">ldpercy</a>
-
-			</div>
 
 		</form>
 	</div><!-- control-left -->
@@ -264,6 +265,51 @@
 
 		</g><!-- page -->
 	</svg>
+
+
+	<dialog popover id="info-popover">
+		<h1>
+			<a href="https://github.com/ldpercy/turtle/">Turtle</a>
+			<a href="https://github.com/ldpercy/turtle/pull/11">v0.10.1</a>
+			by <a href="https://github.com/ldpercy/">ldpercy</a>
+		</h1>
+
+		<h2>Turtle commands</h2>
+		<div class="infoBox">
+			<div>left <em>degrees[,distance]</em></div>
+			<div>right <em>degrees[,distance]</em></div>
+			<div>bear <em>degrees[,distance]</em></div>
+			<div>jump <em>degrees[,distance]</em></div>
+			<div>move <em>dx,dy</em></div>
+			<div>circle <em>radius</em></div>
+			<div>ellipse <em>width,height</em></div>
+			<div>rect <em>width,height</em></div>
+			<div>text <em>string</em></div>
+			<div>marker</div>
+		</div>
+
+		<h2>Keyboard shortcuts</h2>
+		<ul>
+			<li><kbd>d</kbd>				Do commands</li>
+			<li><kbd>c</kbd>				Clear the drawing</li>
+			<li><kbd>o</kbd>				Return turtle to origin</li>
+
+			<li><kbd>! (shift 1)</kbd>		Show command tab 1</li>
+			<li><kbd>@ (shift 2)</kbd>		Show command tab 2</li>
+			<li><kbd># (shift 3)</kbd>		Show command tab 3</li>
+
+			<li><kbd>T</kbd>				Toggle turtle visibility</li>
+			<li><kbd>C</kbd>				Toggle turtle centering</li>
+			<li><kbd>R</kbd>				Toggle page rotation</li>
+
+			<li><kbd>+ or z</kbd>			Zoom in</li>
+			<li><kbd>- or Z</kbd>			Zoom out</li>
+
+			<li><kbd>?</kbd>				Show this dialog</li>
+		</ul>
+
+
+	</dialog>
 
 
 </body>

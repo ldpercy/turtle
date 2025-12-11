@@ -62,7 +62,7 @@ Keyboard Controls
 -----------------
 
 
-
+```
 	d				Do commands
 	c				Clear the drawing
 	o				Return turtle to origin
@@ -78,6 +78,8 @@ Keyboard Controls
 	+				Zoom in
 	-				Zoom out
 
+	? 				Show help/info dialog
+```
 
 Coordinates
 -----------
