@@ -87,6 +87,7 @@ h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
 
 #info-popover {
+	/* backdrop-filter: blur(20px); */
 	border-radius: 1em;
 	padding:1em;
 	border: 3px solid var(--accent);
@@ -102,11 +103,11 @@ h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
 ::backdrop {
 	background-image:  url('./turtle.svg');
-
+	filter: blur(3px);
 	background-position: center;
 	background-repeat: repeat;
 
-	background-size: 25%;
+	background-size: 10%;
 	background-color: var(--turtle-body);
 	/* background-image: linear-gradient(
 		45deg,
