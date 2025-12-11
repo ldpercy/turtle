@@ -9,10 +9,9 @@ Todo
 
 * (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?
 * Zoom effects on `use:hover` (turtle, marker) are trouble - shadow-dom style, transform origin, browser differences etc. Find something consistent, or replace with a different UI effect.
-* Initial colour scheme loading is still a bit wonky
+* Initial colour scheme loading is still a bit wonky, eg the command box flashes white in ff after a dark reload - find out what's causing that
 * Eliminate the 5 extra vertical page pixels
 * Chromium's colour picker goes offscreen
-* The command box flashes white in ff after a dark reload - find out what's causing that
 * Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
 
 
