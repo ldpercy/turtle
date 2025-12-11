@@ -20,7 +20,8 @@ html {
 	--accent-dark: #0cf;
 	--transition-duration: 0.5s;
 
-
+	--turtle-body: #0a07;
+	--turtle-outline: #0a0f;
 
 	margin:0px;
 	padding:0px;
@@ -32,7 +33,7 @@ html {
 	scrollbar-width: none;
 
 	font-size: 16px; /* 14px; */
-
+	font-family:'Noto sans', sans-serif;
 
 	/*
 	there are 5 extra pixels on the body height coming from somewhere...
@@ -40,9 +41,89 @@ html {
 	*/
 }
 
+body.light {
+	color-scheme: light;
+	--accent: var(--accent-light);
+	accent-color: var(--accent);
+	background-color: var(--page-background-light);
+	color: black;
+
+	form {
+		background-color:#eee9;
+		border-color: #bbbb;
+	}
+	.infoBox { background-color: #fffc; }
+
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #ffffff;
+	}
+}
+
+body.dark {
+	color-scheme: dark;
+	--accent: var(--accent-dark);
+	accent-color: var(--accent);
+	background-color: var(--page-background-dark);
+	color: white;
+
+	form {
+		background-color:#7779;
+		border-color: #9999;
+	}
+	.infoBox {
+		background-color: #222c;
+		border-color: #9999;
+	}
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #2b2a33;
+	}
+}
+
+
+h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
+
+
+
+#info-popover {
+	/* backdrop-filter: blur(20px); */
+	border-radius: 1em;
+	padding:1em;
+	border: 3px solid var(--accent);
+	.infoBox {
+		display: grid;
+	}
+	opacity: 95%;
+	li { list-style: none; }
+	kbd { display:inline-block; width:40%; }
+	box-shadow: 0px 0px 3em var(--accent);
+}
+
+
+::backdrop {
+	background-image:  url('./turtle.svg');
+	filter: blur(3px);
+	background-position: center;
+	background-repeat: repeat;
+
+	background-size: 10%;
+	background-color: var(--turtle-body);
+	/* background-image: linear-gradient(
+		45deg,
+		var(--turtle-body),
+		var(--turtle-outline)
+	); */
+	opacity: 0.25;
+}
+
+
+
 summary {
 	cursor: pointer;
 }
+
+a { color: var(--accent); }
 
 form {
 	display: grid;
@@ -51,13 +132,13 @@ form {
 	border-radius: 1ex;
 	padding:1ex;
 	margin: 1ex;
-	font-family:'Noto sans', sans-serif;
+
 	font-size: 1em;
 
 	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
 	h3 { font-size:1em; margin-top:1ex; margin-bottom:1ex; }
-	h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
+
 
 	h1 + h2 { margin-top: 0ex; }
 
@@ -65,7 +146,7 @@ form {
 	details > label { display: block; }
 
 
-	a { color: var(--accent); }
+
 
 	hr { width:100%; }
 
@@ -74,12 +155,7 @@ form {
 		min-width: 15em;
 	}
 
-	.infoBox {
-		font-family: monospace;
-		font-size: 1.6ex;
-		padding:1ex;
-		border:1px solid var(--silver);
-	}
+
 
 	#turtle-instructions {
 		display: grid;
@@ -155,7 +231,12 @@ form {
 
 }/* form */
 
-
+.infoBox {
+	font-family: monospace;
+	font-size: 1.6ex;
+	padding:1ex;
+	border:1px solid var(--silver);
+}
 
 
 
@@ -185,44 +266,5 @@ form {
 
 
 
-body.light {
-	color-scheme: light;
-	--accent: var(--accent-light);
-	accent-color: var(--accent);
-	background-color: var(--page-background-light);
-	color: black;
-
-	form {
-		background-color:#eee9;
-		border-color: #bbbb;
-	}
-	.infoBox { background-color: #fffc; }
-
-	.tabbar a {
-		border-color: #8f8f9d;
-		background-color: #ffffff;
-	}
-}
-
-body.dark {
-	color-scheme: dark;
-	--accent: var(--accent-dark);
-	accent-color: var(--accent);
-	background-color: var(--page-background-dark);
-	color: white;
-
-	form {
-		background-color:#7779;
-		border-color: #9999;
-	}
-	.infoBox {
-		background-color: #222c;
-		border-color: #9999;
-	}
-	.tabbar a {
-		border-color: #8f8f9d;
-		background-color: #2b2a33;
-	}
-}
 
 

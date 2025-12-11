@@ -1,6 +1,9 @@
 /* Turtle
 */
 
+svg {
+	font-family: serif;
+}
 
 .svg-element {
 	width: 100vw;
@@ -217,8 +220,8 @@ svg:focus-within {
 
 
 .turtle {
-	--body-fill: #0a07;
-	--body-stroke: #0a0f;
+	--body-fill: var(--turtle-body);
+	--body-stroke: var(--turtle-outline);
 	--head-stroke: var(--body-stroke);
 	--turtle-size: 10;
 	stroke-width: 3px;

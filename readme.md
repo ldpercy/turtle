@@ -62,7 +62,7 @@ Keyboard Controls
 -----------------
 
 
-
+```
 	d				Do commands
 	c				Clear the drawing
 	o				Return turtle to origin
@@ -78,6 +78,8 @@ Keyboard Controls
 	+				Zoom in
 	-				Zoom out
 
+	? 				Show help/info dialog
+```
 
 Coordinates
 -----------
@@ -129,4 +131,3 @@ More detail in the [task/](<./task/>) directory.
 
 * Multi-turtle
 * Command grouping for things like repeats and colours
-*

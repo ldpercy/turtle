@@ -25,28 +25,35 @@ export function commandTabListener(event) {
 } */
 
 
+const keyFunctionMap = {
+	'd'	: doCommands,
+	'c'	: svg.clearDrawing,
+	'o'	: toOrigin,
+
+	'!'	: () => ui.showCommandSet(1),		// ! == shift-1
+	'@'	: () => ui.showCommandSet(2),		// @ == shift-2
+	'#'	: () => ui.showCommandSet(3),		// # == shift-3
+
+	'T'	: toggleTurtle,
+	'C'	: toggleCenter,
+	'R'	: toggleRotate,
+
+	'+'	: zoomIn,
+	'z'	: zoomIn,
+	'Z'	: zoomOut,
+	'-'	: zoomOut,
+
+	'?'	: ui.togglePopover,
+};
+
+
 export function documentKeyListener(event) {
 	//console.log('documentKeyListener', event);
 
-	switch(event.key) {
-		case 'd'	: doCommands(); break;
-		case 'c'	: svg.clearDrawing(); break;
-		case 'o'	: toOrigin(); break;
-
-		case '!'	: ui.showCommandSet(1); break;
-		case '@'	: ui.showCommandSet(2); break;
-		case '#'	: ui.showCommandSet(3); break;
-
-		case 'T'	: toggleTurtle(); break;
-		case 'C'	: toggleCenter(); break;
-		case 'R'	: toggleRotate(); break;
-
-		case '+'	: zoomIn(); break;
-		case '-'	: zoomOut(); break;
-
-		default     : /* do nothing */; break;
+	if (keyFunctionMap[event.key]) {
+		event.preventDefault();
+		keyFunctionMap[event.key]();
 	}
-
 
 }/* documentKeyListener */
 
