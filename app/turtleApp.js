@@ -17,8 +17,8 @@ import { ui } from './view-html-ui.js';
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.10.1 by ldpercy
-		https://github.com/ldpercy/turtle/pull/12
+		Turtle v0.🐢👗 by ldpercy
+		https://github.com/ldpercy/turtle/pull/??
 	`.replace(/\n\t\t/g,'\n');
 
 
