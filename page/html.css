@@ -102,7 +102,7 @@ h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
 
 ::backdrop {
-	background-image:  url('./turtle.svg');
+	background-image:  url('./turtle-nocalc.svg');
 	filter: blur(3px);
 	background-position: center;
 	background-repeat: repeat;
