@@ -18,3 +18,16 @@ This will be a bit of a random collection of things - some experiments, some imp
 * Some general CSS clean up
 * Etc....
 
+
+
+Turtles again
+-------------
+
+I'm still figuring out the details for getting styles and css properties into `use` items, making a little headway.
+But the zoom properties i need like `transform-box` and `transform-origin` are still eluding me.
+
+One thing I have found is that those properties work pretty well on ordinary (non-use) SVG elements, so I'm considering changing the turtle to just regular SVG.
+I might also template-string it so I can pop extra copies down in anticipation of multi-turtle.
+
+Have also begun an experiment for trying web-components in SVG, first try didn't work though, will keep hacking.
+

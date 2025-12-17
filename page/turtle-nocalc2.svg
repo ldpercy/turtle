@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="-44 -62 88 106">
+
+	<style>
+		.turtle {
+			--turtle: #0a07;
+			--turtle-stroke: #0a0f;
+			fill: var(--turtle);
+			stroke: var(--turtle-stroke);
+			stroke-width: 4px;
+
+			.head { fill: var(--turtle-stroke); }
+			.feet { fill: var(--turtle-stroke); }
+			.eyes { fill: yellow; stroke:none;}
+			.pl, .pr { fill: black; stroke:none;}
+
+			.body { r: 40px; cx:0px; cy:0px; }
+			.head { r: 20px; cx:0px; cy:-40px; }
+			.el   { r: 6px; cx:-9px; cy:-43px; }
+			.er   { r: 6px; cx:+9px; cy:-43px; }
+
+			/* .pl   { r: 2px; cx:-7px; cy:-40px; }
+			.pr   { r: 2px; cx:+7px; cy:-40px; } */
+
+			.fl   { r: 10px; cx:-32px; cy:-24px; }
+			.fr   { r: 10px; cx:+32px; cy:-24px; }
+			.bl   { r: 10px; cx:-24px; cy:+32px; }
+			.br   { r: 10px; cx:+24px; cy:+32px; }
+		}
+	</style>
+
+	<g id="def-turtle" class="turtle">
+		<g class="feet">
+			<circle class="fl"/>
+			<circle class="fr"/>
+			<circle class="bl"/>
+			<circle class="br"/>
+		</g>
+		<circle class="head"/>
+
+		<circle class="body"/>
+		<g class="eyes">
+			<!-- <circle class="el"/>
+			<circle class="er"/> -->
+			<!-- <circle class="pl"/>
+			<circle class="pr"/> -->
+			<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+			<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+		</g>
+	</g>
+</svg>

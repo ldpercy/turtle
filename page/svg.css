@@ -189,15 +189,8 @@ svg:focus-within {
 	/* transition: all ease-in var(--transition-duration); */
 
 	--size: var(--turtle-size);
-
-	fill: var(--body-fill);
-	stroke: var(--body-stroke);
-	.head {
-		fill: var(--head-fill);
-		stroke: var(--head-stroke);
-	}
-	.feet { fill: var(--body-stroke); }
-	.eyes { fill: var(--eye-colour); stroke:none;}
+/*
+	 */
 
 	/* I could have done most of this with a transform... */
 	--body: calc(var(--size) * 4px);
@@ -219,31 +212,70 @@ svg:focus-within {
 }
 
 
+#def-turtle-nocalc {
+	/* transition: all ease-in var(--transition-duration); */
+/*
+	--turtle: #0a07;
+	--turtle-stroke: #0a0f;
+	fill: var(--turtle);
+	stroke: var(--turtle-stroke);
+
+	.head { fill: var(--turtle-stroke); }
+	.feet { fill: var(--turtle-stroke); }
+	.eyes { fill: yellow; stroke:none;} */
+
+	.body { r: 40px; cx:0px; cy:0px; }
+	.head { r: 20px; cx:0px; cy:-40px; }
+	.el   { r: 5px; cx:-10px; cy:-44px; }
+	.er   { r: 5px; cx:+10px; cy:-44px; }
+	.fl   { r: 10px; cx:-32px; cy:-24px; }
+	.fr   { r: 10px; cx:+32px; cy:-24px; }
+	.bl   { r: 10px; cx:-24px; cy:+32px; }
+	.br   { r: 10px; cx:+24px; cy:+32px; }
+
+}
+
+
 .turtle {
+
 	--body-fill: var(--turtle-body);
 	--body-stroke: var(--turtle-outline);
 	--head-stroke: var(--body-stroke);
 	--turtle-size: 10;
 	stroke-width: 3px;
 
+	fill: var(--body-fill);
+	stroke: var(--body-stroke);
+
+	.feet { fill: var(--body-stroke); }
+	.head {
+		fill: var(--head-fill);
+		stroke: var(--head-stroke);
+	}
+	.eyes {
+		fill: var(--eye-colour); stroke:none;
+	}
+
+	filter: drop-shadow(0px 0px 30px #ff07);
+	/* &:focus {
+		transition: 0s;
+		outline: 2px solid var(--accent);
+	} */
+}
+
+.turtle-hover {
 	/* transition: all ease-in var(--transition-duration); */
 	&:hover {
 		--turtle-size:15;
 	}
-	filter: drop-shadow(0px 0px 30px #ff07);
-	&:focus {
-		/* transition: 0s; */
-		outline: 2px solid var(--accent);
-	}
 }
-
 
 .terry {
 	--head-fill: var(--body-stroke);
 	--eye-colour: yellow;
 }
 
-/*
+
 .leonardo {
 	--head-fill: #05f;
 	--eye-colour: yellow;
@@ -263,6 +295,6 @@ svg:focus-within {
 	--head-fill: yellow;
 	--eye-colour: black;
 }
-*/
+
 
 
