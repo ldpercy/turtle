@@ -31,3 +31,18 @@ I might also template-string it so I can pop extra copies down in anticipation o
 
 Have also begun an experiment for trying web-components in SVG, first try didn't work though, will keep hacking.
 
+
+Non-use turtle
+--------------
+
+I've had a go at this and it seems pretty okay.
+If anything it feels less janky in Firefox, which was definitely a problem especially when zoomed.
+Also the origin to/from move weirdness has gone away, so this might end up better on a few counts.
+
+The zoom effect becomes less complicated, but have guesstimated the transform-origin for the turtle for now.
+Actually just tried this and 60% is about right:
+```
+	temp0.getBBox()
+	SVGRect { x: -42, y: -60, width: 84, height: 102 }
+```
+

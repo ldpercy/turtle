@@ -212,7 +212,7 @@ svg:focus-within {
 }
 
 
-#def-turtle-nocalc {
+#def-turtle-nocalc, .turtle-nocalc {
 	/* transition: all ease-in var(--transition-duration); */
 /*
 	--turtle: #0a07;
@@ -242,7 +242,7 @@ svg:focus-within {
 	--body-stroke: var(--turtle-outline);
 	--head-stroke: var(--body-stroke);
 	--turtle-size: 10;
-	stroke-width: 3px;
+	stroke-width: 4px;
 
 	fill: var(--body-fill);
 	stroke: var(--body-stroke);
@@ -269,6 +269,16 @@ svg:focus-within {
 		--turtle-size:15;
 	}
 }
+
+.turtle-nocalc-hover {
+	transform-box: content-box;
+	transform-origin: 50% 60%;		/* ~60% to account for head non-symmetry */
+	&:hover {
+		scale:150%;
+	}
+}
+
+
 
 .terry {
 	--head-fill: var(--body-stroke);

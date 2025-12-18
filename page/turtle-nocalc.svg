@@ -6,7 +6,7 @@
 			--turtle-stroke: #0a0f;
 			fill: var(--turtle);
 			stroke: var(--turtle-stroke);
-			stroke-width: 3px;
+			stroke-width: 4px;
 
 			.head { fill: var(--turtle-stroke); }
 			.feet { fill: var(--turtle-stroke); }
