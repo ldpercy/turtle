@@ -46,3 +46,24 @@ Actually just tried this and 60% is about right:
 	SVGRect { x: -42, y: -60, width: 84, height: 102 }
 ```
 
+
+
+Refactoring
+-----------
+
+I'm getting a little offtopic here, but I'm starting to think about a little bit of reorganising to go along with improving the turtle styles.
+
+I'd like to move the turtle svg out of the html and into (probably) the SVGTurtle class where it can be templated, along with other turtle variants such as the ninja turtles.
+Need to add some more turtle-instance info in there as well.
+Additionally there are some things in that class that could perhaps be rehomed, maybe into proper page/drawing/document classes, but that would need some decisions regarding terminology.
+
+Probably need something like:
+
+* The app hosts pages or documents
+* Each document represents a space that determines things like dimensions, coordinate systems, precision etc
+* Turtles exist on documents/spaces (not sure which yet, probably documents) - documents could be instances of spaces, or instances of a more specific subclass, or something that composes a space
+* Drawings exist within documents
+* Documents could also define default colors, fonts, font sizes, stroke styles etc
+* The app can present documents one-at-time or perhaps side-by-side, overlaid, offset etc
+
+

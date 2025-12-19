@@ -121,7 +121,7 @@ class TurtleApp extends HTMLApp {
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
 		this.space = new PlanarSpace('turtle-space');
-		this.turtle = new SVGTurtle('Terry', this.space, 6);		// Pratchett & Tao
+		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');

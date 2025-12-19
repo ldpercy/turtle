@@ -15,11 +15,13 @@ export class SVGTurtle {
 
 	constructor(
 			name,
+			id,
 			space,
 			reportPrecision = 6,
 		) {
 
 		this.name = name;
+		this.id = id;
 		this.turtle = new Turtle(name, space);
 		this.precision.report = reportPrecision;
 		this.history.length = 5;
@@ -41,6 +43,34 @@ export class SVGTurtle {
 	get coordinates()			{ return this.turtle.coordinates; }
 	get currentCoordinates()	{ return this.history[this.history.length-1]; }
 	get previousCoordinates()	{ return this.history[this.history.length-2]; }
+
+
+
+
+
+	get turtleSvg() {
+		const result = `
+			<g id="${this.id}">
+				<g class="turtle turtle-nocalc terry turtle-nocalc-hover">
+					<title id="title-terry"></title>
+					<g class="feet">
+						<circle class="fl"/>
+						<circle class="fr"/>
+						<circle class="bl"/>
+						<circle class="br"/>
+					</g>
+					<circle class="body"/>
+					<circle class="head"/>
+					<g class="eyes">
+						<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+						<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+					</g>
+				</g>
+			</g>
+		`;
+		return result;
+	}
+
 
 
 	//
@@ -216,7 +246,6 @@ export class SVGTurtle {
 		const result = `<line x1="${point1.x}" y1="${-point1.y}" x2="${point2.x}" y2="${-point2.y}"/>`;
 		return result;
 	}
-
 
 
 

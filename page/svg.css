@@ -185,7 +185,7 @@ svg:focus-within {
 
 
 
-#def-turtle {
+#def-turtle-calc {
 	/* transition: all ease-in var(--transition-duration); */
 
 	--size: var(--turtle-size);
@@ -212,7 +212,7 @@ svg:focus-within {
 }
 
 
-#def-turtle-nocalc, .turtle-nocalc {
+#def-turtle, .turtle-nocalc {
 	/* transition: all ease-in var(--transition-duration); */
 /*
 	--turtle: #0a07;
@@ -263,14 +263,14 @@ svg:focus-within {
 	} */
 }
 
-.turtle-hover {
+.turtle-calc-hover {
 	/* transition: all ease-in var(--transition-duration); */
 	&:hover {
 		--turtle-size:15;
 	}
 }
 
-.turtle-nocalc-hover {
+.turtle-hover {
 	transform-box: content-box;
 	transform-origin: 50% 60%;		/* ~60% to account for head non-symmetry */
 	&:hover {
