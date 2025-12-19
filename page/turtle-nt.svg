@@ -14,21 +14,28 @@
 			.pl, .pr { fill: black; stroke:none;}
 
 			.body { r: 40px; cx:0px; cy:0px; }
+
+			.fl   { r: 10px; cx:-32px; cy:-24px; }
+			.fr   { r: 10px; cx:+32px; cy:-24px; }
+			.bl   { r: 10px; cx:-24px; cy:+32px; }
+			.br   { r: 10px; cx:+24px; cy:+32px; }
+
 			.head { r: 20px; cx:0px; cy:-40px; }
 			.el   { r: 6px; cx:-9px; cy:-43px; }
 			.er   { r: 6px; cx:+9px; cy:-43px; }
 
 			/* .pl   { r: 2px; cx:-7px; cy:-40px; }
 			.pr   { r: 2px; cx:+7px; cy:-40px; } */
-
-			.fl   { r: 10px; cx:-32px; cy:-24px; }
-			.fr   { r: 10px; cx:+32px; cy:-24px; }
-			.bl   { r: 10px; cx:-24px; cy:+32px; }
-			.br   { r: 10px; cx:+24px; cy:+32px; }
+			.mask {
+				fill: blue;
+				stroke:blue;
+				stroke-width:1px;
+			}
 		}
 	</style>
 
 	<g id="def-turtle" class="turtle">
+		<circle class="body"/>
 		<g class="feet">
 			<circle class="fl"/>
 			<circle class="fr"/>
@@ -36,8 +43,12 @@
 			<circle class="br"/>
 		</g>
 		<circle class="head"/>
+		<!-- <rect class="mask" x="-23" y="-49" width="46" height="15" /> -->
 
-		<circle class="body"/>
+		<!-- <path class="mask" d="M -23,-49 h50 m-10,10 m5,5 h-45 Z"/> -->
+
+		<polygon class="mask" points="-21,-49 +31,-49 +17,-34  -21,-34"/>
+
 		<g class="eyes">
 			<!-- <circle class="el"/>
 			<circle class="er"/> -->
