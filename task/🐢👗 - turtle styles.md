@@ -67,3 +67,23 @@ Probably need something like:
 * The app can present documents one-at-time or perhaps side-by-side, overlaid, offset etc
 
 
+```
+	html web page
+		css
+		js application
+		html user interface
+		svg document
+```
+
+I think at this stage I'd prefer to only consider having one main svg element on the page, and mostly refer to it as the 'document'.
+I've been thinking about the possibility of saving/loading turtle drawings/setups, and i think I want regular svg docs to be those units.
+They'd probably have to include extra turtle-specific data sections as script/json/text etc, but essentially they should be viewable statically in a regular browser.
+
+I should probably then refer to the html host as the page or the app.
+
+The document can have multiple spaces, but for now only has one.
+Spaces can have different parameters, and be arranged within the document in different ways.
+
+As for turtles it's probably going to be something like turtles are defined within the app/document (names, certain parameters), but are are placed onto (or into) spaces.
+
+Spaces have drawings in them, of various kinds of groupings.
