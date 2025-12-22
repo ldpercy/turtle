@@ -2,15 +2,18 @@
 
 	<style>
 		.turtle {
-			--turtle: #0a07;
+			--turtle-body: #0a07;
 			--turtle-stroke: #0a0f;
-			fill: var(--turtle);
+			--eye-colour: white;
+
+
+			fill: var(--turtle-body);
 			stroke: var(--turtle-stroke);
 			stroke-width: 4px;
 
 			.head { fill: var(--turtle-stroke); }
 			.feet { fill: var(--turtle-stroke); }
-			.eyes { fill: yellow; stroke:none;}
+			.eyes { fill: var(--eye-colour); stroke:none;}
 			.pl, .pr { fill: black; stroke:none;}
 
 			.body { r: 40px; cx:0px; cy:0px; }
@@ -24,17 +27,35 @@
 			.el   { r: 6px; cx:-9px; cy:-43px; }
 			.er   { r: 6px; cx:+9px; cy:-43px; }
 
-			/* .pl   { r: 2px; cx:-7px; cy:-40px; }
-			.pr   { r: 2px; cx:+7px; cy:-40px; } */
+			.pl   { r: 2px; cx:-7px; cy:-40px; }
+			.pr   { r: 2px; cx:+7px; cy:-40px; }
 			.mask {
-				fill: blue;
-				stroke:blue;
-				stroke-width:1px;
+				fill: var(--mask-colour);
+				stroke:none;
+				/* stroke-width:1px; */
 			}
 		}
+
+		.leonardo {
+			--mask-colour: blue;
+		}
+
+		.michelangelo {
+			--mask-colour: red;
+		}
+
+		.donatello {
+			--mask-colour: purple;
+		}
+
+		.raphael {
+			--mask-colour: orange;
+		}
+
+
 	</style>
 
-	<g id="def-turtle" class="turtle">
+	<g id="def-turtle" class="turtle raphael">
 		<circle class="body"/>
 		<g class="feet">
 			<circle class="fl"/>
@@ -47,15 +68,16 @@
 
 		<!-- <path class="mask" d="M -23,-49 h50 m-10,10 m5,5 h-45 Z"/> -->
 
-		<polygon class="mask" points="-21,-49 +31,-49 +17,-34  -21,-34"/>
+		<polygon class="mask" points="-22,-51 +33,-51 +21,-34  -22,-34"/>
 
 		<g class="eyes">
 			<!-- <circle class="el"/>
 			<circle class="er"/> -->
-			<!-- <circle class="pl"/>
-			<circle class="pr"/> -->
+
 			<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
 			<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+			<circle class="pl"/>
+			<circle class="pr"/>
 		</g>
 	</g>
 </svg>
