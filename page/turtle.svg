@@ -6,29 +6,20 @@
 			--turtle-stroke: #0a0f;
 			fill: var(--turtle);
 			stroke: var(--turtle-stroke);
-			stroke-width: 3px;
+			stroke-width: 4px;
 
 			.head { fill: var(--turtle-stroke); }
 			.feet { fill: var(--turtle-stroke); }
 			.eyes { fill: yellow; stroke:none;}
 
-			--size: 10;
-			--body: calc(var(--size) * 4px);
-			--head: calc(var(--size) * 2px);
-			--foot: calc(var(--size) * 1px);
-			--eye: calc(var(--size) * 0.5px);
-
-			--threeFifths: calc((3/5) * var(--size) * 4px);
-			--fourFifths:  calc((4/5) * var(--size) * 4px);
-
-			.body { r: var(--body); cx:0px; cy:0px; }
-			.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
-			.el   { r: var(--eye); cx: calc(-2 * var(--eye)); cy:calc(-1.1 * var(--body)); }
-			.er   { r: var(--eye); cx: calc(+2 * var(--eye)); cy:calc(-1.1 * var(--body)); }
-			.fl   { r: var(--foot); cx:calc(-1 * var(--fourFifths) ); cy:calc(-1 * var(--threeFifths)); }
-			.fr   { r: var(--foot); cx:calc(+1 * var(--fourFifths) ); cy:calc(-1 * var(--threeFifths)); }
-			.bl   { r: var(--foot); cx:calc(-1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
-			.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
+			.body { r: 40px; cx:0px; cy:0px; }
+			.head { r: 20px; cx:0px; cy:-40px; }
+			.el   { r: 5px; cx:-10px; cy:-44px; }
+			.er   { r: 5px; cx:+10px; cy:-44px; }
+			.fl   { r: 10px; cx:-32px; cy:-24px; }
+			.fr   { r: 10px; cx:+32px; cy:-24px; }
+			.bl   { r: 10px; cx:-24px; cy:+32px; }
+			.br   { r: 10px; cx:+24px; cy:+32px; }
 		}
 	</style>
 
@@ -42,8 +33,11 @@
 		<circle class="body"/>
 		<circle class="head"/>
 		<g class="eyes">
-			<circle class="el"/>
-			<circle class="er"/>
+			<!-- <circle class="el"/>
+			<circle class="er"/> -->
+
+			<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+			<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
 		</g>
 	</g>
 </svg>

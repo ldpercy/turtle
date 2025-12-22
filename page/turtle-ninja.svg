@@ -34,8 +34,6 @@
 			.pr   { r: 2px; cx:+7px; cy:-40px; }
 			.mask {
 				fill: var(--mask-colour);
-				stroke:none;
-				/* stroke-width:1px; */
 			}
 		}
 
