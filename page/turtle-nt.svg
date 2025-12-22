@@ -3,27 +3,30 @@
 	<style>
 		.turtle {
 			--turtle-body: #0a07;
-			--turtle-stroke: #0a0f;
+			--turtle-outline: #0a0f;
 			--eye-colour: white;
 
+			stroke: none;
 
-			fill: var(--turtle-body);
-			stroke: var(--turtle-stroke);
-			stroke-width: 4px;
 
-			.head { fill: var(--turtle-stroke); }
-			.feet { fill: var(--turtle-stroke); }
-			.eyes { fill: var(--eye-colour); stroke:none;}
-			.pl, .pr { fill: black; stroke:none;}
+			.body {
+				fill: var(--turtle-body);
+				stroke: var(--turtle-outline);
+				stroke-width: 4px;
+			}
+			.head { fill: var(--turtle-outline); }
+			.feet { fill: var(--turtle-outline); }
+			.eyes { fill: var(--eye-colour); }
+			.pl, .pr { fill: black; }
 
 			.body { r: 40px; cx:0px; cy:0px; }
+			.feet>circle { r: 12px; }
+			.fl   { cx:-32px; cy:-24px; }
+			.fr   { cx:+32px; cy:-24px; }
+			.bl   { cx:-24px; cy:+32px; }
+			.br   { cx:+24px; cy:+32px; }
 
-			.fl   { r: 10px; cx:-32px; cy:-24px; }
-			.fr   { r: 10px; cx:+32px; cy:-24px; }
-			.bl   { r: 10px; cx:-24px; cy:+32px; }
-			.br   { r: 10px; cx:+24px; cy:+32px; }
-
-			.head { r: 20px; cx:0px; cy:-40px; }
+			.head { r: 22px; cx:0px; cy:-40px; }
 			.el   { r: 6px; cx:-9px; cy:-43px; }
 			.er   { r: 6px; cx:+9px; cy:-43px; }
 
