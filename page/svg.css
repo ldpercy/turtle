@@ -233,10 +233,10 @@ svg:focus-within {
 	.head { r: 20px; cx:0px; cy:-40px; }
 	.el   { r: 5px; cx:-10px; cy:-44px; }
 	.er   { r: 5px; cx:+10px; cy:-44px; }
-	.fl   { r: 10px; cx:-32px; cy:-24px; }
-	.fr   { r: 10px; cx:+32px; cy:-24px; }
-	.bl   { r: 10px; cx:-24px; cy:+32px; }
-	.br   { r: 10px; cx:+24px; cy:+32px; }
+	.fl   { cx:-32px; cy:-24px; }
+	.fr   { cx:+32px; cy:-24px; }
+	.bl   { cx:-24px; cy:+32px; }
+	.br   { cx:+24px; cy:+32px; }
 
 	filter: drop-shadow(0px 0px 30px #ff07);
 	/* &:focus {

@@ -17,6 +17,7 @@ const elementMap = {
 	polarGroup 		: 'group-polar',
 	polarGrid 		: 'group-polarGrid',
 	drawing			: 'group-drawing',
+	turtleGroup		: 'group-turtle',
 	turtleIcon		: 'turtle-terry',
 	turtleTitle		: 'title-terry',
 };
@@ -45,6 +46,14 @@ class SVGView {
 		const polarGrid = new SVG.PolarGrid(turtleApp.space, turtleApp.page);
 		document.getElementById('group-polarGrid').innerHTML = polarGrid.toString();
 	}
+
+
+	placeTurtle(turtle) {
+		element.turtleGroup.innerHTML += turtle.turtleSvg;
+		element.turtleIcon = document.getElementById('turtle-terry');
+		element.turtleTitle = document.getElementById('title-terry');
+	}
+
 
 
 
