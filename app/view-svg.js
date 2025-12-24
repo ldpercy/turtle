@@ -17,6 +17,7 @@ const elementMap = {
 	polarGroup 		: 'group-polar',
 	polarGrid 		: 'group-polarGrid',
 	drawing			: 'group-drawing',
+	turtleGroup		: 'group-turtle',
 	turtleIcon		: 'turtle-terry',
 	turtleTitle		: 'title-terry',
 };
@@ -45,6 +46,14 @@ class SVGView {
 		const polarGrid = new SVG.PolarGrid(turtleApp.space, turtleApp.page);
 		document.getElementById('group-polarGrid').innerHTML = polarGrid.toString();
 	}
+
+
+	placeTurtle(turtle) {
+		element.turtleGroup.innerHTML += turtle.turtleSvg;
+		element.turtleIcon = document.getElementById('turtle-terry');
+		element.turtleTitle = document.getElementById('title-terry');
+	}
+
 
 
 
@@ -165,16 +174,13 @@ class SVGView {
 
 
 	updateTurtle() {
-		element.turtleIcon.setAttribute('x', turtleApp.turtle.svgX);
-		element.turtleIcon.setAttribute('y', turtleApp.turtle.svgY);
-		element.turtleIcon.setAttribute('transform',
-			`rotate(${turtleApp.turtle.position.degrees},${turtleApp.turtle.svgX},${turtleApp.turtle.svgY})`
+		element.turtleIcon.setAttribute(
+			'transform',
+			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.degrees})`
 		);
 
 		this.updatePageTransform();
-
 		element.turtleTitle.innerHTML = turtleApp.turtle.report;
-
 	}/* updateTurtle */
 
 

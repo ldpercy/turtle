@@ -17,8 +17,8 @@ import { ui } from './view-html-ui.js';
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.10.1 by ldpercy
-		https://github.com/ldpercy/turtle/pull/12
+		Turtle v0.10.2 by ldpercy
+		https://github.com/ldpercy/turtle/releases/tag/v0.10.2
 	`.replace(/\n\t\t/g,'\n');
 
 
@@ -113,30 +113,9 @@ class TurtleApp extends HTMLApp {
 		super.documentDOMContentLoaded();
 
 
-		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
-		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
-		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
-		this.viewBox = new SVG.ViewBox(this.page);
-
-		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
-
-		this.space = new PlanarSpace('turtle-space');
-		this.turtle = new SVGTurtle('Terry', this.space, 6);		// Pratchett & Tao
-
-
-		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-
 		const firstLoad = !localStorage.appSettings;
 
 		this.loadSettings();
-
-
-		svg.updatePage();
-		svg.updateTurtle();
-
-		svg.drawGrid();
-		svg.updateDrawing();
-		ui.updateTurtleInfo();
 
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
@@ -146,11 +125,35 @@ class TurtleApp extends HTMLApp {
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
 			controller.doCommands();
 		}
+
+		this.setup();
+
 	}/* documentDOMContentLoaded */
 
 
 
+	setup() {
 
+		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
+		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
+		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
+		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
+		this.viewBox = new SVG.ViewBox(this.page);
+
+		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
+
+		this.space = new PlanarSpace('turtle-space');
+		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
+
+		svg.placeTurtle(this.turtle);
+
+		svg.updatePage();
+		svg.updateTurtle();
+
+		svg.drawGrid();
+		svg.updateDrawing();
+		ui.updateTurtleInfo();
+	}
 
 
 

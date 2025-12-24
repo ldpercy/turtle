@@ -15,11 +15,13 @@ export class SVGTurtle {
 
 	constructor(
 			name,
+			id,
 			space,
 			reportPrecision = 6,
 		) {
 
 		this.name = name;
+		this.id = id;
 		this.turtle = new Turtle(name, space);
 		this.precision.report = reportPrecision;
 		this.history.length = 5;
@@ -41,6 +43,47 @@ export class SVGTurtle {
 	get coordinates()			{ return this.turtle.coordinates; }
 	get currentCoordinates()	{ return this.history[this.history.length-1]; }
 	get previousCoordinates()	{ return this.history[this.history.length-2]; }
+
+
+
+
+
+	get turtleSvg() {
+
+		let seasonal = '';
+		if ((new Date()).getMonth() === 11) {
+			seasonal = `
+				<polygon style="fill:red" points="-23,-49 5,-97 +23,-49"/>
+				<g style="stroke:silver;fill:white;stroke-width:3px">
+					<rect x="-24" y="-52" width="48" height="7"/>
+					<circle cx="5" cy="-97" r="7"/>
+				</g>
+			`;
+		}
+
+		const result = `
+			<g id="${this.id}">
+				<g class="turtle terry turtle-hover">
+					<title id="title-terry"></title>
+					<g class="feet">
+						<circle class="fl"/>
+						<circle class="fr"/>
+						<circle class="bl"/>
+						<circle class="br"/>
+					</g>
+					<circle class="body"/>
+					<circle class="head"/>
+					<g class="eyes">
+						<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+						<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+					</g>
+					${seasonal}
+				</g>
+			</g>
+		`;
+		return result;
+	}
+
 
 
 	//
@@ -216,7 +259,6 @@ export class SVGTurtle {
 		const result = `<line x1="${point1.x}" y1="${-point1.y}" x2="${point2.x}" y2="${-point2.y}"/>`;
 		return result;
 	}
-
 
 
 

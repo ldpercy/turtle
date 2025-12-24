@@ -185,57 +185,76 @@ svg:focus-within {
 
 
 
-#def-turtle {
+
+.turtle {
 	/* transition: all ease-in var(--transition-duration); */
+/*
+	--turtle: #0a07;
+	--turtle-stroke: #0a0f;
+	fill: var(--turtle);
+	stroke: var(--turtle-stroke);
 
-	--size: var(--turtle-size);
+	.head { fill: var(--turtle-stroke); }
+	.feet { fill: var(--turtle-stroke); }
+	.eyes { fill: yellow; stroke:none;} */
 
-	fill: var(--body-fill);
-	stroke: var(--body-stroke);
-	.head {
-		fill: var(--head-fill);
-		stroke: var(--head-stroke);
-	}
-	.feet { fill: var(--body-stroke); }
-	.eyes { fill: var(--eye-colour); stroke:none;}
 
-	/* I could have done most of this with a transform... */
-	--body: calc(var(--size) * 4px);
-	--head: calc(var(--size) * 2px);
-	--foot: calc(var(--size) * 1px);
-	--eye: calc(var(--size) * 0.5px);
 
-	--threeFifths: calc((3/5) * var(--size) * 4px);
-	--fourFifths:  calc((4/5) * var(--size) * 4px);
-
-	.body { r: var(--body); cx:0px; cy:0px; }
-	.head { r: var(--head); cx:0px; cy:calc(-2 * var(--head) ); }
-	.el   { r: var(--eye); cx: calc(-2 * var(--eye)); cy:calc(-1.1 * var(--body)); }
-	.er   { r: var(--eye); cx: calc(+2 * var(--eye)); cy:calc(-1.1 * var(--body)); }
-	.fl   { r: var(--foot); cx:calc(-1 * var(--fourFifths) ); cy:calc(-1 * var(--threeFifths)); }
-	.fr   { r: var(--foot); cx:calc(+1 * var(--fourFifths) ); cy:calc(-1 * var(--threeFifths)); }
-	.bl   { r: var(--foot); cx:calc(-1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
-	.br   { r: var(--foot); cx:calc(+1 * var(--threeFifths) ); cy:calc(+1 * var(--fourFifths)); }
 }
 
 
 .turtle {
+
 	--body-fill: var(--turtle-body);
 	--body-stroke: var(--turtle-outline);
 	--head-stroke: var(--body-stroke);
-	--turtle-size: 10;
-	stroke-width: 3px;
+	stroke: none;
 
-	/* transition: all ease-in var(--transition-duration); */
-	&:hover {
-		--turtle-size:15;
+	.body {
+		fill: var(--body-fill);
+		r: 40px;
+		cx:0px;
+		cy:0px;
+		stroke: var(--turtle-outline);
+		stroke-width: 4px;
 	}
+	.feet>circle { r: 12px; }
+
+
+	.feet { fill: var(--turtle-outline); }
+	.head {
+		fill: var(--turtle-outline);
+		stroke: var(--head-stroke);
+	}
+	.eyes {
+		fill: var(--eye-colour);;
+	}
+
+	.head { r: 20px; cx:0px; cy:-40px; }
+	.el   { r: 5px; cx:-10px; cy:-44px; }
+	.er   { r: 5px; cx:+10px; cy:-44px; }
+	.fl   { cx:-32px; cy:-24px; }
+	.fr   { cx:+32px; cy:-24px; }
+	.bl   { cx:-24px; cy:+32px; }
+	.br   { cx:+24px; cy:+32px; }
+
 	filter: drop-shadow(0px 0px 30px #ff07);
-	&:focus {
-		/* transition: 0s; */
+	/* &:focus {
+		transition: 0s;
 		outline: 2px solid var(--accent);
+	} */
+}
+
+
+
+.turtle-hover {
+	transform-box: content-box;
+	transform-origin: 50% 60%;		/* ~60% to account for head non-symmetry */
+	&:hover {
+		scale:150%;
 	}
 }
+
 
 
 .terry {
@@ -243,26 +262,34 @@ svg:focus-within {
 	--eye-colour: yellow;
 }
 
-/*
+
+.ninja {
+	--eye-colour: white;
+	.pupil { fill:black; }
+	.pl   { r: 2px; cx:-7px; cy:-40px; }
+	.pr   { r: 2px; cx:+7px; cy:-40px; }
+	.mask {
+		fill: var(--mask-colour);
+	}
+}
+
+
+
 .leonardo {
-	--head-fill: #05f;
-	--eye-colour: yellow;
+	--mask-colour: blue;
 }
 
 .michelangelo {
-	--head-fill: red;
-	--eye-colour: yellow;
+	--mask-colour: red;
 }
 
 .donatello {
-	--head-fill: purple;
-	--eye-colour: yellow;
+	--mask-colour: purple;
 }
 
 .raphael {
-	--head-fill: yellow;
-	--eye-colour: black;
+	--mask-colour: orange;
 }
-*/
+
 
 

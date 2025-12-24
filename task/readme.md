@@ -7,16 +7,17 @@ Todo
 
 ### Bugs
 
-* (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?
-* Zoom effects on `use:hover` (turtle, marker) are trouble - shadow-dom style, transform origin, browser differences etc. Find something consistent, or replace with a different UI effect.
-* Initial colour scheme loading is still a bit wonky, eg the command box flashes white in ff after a dark reload - find out what's causing that
+
+* A prevent default is affecting ctrl-shift-r
+* Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical page pixels
 * Chromium's colour picker goes offscreen
-* Find out what's going on with the turtle animation to/from the origin - it moves weirdly for those
+
 
 
 ### General
 
+* Improve the help dialog - backdrop, dismissal etc
 * Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
@@ -34,6 +35,7 @@ Todo
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
 * Add automatic colour scheme selection based on the user's preference
 * Grid reactive to zoom level and/or turtle position
+* Add local-frame grid overlays
 * [Multi-turtle](<ꙮ🐢 - multi-turtle.md>)
 * [Command grouping and repeat](<command grouping and repeat.md>)
 * Custom space rules - size, boundaries, wrapping
@@ -43,7 +45,6 @@ Todo
 * Add colour commands for turtle to override defaults
 * Add fill colour picker
 * Vastly improve floating-point handling - snapping, rounding, comparison, precision etc
-* Add local-frame grid overlays
 * Change or have options for line drawing - line, polygon, polyline, path
 
 
@@ -51,6 +52,8 @@ Todo
 In Progress
 -----------
 
+* Not exhibiting right? (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?
+* In the process of removing zoom effects on `use:hover` (turtle, marker) with zoom on ordinary SVG which works better. Zoom on `use` is trouble (shadow-dom style, transform origin, browser differences etc).
 * JSDoc type annotations
 * Origin/reset variants - eg one to go to the origin without resetting the heading
 * Go to x,y command with/without line
@@ -62,6 +65,8 @@ In Progress
 Done
 ----
 
+* The weird to-from-origin turtle movement has gone away with the change to translate positioning
+* The command box is gone, so the white flash in ff after a dark reload is no longer a problem
 * Added some keyboard controls
 * The turtleApp monolith has been broken up
 * Added jsconfig & checkJs
