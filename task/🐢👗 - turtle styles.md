@@ -5,6 +5,7 @@ Improve appearance and styling for the turtle graphic.
 
 ```
 2025-12-12		Open task 🐢👗
+2025-12-24		v0.10.2 done
 ```
 
 This will be a bit of a random collection of things - some experiments, some improvements, some new stuff.
@@ -87,3 +88,24 @@ Spaces can have different parameters, and be arranged within the document in dif
 As for turtles it's probably going to be something like turtles are defined within the app/document (names, certain parameters), but are are placed onto (or into) spaces.
 
 Spaces have drawings in them, of various kinds of groupings.
+
+
+
+
+Wrapping up
+-----------
+I think i want to close this here so I can move on to some other tasks.
+
+* Have redone the turtle to not use css calcs & simplified the drawing a little
+* His eyes are a bit happier and friendlier now too
+* The turtle is now added to the page as regular svg - no longer with `use` - so zoom effects are easier to apply
+* Turtle movement is now done with a translate, which has seemingly fixed to to-from-origin weirdness
+* Improved the look of the ninja turtles. Not sure if I can actually release them as-is without infringing on copyright though; prob need to rename or change the colours.
+* Speculation about improved application/document structure
+* Gave Terry a Santa hat for Christmas
+
+
+Follow up work
+* There's still a prevent default affecting ctrl-shift-r
+* Still haven't fixed the backdrop for the help dialog
+* Animations - SMIL etc

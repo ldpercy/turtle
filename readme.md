@@ -9,7 +9,7 @@ A simple implementation of Turtle graphics using SVG and JavaScript.
 I ended up so close to doing this while working out some polar maths for the [year clock](<https://github.com/ldpercy/year-clock>) that I thought I might as well have a crack at it, a version of it at least.
 I'm inventing my own syntax, but it is inspired by the original.
 
-The turtle is named Terry.
+The turtle is named Terry (after Terry Pratchett and Terence Tao).
 
 > [!TIP]
 > Live on github pages: [ldpercy.github.io/turtle/](https://ldpercy.github.io/turtle/)
