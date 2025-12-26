@@ -6,7 +6,7 @@ Implement command repeating and/or grouping
 
 
 ```
-2025-10-28		new task
+2025-10-28		new task	≣⮌
 ```
 
 I've been playing around with some bicycle-spoke shapes that have simple angles such that they usually self-close/return to home after a certain number of iterations.

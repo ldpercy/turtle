@@ -134,6 +134,8 @@ form {
 	margin: 1ex;
 
 	font-size: 1em;
+	tab-size: 4;
+
 
 	h1 { font-size:3ex; margin-bottom: 1ex; }
 	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
