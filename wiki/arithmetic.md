@@ -1,7 +1,7 @@
 Arithmetic
 ==========
 
-> [!IMPORTANT]
+> [!WARNING]
 > In progress - not yet finalised
 
 
