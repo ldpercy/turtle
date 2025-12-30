@@ -1,3 +1,7 @@
+
+
+const numericCommands = ['left', 'right', 'bear', 'jump', 'move', 'circle', 'ellipse', 'rect', 'xy', 'xyr'];
+
 /* Turtle
 */
 export class Turtle {
@@ -21,6 +25,8 @@ export class Turtle {
 		'xy',
 		'xyr',
 	];
+
+
 
 	precision = {
 		report : 5,
@@ -234,18 +240,29 @@ Turtle.Command = class {
 	argument;
 	operator;
 	draw;
+	valid;
+
+
 
 	constructor(
 		name = '',
 		argument = [],
 		operator = '',
-		draw = true
+		draw = true,
+		valid,
 	) {
 		this.name = name;
 		this.argument = argument;
 		this.operator = operator;
 		this.draw = draw;
+		this.valid = valid;
 	}
 
 	toString() { return `${this.name} ${this.argument}`}
-}
+
+	get isValid() {
+		return true;
+		// todo: figure this out
+	}
+
+}/* Turtle.Command */

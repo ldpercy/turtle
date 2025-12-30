@@ -50,6 +50,14 @@ That sort of stuff lies beyond my interest in own-coding (and doing it properly 
 A library would be better.
 
 
+Start work
+----------
+I'll start by doing some cheap fixes and see how that goes.
+It looks like the command handling code is pretty hacky - a lot of it could be improved.
+
+* Separate the command names from any aliases so that only canonical names get used in actual cmds (see if JSDoc has useful enums)
+* Move some of the arg logic to the Turtle.Command class
+* Add a proper isValid method/validation logic to detect bad commands
 
 
 
