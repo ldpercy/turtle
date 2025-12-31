@@ -1,4 +1,4 @@
-import * as command from './TurtleCommand.js';
+import * as turtleCommand from './TurtleCommand.js';
 
 
 const numericCommands = ['left', 'right', 'bear', 'jump', 'move', 'circle', 'ellipse', 'rect', 'xy', 'xyr'];
@@ -100,11 +100,10 @@ export class Turtle {
 
 	/** move
 	 * moves dx,dy in the turtles current local frame
-	 * @param {number} dx
-	 * @param {number} dy
+	 * @param {turtleCommand.Move} move
 	 */
-	move(dx, dy) {
-		this.#position.move(dx,dy);
+	move(move) {
+		this.#position.move(move.dx, move.dy);
 	}
 
 	/** moveToXY
@@ -154,6 +153,7 @@ export class Turtle {
 		//console.log(`${this.#name}.doCommand:`, command);
 		//let result = '';
 
+
 		switch(command.name) {
 			case 'b'            :
 			case 'jump'         :
@@ -190,11 +190,20 @@ export class Turtle {
 		const lineArray = string.trim().split('\n');
 		let lineText = '';
 		let command;
+		let commandName;
 
 		lineArray.forEach(
 			(line) => {
 				lineText = line.trim();
-				command = (new Command()).parseCmdString(lineText);
+
+				commandName = turtleCommand.firstWord(lineText);
+
+				if (turtleCommand.commandMap[commandName]) {
+					command = new turtleCommand.commandMap[commandName];
+					command.parseCmdString(lineText);
+				}
+
+
 				if (command) {
 					result.push(command);
 				}
