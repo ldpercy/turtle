@@ -47,7 +47,7 @@ export class SVGTurtle {
 
 
 
-
+	/** @returns {string} */
 	get turtleSvg() {
 
 		let seasonal = '';
@@ -90,16 +90,31 @@ export class SVGTurtle {
 	// mutators
 	//
 
+
+	/**
+	 * @param {number} r
+	 * @returns {string}
+	 */
 	circle(r) {
 		const result = `<circle cx="${this.svgX}" cy="${this.svgY}" r="${r}"/>`;
 		return result;
 	}
 
+	/**
+	 * @param {number} width
+	 * @param {number} height
+	 * @return {string}
+	 */
 	rect(width, height) {
 		const result = `<rect x="${this.x - width/2}" y="${this.svgY - height/2}" width="${width}" height="${height}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
+	/**
+	 * @param {number} width
+	 * @param {number} height
+	 * @return {string}
+	 */
 	ellipse(width, height) {
 		const rx = width / 2;
 		const ry = height / 2;
@@ -107,11 +122,16 @@ export class SVGTurtle {
 		return result;
 	}
 
+	/**
+	 * @param {string} text
+	 * @return {string}
+	 */
 	text(text) {
 		const result = `<text x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">${text}</text>`;
 		return result;
 	}
 
+	/** @returns {string} */
 	marker() {
 		const result = `
 			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">
@@ -133,7 +153,7 @@ export class SVGTurtle {
 	}
 
 
-
+	 /** @returns {string} */
 	get report() {
 		const originAngle = this.turtle.location.angle;
 

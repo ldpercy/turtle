@@ -21,7 +21,7 @@ class TurtleApp extends HTMLApp {
 		https://github.com/ldpercy/turtle/releases/tag/v0.🗟⚠️
 	`.replace(/\n\t\t/g,'\n');
 
-
+	/** @type {object} */
 	elementMap = {
 		commandInput	: 'input-command',
 		turtleForm		: 'form-turtle',
@@ -32,6 +32,7 @@ class TurtleApp extends HTMLApp {
 		drawing			: 'group-drawing',
 	};
 
+	/** @type {array} */
 	eventListeners = [
 		{
 			query: '#button-doCommands',

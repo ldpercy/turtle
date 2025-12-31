@@ -60,6 +60,12 @@ It looks like the command handling code is pretty hacky - a lot of it could be i
 * Add a proper isValid method/validation logic to detect bad commands
 
 
+Typing for command args
+-----------------------
+
+Ugh.
+There's probably a really obvious standard way to do this but it's not coming to me yet - so I'll spin through a few ideas and see what looks okay.
+
 
 
 

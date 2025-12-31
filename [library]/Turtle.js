@@ -1,3 +1,4 @@
+import * as command from './TurtleCommand.js';
 
 
 const numericCommands = ['left', 'right', 'bear', 'jump', 'move', 'circle', 'ellipse', 'rect', 'xy', 'xyr'];
@@ -97,17 +98,27 @@ export class Turtle {
 	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
 
 
-	/* moves dx,dy in the turtles current local frame
-	*/
+	/** move
+	 * moves dx,dy in the turtles current local frame
+	 * @param {number} dx
+	 * @param {number} dy
+	 */
 	move(dx, dy) {
 		this.#position.move(dx,dy);
 	}
 
-
+	/** moveToXY
+	 * @param {number} x
+	 * @param {number} y
+	 */
 	moveToXY(x,y) {
 		this.#position.moveToXY(x,y);
 	}
 
+	/** moveToXYwithRotate
+	 * @param {number} x
+	 * @param {number} y
+	 */
 	moveToXYwithRotate(x,y) {
 		this.#position.moveToXYwithRotate(x,y);
 	}
@@ -125,13 +136,9 @@ export class Turtle {
 	//
 
 
-
+	/** @return {string} */
 	toString() {
 		return `Turtle - x:${this.x}; y:${this.y}; direction:${this.#position.direction.degrees};`;
-	}
-
-	log(prefix) {
-		console.log(prefix, this.toString());
 	}
 
 
@@ -140,39 +147,44 @@ export class Turtle {
 	// Commands
 	//
 
-	doCommand = function(command) {
+
+
+	/** @param {Command} command */
+	doCommand(command) {
 		//console.log(`${this.#name}.doCommand:`, command);
-		let result = '';
+		//let result = '';
 
 		switch(command.name) {
 			case 'b'            :
 			case 'jump'         :
-			case 'bear'         : result = this.bear(...command.argument); break;
+			case 'bear'         : this.bear(...command.argument); break;
 			case 'l'            :
-			case 'left'         : result = this.left(...command.argument); break;
+			case 'left'         : this.left(...command.argument); break;
 			case 'r'            :
-			case 'right'        : result = this.right(...command.argument); break;
+			case 'right'        : this.right(...command.argument); break;
 			case 'm'            :
-			case 'move'         : result = this.move(...command.argument); break;
-			case 'xy'           : result = this.moveToXY(...command.argument); break;
-			case 'xyr'          : result = this.moveToXYwithRotate(...command.argument); break;
-			case 'o'            : result = this.toOrigin(); break;
-			//case 'marker'       : result = this.marker; break;
+			case 'move'         : this.move(...command.argument); break;
+			case 'xy'           : this.moveToXY(...command.argument); break;
+			case 'xyr'          : this.moveToXYwithRotate(...command.argument); break;
+			case 'o'            : this.toOrigin(); break;
+			//case 'marker'       : this.marker; break;
 
 			default             : console.warn(`Unknown command: ${command}`); break;
 		}
 
 		//console.log(instruction);
-		return result;
+		//return result;
 	}
 
-
+	/** @param {array} commandArray */
 	doCommands(commandArray) {
 		commandArray.forEach(command => {
 			this.doCommand(command);
 		});
 	}
 
+
+	/** @returns {array} */
 	static getCommands = function(string) {
 		const result = [];
 		const lineArray = string.trim().split('\n');
@@ -182,7 +194,7 @@ export class Turtle {
 		lineArray.forEach(
 			(line) => {
 				lineText = line.trim();
-				command = Turtle.parseCmd(lineText);
+				command = (new Command()).parseCmdString(lineText);
 				if (command) {
 					result.push(command);
 				}
@@ -193,60 +205,21 @@ export class Turtle {
 	}
 
 
-	static parseCmd(cmdString) {
-		let result = new Turtle.Command();
-		let arg;
-		let match;
-
-		if (cmdString.startsWith('^')) {
-			result.draw = false;
-			cmdString = cmdString.substring(1);
-		}
-
-		match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
-		if (match) {
-
-			result.name = match[1].trim();
-
-			if (result.name === 'text') {
-				arg = (match[2]) ? [match[2]] : [''];
-			}
-			else {
-				arg = (match[2]) ? this.parseArgs(match[2]) : [];
-			}
-			result.argument = arg;
-		}
-		else {
-			result = undefined;
-		}
-		return result;
-	}
-
-
-	static parseArgs(argString) {
-		const argArray = argString.split(',');
-
-		const result = argArray.map(
-			(element) => { return Number.parseFloat(element); }
-		);
-		return result;
-	}
-
 }/* Turtle */
 
 
-Turtle.Command = class {
+export class Command {
 	name;
 	argument;
 	operator;
 	draw;
 	valid;
-
+	string;
 
 
 	constructor(
 		name = '',
-		argument = [],
+		argument,
 		operator = '',
 		draw = true,
 		valid,
@@ -258,11 +231,60 @@ Turtle.Command = class {
 		this.valid = valid;
 	}
 
+	/** @return {string} */
 	toString() { return `${this.name} ${this.argument}`}
 
+
+	/** @return {boolean} */
 	get isValid() {
 		return true;
 		// todo: figure this out
 	}
 
-}/* Turtle.Command */
+	/**
+	 * @param {string} cmdString
+	 * @return {Command}
+	 */
+	parseCmdString(cmdString) {
+		this.string = cmdString;
+		let arg;
+		let match;
+
+		if (cmdString.startsWith('^')) {
+			this.draw = false;
+			cmdString = cmdString.substring(1);
+		}
+
+		match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
+		if (match) {
+
+			this.name = match[1].trim();
+
+			if (this.name === 'text') {
+				arg = (match[2]) ? [match[2]] : [''];
+			}
+			else {
+				arg = (match[2]) ? this.parseArgs(match[2]) : [];
+			}
+			this.argument = arg;
+		}
+		else {
+			this.valid = false;
+		}
+		return this;
+	}
+
+	/**
+	 * @param {string} argString
+	 * @return {array}
+	 * /
+	parseArgs(argString) {
+		const argArray = argString.split(',');
+
+		const result = argArray.map(
+			(element) => { return Number.parseFloat(element); }
+		);
+		return result;
+	}/* parseArgs */
+
+}/* Command */
