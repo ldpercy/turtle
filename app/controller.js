@@ -89,7 +89,7 @@ export function svgClickListener(event) {
 	}
 	else if (mouseMode === 'move')
 	{
-		const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `~xyr ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 
@@ -131,7 +131,7 @@ export function updatePage() {
 export function toOrigin() {
 	//console.log('toOrigin');
 	//const cmd = new turtleCommand.Command('origin');
-	doCommand('^origin');
+	doCommand('~origin');
 	svg.updateTurtle();
 	ui.updateTurtleInfo();
 }
@@ -148,10 +148,10 @@ export function doCommands() {
 }/* doCommands */
 
 
-function doCommand(cmdString) {
-	const commands = turtleCommand.generateCommands(cmdString);
+function doCommand(commandString) {
+	const command = turtleCommand.createCommand(commandString);
 	//console.log(commands);
-	const commandOutput = turtleApp.turtle.doCommands(commands);
+	const commandOutput = turtleApp.turtle.doCommand(command);
 	svg.updateTurtle();
 	svg.draw(commandOutput);
 	ui.updateTurtleInfo();

@@ -151,45 +151,35 @@ export function generateCommands(commandText) {
 }
 
 
-/** createCommanmd
- * @param {string} cmdString
+/** createCommand
+ * @param {string} commandString
  * @return {Command}
  */
-function createCommanmd(cmdString) {
-	let result;
+export function createCommand(commandString) {
+	let result = undefined;
 	let arg;
 	let match;
 	let draw;
 
-	if (cmdString.startsWith('^')) {
+	if (commandString.startsWith('~')) {
 		draw = false;
-		cmdString = cmdString.substring(1);
+		commandString = commandString.substring(1);
 	}
 
-	/*
-	match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
-	if (match) {
+	const commandSplit = splitCommandString(commandString);
 
-		this.name = match[1].trim();
-
-		if (this.name === 'text') {
-			arg = (match[2]) ? [match[2]] : [''];
-		}
-		else {
-			arg = (match[2]) ? this.parseArgs(match[2]) : [];
-		}
-		this.argument = arg;
+	if (commandMap[commandSplit.name]) {
+		result = new commandMap[commandSplit.name];
+		result.name = commandSplit.name;
+		result.string = commandString;
+		result.parseArguments(commandSplit.arguments);
+		//console.debug(command);
 	}
-	else {
-		this.valid = false;
-	}
-	*/
-
-
-
+	
+	console.debug(result);
 
 	return result;
-}
+}/* createCommand */
 
 
 
