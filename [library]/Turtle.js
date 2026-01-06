@@ -78,29 +78,30 @@ export class Turtle {
 
 
 	toOrigin() {
+		//console.log('toOrigin');
 		this.#position.resetToOrigin();
 	}
 
 
 	/* bear
-	* @param {turtleCommand.bear} command
+	* @param {turtleCommand.bear} bearCommand
 	*/
-	bear(command) {
-		this.#position.bear(command.bearingDegrees, command.distance);
+	bear(bearCommand) {
+		this.#position.bear(bearCommand.argument.bearingDegrees, bearCommand.argument.distance);
 	}/* bear */
 
-	/* @param {turtleCommand.bear} command */
-	left(command)  { return this.bear(command) }
-	/* @param {turtleCommand.bear} command */
-	right(command) { return this.bear(command) }
+	/* @param {turtleCommand.bear} bearCommand */
+	left(bearCommand)  { return this.bear(bearCommand) }
+	/* @param {turtleCommand.bear} bearCommand */
+	right(bearCommand) { return this.bear(bearCommand) }
 
 
 	/** move
 	 * moves dx,dy in the turtles current local frame
-	 * @param {turtleCommand.Move} move
+	 * @param {turtleCommand.Move} moveCommand
 	 */
-	move(move) {
-		this.#position.move(move.dx, move.dy);
+	move(moveCommand) {
+		this.#position.move(moveCommand.argument.dx, moveCommand.argument.dy);
 	}
 
 	/** moveToXY
@@ -145,7 +146,9 @@ export class Turtle {
 
 
 
-	/** @param {turtleCommand.Command} command */
+	/** doCommand
+	 * @param {turtleCommand.Command} command
+	 */
 	doCommand(command) {
 		//console.log(`${this.#name}.doCommand:`, command);
 		//let result = '';

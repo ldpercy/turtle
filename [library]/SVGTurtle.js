@@ -3,8 +3,7 @@
 
 
 import { Turtle } from "./Turtle.js";
-
-
+import * as turtleCommand from './TurtleCommand.js';
 
 export class SVGTurtle {
 
@@ -192,8 +191,10 @@ export class SVGTurtle {
 
 
 
-
-	doCommand = function(command) {
+	/** doCommand
+	 * @param {turtleCommand.Command} command
+	 */
+	doCommand(command) {
 		//console.log(`${this.name}.doCommand:`, command);
 		let result = '';
 
@@ -208,10 +209,10 @@ export class SVGTurtle {
 		if (command.draw) {
 			switch(command.name) {
 				// presentation only commands
-				case 'circle'       : result = this.circle(...command.argument); break;
-				case 'rect'         : result = this.rect(...command.argument); break;
-				case 'ellipse'      : result = this.ellipse(...command.argument); break;
-				case 'text'         : result = this.text(...command.argument); break;
+				case 'circle'       : result = this.circle(command.argument); break;
+				case 'rect'         : result = this.rect(command.argument); break;
+				case 'ellipse'      : result = this.ellipse(command.argument); break;
+				case 'text'         : result = this.text(command.argument); break;
 				case 'marker'       : result = this.marker(); break;
 
 				// movement commands
@@ -221,6 +222,7 @@ export class SVGTurtle {
 				case 'bear'         :
 				case 'xy'           :
 				case 'xyr'          :
+				case 'origin'       :
 					result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 				default             :

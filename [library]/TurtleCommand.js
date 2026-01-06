@@ -1,13 +1,19 @@
+//
+//	TurtleCommands
+//
 
 
-//import {Command} from './Turtle.js';
+
+//
+//	Command Classes
+//
 
 
 
 export class Command {
 	/** @type string */		string;
 	/** @type string */		name;
-	/** @type array */		argument;
+	/** @type object */		argument;
 	/** @type boolean */	draw = true;
 	/** @type boolean */	valid = false;
 	//operator;
@@ -32,17 +38,15 @@ export class Command {
 		// todo: figure this out
 	}
 
-
-
 	/**
-	 * @param {string} argString
+	 * @param {string} argumentString
 	 */
-	parseArgs(argString) {
-		this.argument = argString.split(',');
-		this.argument.map(
-			(element) => { return Number.parseFloat(element); }
-		);
-	}/* parseArgs */
+	parseArguments(argumentString) {
+		// this.argument = argumentString.split(',');
+		// this.argument.map(
+		// 	(element) => { return Number.parseFloat(element); }
+		// );
+	}/* parseArguments */
 
 }/* Command */
 
@@ -53,47 +57,83 @@ export class NoCommand extends Command { }
 
 export class Bear extends Command {
 
-	/** @type number */		bearingDegrees;
-	/** @type number */		distance;
+	/** argument
+	 * @property {number}  bearingDegrees
+	 * @property {number}  distance
+	 */
+	argument = {
+		bearingDegrees : undefined,
+		distance : undefined,
+	};
 
-	/** @param {string} argString */
-	parseArgs(argString) {
-		const argArray = argString.split(',');
-		this.bearingDegrees = Number.parseFloat(argArray[0]);
-		this.distance = Number.parseFloat(argArray[1]);
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.bearingDegrees = Number.parseFloat(argArray[0]);
+		this.argument.distance = Number.parseFloat(argArray[1]);
 
 		if (this.name === 'left') {
-			this.bearingDegrees = -this.bearingDegrees;			// very hackish, need to rationalise
+			this.argument.bearingDegrees = -this.argument.bearingDegrees;			// very hackish, need to rationalise
 		}
 	}
-}
+}/* Bear */
 
 
 export class Move extends Command {
 
-	/** @type number */		dx;
-	/** @type number */		dy;
+	/**
+	 * @property {number}  dx
+	 * @property {number}  dy
+	 */
+	argument = {
+		dx : undefined,
+		dy : undefined,
+	};
 
-	/** @param {string} argString */
-	parseArgs(argString) {
-		const argArray = argString.split(',');
-		this.dx = Number.parseFloat(argArray[0]);
-		this.dy = Number.parseFloat(argArray[1]);
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.dx = Number.parseFloat(argArray[0]);
+		this.argument.dy = Number.parseFloat(argArray[1]);
 	}
-}
+}/* Move */
+
+
+
+export class Position extends Command {
+
+	/**
+	 * @property {number}  x
+	 * @property {number}  y
+	 * @property {number}  a
+	 */
+	argument = {
+		x : undefined,
+		y : undefined,
+		a : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.x = Number.parseFloat(argArray[0]);
+		this.argument.y = Number.parseFloat(argArray[1]);
+		this.argument.a = Number.parseFloat(argArray[2]);
+	}
+}/* Position */
+
 
 
 export class Text extends Command {
-
 	/** @type string */		text;
 
-	/** @param {string} argString */
-	parseArgs(argString) {
-		this.text = argString;
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		this.text = argumentString;
 		this.text.replaceAll('<','&lt;');
 		this.text.replaceAll('>','&gt;');
 	}
-}
+}/* Text */
 
 
 
@@ -118,34 +158,21 @@ export const commandMap = {
 export function generateCommands(commandText) {
 	const result = [];
 	const lineArray = commandText.trim().split('\n');
-	let lineText = '';
+	let lineString = '';
 	let command;
-	let commandSplit;
 
 	lineArray.forEach(
 		(line) => {
-			lineText = line.trim();
+			lineString = line.trim();
 
-			commandSplit = splitCommandString(lineText);
-
-			//console.debug(commandSplit);
-
-			if (commandMap[commandSplit.name]) {
-				command = new commandMap[commandSplit.name];
-				command.name = commandSplit.name;
-				command.string = lineText;
-				command.parseArgs(commandSplit.arguments);
-
-				//console.debug(command);
-
-				if (command.isValid) {
-					result.push(command);
-				}
+			command = createCommand(lineString)
+			if (command && command.isValid) {
+				result.push(command);
 			}
 		}
 	);
 
-	console.debug(result);
+	//console.debug(result);
 
 	return result;
 }
@@ -159,7 +186,7 @@ export function createCommand(commandString) {
 	let result = undefined;
 	let arg;
 	let match;
-	let draw;
+	let draw = true;
 
 	if (commandString.startsWith('~')) {
 		draw = false;
@@ -172,11 +199,12 @@ export function createCommand(commandString) {
 		result = new commandMap[commandSplit.name];
 		result.name = commandSplit.name;
 		result.string = commandString;
+		result.draw = draw;
 		result.parseArguments(commandSplit.arguments);
 		//console.debug(command);
 	}
-	
-	console.debug(result);
+
+	//console.debug(result);
 
 	return result;
 }/* createCommand */
