@@ -130,7 +130,8 @@ export function updatePage() {
 
 export function toOrigin() {
 	//console.log('toOrigin');
-	doCommand('^o');
+	//const cmd = new turtleCommand.Command('origin');
+	doCommand('^origin');
 	svg.updateTurtle();
 	ui.updateTurtleInfo();
 }

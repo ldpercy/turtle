@@ -99,21 +99,16 @@ export class Text extends Command {
 
 
 
-// bear(bearingDegrees, distance=0) {
 
 
 export const commandMap = {
-	'b'            : Bear,
 	'bear'         : Bear,
-	'l'            : Bear,
 	'left'         : Bear,
-	'r'            : Bear,
 	'right'        : Bear,
-	'm'            : Move,
 	'move'         : Move,
+	'origin'       : Position,
 	//'xy'           : this.moveToXY(...command.argument); break;
 	//'xyr'          : this.moveToXYwithRotate(...command.argument); break;
-	//'o'            : this.toOrigin(); break;
 };
 
 

@@ -1,7 +1,7 @@
 import * as turtleCommand from './TurtleCommand.js';
 
 
-const numericCommands = ['left', 'right', 'bear', 'jump', 'move', 'circle', 'ellipse', 'rect', 'xy', 'xyr'];
+const numericCommands = ['left', 'right', 'bear', 'move', 'circle', 'ellipse', 'rect', 'xy', 'xyr'];
 
 /* Turtle
 */
@@ -13,16 +13,11 @@ export class Turtle {
 
 
 	commands = [
-		'b',
 		'bear',
-		'jump',
-		'l',
 		'left',
-		'r',
 		'right',
-		'm',
 		'move',
-		'o',
+		'origin',
 		'xy',
 		'xyr',
 	];
@@ -156,21 +151,16 @@ export class Turtle {
 		//let result = '';
 
 		switch(command.name) {
-			case 'b'            :
-			case 'jump'         :
 			case 'bear'         : this.bear(command); break;
-			case 'l'            :
 			case 'left'         : this.left(command); break;
-			case 'r'            :
 			case 'right'        : this.right(command); break;
-			case 'm'            :
-			case 'move'         : this.move(...command.argument); break;
-			case 'xy'           : this.moveToXY(...command.argument); break;
-			case 'xyr'          : this.moveToXYwithRotate(...command.argument); break;
-			case 'o'            : this.toOrigin(); break;
+			case 'move'         : this.move(command); break;
+			case 'xy'           : this.moveToXY(command); break;
+			case 'xyr'          : this.moveToXYwithRotate(command); break;
+			case 'origin'       : this.toOrigin(); break;
 			//case 'marker'       : this.marker; break;
 
-			default             : console.warn(`Unknown command: ${command}`); break;
+			default             : console.warn(`[Turtle] Unknown command: ${command}`); break;
 		}
 
 		//console.log(instruction);

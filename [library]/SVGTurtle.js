@@ -216,9 +216,7 @@ export class SVGTurtle {
 
 				// movement commands
 				case 'move'         :
-				case 'l'            :
 				case 'left'         :
-				case 'r'            :
 				case 'right'        :
 				case 'bear'         :
 				case 'xy'           :
@@ -226,8 +224,8 @@ export class SVGTurtle {
 					result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 				default             :
-					console.warn(`Unknown command: ${command}`);
-					result = `<!-- Unknown command: ${command} -->`;
+					console.warn(`[SVGTurtle] Unknown command: ${command}`);
+					result = `<!-- [SVGTurtle] Unknown command: ${command} -->`;
 					break;
 			}
 		}
