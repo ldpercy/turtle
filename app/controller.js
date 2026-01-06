@@ -2,11 +2,12 @@
 //	controller
 //
 
-import { Turtle } from "../[library]/Turtle.js";
+
 import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
 import { svg } from "./view-svg.js";
-
+//import { turtle } from "../[library]/Turtle.js";
+import * as turtleCommand from "../[library]/TurtleCommand.js";
 
 
 //
@@ -136,7 +137,7 @@ export function toOrigin() {
 
 
 export function doCommands() {
-	const commands = Turtle.getCommands(ui.commandString);
+	const commands = turtleCommand.generateCommands(ui.commandString);
 	//console.log('Commands:', commands);
 
 	const commandOutput = turtleApp.turtle.doCommands(commands);
@@ -147,7 +148,7 @@ export function doCommands() {
 
 
 function doCommand(cmdString) {
-	const commands = Turtle.getCommands(cmdString);
+	const commands = turtleCommand.generateCommands(cmdString);
 	//console.log(commands);
 	const commandOutput = turtleApp.turtle.doCommands(commands);
 	svg.updateTurtle();

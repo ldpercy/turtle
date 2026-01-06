@@ -88,14 +88,16 @@ export class Turtle {
 
 
 	/* bear
+	* @param {turtleCommand.bear} command
 	*/
-	bear(bearingDegrees, distance=0) {
-		this.#position.bear(bearingDegrees, distance);
+	bear(command) {
+		this.#position.bear(command.bearingDegrees, command.distance);
 	}/* bear */
 
-
-	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
-	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
+	/* @param {turtleCommand.bear} command */
+	left(command)  { return this.bear(command) }
+	/* @param {turtleCommand.bear} command */
+	right(command) { return this.bear(command) }
 
 
 	/** move
@@ -148,20 +150,19 @@ export class Turtle {
 
 
 
-	/** @param {Command} command */
+	/** @param {turtleCommand.Command} command */
 	doCommand(command) {
 		//console.log(`${this.#name}.doCommand:`, command);
 		//let result = '';
 
-
 		switch(command.name) {
 			case 'b'            :
 			case 'jump'         :
-			case 'bear'         : this.bear(...command.argument); break;
+			case 'bear'         : this.bear(command); break;
 			case 'l'            :
-			case 'left'         : this.left(...command.argument); break;
+			case 'left'         : this.left(command); break;
 			case 'r'            :
-			case 'right'        : this.right(...command.argument); break;
+			case 'right'        : this.right(command); break;
 			case 'm'            :
 			case 'move'         : this.move(...command.argument); break;
 			case 'xy'           : this.moveToXY(...command.argument); break;
@@ -184,116 +185,4 @@ export class Turtle {
 	}
 
 
-	/** @returns {array} */
-	static getCommands = function(string) {
-		const result = [];
-		const lineArray = string.trim().split('\n');
-		let lineText = '';
-		let command;
-		let commandName;
-
-		lineArray.forEach(
-			(line) => {
-				lineText = line.trim();
-
-				commandName = turtleCommand.firstWord(lineText);
-
-				if (turtleCommand.commandMap[commandName]) {
-					command = new turtleCommand.commandMap[commandName];
-					command.parseCmdString(lineText);
-				}
-
-
-				if (command) {
-					result.push(command);
-				}
-			}
-		);
-
-		return result;
-	}
-
-
 }/* Turtle */
-
-
-export class Command {
-	name;
-	argument;
-	operator;
-	draw;
-	valid;
-	string;
-
-
-	constructor(
-		name = '',
-		argument,
-		operator = '',
-		draw = true,
-		valid,
-	) {
-		this.name = name;
-		this.argument = argument;
-		this.operator = operator;
-		this.draw = draw;
-		this.valid = valid;
-	}
-
-	/** @return {string} */
-	toString() { return `${this.name} ${this.argument}`}
-
-
-	/** @return {boolean} */
-	get isValid() {
-		return true;
-		// todo: figure this out
-	}
-
-	/**
-	 * @param {string} cmdString
-	 * @return {Command}
-	 */
-	parseCmdString(cmdString) {
-		this.string = cmdString;
-		let arg;
-		let match;
-
-		if (cmdString.startsWith('^')) {
-			this.draw = false;
-			cmdString = cmdString.substring(1);
-		}
-
-		match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
-		if (match) {
-
-			this.name = match[1].trim();
-
-			if (this.name === 'text') {
-				arg = (match[2]) ? [match[2]] : [''];
-			}
-			else {
-				arg = (match[2]) ? this.parseArgs(match[2]) : [];
-			}
-			this.argument = arg;
-		}
-		else {
-			this.valid = false;
-		}
-		return this;
-	}
-
-	/**
-	 * @param {string} argString
-	 * @return {array}
-	 * /
-	parseArgs(argString) {
-		const argArray = argString.split(',');
-
-		const result = argArray.map(
-			(element) => { return Number.parseFloat(element); }
-		);
-		return result;
-	}/* parseArgs */
-
-}/* Command */
