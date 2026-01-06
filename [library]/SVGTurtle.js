@@ -287,3 +287,57 @@ export class SVGTurtle {
 
 
 
+
+/*
+
+	<!--
+	<g id="turtle-terry">
+		<g class="turtle terry turtle-hover">
+			<title id="title-terry"></title>
+			<g class="feet">
+				<circle class="fl"/>
+				<circle class="fr"/>
+				<circle class="bl"/>
+				<circle class="br"/>
+			</g>
+			<circle class="body"/>
+			<circle class="head"/>
+			<g class="eyes">
+				<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+				<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+			</g>
+			<polygon style="fill:red" points="-23,-49 5,-97 +23,-49"/>
+			<g style="stroke:silver;fill:white;stroke-width:3px">
+				<rect x="-24" y="-52" width="48" height="7"/>
+				<circle cx="5" cy="-97" r="7"/>
+			</g>
+
+
+		</g>
+	</g>
+	-->
+
+	<!--
+	<g id="turtle-leonardo" transform="translate(200,0)">
+		<g class="turtle ninja raphael turtle-hover">
+			<title id="title-terry"></title>
+			<g class="feet">
+				<circle class="fl"/>
+				<circle class="fr"/>
+				<circle class="bl"/>
+				<circle class="br"/>
+			</g>
+			<circle class="body"/>
+			<circle class="head"/>
+			<polygon class="mask" points="-22,-51 +33,-51 +21,-34  -22,-34"/>
+			<g class="eyes">
+				<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+				<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+				<circle class="pupil pl"/>
+				<circle class="pupil pr"/>
+			</g>
+		</g>
+	</g>
+	-->
+
+*/
