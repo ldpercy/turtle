@@ -138,18 +138,12 @@ export class Text extends Command {
 
 
 
+//
+//	Util
+//
 
 
 
-export const commandMap = {
-	'bear'         : Bear,
-	'left'         : Bear,
-	'right'        : Bear,
-	'move'         : Move,
-	'origin'       : Position,
-	//'xy'           : this.moveToXY(...command.argument); break;
-	//'xyr'          : this.moveToXYwithRotate(...command.argument); break;
-};
 
 
 /** getCommands
@@ -236,3 +230,16 @@ function splitCommandString(commandString) {
 
 	return result;
 }
+
+
+
+
+export const commandMap = {
+	'bear'         : Bear,
+	'left'         : Bear,
+	'right'        : Bear,
+	'move'         : Move,
+	'origin'       : Position,
+	'xy'           : Position,
+	'xyr'          : Position,
+};

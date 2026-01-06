@@ -105,19 +105,17 @@ export class Turtle {
 	}
 
 	/** moveToXY
-	 * @param {number} x
-	 * @param {number} y
+	 * @param {turtleCommand.Position} positionCommand
 	 */
-	moveToXY(x,y) {
-		this.#position.moveToXY(x,y);
+	moveToXY(positionCommand) {
+		this.#position.moveToXY(positionCommand.argument.x, positionCommand.argument.y);
 	}
 
 	/** moveToXYwithRotate
-	 * @param {number} x
-	 * @param {number} y
+	 * @param {turtleCommand.Position} positionCommand
 	 */
-	moveToXYwithRotate(x,y) {
-		this.#position.moveToXYwithRotate(x,y);
+	moveToXYwithRotate(positionCommand) {
+		this.#position.moveToXYwithRotate(positionCommand.argument.x, positionCommand.argument.y);
 	}
 
 
