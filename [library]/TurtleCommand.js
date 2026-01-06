@@ -242,4 +242,5 @@ export const commandMap = {
 	'origin'       : Position,
 	'xy'           : Position,
 	'xyr'          : Position,
+	'marker'       : Command,
 };

@@ -193,6 +193,7 @@ export class SVGTurtle {
 
 	/** doCommand
 	 * @param {turtleCommand.Command} command
+	 * @returns {string}
 	 */
 	doCommand(command) {
 		//console.log(`${this.name}.doCommand:`, command);
@@ -232,8 +233,7 @@ export class SVGTurtle {
 			}
 		}
 
-
-		//console.log(instruction);
+		console.log(result);
 		return result;
 	}
 
