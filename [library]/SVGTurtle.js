@@ -210,9 +210,9 @@ export class SVGTurtle {
 		if (command.draw) {
 			switch(command.name) {
 				// presentation only commands
-				case 'circle'       : result = this.circle(command.argument); break;
-				case 'rect'         : result = this.rect(command.argument); break;
-				case 'ellipse'      : result = this.ellipse(command.argument); break;
+				case 'circle'       : result = this.circle(command.argument.radius); break;
+				case 'rect'         : result = this.rect(command.argument.width, command.argument.height); break;
+				case 'ellipse'      : result = this.ellipse(command.argument.width, command.argument.height); break;
 				case 'text'         : result = this.text(command.argument); break;
 				case 'marker'       : result = this.marker(); break;
 
@@ -233,7 +233,7 @@ export class SVGTurtle {
 			}
 		}
 
-		console.log(result);
+		//console.log(result);
 		return result;
 	}
 

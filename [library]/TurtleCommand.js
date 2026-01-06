@@ -124,6 +124,44 @@ export class Position extends Command {
 
 
 
+export class Rectangle extends Command {
+
+	/**
+	 * @property {number}  width
+	 * @property {number}  height
+	 */
+	argument = {
+		width  : undefined,
+		height : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.width  = Number.parseFloat(argArray[0]);
+		this.argument.height = Number.parseFloat(argArray[1]);
+	}
+}/* Rectangle */
+
+
+export class Radius extends Command {
+
+	/**
+	 * @property {number}  radius
+	 */
+	argument = {
+		radius  : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.radius  = Number.parseFloat(argArray[0]);
+	}
+}/* Radius */
+
+
+
 export class Text extends Command {
 	/** @type string */		text;
 
@@ -233,8 +271,8 @@ function splitCommandString(commandString) {
 
 
 
-
 export const commandMap = {
+	'marker'       : Command,
 	'bear'         : Bear,
 	'left'         : Bear,
 	'right'        : Bear,
@@ -242,5 +280,8 @@ export const commandMap = {
 	'origin'       : Position,
 	'xy'           : Position,
 	'xyr'          : Position,
-	'marker'       : Command,
+
+	'rect'         : Rectangle,
+	'ellipse'      : Rectangle,
+	'circle'       : Radius,
 };
