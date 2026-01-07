@@ -130,7 +130,9 @@ export class SVGTurtle {
 		return result;
 	}
 
-	/** @returns {string} */
+	/** marker
+	 * @returns {string}
+	 */
 	marker() {
 		const result = `
 			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">
@@ -142,7 +144,7 @@ export class SVGTurtle {
 
 
 
-
+	/*
 	moveToXY(x,y) {
 		this.turtle.moveToXY(x,y);
 	}
@@ -150,6 +152,7 @@ export class SVGTurtle {
 	moveToXYwithRotate(x,y) {
 		this.turtle.moveToXYwithRotate(x,y);
 	}
+	*/
 
 
 	 /** @returns {string} */
@@ -196,7 +199,7 @@ export class SVGTurtle {
 	 * @returns {string}
 	 */
 	doCommand(command) {
-		//console.log(`${this.name}.doCommand:`, command);
+		console.log(`${this.name}.doCommand:`, command);
 		let result = '';
 
 
@@ -213,7 +216,7 @@ export class SVGTurtle {
 				case 'circle'       : result = this.circle(command.argument.radius); break;
 				case 'rect'         : result = this.rect(command.argument.width, command.argument.height); break;
 				case 'ellipse'      : result = this.ellipse(command.argument.width, command.argument.height); break;
-				case 'text'         : result = this.text(command.argument); break;
+				case 'text'         : result = this.text(command.argument.text); break;
 				case 'marker'       : result = this.marker(); break;
 
 				// movement commands

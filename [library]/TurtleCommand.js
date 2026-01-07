@@ -13,9 +13,12 @@
 export class Command {
 	/** @type string */		string;
 	/** @type string */		name;
-	/** @type object */		argument;
+	/** @type object */		argument = {};
 	/** @type boolean */	draw = true;
 	/** @type boolean */	valid = false;
+
+
+
 	//operator;
 
 	constructor(
@@ -56,7 +59,6 @@ export class NoCommand extends Command { }
 
 
 export class Bear extends Command {
-
 	/** argument
 	 * @property {number}  bearingDegrees
 	 * @property {number}  distance
@@ -80,7 +82,6 @@ export class Bear extends Command {
 
 
 export class Move extends Command {
-
 	/**
 	 * @property {number}  dx
 	 * @property {number}  dy
@@ -101,7 +102,6 @@ export class Move extends Command {
 
 
 export class Position extends Command {
-
 	/**
 	 * @property {number}  x
 	 * @property {number}  y
@@ -125,7 +125,6 @@ export class Position extends Command {
 
 
 export class Rectangle extends Command {
-
 	/**
 	 * @property {number}  width
 	 * @property {number}  height
@@ -145,7 +144,6 @@ export class Rectangle extends Command {
 
 
 export class Radius extends Command {
-
 	/**
 	 * @property {number}  radius
 	 */
@@ -163,13 +161,18 @@ export class Radius extends Command {
 
 
 export class Text extends Command {
-	/** @type string */		text;
+	/**
+	 * @property {string}  text
+	 */
+	argument = {
+		text  : undefined,
+	};
 
 	/** @param {string} argumentString */
 	parseArguments(argumentString) {
-		this.text = argumentString;
-		this.text.replaceAll('<','&lt;');
-		this.text.replaceAll('>','&gt;');
+		argumentString = argumentString.replaceAll('<','&lt;');
+		argumentString = argumentString.replaceAll('>','&gt;');
+		this.argument.text = argumentString;
 	}
 }/* Text */
 
@@ -284,4 +287,5 @@ export const commandMap = {
 	'rect'         : Rectangle,
 	'ellipse'      : Rectangle,
 	'circle'       : Radius,
+	'text'         : Text,
 };
