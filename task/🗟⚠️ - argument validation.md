@@ -69,6 +69,34 @@ There's probably a really obvious standard way to do this but it's not coming to
 
 ### First idea
 
+Alright, took a bit longer than anticipated, but here's the first go.
 
+I've created some small command classes that represent different command types and argument patterns:
+
+* Command is the base class defines basic information about the command - name, cmd string, arguments, and the draw & valid flags
+* Movement subclasses are (for now): Bear, Location, Position
+* Bear commands have the pattern: angle, distance
+* Location commands are: x,y
+* Position commands are: x,y,r
+* Drawing command subclasses are: Rectangle, Radius and Text
+* Rectangle commands for rect and ellipse: width, height
+* Radius command for circle: r
+* Text has just the single string argument
+
+
+Like this I can start to add specific bits of validation to particular argument types, for example I could specify that drawing parameters such as circle radii or rectangle parameters must be positive.
+
+Some of this this will be a bit arguable and context dependent.
+For instance SVG doesn't accept most negatives for sizing properties like radii, width, height etc, but mathematically they might be okay (though unusual).
+A different output target entirely might be okay with those kinds of things (WebGL, WebGPU...).
+Ideally I might want to be able to make the command language, and some of its stipulations a configurable item.
+
+I've also been thinking recently about the possibility of using Silver for the command language.
+I haven't gone back to it for ages, but it might be a nice way of sliding a little work on that in here.
+It would have to be an alternative syntax though.
+
+
+Validation
+----------
 
 

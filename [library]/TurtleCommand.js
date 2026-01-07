@@ -11,14 +11,11 @@
 
 
 export class Command {
-	/** @type string */		string;
 	/** @type string */		name;
+	/** @type string */		string;
 	/** @type object */		argument = {};
 	/** @type boolean */	draw = true;
 	/** @type boolean */	valid = false;
-
-
-
 	//operator;
 
 	constructor(
@@ -81,21 +78,21 @@ export class Bear extends Command {
 }/* Bear */
 
 
-export class Move extends Command {
+export class Location extends Command {
 	/**
-	 * @property {number}  dx
-	 * @property {number}  dy
+	 * @property {number}  x
+	 * @property {number}  y
 	 */
 	argument = {
-		dx : undefined,
-		dy : undefined,
+		x : undefined,
+		y : undefined,
 	};
 
 	/** @param {string} argumentString */
 	parseArguments(argumentString) {
 		const argArray = argumentString.split(',');
-		this.argument.dx = Number.parseFloat(argArray[0]);
-		this.argument.dy = Number.parseFloat(argArray[1]);
+		this.argument.x = Number.parseFloat(argArray[0]);
+		this.argument.y = Number.parseFloat(argArray[1]);
 	}
 }/* Move */
 
@@ -279,9 +276,9 @@ export const commandMap = {
 	'bear'         : Bear,
 	'left'         : Bear,
 	'right'        : Bear,
-	'move'         : Move,
+	'move'         : Location,
+	'xy'           : Location,
 	'origin'       : Position,
-	'xy'           : Position,
 	'xyr'          : Position,
 
 	'rect'         : Rectangle,

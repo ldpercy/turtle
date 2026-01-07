@@ -98,10 +98,10 @@ export class Turtle {
 
 	/** move
 	 * moves dx,dy in the turtles current local frame
-	 * @param {turtleCommand.Move} moveCommand
+	 * @param {turtleCommand.Location} moveCommand
 	 */
 	move(moveCommand) {
-		this.#position.move(moveCommand.argument.dx, moveCommand.argument.dy);
+		this.#position.move(moveCommand.argument.x, moveCommand.argument.y);
 	}
 
 	/** moveToXY
