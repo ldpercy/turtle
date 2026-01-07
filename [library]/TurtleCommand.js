@@ -13,9 +13,9 @@
 export class Command {
 	/** @type string */		name;
 	/** @type string */		string;
-	/** @type object */		argument = {};
+	/** @type object */		argument;
 	/** @type boolean */	draw = true;
-	/** @type boolean */	valid = false;
+	// /** @type boolean */	valid = true;
 	//operator;
 
 	constructor(
@@ -32,10 +32,17 @@ export class Command {
 	toString() { return `${this.name} ${this.argument}`}
 
 
-	/** @return {boolean} */
+	/** isValid
+	 * @return {boolean}
+	 *
+	 * This default implementation returns true when all arguments are finite numbers
+	 */
 	get isValid() {
-		return true;
-		// todo: figure this out
+		let result = true;
+		Object.entries(this.argument).forEach(([key, value]) => {
+			result &&= Number.isFinite(value);
+		});
+		return result;
 	}
 
 	/**
@@ -171,6 +178,13 @@ export class Text extends Command {
 		argumentString = argumentString.replaceAll('>','&gt;');
 		this.argument.text = argumentString;
 	}
+
+	/** @return {boolean} */
+	get isValid() {
+		return this.argument.text.isWellFormed();	//TODO: come up with something *much* better
+	}
+
+
 }/* Text */
 
 
@@ -184,7 +198,7 @@ export class Text extends Command {
 
 
 
-/** getCommands
+/** generateCommands
  * @returns {array}
  */
 export function generateCommands(commandText) {

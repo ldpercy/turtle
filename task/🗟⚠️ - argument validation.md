@@ -96,7 +96,24 @@ I haven't gone back to it for ages, but it might be a nice way of sliding a litt
 It would have to be an alternative syntax though.
 
 
-Validation
-----------
+Validation & Bugs
+-----------------
 
+I already went in and added angle bracket escaping for text, though more attention will be needed there.
+
+Malformed movement cmds are still producing bugs, so that's next.
+
+I was curious about using Maps instead of objects for argument structures here - but I think they'll actually give me a little less type control for what I need right now.
+Something to have in the back pocket though.
+
+I've added a base implementation for Command.isValid that returns true when all the arguments are finite numbers, which applies to all cmds for now except text.
+For text, for now I've added a totally token `isWellFormed` test.
+It'll need some much stricter vetting of the input though - length, charset etc.
+
+With that in mind I should probably also consider limiting the distance floats to 'reasonable' values for the space's dimensions.
+Not sure the best way to do that just yet...
+The relationship between the space and the document is still a bit so-so - I'd prefer to improve those first.
+
+
+Thinking about wrapping this pretty soon as the main issues are resolved.
 
