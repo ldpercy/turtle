@@ -13,19 +13,16 @@
 export class Command {
 	/** @type string */		name;
 	/** @type string */		string;
-	/** @type object */		argument;
+	/** @type object */		argument = {};
 	/** @type boolean */	draw = true;
-	// /** @type boolean */	valid = true;
 	//operator;
 
 	constructor(
 		name = '',
-		argument,
-		//operator = '',
+		string = '',
 	) {
 		this.name = name;
-		this.argument = argument;
-		//this.operator = operator;
+		this.string = string;
 	}
 
 	/** @return {string} */

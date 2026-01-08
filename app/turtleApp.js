@@ -121,13 +121,14 @@ class TurtleApp extends HTMLApp {
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 
+
+		this.setup();
+
 		if (firstLoad) {
 			console.log('first load')
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
 			controller.doCommands();
 		}
-
-		this.setup();
 
 	}/* documentDOMContentLoaded */
 
