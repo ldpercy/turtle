@@ -467,7 +467,7 @@ PlanarSpace.Position = class {
 	}
 
 
-	moveToXYwithRotate(x,y) {
+	moveToXYandTurn(x,y) {
 		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
 		const newCartesian = new this.#space.CartesianCoordinates(x, y);
 

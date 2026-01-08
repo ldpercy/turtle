@@ -75,21 +75,20 @@ export function svgClickListener(event) {
 
 	// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
 
-	//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
 	//console.debug('svgClickListener', cmd);
-	//this.doCommand(cmd);
+
 	const mouseMode = ui.mouseMode;
 
 	if (mouseMode === 'info') {
 		svg.drawPointInfo(pagePoint.x, pagePoint.y);
 	}
 	else if (mouseMode === 'draw') {
-		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `xyturn ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 	else if (mouseMode === 'move')
 	{
-		const cmd = `~xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `~xyturn ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 
@@ -107,7 +106,7 @@ svgDblClickListener(event) {   // not firing for some reason???
 	// Get point in page SVG space
 	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
 
-	const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+	const cmd = `xyturn ${pagePoint.x}, ${-pagePoint.y}`;
 
 	//console.debug('svgClickListener', cmd);
 

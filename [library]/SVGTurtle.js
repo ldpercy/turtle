@@ -144,15 +144,6 @@ export class SVGTurtle {
 
 
 
-	/*
-	moveToXY(x,y) {
-		this.turtle.moveToXY(x,y);
-	}
-
-	moveToXYwithRotate(x,y) {
-		this.turtle.moveToXYwithRotate(x,y);
-	}
-	*/
 
 
 	 /** @returns {string} */
@@ -192,8 +183,6 @@ export class SVGTurtle {
 
 
 
-
-
 	/** doCommand
 	 * @param {turtleCommand.Command} command
 	 * @returns {string}
@@ -203,7 +192,7 @@ export class SVGTurtle {
 		let result = '';
 
 
-		if (this.turtle.commands.includes(command.name)) {
+		if (this.turtle.commandMap[command.name]) {
 			const commandResult = this.turtle.doCommand(command);
 		}
 		this.history.push(this.getHistoryItem(this.turtle.coordinates));
@@ -219,13 +208,13 @@ export class SVGTurtle {
 				case 'text'         : result = this.text(command.argument.text); break;
 				case 'marker'       : result = this.marker(); break;
 
-				// movement commands
+				// turtle movement commands
 				case 'move'         :
 				case 'left'         :
 				case 'right'        :
 				case 'bear'         :
 				case 'xy'           :
-				case 'xyr'          :
+				case 'xyturn'       :
 				case 'origin'       :
 					result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 

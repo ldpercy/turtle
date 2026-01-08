@@ -289,9 +289,9 @@ export const commandMap = {
 	'right'        : Bear,
 	'move'         : Location,
 	'xy'           : Location,
+	'xyturn'       : Location,
 	'origin'       : Position,
-	'xyr'          : Position,
-
+	'xya'          : Position,
 	'rect'         : Rectangle,
 	'ellipse'      : Rectangle,
 	'circle'       : Radius,

@@ -1,7 +1,6 @@
 import * as turtleCommand from './TurtleCommand.js';
 
 
-const numericCommands = ['left', 'right', 'bear', 'move', 'circle', 'ellipse', 'rect', 'xy', 'xyr'];
 
 /* Turtle
 */
@@ -12,15 +11,18 @@ export class Turtle {
 	#position;
 
 
-	commands = [
-		'bear',
-		'left',
-		'right',
-		'move',
-		'origin',
-		'xy',
-		'xyr',
-	];
+	commandMap = {
+		'bear'         : this.bear,
+		'left'         : this.left,
+		'right'        : this.right,
+		'move'         : this.move,
+		'xy'           : this.moveToXY,
+		'xyturn'       : this.moveToXYandTurn,
+		'xya'          : this.moveToXYA,
+		'origin'       : this.toOrigin,
+		//'marker'       : this.marker,
+	};
+
 
 
 
@@ -105,25 +107,60 @@ export class Turtle {
 	}
 
 	/** moveToXY
-	 * @param {turtleCommand.Position} positionCommand
+	 * @param {turtleCommand.Location} locationCommand
 	 */
-	moveToXY(positionCommand) {
-		this.#position.moveToXY(positionCommand.argument.x, positionCommand.argument.y);
+	moveToXY(locationCommand) {
+		this.#position.moveToXY(locationCommand.argument.x, locationCommand.argument.y);
 	}
 
-	/** moveToXYwithRotate
+	/** moveToXYandTurn
+	 * This version adds an implicit turn based upon the path described
+	 * @param {turtleCommand.Location} locationCommand
+	 */
+	moveToXYandTurn(locationCommand) {
+		this.#position.moveToXYandTurn(locationCommand.argument.x, locationCommand.argument.y);
+	}
+
+	/** moveToXYA
 	 * @param {turtleCommand.Position} positionCommand
 	 */
-	moveToXYwithRotate(positionCommand) {
-		this.#position.moveToXYwithRotate(positionCommand.argument.x, positionCommand.argument.y);
+	moveToXYA(positionCommand) {
+
 	}
 
 
 	//
-	// Static
+	// Commands
 	//
 
 
+	/** doCommand
+	 * @param {turtleCommand.Command} command
+	 */
+	doCommand(command) {
+		//console.log(`${this.#name}.doCommand:`, command);
+
+
+		if (this.commandMap[command.name])
+		{
+			console.log('this.commandMap[command.name]', this.commandMap[command.name]);
+			this.commandMap[command.name].bind(this)(command);
+			/* const cmdFunc = this.commandMap[command.name];
+			console.log('cmdFunc', cmdFunc);
+			cmdFunc */
+		}
+		else {
+			console.warn(`[Turtle] Unknown command: ${command}`);
+		}
+	}/* doCommand */
+
+
+	/** @param {Array<turtleCommand.Command>} commandArray */
+	doCommands(commandArray) {
+		commandArray.forEach(command => {
+			this.doCommand(command);
+		});
+	}
 
 
 	//
@@ -137,43 +174,6 @@ export class Turtle {
 	}
 
 
-
-	//
-	// Commands
-	//
-
-
-
-	/** doCommand
-	 * @param {turtleCommand.Command} command
-	 */
-	doCommand(command) {
-		//console.log(`${this.#name}.doCommand:`, command);
-		//let result = '';
-
-		switch(command.name) {
-			case 'bear'         : this.bear(command); break;
-			case 'left'         : this.left(command); break;
-			case 'right'        : this.right(command); break;
-			case 'move'         : this.move(command); break;
-			case 'xy'           : this.moveToXY(command); break;
-			case 'xyr'          : this.moveToXYwithRotate(command); break;
-			case 'origin'       : this.toOrigin(); break;
-			//case 'marker'       : this.marker; break;
-
-			default             : console.warn(`[Turtle] Unknown command: ${command}`); break;
-		}
-
-		//console.log(instruction);
-		//return result;
-	}
-
-	/** @param {array} commandArray */
-	doCommands(commandArray) {
-		commandArray.forEach(command => {
-			this.doCommand(command);
-		});
-	}
 
 
 }/* Turtle */
