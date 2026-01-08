@@ -19,7 +19,9 @@ class TurtleApp extends HTMLApp {
 	info = `
 		Turtle v0.🗟⚠️ by ldpercy
 		https://github.com/ldpercy/turtle/releases/tag/v0.🗟⚠️
-	`.replace(/\n\t\t/g,'\n');
+	`.trim().replace(/\n\t\t/g,'\n');
+	infoStyle = 'color: light-dark(darkgreen, lightgreen)';
+
 
 	/** @type {object} */
 	elementMap = {
