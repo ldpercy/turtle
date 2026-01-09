@@ -284,13 +284,13 @@ function splitCommandString(commandString) {
 
 export const commandMap = {
 	'marker'       : Command,
+	'origin'       : Command,
 	'bear'         : Bear,
 	'left'         : Bear,
 	'right'        : Bear,
 	'move'         : Location,
 	'xy'           : Location,
 	'xyturn'       : Location,
-	'origin'       : Position,
 	'xya'          : Position,
 	'rect'         : Rectangle,
 	'ellipse'      : Rectangle,
