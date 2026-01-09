@@ -188,8 +188,12 @@ export class SVGTurtle {
 	 * @returns {string}
 	 */
 	doCommand(command) {
-		console.log(`${this.name}.doCommand:`, command);
+
 		let result = '';
+
+		//console.trace('SVGTurtle.doCommand');
+		//console.debug('SVGTurtle.doCommand', this.position.location.cartesian);
+		//console.log(`${this.name}.doCommand:`, command);
 
 
 		if (this.turtle.commandMap[command.name]) {
@@ -230,6 +234,7 @@ export class SVGTurtle {
 	}
 
 
+	/** @param {Array<turtleCommand.Command>} commandArray */
 	doCommands(commandArray) {
 		let result = '';
 		commandArray.forEach(command => {

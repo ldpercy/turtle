@@ -1,3 +1,4 @@
+import * as space from './PlanarSpace.js';
 import * as turtleCommand from './TurtleCommand.js';
 
 
@@ -6,9 +7,10 @@ import * as turtleCommand from './TurtleCommand.js';
 */
 export class Turtle {
 
-	#name;
-	#space;
-	#position;
+
+	/** @type {string} */		#name;
+	/** @type {space.Space} */	#space;
+	/** @type {space.Position} */	#position;
 
 
 	commandMap = {
@@ -92,6 +94,7 @@ export class Turtle {
 		this.#position.bear(bearCommand.argument.bearingDegrees, bearCommand.argument.distance);
 	}/* bear */
 
+
 	/* @param {turtleCommand.bear} bearCommand */
 	left(bearCommand)  { return this.bear(bearCommand) }
 	/* @param {turtleCommand.bear} bearCommand */
@@ -139,15 +142,14 @@ export class Turtle {
 	 */
 	doCommand(command) {
 		//console.log(`${this.#name}.doCommand:`, command);
+		//console.trace();
+		//console.debug('doCommand', this.position);
+
 
 
 		if (this.commandMap[command.name])
 		{
-			console.log('this.commandMap[command.name]', this.commandMap[command.name]);
-			this.commandMap[command.name].bind(this)(command);
-			/* const cmdFunc = this.commandMap[command.name];
-			console.log('cmdFunc', cmdFunc);
-			cmdFunc */
+			this.commandMap[command.name].bind(this)(command);			// bind(this) needed here otherwise the command receives the commandMap object as 'this'
 		}
 		else {
 			console.warn(`[Turtle] Unknown command: ${command}`);
@@ -155,7 +157,10 @@ export class Turtle {
 	}/* doCommand */
 
 
-	/** @param {Array<turtleCommand.Command>} commandArray */
+	/** doCommands
+	 * Not actually being used at the moment - the one is SVGTurtle is
+	 * @param {Array<turtleCommand.Command>} commandArray
+	 */
 	doCommands(commandArray) {
 		commandArray.forEach(command => {
 			this.doCommand(command);

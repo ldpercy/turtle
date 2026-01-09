@@ -56,7 +56,7 @@ export class PlanarSpace {
 	 * @param {CartesianCoordinates} cartesian
 	 */
 	getAngleFrom(center, cartesian) {
-		console.debug(`${this.#name}.getAngleFrom:`, arguments);
+		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
 		const result = new Angle();
 		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
 		result.normalise180();
@@ -213,9 +213,9 @@ export class PlanarSpace {
 
 
 /** CartesianCoordinates
- *  @interface
+ * @interface
  */
-class CartesianCoordinates {
+export class CartesianCoordinates {
 	x;
 	y;
 	constructor(x=0, y=0) {
@@ -226,9 +226,9 @@ class CartesianCoordinates {
 
 
 /** PolarCoordinates
-*  @interface
+ * @interface
  */
-class PolarCoordinates {
+export class PolarCoordinates {
 	angle;
 	radius;
 	constructor(angle = new Angle(), radius=0) {
@@ -238,7 +238,7 @@ class PolarCoordinates {
 }/* PolarCoordinates */
 
 
-class Angle {
+export class Angle {
 	#degrees = 0;
 
 	constructor(degrees=0) {
@@ -296,15 +296,15 @@ class Angle {
  * @implements {CartesianCoordinates}
  * @implements {PolarCoordinates}
  */
-class Point {
+export class Point {
 	#name		= 'Initial Point name';
 	/** @type {PlanarSpace} */           #space;
-	/** @type {CartesianCoordinates} */  #cartesian;
-	/** @type {PolarCoordinates} */      #polar;
+	/** @type {CartesianCoordinates} */		#cartesian;
+	/** @type {PolarCoordinates} */			#polar;
 
 	/**
 	 * @param {string} name
-	 * @param {PlanarSpace} space
+	 * @param {Space} space
 	 */
 	constructor(name, space) {
 		this.#name = name;
@@ -321,7 +321,7 @@ class Point {
 	get y()			{ return this.#cartesian.y; }
 	get angle()		{ return this.#polar.angle; }
 	get radius()	{ return this.#polar.radius; }
-
+	get cartesian() { return this.#cartesian; }
 
 	/** @param {PolarCoordinates} polar */
 	set polar(polar) {
@@ -427,12 +427,13 @@ class Position {
 		this.#name = name;
 		this.#space = space;
 		this.#location    = space.newPoint(`${name}.location`);
-		this.#direction   = new space.Angle();
+		this.#direction   = space.newAngle();
 	}
 
 	get x()			{ return this.#location.x; }
 	get y()			{ return this.#location.y; }
 	get location()	{ return this.#location; }
+	get cartesian()	{ return this.#location.cartesian; }
 	get direction()	{ return this.#direction; }
 	get angle()     { return this.#direction; }
 	get degrees()   { return this.#direction.degrees; }
