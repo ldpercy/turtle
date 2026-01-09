@@ -3,9 +3,9 @@
 //
 
 import * as Maths from "./Maths.js";
+import * as abstractSpace  from "./AbstractSpace.js"
 
-
-export class PlanarSpace {
+export class Space extends abstractSpace.Space {
 
 	/** @type {string} */
 	#name;
@@ -27,6 +27,7 @@ export class PlanarSpace {
 			polarDirection = 'clockwise',
 			size,
 		) {
+		super();
 		this.#name = name;
 
 
@@ -42,7 +43,7 @@ export class PlanarSpace {
 
 
 	get name() { return this.#name; }
-	get origin() { return origin; }
+	get origin() { return Space.origin; }
 
 
 
@@ -69,8 +70,8 @@ export class PlanarSpace {
 	cartesianToPolar(cartesian) {
 
 		const result = new PolarCoordinates(
-			this.getAngleFrom(PlanarSpace.origin, cartesian),
-			PlanarSpace.distanceFromOrigin(cartesian)
+			this.getAngleFrom(Space.origin, cartesian),
+			Space.distanceFromOrigin(cartesian)
 		);
 		return result;
 	}/* cartesianToPolar */
@@ -81,8 +82,8 @@ export class PlanarSpace {
 	 */
 	polarToCartesian = function(polar) {
 		const result = new CartesianCoordinates(
-			PlanarSpace.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
-			PlanarSpace.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
+			Space.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
+			Space.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
 		);
 		//console.debug('polarToCartesian:', polar, result);
 		return result;
@@ -95,7 +96,7 @@ export class PlanarSpace {
 
 	/** @param {CartesianCoordinates} cartesian */
 	static distanceFromOrigin(cartesian) {
-		return PlanarSpace.getDistanceFrom(PlanarSpace.origin, cartesian);
+		return Space.getDistanceFrom(Space.origin, cartesian);
 	}
 
 	/**
@@ -298,7 +299,7 @@ export class Angle {
  */
 export class Point {
 	#name		= 'Initial Point name';
-	/** @type {PlanarSpace} */           #space;
+	/** @type {Space} */					#space;
 	/** @type {CartesianCoordinates} */		#cartesian;
 	/** @type {PolarCoordinates} */			#polar;
 
@@ -350,11 +351,11 @@ export class Point {
 	}
 
 	getDistanceFrom(point) {
-		return PlanarSpace.getDistanceFrom(this, point);
+		return Space.getDistanceFrom(this, point);
 	}
 
 	isEqualTo(point) {
-		return PlanarSpace.areEqual(this, point);
+		return Space.areEqual(this, point);
 	}
 
 	//
@@ -416,11 +417,11 @@ For now though Point is the combined version.
  * @implements {CartesianCoordinates}
  * @implements {PolarCoordinates}
  */
-class Position {
-	/** @type {string} */			#name		= 'Initial Position name';
-	/** @type {PlanarSpace} */		#space;
-	/** @type {Point} */			#location;
-	/** @type {Angle} */			#direction;
+export class Position {
+	/** @type {string} */		#name		= 'Initial Position name';
+	/** @type {Space} */		#space;
+	/** @type {Point} */		#location;
+	/** @type {Angle} */		#direction;
 
 
 	constructor(name, space) {

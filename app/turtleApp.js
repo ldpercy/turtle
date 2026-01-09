@@ -6,7 +6,7 @@ import { HTMLApp } from "../[library]/HTMLApp.js";
 import { SVGTurtle } from "../[library]/SVGTurtle.js";
 
 import { SVG } from "../[library]/SVG.js";
-import { PlanarSpace } from "../[library]/PlanarSpace.js";
+import { Space } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as controller from './controller.js';
@@ -146,7 +146,7 @@ class TurtleApp extends HTMLApp {
 
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
-		this.space = new PlanarSpace('turtle-space');
+		this.space = new Space('turtle-space');
 		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
 		svg.placeTurtle(this.turtle);

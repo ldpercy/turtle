@@ -117,3 +117,29 @@ The relationship between the space and the document is still a bit so-so - I'd p
 
 Thinking about wrapping this pretty soon as the main issues are resolved.
 
+
+
+Space Typing
+------------
+Don't remember how I got onto it, but I started adding types to the PlanarSpace module and went on a bit of a spree.
+
+I *think* I have it working, but some things to note.
+
+* I've removed the old class-namespace era 'PlanarSpace.' prefixes
+* I'm trying out CartesianCoordinates and PolarCoordinates as interfaces - implemented by Point and Location
+
+There were also JSDoc typing issues with the convenience constructors I had on the main space class.
+The method versions worked okay, but the 'inner' class versions weren't working, or at least i coudn't get them to work.
+So for now I've added more method versions and using them instead.
+I'm beginning to wonder if they're actually going to be necessary in the module world - still thinking about it though.
+
+Also have begun changing the terminology a little as an experiment.
+Instead of the main class being PlanarSpace, now just calling it Space, with the idea that Spaces will implement/inherit/conform to some kind of space signature.
+Eventually this might mean that different compatible spaces could be 'plugged in' without changing too much code.
+It's an idea anyway.
+
+Also still having annoying problems with reading properties through getters - sometimes things come back as undefined.
+*Really* need to figure out the rules there.
+
+
+
