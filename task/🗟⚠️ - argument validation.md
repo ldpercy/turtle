@@ -143,3 +143,22 @@ Also still having annoying problems with reading properties through getters - so
 
 
 
+Shorthand commands and angle/direction
+--------------------------------------
+
+Am definitely running a bit ahead of the task here.
+I've added documentation for some previously hidden commands that I felt happy enough with - `xy`, `xyturn` (previously 'xyr') and `~` for drawing suppression.
+
+Now I'm thinking about position commands and in a bit of a quandary.
+
+I also want `xya` for cartesian position, but the equivalent in polar would be `raa` - is that too weird?
+For directions I might have to use `d` instead, giving `xyd` and `rad`.
+
+That would be okay for 2d, but extending a syntax like to 3d would be pretty crazy - plus gimbal lock, quaternions.... let's not think about it.
+
+But back to what I've just added, there should (potentially at least) be polar equivs such as `ra` and `raturn` (which looks *really* dorky).
+I should probably start being more explicit about case sensitivity (which it is already) and use interCaps.
+So we'd get `xyTurn` and `raTurn` which are better.
+
+
+I've noticed I've the optional distances aren't.

@@ -83,12 +83,12 @@ export function svgClickListener(event) {
 		svg.drawPointInfo(pagePoint.x, pagePoint.y);
 	}
 	else if (mouseMode === 'draw') {
-		const cmd = `xyturn ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 	else if (mouseMode === 'move')
 	{
-		const cmd = `~xyturn ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `~xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 
@@ -106,7 +106,7 @@ svgDblClickListener(event) {   // not firing for some reason???
 	// Get point in page SVG space
 	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
 
-	const cmd = `xyturn ${pagePoint.x}, ${-pagePoint.y}`;
+	const cmd = `xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
 
 	//console.debug('svgClickListener', cmd);
 

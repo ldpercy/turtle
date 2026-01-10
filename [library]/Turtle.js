@@ -19,8 +19,8 @@ export class Turtle {
 		'right'        : this.right,
 		'move'         : this.move,
 		'xy'           : this.moveToXY,
-		'xyturn'       : this.moveToXYandTurn,
-		'xya'          : this.moveToXYA,
+		'xyTurn'       : this.moveToXYandTurn,
+		'xyd'          : this.moveToXYD,
 		'origin'       : this.toOrigin,
 		//'marker'       : this.marker,
 	};
@@ -124,11 +124,11 @@ export class Turtle {
 		this.#position.moveToXYandTurn(locationCommand.argument.x, locationCommand.argument.y);
 	}
 
-	/** moveToXYA
+	/** moveToXYD
 	 * @param {turtleCommand.Position} positionCommand
 	 */
-	moveToXYA(positionCommand) {
-
+	moveToXYD(positionCommand) {
+		//this.#position
 	}
 
 

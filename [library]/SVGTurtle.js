@@ -218,7 +218,8 @@ export class SVGTurtle {
 				case 'right'        :
 				case 'bear'         :
 				case 'xy'           :
-				case 'xyturn'       :
+				//case 'xyd'          :
+				case 'xyTurn'       :
 				case 'origin'       :
 					result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 

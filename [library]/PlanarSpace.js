@@ -469,6 +469,7 @@ export class Position {
 	}
 
 
+
 	resetToOrigin() {
 		this.#location.resetToOrigin();
 		this.#direction.degrees = 0;
