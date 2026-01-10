@@ -73,7 +73,7 @@ export class Bear extends Command {
 	parseArguments(argumentString) {
 		const argArray = argumentString.split(',');
 		this.argument.bearingDegrees = Number.parseFloat(argArray[0]);
-		this.argument.distance = Number.parseFloat(argArray[1]);
+		this.argument.distance = Number.parseFloat(argArray[1]) || 0;		// NB the zero default here
 
 		if (this.name === 'left') {
 			this.argument.bearingDegrees = -this.argument.bearingDegrees;			// very hackish, need to rationalise

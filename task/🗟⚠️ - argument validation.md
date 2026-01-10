@@ -161,4 +161,13 @@ I should probably start being more explicit about case sensitivity (which it is 
 So we'd get `xyTurn` and `raTurn` which are better.
 
 
-I've noticed I've the optional distances aren't.
+*	I've just noticed I've the optional distances aren't.
+	Fixed.
+
+While I'm thinking about it I'd also like some commands for setting or adding to single coordinates, but I should really shift this back over to the new commands task.
+
+
+Wrapup
+------
+
+
