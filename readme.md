@@ -22,9 +22,8 @@ Command Syntax
 * Angles are in degrees
 * Distances are in SVG units (or "pixels")
 * Items in square brackets are optional and can be omitted
-
 * Blank lines are ignored
-* Unknown commands are ignored
+* Unknown/invalid commands are ignored
 * You can comment out a line by turning it into an unknown command, eg `//right 45,500`
 
 
@@ -122,6 +121,7 @@ More detail in the [task/](<./task/>) directory.
 
 ### Recently Completed
 
+* Command argument validation
 * Added keyboard controls
 * Turtle can follow mouse clicks
 

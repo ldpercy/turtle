@@ -5,6 +5,7 @@ Solve malformed argument bugs.
 
 ```
 2025-12-30		New task	v0.🗟⚠️
+2026-01-10		done		v0.11.0
 ```
 
 Not sure why I haven't tried this before, but malformed/invalid command arguments produce bugs of various kinds.
@@ -167,7 +168,23 @@ So we'd get `xyTurn` and `raTurn` which are better.
 While I'm thinking about it I'd also like some commands for setting or adding to single coordinates, but I should really shift this back over to the new commands task.
 
 
-Wrapup
-------
+Wrapup v0.11.0
+--------------
+
+Well this ended up spilling over into a few more things than I'd anticipated, so will give it point release instead of a bugfix.
+
+* Add small classes to represent specific command *types* - Bear, Location, Rectangle etc
+* Each defines it's own types, parser, and validity checks
+* Command instances are now being used to call actual turtle updates - more work needed, but an improvement
+* Removed the single-letter command aliases, and jump
+* The no-draw prefix is now a tilde instead of a caret - caret has *some* common code meanings, but tilde is still fairly generic. Have also added it to the doco.
+* Angle brackets are now escaped in text strings
+* Malformed arguments no longer cause errors, the whole command is invalidated instead
+* Numeric validation currently uses parseFloat and isFinite
+* Fixed a first-load error
+* Went down a rabbithole with adding JSDoc types to the PlanarSpace module - think I have it working...
+* Also anticipating pluggable spaces
+* Renamed xyr to xyTurn; added to doco
+* Various help and readme updates
 
 
