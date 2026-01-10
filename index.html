@@ -214,39 +214,77 @@
 		</h1>
 
 		<h2>Turtle commands</h2>
-		<div class="infoBox">
-			<div>left		<em>degrees[,distance]</em></div>
-			<div>right		<em>degrees[,distance]</em></div>
-			<div>bear		<em>degrees[,distance]</em></div>
-			<div>move		<em>dx,dy</em></div>
-			<div>xy			<em>x,y</em></div>
-			<div>xyturn		<em>x,y</em></div>
-			<div>circle		<em>radius</em></div>
-			<div>ellipse	<em>width,height</em></div>
-			<div>rect		<em>width,height</em></div>
-			<div>text		<em>string</em></div>
-			<div>marker</div>
-		</div>
+		<dl>
+			<dt>left		<em>degrees[,distance]</em></dt>
+			<dd>bear left for the given distance</dd>
+
+			<dt>right		<em>degrees[,distance]</em></dt>
+			<dd>bear right for the given distance</dd>
+
+			<dt>bear		<em>degrees[,distance]</em></dt>
+			<dd>bear w.r.t. to the polar direction</dd>
+
+			<dt>move		<em>dx,dy</em></dt>
+			<dd>move in the turtle's local frame</dd>
+
+			<dt>xy			<em>x,y</em></dt>
+			<dd>move to x,y without changing direction</dd>
+
+			<dt>xyturn		<em>x,y</em></dt>
+			<dd>move to x,y and turn to face the new direction</dd>
+
+			<dt>circle		<em>radius</em></dt>
+			<dd>draw a circle with the given radius</dd>
+
+			<dt>ellipse	<em>width,height</em></dt>
+			<dd>draw an ellipse with the given width & height</dd>
+
+			<dt>rect		<em>width,height</em></dt>
+			<dd>draw a rectangle with the given width & height</dd>
+
+			<dt>text		<em>string</em></dt>
+			<dd>draw text with the given string</dd>
+
+			<dt>marker</dt>
+			<dd>drop a marker flag - hover for position info</dd>
+
+			<dt>~<em>command</em></dt>
+			<dd>suppress drawing for any command</dd>
+		</dl>
 
 		<h2>Keyboard shortcuts</h2>
-		<ul>
-			<li><kbd>d</kbd>				Do commands</li>
-			<li><kbd>c</kbd>				Clear the drawing</li>
-			<li><kbd>o</kbd>				Return turtle to origin</li>
+		<dl>
+			<dt><kbd>d</kbd></dt>
+			<dd>Do commands</dd>
 
-			<li><kbd>! (shift 1)</kbd>		Show command tab 1</li>
-			<li><kbd>@ (shift 2)</kbd>		Show command tab 2</li>
-			<li><kbd># (shift 3)</kbd>		Show command tab 3</li>
+			<dt><kbd>c</kbd></dt>
+			<dd>Clear the drawing</dd>
 
-			<li><kbd>T</kbd>				Toggle turtle visibility</li>
-			<li><kbd>C</kbd>				Toggle turtle centering</li>
-			<li><kbd>R</kbd>				Toggle page rotation</li>
+			<dt><kbd>o</kbd></dt>
+			<dd>Return turtle to origin</dd>
 
-			<li><kbd>+ or z</kbd>			Zoom in</li>
-			<li><kbd>- or Z</kbd>			Zoom out</li>
+			<dt><kbd>! (shift 1)</kbd></dt>
+			<dd>Show command tab 1</dd>
+			<dt><kbd>@ (shift 2)</kbd></dt>
+			<dd>Show command tab 2</dd>
+			<dt><kbd># (shift 3)</kbd></dt>
+			<dd>Show command tab 3</dd>
 
-			<li><kbd>?</kbd>				Show this dialog</li>
-		</ul>
+			<dt><kbd>T</kbd></dt>
+			<dd>Toggle turtle visibility</dd>
+			<dt><kbd>C</kbd></dt>
+			<dd>Toggle turtle centering</dd>
+			<dt><kbd>R</kbd></dt>
+			<dd>Toggle page rotation</dd>
+
+			<dt><kbd>+ or z</kbd></dt>
+			<dd>Zoom in</dd>
+			<dt><kbd>- or Z</kbd></dt>
+			<dd>Zoom out</dd>
+
+			<dt><kbd>?</kbd></dt>
+			<dd>Show this dialog</dd>
+		</dl>
 
 
 	</dialog>
