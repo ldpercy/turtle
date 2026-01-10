@@ -3,8 +3,7 @@
 
 
 import { Turtle } from "./Turtle.js";
-
-
+import * as turtleCommand from './TurtleCommand.js';
 
 export class SVGTurtle {
 
@@ -47,7 +46,7 @@ export class SVGTurtle {
 
 
 
-
+	/** @returns {string} */
 	get turtleSvg() {
 
 		let seasonal = '';
@@ -90,16 +89,31 @@ export class SVGTurtle {
 	// mutators
 	//
 
+
+	/**
+	 * @param {number} r
+	 * @returns {string}
+	 */
 	circle(r) {
 		const result = `<circle cx="${this.svgX}" cy="${this.svgY}" r="${r}"/>`;
 		return result;
 	}
 
+	/**
+	 * @param {number} width
+	 * @param {number} height
+	 * @return {string}
+	 */
 	rect(width, height) {
 		const result = `<rect x="${this.x - width/2}" y="${this.svgY - height/2}" width="${width}" height="${height}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})"/>`;
 		return result;
 	}
 
+	/**
+	 * @param {number} width
+	 * @param {number} height
+	 * @return {string}
+	 */
 	ellipse(width, height) {
 		const rx = width / 2;
 		const ry = height / 2;
@@ -107,11 +121,18 @@ export class SVGTurtle {
 		return result;
 	}
 
+	/**
+	 * @param {string} text
+	 * @return {string}
+	 */
 	text(text) {
 		const result = `<text x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">${text}</text>`;
 		return result;
 	}
 
+	/** marker
+	 * @returns {string}
+	 */
 	marker() {
 		const result = `
 			<use href="#def-marker" class="marker" x="${this.x}" y="${this.svgY}" transform="rotate(${this.direction.degrees},${this.x},${this.svgY})">
@@ -124,16 +145,8 @@ export class SVGTurtle {
 
 
 
-	moveToXY(x,y) {
-		this.turtle.moveToXY(x,y);
-	}
 
-	moveToXYwithRotate(x,y) {
-		this.turtle.moveToXYwithRotate(x,y);
-	}
-
-
-
+	 /** @returns {string} */
 	get report() {
 		const originAngle = this.turtle.location.angle;
 
@@ -170,15 +183,20 @@ export class SVGTurtle {
 
 
 
+	/** doCommand
+	 * @param {turtleCommand.Command} command
+	 * @returns {string}
+	 */
+	doCommand(command) {
 
-
-
-	doCommand = function(command) {
-		//console.log(`${this.name}.doCommand:`, command);
 		let result = '';
 
+		//console.trace('SVGTurtle.doCommand');
+		//console.debug('SVGTurtle.doCommand', this.position.location.cartesian);
+		//console.log(`${this.name}.doCommand:`, command);
 
-		if (this.turtle.commands.includes(command.name)) {
+
+		if (this.turtle.commandMap[command.name]) {
 			const commandResult = this.turtle.doCommand(command);
 		}
 		this.history.push(this.getHistoryItem(this.turtle.coordinates));
@@ -188,36 +206,36 @@ export class SVGTurtle {
 		if (command.draw) {
 			switch(command.name) {
 				// presentation only commands
-				case 'circle'       : result = this.circle(...command.argument); break;
-				case 'rect'         : result = this.rect(...command.argument); break;
-				case 'ellipse'      : result = this.ellipse(...command.argument); break;
-				case 'text'         : result = this.text(...command.argument); break;
+				case 'circle'       : result = this.circle(command.argument.radius); break;
+				case 'rect'         : result = this.rect(command.argument.width, command.argument.height); break;
+				case 'ellipse'      : result = this.ellipse(command.argument.width, command.argument.height); break;
+				case 'text'         : result = this.text(command.argument.text); break;
 				case 'marker'       : result = this.marker(); break;
 
-				// movement commands
+				// turtle movement commands
 				case 'move'         :
-				case 'l'            :
 				case 'left'         :
-				case 'r'            :
 				case 'right'        :
 				case 'bear'         :
 				case 'xy'           :
-				case 'xyr'          :
+				//case 'xyd'          :
+				case 'xyTurn'       :
+				case 'origin'       :
 					result =  SVGTurtle.getLine(this.previousCoordinates, this.currentCoordinates); break;
 
 				default             :
-					console.warn(`Unknown command: ${command}`);
-					result = `<!-- Unknown command: ${command} -->`;
+					console.warn(`[SVGTurtle] Unknown command: ${command}`);
+					result = `<!-- [SVGTurtle] Unknown command: ${command} -->`;
 					break;
 			}
 		}
 
-
-		//console.log(instruction);
+		//console.log(result);
 		return result;
 	}
 
 
+	/** @param {Array<turtleCommand.Command>} commandArray */
 	doCommands(commandArray) {
 		let result = '';
 		commandArray.forEach(command => {
@@ -267,3 +285,57 @@ export class SVGTurtle {
 
 
 
+
+/*
+
+	<!--
+	<g id="turtle-terry">
+		<g class="turtle terry turtle-hover">
+			<title id="title-terry"></title>
+			<g class="feet">
+				<circle class="fl"/>
+				<circle class="fr"/>
+				<circle class="bl"/>
+				<circle class="br"/>
+			</g>
+			<circle class="body"/>
+			<circle class="head"/>
+			<g class="eyes">
+				<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+				<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+			</g>
+			<polygon style="fill:red" points="-23,-49 5,-97 +23,-49"/>
+			<g style="stroke:silver;fill:white;stroke-width:3px">
+				<rect x="-24" y="-52" width="48" height="7"/>
+				<circle cx="5" cy="-97" r="7"/>
+			</g>
+
+
+		</g>
+	</g>
+	-->
+
+	<!--
+	<g id="turtle-leonardo" transform="translate(200,0)">
+		<g class="turtle ninja raphael turtle-hover">
+			<title id="title-terry"></title>
+			<g class="feet">
+				<circle class="fl"/>
+				<circle class="fr"/>
+				<circle class="bl"/>
+				<circle class="br"/>
+			</g>
+			<circle class="body"/>
+			<circle class="head"/>
+			<polygon class="mask" points="-22,-51 +33,-51 +21,-34  -22,-34"/>
+			<g class="eyes">
+				<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
+				<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
+				<circle class="pupil pl"/>
+				<circle class="pupil pr"/>
+			</g>
+		</g>
+	</g>
+	-->
+
+*/

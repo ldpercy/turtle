@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Turtle v0.10.2 by ldpercy</title>
+	<title>Turtle v0.11.0 by ldpercy</title>
 	<meta charset="utf-8">
 	<meta name="color-scheme" content="dark light">
-	<meta name="description" content="Turtle v0.10.2 by ldpercy - SVG, JavaScript, HTML, CSS">
+	<meta name="description" content="Turtle v0.11.0 by ldpercy - SVG, JavaScript, HTML, CSS">
 	<link rel="icon" href="./page/turtle.svg"/>
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
@@ -27,7 +27,7 @@
 
 			<h2>Commands</h2>
 
-			<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set">right 60,500</textarea>
+			<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set" spellcheck="false">right 60,500</textarea>
 			<div id="command-tabs" class="tabbar bottom">
 				<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab" title="Command set 1">set 1</a>
 				<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
@@ -197,61 +197,9 @@
 				<!-- drawing elements go in here -->
 			</g>
 
-
-
 			<g id="group-turtle">
 				<!-- turtles go in here -->
 			</g>
-
-			<!--
-			<g id="turtle-terry">
-				<g class="turtle terry turtle-hover">
-					<title id="title-terry"></title>
-					<g class="feet">
-						<circle class="fl"/>
-						<circle class="fr"/>
-						<circle class="bl"/>
-						<circle class="br"/>
-					</g>
-					<circle class="body"/>
-					<circle class="head"/>
-					<g class="eyes">
-						<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
-						<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
-					</g>
-					<polygon style="fill:red" points="-23,-49 5,-97 +23,-49"/>
-					<g style="stroke:silver;fill:white;stroke-width:3px">
-						<rect x="-24" y="-52" width="48" height="7"/>
-						<circle cx="5" cy="-97" r="7"/>
-					</g>
-
-
-				</g>
-			</g>
-			 -->
-
-
-			<!--
-			<g id="turtle-leonardo" transform="translate(200,0)">
-				<g class="turtle ninja raphael turtle-hover">
-					<title id="title-terry"></title>
-					<g class="feet">
-						<circle class="fl"/>
-						<circle class="fr"/>
-						<circle class="bl"/>
-						<circle class="br"/>
-					</g>
-					<circle class="body"/>
-					<circle class="head"/>
-					<polygon class="mask" points="-22,-51 +33,-51 +21,-34  -22,-34"/>
-					<g class="eyes">
-						<path d="m -3,-38 a 6,6 0 1 0 -10,0 z"/>
-						<path d="m +3,-38 a 6,6 0 1 1 +10,0 z"/>
-						<circle class="pupil pl"/>
-						<circle class="pupil pr"/>
-					</g>
-				</g>
-			</g> -->
 
 
 		</g><!-- page -->
@@ -261,43 +209,82 @@
 	<dialog popover id="info-popover" closedby="any">
 		<h1>
 			<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.10.2">v0.10.2</a>
+			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.11.0">v0.11.0</a>
 			by <a href="https://github.com/ldpercy/">ldpercy</a>
 		</h1>
 
 		<h2>Turtle commands</h2>
-		<div class="infoBox">
-			<div>left <em>degrees[,distance]</em></div>
-			<div>right <em>degrees[,distance]</em></div>
-			<div>bear <em>degrees[,distance]</em></div>
-			<div>jump <em>degrees[,distance]</em></div>
-			<div>move <em>dx,dy</em></div>
-			<div>circle <em>radius</em></div>
-			<div>ellipse <em>width,height</em></div>
-			<div>rect <em>width,height</em></div>
-			<div>text <em>string</em></div>
-			<div>marker</div>
-		</div>
+		<dl>
+			<dt>left		<em>degrees[,distance]</em></dt>
+			<dd>bear left for the given distance</dd>
+
+			<dt>right		<em>degrees[,distance]</em></dt>
+			<dd>bear right for the given distance</dd>
+
+			<dt>bear		<em>degrees[,distance]</em></dt>
+			<dd>bear w.r.t. to the polar direction</dd>
+
+			<dt>move		<em>dx,dy</em></dt>
+			<dd>move in the turtle's local frame</dd>
+
+			<dt>xy			<em>x,y</em></dt>
+			<dd>move to x,y without changing direction</dd>
+
+			<dt>xyTurn		<em>x,y</em></dt>
+			<dd>move to x,y and turn to face the new direction</dd>
+
+			<dt>circle		<em>radius</em></dt>
+			<dd>draw a circle with the given radius</dd>
+
+			<dt>ellipse	<em>width,height</em></dt>
+			<dd>draw an ellipse with the given width & height</dd>
+
+			<dt>rect		<em>width,height</em></dt>
+			<dd>draw a rectangle with the given width & height</dd>
+
+			<dt>text		<em>string</em></dt>
+			<dd>draw text with the given string</dd>
+
+			<dt>marker</dt>
+			<dd>drop a marker flag - hover for position info</dd>
+
+			<dt>~<em>command</em></dt>
+			<dd>suppress drawing for any command</dd>
+		</dl>
 
 		<h2>Keyboard shortcuts</h2>
-		<ul>
-			<li><kbd>d</kbd>				Do commands</li>
-			<li><kbd>c</kbd>				Clear the drawing</li>
-			<li><kbd>o</kbd>				Return turtle to origin</li>
+		<dl>
+			<dt><kbd>d</kbd></dt>
+			<dd>Do commands</dd>
 
-			<li><kbd>! (shift 1)</kbd>		Show command tab 1</li>
-			<li><kbd>@ (shift 2)</kbd>		Show command tab 2</li>
-			<li><kbd># (shift 3)</kbd>		Show command tab 3</li>
+			<dt><kbd>c</kbd></dt>
+			<dd>Clear the drawing</dd>
 
-			<li><kbd>T</kbd>				Toggle turtle visibility</li>
-			<li><kbd>C</kbd>				Toggle turtle centering</li>
-			<li><kbd>R</kbd>				Toggle page rotation</li>
+			<dt><kbd>o</kbd></dt>
+			<dd>Return turtle to origin</dd>
 
-			<li><kbd>+ or z</kbd>			Zoom in</li>
-			<li><kbd>- or Z</kbd>			Zoom out</li>
+			<dt><kbd>! (shift 1)</kbd></dt>
+			<dd>Show command tab 1</dd>
+			<dt><kbd>@ (shift 2)</kbd></dt>
+			<dd>Show command tab 2</dd>
+			<dt><kbd># (shift 3)</kbd></dt>
+			<dd>Show command tab 3</dd>
 
-			<li><kbd>?</kbd>				Show this dialog</li>
-		</ul>
+			<dt><kbd>T</kbd></dt>
+			<dd>Toggle turtle visibility</dd>
+			<dt><kbd>C</kbd></dt>
+			<dd>Toggle turtle centering</dd>
+			<dt><kbd>R</kbd></dt>
+			<dd>Toggle page rotation</dd>
+
+			<dt><kbd>+ or z</kbd></dt>
+			<dd>Zoom in</dd>
+			<dt><kbd>- or Z</kbd></dt>
+			<dd>Zoom out</dd>
+
+			<dt><kbd>?</kbd></dt>
+			<dd>Show this dialog</dd>
+		</dl>
 
 
 	</dialog>

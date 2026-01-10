@@ -4,6 +4,7 @@ export class HTMLApp {
 
 	name;
 	info;
+	infoStyle;
 
 	elementMap = {};
 	element = {};
@@ -20,7 +21,7 @@ export class HTMLApp {
 		//console.log('documentDOMContentLoaded', arguments, this);
 		this.element = HTMLApp.buildElementMap(document, this.elementMap);
 		this.addEventListeners();
-		console.info(this.info);
+		console.info(`%c${this.info}`, this.infoStyle);
 	}/* documentDOMContentLoaded */
 
 

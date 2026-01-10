@@ -1,0 +1,299 @@
+//
+//	TurtleCommands
+//
+
+
+
+//
+//	Command Classes
+//
+
+
+
+export class Command {
+	/** @type string */		name;
+	/** @type string */		string;
+	/** @type object */		argument = {};
+	/** @type boolean */	draw = true;
+	//operator;
+
+	constructor(
+		name = '',
+		string = '',
+	) {
+		this.name = name;
+		this.string = string;
+	}
+
+	/** @return {string} */
+	toString() { return `${this.name} ${this.argument}`}
+
+
+	/** isValid
+	 * @return {boolean}
+	 *
+	 * This default implementation returns true when all arguments are finite numbers
+	 */
+	get isValid() {
+		let result = true;
+		Object.entries(this.argument).forEach(([key, value]) => {
+			result &&= Number.isFinite(value);
+		});
+		return result;
+	}
+
+	/**
+	 * @param {string} argumentString
+	 */
+	parseArguments(argumentString) {
+		// this.argument = argumentString.split(',');
+		// this.argument.map(
+		// 	(element) => { return Number.parseFloat(element); }
+		// );
+	}/* parseArguments */
+
+}/* Command */
+
+
+export class NoCommand extends Command { }
+
+
+
+export class Bear extends Command {
+	/** argument
+	 * @property {number}  bearingDegrees
+	 * @property {number}  distance
+	 */
+	argument = {
+		bearingDegrees : undefined,
+		distance : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.bearingDegrees = Number.parseFloat(argArray[0]);
+		this.argument.distance = Number.parseFloat(argArray[1]) || 0;		// NB the zero default here
+
+		if (this.name === 'left') {
+			this.argument.bearingDegrees = -this.argument.bearingDegrees;			// very hackish, need to rationalise
+		}
+	}
+}/* Bear */
+
+
+export class Location extends Command {
+	/**
+	 * @property {number}  x
+	 * @property {number}  y
+	 */
+	argument = {
+		x : undefined,
+		y : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.x = Number.parseFloat(argArray[0]);
+		this.argument.y = Number.parseFloat(argArray[1]);
+	}
+}/* Move */
+
+
+
+export class Position extends Command {
+	/**
+	 * @property {number}  x
+	 * @property {number}  y
+	 * @property {number}  a
+	 */
+	argument = {
+		x : undefined,
+		y : undefined,
+		a : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.x = Number.parseFloat(argArray[0]);
+		this.argument.y = Number.parseFloat(argArray[1]);
+		this.argument.a = Number.parseFloat(argArray[2]);
+	}
+}/* Position */
+
+
+
+export class Rectangle extends Command {
+	/**
+	 * @property {number}  width
+	 * @property {number}  height
+	 */
+	argument = {
+		width  : undefined,
+		height : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.width  = Number.parseFloat(argArray[0]);
+		this.argument.height = Number.parseFloat(argArray[1]);
+	}
+}/* Rectangle */
+
+
+export class Radius extends Command {
+	/**
+	 * @property {number}  radius
+	 */
+	argument = {
+		radius  : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		const argArray = argumentString.split(',');
+		this.argument.radius  = Number.parseFloat(argArray[0]);
+	}
+}/* Radius */
+
+
+
+export class Text extends Command {
+	/**
+	 * @property {string}  text
+	 */
+	argument = {
+		text  : undefined,
+	};
+
+	/** @param {string} argumentString */
+	parseArguments(argumentString) {
+		argumentString = argumentString.replaceAll('<','&lt;');
+		argumentString = argumentString.replaceAll('>','&gt;');
+		this.argument.text = argumentString;
+	}
+
+	/** @return {boolean} */
+	get isValid() {
+		return this.argument.text.isWellFormed();	//TODO: come up with something *much* better
+	}
+
+
+}/* Text */
+
+
+
+
+//
+//	Util
+//
+
+
+
+
+
+/** generateCommands
+ * @returns {array}
+ */
+export function generateCommands(commandText) {
+	const result = [];
+	const lineArray = commandText.trim().split('\n');
+	let lineString = '';
+	let command;
+
+	lineArray.forEach(
+		(line) => {
+			lineString = line.trim();
+
+			command = createCommand(lineString)
+			if (command && command.isValid) {
+				result.push(command);
+			}
+		}
+	);
+
+	//console.debug(result);
+
+	return result;
+}
+
+
+/** createCommand
+ * @param {string} commandString
+ * @return {Command}
+ */
+export function createCommand(commandString) {
+	let result = undefined;
+	let arg;
+	let match;
+	let draw = true;
+
+	if (commandString.startsWith('~')) {
+		draw = false;
+		commandString = commandString.substring(1);
+	}
+
+	const commandSplit = splitCommandString(commandString);
+
+	if (commandMap[commandSplit.name]) {
+		result = new commandMap[commandSplit.name];
+		result.name = commandSplit.name;
+		result.string = commandString;
+		result.draw = draw;
+		result.parseArguments(commandSplit.arguments);
+		//console.debug(command);
+	}
+
+	//console.debug(result);
+
+	return result;
+}/* createCommand */
+
+
+
+export function firstWord(string) {
+	return string.trimLeft().split(/\w+/)[0];
+}
+
+export function afterFirstWord(string) {
+	return string.trimLeft().split(/\w+/)[1];
+}
+
+
+function splitCommandString(commandString) {
+	const result = {
+		name      : undefined,
+		arguments : undefined,
+	}
+
+	let split = commandString.match(/^\s*(\w+)\s*(.*)/);
+	//console.log(commandString, split);
+
+	if (split) {
+		result.name      = split[1];
+		result.arguments = split[2];
+	}
+
+	return result;
+}
+
+
+
+export const commandMap = {
+	'marker'       : Command,
+	'origin'       : Command,
+	'bear'         : Bear,
+	'left'         : Bear,
+	'right'        : Bear,
+	'move'         : Location,
+	'xy'           : Location,
+	'xyTurn'       : Location,
+	'xyd'          : Position,
+	'rect'         : Rectangle,
+	'ellipse'      : Rectangle,
+	'circle'       : Radius,
+	'text'         : Text,
+};

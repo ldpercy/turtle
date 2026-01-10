@@ -17,6 +17,8 @@ Todo
 
 ### General
 
+* Try out a git submodule for some common HTML items, potentially to be shared between a few projects
+* Text command string cleaning/validation - 'safe' unicode
 * Improve the help dialog - backdrop, dismissal etc
 * Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)

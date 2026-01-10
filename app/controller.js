@@ -2,11 +2,12 @@
 //	controller
 //
 
-import { Turtle } from "../[library]/Turtle.js";
+
 import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
 import { svg } from "./view-svg.js";
-
+//import { turtle } from "../[library]/Turtle.js";
+import * as turtleCommand from "../[library]/TurtleCommand.js";
 
 
 //
@@ -74,21 +75,20 @@ export function svgClickListener(event) {
 
 	// /this.drawPoint(pagePoint.x, pagePoint.y);	// adding this line seems to cancel subsequent events - do I need to re-propagate the event or something?
 
-	//const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
 	//console.debug('svgClickListener', cmd);
-	//this.doCommand(cmd);
+
 	const mouseMode = ui.mouseMode;
 
 	if (mouseMode === 'info') {
 		svg.drawPointInfo(pagePoint.x, pagePoint.y);
 	}
 	else if (mouseMode === 'draw') {
-		const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 	else if (mouseMode === 'move')
 	{
-		const cmd = `^xyr ${pagePoint.x}, ${-pagePoint.y}`;
+		const cmd = `~xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
 		doCommand(cmd);
 	}
 
@@ -106,7 +106,7 @@ svgDblClickListener(event) {   // not firing for some reason???
 	// Get point in page SVG space
 	const pagePoint = domPoint.matrixTransform(pageElement.getScreenCTM().inverse());
 
-	const cmd = `xyr ${pagePoint.x}, ${-pagePoint.y}`;
+	const cmd = `xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
 
 	//console.debug('svgClickListener', cmd);
 
@@ -129,14 +129,15 @@ export function updatePage() {
 
 export function toOrigin() {
 	//console.log('toOrigin');
-	doCommand('^o');
+	//const cmd = new turtleCommand.Command('origin');
+	doCommand('~origin');
 	svg.updateTurtle();
 	ui.updateTurtleInfo();
 }
 
 
 export function doCommands() {
-	const commands = Turtle.getCommands(ui.commandString);
+	const commands = turtleCommand.generateCommands(ui.commandString);
 	//console.log('Commands:', commands);
 
 	const commandOutput = turtleApp.turtle.doCommands(commands);
@@ -146,10 +147,10 @@ export function doCommands() {
 }/* doCommands */
 
 
-function doCommand(cmdString) {
-	const commands = Turtle.getCommands(cmdString);
+function doCommand(commandString) {
+	const command = turtleCommand.createCommand(commandString);
 	//console.log(commands);
-	const commandOutput = turtleApp.turtle.doCommands(commands);
+	const commandOutput = turtleApp.turtle.doCommand(command);
 	svg.updateTurtle();
 	svg.draw(commandOutput);
 	ui.updateTurtleInfo();
