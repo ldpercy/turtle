@@ -17,8 +17,8 @@ import { ui } from './view-html-ui.js';
 class TurtleApp extends HTMLApp {
 
 	info = `
-		Turtle v0.🗟⚠️ by ldpercy
-		https://github.com/ldpercy/turtle/releases/tag/v0.🗟⚠️
+		Turtle v0.11.0 by ldpercy
+		https://github.com/ldpercy/turtle/releases/tag/v0.11.0
 	`.replace(/\n\t\t/g,'\n');
 	infoStyle = 'color: light-dark(darkgreen, lightgreen)';
 
