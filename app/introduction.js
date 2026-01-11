@@ -8,7 +8,11 @@
 export function writeTurtleCommandString() {
 	// intro for initial load
 	const result = `
-		// Turtle
+		// Welcome to Turtle
+		~xy 500,200
+		text v0.🆕⎈
+		~origin
+
 		~left 60,800
 		right 140,400
 		right 175,200

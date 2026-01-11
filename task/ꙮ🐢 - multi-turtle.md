@@ -30,3 +30,7 @@ Early experiments with focus for the turtle have been mixed.
 
 
 
+* midlife distorted kungfu turtles
+* oldage transform taichi turtles
+* senior
+* junior
