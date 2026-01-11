@@ -6,7 +6,7 @@ Implement command repeating and/or grouping
 
 
 ```
-2025-10-28		new task
+2025-10-28		new task	≣⮌
 ```
 
 I've been playing around with some bicycle-spoke shapes that have simple angles such that they usually self-close/return to home after a certain number of iterations.
@@ -81,5 +81,18 @@ That would be okay.
 In this context, should probably also consider whether colour could be a grouped or modal command, or both.
 Grouped seems to make more sense to me though; modal could get weird in an svg context, and might end up grouped anyway?
 Not sure, probably just stick with grouped.
+
+
+Textarea and parsing
+--------------------
+
+Adding handling for groups will need more sophisticated parsing - I could maybe get away with some cheap regex stuff, but it would be nice to try something a little more proper.
+So I started wondering whether certain commands or parts of the textarea could be highlighted in any way, but from what I can tell so far it looks like stock texareas are pretty limited in what they can do.
+There are other options such as `contenteditable`, but it starts to get complicated pretty quickly.
+It's the kind of thing where I would probably be better off finding a prebuilt web-component of some sort.
+
+Another thing I've been wondering about is whether there's an easy way to allow tab chars (for indentation) in textareas - my quick tries so far seem to say not, though there's probably a way.
+
+But the main thing I'm worried about right now is that grouping really opens up the pandora's box of syntax errors...
 
 

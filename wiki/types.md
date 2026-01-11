@@ -2,7 +2,7 @@ Types
 =====
 
 
-> [!NOTE]
+> [!WARNING]
 > In progress, subject to revision
 
 
