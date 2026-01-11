@@ -1,5 +1,6 @@
-Variables and maths
-===================
+Arithmetic syntax
+=================
+(was "variables and maths")
 
 This is *completely* speculative, just wondering theoretically what the syntax could look like.
 

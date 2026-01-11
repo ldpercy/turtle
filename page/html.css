@@ -41,6 +41,13 @@ html {
 	*/
 }
 
+
+@media (prefers-color-scheme:dark) { }
+
+@media (prefers-color-scheme:light) { }
+
+
+
 body.light {
 	color-scheme: light;
 	--accent: var(--accent-light);
@@ -84,46 +91,29 @@ body.dark {
 
 h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
 
-
-
-#info-popover {
-	/* backdrop-filter: blur(20px); */
-	border-radius: 1em;
-	padding:1em;
-	border: 3px solid var(--accent);
-	.infoBox {
-		display: grid;
-	}
-	opacity: 95%;
-	li { list-style: none; }
-	kbd { display:inline-block; width:40%; }
-	box-shadow: 0px 0px 3em var(--accent);
-}
-
-
-::backdrop {
-	background-image:  url('./turtle.svg');
-	filter: blur(3px);
-	background-position: center;
-	background-repeat: repeat;
-
-	background-size: 10%;
-	background-color: var(--turtle-body);
-	/* background-image: linear-gradient(
-		45deg,
-		var(--turtle-body),
-		var(--turtle-outline)
-	); */
-	opacity: 0.25;
-}
-
-
-
 summary {
 	cursor: pointer;
 }
 
 a { color: var(--accent); }
+
+
+
+.control-group {
+
+	&.control-left {
+		position:absolute;
+		left:0ex;
+	}
+
+	&.control-right {
+		position:absolute;
+		right:0ex;
+	}
+}
+
+
+
 
 form {
 	display: grid;
@@ -147,20 +137,11 @@ form {
 	details { margin-top:1ex; margin-bottom: 0ex; }
 	details > label { display: block; }
 
-
-
-
 	hr { width:100%; }
 
 	#input-command {
 		height:15em;
 		min-width: 15em;
-	}
-
-
-
-	#turtle-instructions {
-		display: grid;
 	}
 
 	#turtle-info {
@@ -242,29 +223,48 @@ form {
 
 
 
-.control-group {
+#info-popover {
+	/* backdrop-filter: blur(20px); */
+	border-radius: 1em;
+	padding:1em;
+	border: 3px solid var(--accent);
+	opacity: 95%;
+	box-shadow: 0px 0px 3em var(--accent);
 
-	&.control-left {
-		position:absolute;
-		left:0ex;
+
+	dl {
+		display: grid;
+		grid-template-columns: 2fr 3fr ;
+		margin:1em;
+		font-size:1em;
+	}
+	dt {
+		margin: 0em 1em;
+		white-space: nowrap;
+		font-family: monospace;
+	}
+	dd {
+		margin: 0em 1em;
 	}
 
-	&.control-right {
-		position:absolute;
-		right:0ex;
+	&::backdrop {
+		background-image:  url('./turtle.svg');
+		filter: blur(3px);
+		background-position: center;
+		background-repeat: repeat;
+
+		background-size: 10%;
+		background-color: var(--turtle-body);
+		opacity: 0.25;
 	}
-
 }
 
 
 
-@media (prefers-color-scheme:dark) {
 
-}
 
-@media (prefers-color-scheme:light) {
 
-}
+
 
 
 

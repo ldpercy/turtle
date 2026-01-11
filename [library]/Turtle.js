@@ -1,26 +1,32 @@
+import * as space from './PlanarSpace.js';
+import * as turtleCommand from './TurtleCommand.js';
+
+
+
 /* Turtle
 */
 export class Turtle {
 
-	#name;
-	#space;
-	#position;
+
+	/** @type {string} */		#name;
+	/** @type {space.Space} */	#space;
+	/** @type {space.Position} */	#position;
 
 
-	commands = [
-		'b',
-		'bear',
-		'jump',
-		'l',
-		'left',
-		'r',
-		'right',
-		'm',
-		'move',
-		'o',
-		'xy',
-		'xyr',
-	];
+	commandMap = {
+		'bear'         : this.bear,
+		'left'         : this.left,
+		'right'        : this.right,
+		'move'         : this.move,
+		'xy'           : this.moveToXY,
+		'xyTurn'       : this.moveToXYandTurn,
+		'xyd'          : this.moveToXYD,
+		'origin'       : this.toOrigin,
+		//'marker'       : this.marker,
+	};
+
+
+
 
 	precision = {
 		report : 5,
@@ -76,42 +82,90 @@ export class Turtle {
 
 
 	toOrigin() {
+		//console.log('toOrigin');
 		this.#position.resetToOrigin();
 	}
 
 
 	/* bear
+	* @param {turtleCommand.bear} bearCommand
 	*/
-	bear(bearingDegrees, distance=0) {
-		this.#position.bear(bearingDegrees, distance);
+	bear(bearCommand) {
+		this.#position.bear(bearCommand.argument.bearingDegrees, bearCommand.argument.distance);
 	}/* bear */
 
 
-	left  = function(bearingDegrees, distance=0) { return this.bear(-bearingDegrees, distance) }
-	right = function(bearingDegrees, distance=0) { return this.bear(+bearingDegrees, distance) }
+	/* @param {turtleCommand.bear} bearCommand */
+	left(bearCommand)  { return this.bear(bearCommand) }
+	/* @param {turtleCommand.bear} bearCommand */
+	right(bearCommand) { return this.bear(bearCommand) }
 
 
-	/* moves dx,dy in the turtles current local frame
-	*/
-	move(dx, dy) {
-		this.#position.move(dx,dy);
+	/** move
+	 * moves dx,dy in the turtles current local frame
+	 * @param {turtleCommand.Location} moveCommand
+	 */
+	move(moveCommand) {
+		this.#position.move(moveCommand.argument.x, moveCommand.argument.y);
 	}
 
-
-	moveToXY(x,y) {
-		this.#position.moveToXY(x,y);
+	/** moveToXY
+	 * @param {turtleCommand.Location} locationCommand
+	 */
+	moveToXY(locationCommand) {
+		this.#position.moveToXY(locationCommand.argument.x, locationCommand.argument.y);
 	}
 
-	moveToXYwithRotate(x,y) {
-		this.#position.moveToXYwithRotate(x,y);
+	/** moveToXYandTurn
+	 * This version adds an implicit turn based upon the path described
+	 * @param {turtleCommand.Location} locationCommand
+	 */
+	moveToXYandTurn(locationCommand) {
+		this.#position.moveToXYandTurn(locationCommand.argument.x, locationCommand.argument.y);
+	}
+
+	/** moveToXYD
+	 * @param {turtleCommand.Position} positionCommand
+	 */
+	moveToXYD(positionCommand) {
+		//this.#position
 	}
 
 
 	//
-	// Static
+	// Commands
 	//
 
 
+	/** doCommand
+	 * @param {turtleCommand.Command} command
+	 */
+	doCommand(command) {
+		//console.log(`${this.#name}.doCommand:`, command);
+		//console.trace();
+		//console.debug('doCommand', this.position);
+
+
+
+		if (this.commandMap[command.name])
+		{
+			this.commandMap[command.name].bind(this)(command);			// bind(this) needed here otherwise the command receives the commandMap object as 'this'
+		}
+		else {
+			console.warn(`[Turtle] Unknown command: ${command}`);
+		}
+	}/* doCommand */
+
+
+	/** doCommands
+	 * Not actually being used at the moment - the one is SVGTurtle is
+	 * @param {Array<turtleCommand.Command>} commandArray
+	 */
+	doCommands(commandArray) {
+		commandArray.forEach(command => {
+			this.doCommand(command);
+		});
+	}
 
 
 	//
@@ -119,133 +173,12 @@ export class Turtle {
 	//
 
 
-
+	/** @return {string} */
 	toString() {
 		return `Turtle - x:${this.x}; y:${this.y}; direction:${this.#position.direction.degrees};`;
 	}
 
-	log(prefix) {
-		console.log(prefix, this.toString());
-	}
 
 
-
-	//
-	// Commands
-	//
-
-	doCommand = function(command) {
-		//console.log(`${this.#name}.doCommand:`, command);
-		let result = '';
-
-		switch(command.name) {
-			case 'b'            :
-			case 'jump'         :
-			case 'bear'         : result = this.bear(...command.argument); break;
-			case 'l'            :
-			case 'left'         : result = this.left(...command.argument); break;
-			case 'r'            :
-			case 'right'        : result = this.right(...command.argument); break;
-			case 'm'            :
-			case 'move'         : result = this.move(...command.argument); break;
-			case 'xy'           : result = this.moveToXY(...command.argument); break;
-			case 'xyr'          : result = this.moveToXYwithRotate(...command.argument); break;
-			case 'o'            : result = this.toOrigin(); break;
-			//case 'marker'       : result = this.marker; break;
-
-			default             : console.warn(`Unknown command: ${command}`); break;
-		}
-
-		//console.log(instruction);
-		return result;
-	}
-
-
-	doCommands(commandArray) {
-		commandArray.forEach(command => {
-			this.doCommand(command);
-		});
-	}
-
-	static getCommands = function(string) {
-		const result = [];
-		const lineArray = string.trim().split('\n');
-		let lineText = '';
-		let command;
-
-		lineArray.forEach(
-			(line) => {
-				lineText = line.trim();
-				command = Turtle.parseCmd(lineText);
-				if (command) {
-					result.push(command);
-				}
-			}
-		);
-
-		return result;
-	}
-
-
-	static parseCmd(cmdString) {
-		let result = new Turtle.Command();
-		let arg;
-		let match;
-
-		if (cmdString.startsWith('^')) {
-			result.draw = false;
-			cmdString = cmdString.substring(1);
-		}
-
-		match = cmdString.match(/^(\w+)(\s.*)?/);	// standard command structure
-		if (match) {
-
-			result.name = match[1].trim();
-
-			if (result.name === 'text') {
-				arg = (match[2]) ? [match[2]] : [''];
-			}
-			else {
-				arg = (match[2]) ? this.parseArgs(match[2]) : [];
-			}
-			result.argument = arg;
-		}
-		else {
-			result = undefined;
-		}
-		return result;
-	}
-
-
-	static parseArgs(argString) {
-		const argArray = argString.split(',');
-
-		const result = argArray.map(
-			(element) => { return Number.parseFloat(element); }
-		);
-		return result;
-	}
 
 }/* Turtle */
-
-
-Turtle.Command = class {
-	name;
-	argument;
-	operator;
-	draw;
-
-	constructor(
-		name = '',
-		argument = [],
-		operator = '',
-		draw = true
-	) {
-		this.name = name;
-		this.argument = argument;
-		this.operator = operator;
-		this.draw = draw;
-	}
-
-	toString() { return `${this.name} ${this.argument}`}
-}

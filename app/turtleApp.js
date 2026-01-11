@@ -6,7 +6,7 @@ import { HTMLApp } from "../[library]/HTMLApp.js";
 import { SVGTurtle } from "../[library]/SVGTurtle.js";
 
 import { SVG } from "../[library]/SVG.js";
-import { PlanarSpace } from "../[library]/PlanarSpace.js";
+import { Space } from "../[library]/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as controller from './controller.js';
@@ -20,8 +20,10 @@ class TurtleApp extends HTMLApp {
 		Turtle v0.≣⮌ by ldpercy
 		https://github.com/ldpercy/turtle/releases/tag/v0.≣⮌
 	`.replace(/\n\t\t/g,'\n');
+	infoStyle = 'color: light-dark(darkgreen, lightgreen)';
 
 
+	/** @type {object} */
 	elementMap = {
 		commandInput	: 'input-command',
 		turtleForm		: 'form-turtle',
@@ -32,6 +34,7 @@ class TurtleApp extends HTMLApp {
 		drawing			: 'group-drawing',
 	};
 
+	/** @type {array} */
 	eventListeners = [
 		{
 			query: '#button-doCommands',
@@ -120,13 +123,14 @@ class TurtleApp extends HTMLApp {
 		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
 
+
+		this.setup();
+
 		if (firstLoad) {
 			console.log('first load')
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
 			controller.doCommands();
 		}
-
-		this.setup();
 
 	}/* documentDOMContentLoaded */
 
@@ -142,7 +146,7 @@ class TurtleApp extends HTMLApp {
 
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
-		this.space = new PlanarSpace('turtle-space');
+		this.space = new Space('turtle-space');
 		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
 		svg.placeTurtle(this.turtle);

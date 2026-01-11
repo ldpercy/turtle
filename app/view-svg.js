@@ -89,7 +89,7 @@ class SVGView {
 			polar : '',
 		};
 
-		const coords = new turtleApp.space.CartesianCoordinates(x,y);
+		const coords = turtleApp.space.newCartesianCoordinates(x,y);
 
 		const point = turtleApp.space.newPoint('point marker');
 		point.cartesian = coords;

@@ -18,31 +18,42 @@ The turtle is named Terry (after [Terry Pratchett](https://en.wikipedia.org/wiki
 Command Syntax
 --------------
 
-* All angles are in degrees
-* All distances are in SVG units (or 'pixels')
+* Commands are case-sensitive
+* Angles are in degrees
+* Distances are in SVG units (or "pixels")
 * Items in square brackets are optional and can be omitted
+* Blank lines are ignored
+* Unknown/invalid commands are ignored
+* You can comment out a line by turning it into an unknown command, eg `//right 45,500`
 
 
 ### Movement Commands
 
-| command						| example		| description							|
-|-------------------------------|---------------|---------------------------------------|
-| left *angle[,distance]*		| left 30,500	| bear left for the given distance		|
-| right *angle[,distance]*		| right 45,500	| bear right for the given distance		|
-| bear *angle[,distance]*		| bear 60,200	| bear w.r.t. to the polar direction	|
-| jump *angle[,distance]*		| jump 90,400	| bear without drawing a line			|
-| move *dx,dy*					| move 400,300	| move in the turtle's local frame		|
+| syntax						| example			| description										|
+|-------------------------------|-------------------|---------------------------------------------------|
+| left *angle[,distance]*		| left 30,500		| bear left degrees for the given distance			|
+| right *angle[,distance]*		| right 45,500		| bear right degrees for the given distance			|
+| bear *angle[,distance]*		| bear 60,200		| bear w.r.t. to the polar direction				|
+| move *dx,dy*					| move 400,300		| move in the turtle's local frame					|
+| xy *x,y*						| xy 123,456		| move to x,y without changing direction			|
+| xyTurn *x,y*					| xyTurn 400,300	| move to x,y and turn to face the new direction	|
 
 
-NB: 'jump' and 'move' are likely to change soon
+NB: 'move' is likely to be renamed soon
 
+### No draw
+
+Movement without drawing can be achieved by prefixing the command with a tilde `~`, eg:
+```
+	~left 30,500
+```
 
 ### SVG drawing commands
 
 These do not move the turtle, but draw items at its current location and orientation.
 
 
-| command					| example			| description										|
+| syntax					| example			| description										|
 |---------------------------|-------------------|---------------------------------------------------|
 | circle *radius*			| circle 100		| draw a circle with the given radius				|
 | ellipse *width,height*	| ellipse 150,50	| draw an ellipse with the given width & height		|
@@ -50,12 +61,6 @@ These do not move the turtle, but draw items at its current location and orienta
 | text *string*				| text Hello 🐢		| draw text with a given string						|
 | marker					| marker			| drop a marker flag - hover for position info		|
 
-
-### Note
-
-* Blank lines are ignored
-* Unknown commands are ignored
-* You can comment out a line by turning it into an unknown command, eg `//right 45,500`
 
 
 Keyboard Controls
@@ -116,6 +121,7 @@ More detail in the [task/](<./task/>) directory.
 
 ### Recently Completed
 
+* Command argument validation
 * Added keyboard controls
 * Turtle can follow mouse clicks
 
