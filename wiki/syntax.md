@@ -69,8 +69,8 @@ Statements are of the form:
 
 Initially I might smoosh the property and operator together to become single commands.
 
-Properties are either in terms of the document's coordinate system, or in the turtle's local frame.
-Document coordinates are capitalised, turtle coordinates are lower-case.
+Properties are either in terms of the space's coordinate system, or in the turtle's local frame.
+Space coordinates are lower case as per convention, turtle coordinates are prefixed with 'frame'.
 
 Haven't decided yet if want assignment or addition to be the default operator in this syntax, will try a few things and see what looks best.
 I think I might actually make assignment default here...
@@ -79,44 +79,42 @@ There's a bit of a syntactical and property name land-grab going on, so things m
 Eg have unresolved questions about whether and when to use 'angle' or 'direction' need to clear this up.
 
 
-Examples using document coordinates:
+Examples using space coordinates:
 ```
-	X=		100			// turtle.position.cartesian.x	= 100
-	X+		200			// turtle.position.cartesian.x	+= 200
-	Radius= 500			// turtle.position.polar.r		= 500			... set the turtle distance from the **origin**
-	Radius+ 500			// turtle.position.polar.r		+= 500
-	Angle=	50			// turtle.position.polar.a		= 50			... rotates the turtle about the **origin**
-	Angle-	60			// turtle.position.polar.a		-= 60
+	x=		100			// turtle.position.cartesian.x	= 100
+	x+		200			// turtle.position.cartesian.x	+= 200
+	radius= 500			// turtle.position.polar.r		= 500			... set the turtle distance from the **origin**
+	radius+ 500			// turtle.position.polar.r		+= 500
+	angle=	50			// turtle.position.polar.a		= 50			... rotates the turtle about the **origin**
+	angle-	60			// turtle.position.polar.a		-= 60
 
-	XY=		100,200		// turtle.position.cartesian = $args
+	xy=		100,200		// turtle.position.cartesian = $args
 ```
 
 Note that although these look similar, they are different in that the second is an *explicit* subtraction:
 ```
-	X+		-100			// add a negative quantity			...commutative
-	X-		100				// subtract a positive quantity		...non-commutative
+	x+		-100			// add a negative quantity			...commutative
+	x-		100				// subtract a positive quantity		...non-commutative
 ```
 
 
 Examples using turtle-local-frame coordinates:
 ```
-	x+	100			// move the turtle to it's right by 100
-	x=	100			// the same
-	x-	100			// move the turtle to it's left by 100
-	x=	-100		// same
-	x+	-100		// same
+	frame.x+	100			// move the turtle to it's right by 100
+	frame.x=	100			// the same
+	frame.x-	100			// move the turtle to it's left by 100
+	frame.x=	-100		// same
+	frame.x+	-100		// same
 
 	// Note that 'equals' becomes synonymous with 'plus' in this scheme:
 
-	y+	100			// move forward by 100
-	y=	100			// same
+	frame.y+		100		// move forward by 100
+	frame.y=		100		// same
+	frame.radius=	100		// set the turtle's local polar radius to 100, equivalent to a forward move
 
-	radius=	100		// set the turtle's local polar radius to 100, equivalent to a forward move
+	frame.angle+	45		// rotate on the spot 45 degrees
 
-	angle
-
-
-
-	xy=	100,200		// move to $args in the local frame -- this is the current 'move' command
+	frame.xy=	100,200		// move to $args in the local frame 	-- this is the current 'move' command
 
 ```
+
