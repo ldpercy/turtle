@@ -1,7 +1,7 @@
 Syntax
 ======
 
-> [!WARNING]
+> [!IMPORTANT]
 > In progress, subject to revision
 
 
@@ -61,6 +61,7 @@ Syntax version 2
 ----------------
 
 Some new syntax ideas - not sure yet if they'll be compatible with v1, might need to become a new version.
+See the [🆕⎈ - new commands](<../task/0.🆕⎈ - new commands.md>) task for discussion.
 
 Statements are of the form:
 ```
@@ -88,7 +89,7 @@ Examples using space coordinates:
 	angle=	50			// turtle.position.polar.a		= 50			... rotates the turtle about the **origin**
 	angle-	60			// turtle.position.polar.a		-= 60
 
-	xy=		100,200		// turtle.position.cartesian = $args
+	xy=		100,200		// turtle.position.cartesian	= 100,200
 ```
 
 Note that although these look similar, they are different in that the second is an *explicit* subtraction:
@@ -98,18 +99,18 @@ Note that although these look similar, they are different in that the second is 
 ```
 
 
-Examples using turtle-local-frame coordinates:
+Examples using turtle local-frame coordinates:
 ```
-	frame.x+	100			// move the turtle to it's right by 100
+	frame.x+	100			// move the turtle to its right by 100
 	frame.x=	100			// the same
-	frame.x-	100			// move the turtle to it's left by 100
-	frame.x=	-100		// same
-	frame.x+	-100		// same
+	frame.x-	100			// move the turtle to its left by 100
+	frame.x=	-100		// same effect
+	frame.x+	-100		// same effect
 
 	// Note that 'equals' becomes synonymous with 'plus' in this scheme:
 
 	frame.y+		100		// move forward by 100
-	frame.y=		100		// same
+	frame.y=		100		// same effect
 	frame.radius=	100		// set the turtle's local polar radius to 100, equivalent to a forward move
 
 	frame.angle+	45		// rotate on the spot 45 degrees
