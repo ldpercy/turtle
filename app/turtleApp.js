@@ -16,11 +16,14 @@ import { ui } from './view-html-ui.js';
 
 class TurtleApp extends HTMLApp {
 
-	info = `
-		Turtle v0.🆕⎈ by ldpercy
-		https://github.com/ldpercy/turtle/releases/tag/v0.🆕⎈
-	`.replace(/\n\t\t/g,'\n');
-	infoStyle = 'color: light-dark(darkgreen, lightgreen)';
+	appVersion = 'v0.🆕⎈';
+	appInfo = [
+		`%c
+		Turtle ${this.appVersion} by ldpercy
+		https://github.com/ldpercy/turtle/releases/tag/${this.appVersion}
+		`.replace(/\n\t\t/g,'\n'),
+		'color: light-dark(darkgreen, lightgreen)'
+	];
 
 
 	/** @type {object} */

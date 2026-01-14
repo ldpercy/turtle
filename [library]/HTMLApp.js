@@ -3,8 +3,8 @@
 export class HTMLApp {
 
 	name;
-	info;
-	infoStyle;
+	appVersion;
+	appInfo;
 
 	elementMap = {};
 	element = {};
@@ -21,7 +21,7 @@ export class HTMLApp {
 		//console.log('documentDOMContentLoaded', arguments, this);
 		this.element = HTMLApp.buildElementMap(document, this.elementMap);
 		this.addEventListeners();
-		console.info(`%c${this.info}`, this.infoStyle);
+		console.info(...this.appInfo);
 	}/* documentDOMContentLoaded */
 
 
@@ -53,6 +53,14 @@ export class HTMLApp {
 			}//item
 		);
 	}/* addEventListeners */
+
+
+	/* getUrlParameter
+	*/
+	getUrlParameter(name)
+	{
+		return (new URL(window.location.href)).searchParams.get(name);
+	}
 
 
 	/* buildElementMap
