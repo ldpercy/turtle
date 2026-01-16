@@ -5,12 +5,62 @@
 import * as Maths from "./Maths.js";
 import * as abstractSpace  from "./AbstractSpace.js"
 
+
+
+
+//
+//	Interfaces
+//
+
+
+/** CartesianCoordinates
+ * @interface
+ */
+export class CartesianCoordinates {
+	/** @type {number} */
+	x;
+	/** @type {number} */
+	y;
+
+	constructor(x=0, y=0) {
+		this.x = x;
+		this.y = y;
+	}
+}/* CartesianCoordinates */
+
+
+/** PolarCoordinates
+ * @interface
+ */
+export class PolarCoordinates {
+	/** @type {Angle} */
+	angle;
+	/** @type {number} */
+	radius;
+
+	constructor(angle = new Angle(), radius=0) {
+		this.angle = angle;
+		this.radius = radius;
+	}
+}/* PolarCoordinates */
+
+
+//
+//	classes
+//
+
+
+/** Space
+ *
+ */
 export class Space extends abstractSpace.Space {
 
 	/** @type {string} */
 	#name;
+
 	/** @type {CartesianCoordinates} */
-	static origin = {x:0, y:0};
+	static origin = new CartesianCoordinates(0,0);
+
 
 
 	// JavaScript angle adjustments - see wiki/coordinates
@@ -29,7 +79,6 @@ export class Space extends abstractSpace.Space {
 		) {
 		super();
 		this.#name = name;
-
 
 		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
 		else					{	this.#jsAngleAxisAdjust = 0;			}
@@ -55,6 +104,7 @@ export class Space extends abstractSpace.Space {
 	 * TODO: Needs a bit of attention...
 	 * @param {CartesianCoordinates} center
 	 * @param {CartesianCoordinates} cartesian
+	 * @returns {Angle}
 	 */
 	getAngleFrom(center, cartesian) {
 		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
@@ -66,7 +116,10 @@ export class Space extends abstractSpace.Space {
 	}/* getAngleFrom */
 
 
-	/** @param {CartesianCoordinates} cartesian */
+	/**
+	 * @param {CartesianCoordinates} cartesian
+	 * @returns {PolarCoordinates}
+	 */
 	cartesianToPolar(cartesian) {
 
 		const result = new PolarCoordinates(
@@ -79,8 +132,9 @@ export class Space extends abstractSpace.Space {
 
 	/**
 	 * @param {PolarCoordinates} polar
+	 * @returns {CartesianCoordinates}
 	 */
-	polarToCartesian = function(polar) {
+	polarToCartesian(polar) {
 		const result = new CartesianCoordinates(
 			Space.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
 			Space.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
@@ -94,7 +148,10 @@ export class Space extends abstractSpace.Space {
 	//	Static methods
 	//
 
-	/** @param {CartesianCoordinates} cartesian */
+	/**
+	 * @param {CartesianCoordinates} cartesian
+	 * @returns {number}
+	 */
 	static distanceFromOrigin(cartesian) {
 		return Space.getDistanceFrom(Space.origin, cartesian);
 	}
@@ -102,6 +159,7 @@ export class Space extends abstractSpace.Space {
 	/**
 	 * @param {CartesianCoordinates} point1
 	 * @param {CartesianCoordinates} point2
+	 * @returns {number}
 	 */
 	static getDistanceFrom(point1, point2) {
 		return Math.hypot((point2.x - point1.x), (point2.y - point1.y));
@@ -111,6 +169,7 @@ export class Space extends abstractSpace.Space {
 	/**
 	 * @param {CartesianCoordinates} point1
 	 * @param {CartesianCoordinates} point2
+	 * @returns {boolean}
 	 */
 	static areEqual(point1, point2) {
 		// could depend on more,
@@ -202,43 +261,9 @@ export class Space extends abstractSpace.Space {
 
 
 
-
-
-
-
-
-
-//
-//	Classes
-//
-
-
-/** CartesianCoordinates
- * @interface
+/** Angle
+ * @type {Angle}
  */
-export class CartesianCoordinates {
-	x;
-	y;
-	constructor(x=0, y=0) {
-		this.x = x;
-		this.y = y;
-	}
-}/* CartesianCoordinates */
-
-
-/** PolarCoordinates
- * @interface
- */
-export class PolarCoordinates {
-	angle;
-	radius;
-	constructor(angle = new Angle(), radius=0) {
-		this.angle = angle;
-		this.radius = radius;
-	}
-}/* PolarCoordinates */
-
-
 export class Angle {
 	#degrees = 0;
 
