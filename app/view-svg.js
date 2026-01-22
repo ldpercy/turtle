@@ -187,20 +187,25 @@ class SVGView {
 
 	updatePageTransform() {
 
-		//console.log(this.turtle);
+		const rotateDeg = (ui.rotatePage) ? -turtleApp.turtle.position.degrees : 0;
+		const translateX = (ui.centerTurtle) ? -turtleApp.turtle.svgX : 0;
+		const translateY = (ui.centerTurtle) ? -turtleApp.turtle.svgY : 0;
 
-		const rotate = turtleApp.turtle.position.degrees;
-
-		const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
-		const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
-
+		const rotateTransform    = `rotate(${rotateDeg},0,0)`;
+		const translateTransform = `translate(${translateX},${translateY})`;
 		const scaleTransform = `scale(${ui.getScale()})`;
+		const transformString = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
+		element.page.setAttribute('transform', transformString);
 
 		// TODO: see if this can be applied as separate attributes, or combined into a single transform matrix
+		// This works, but the rotation works slightly differently, need to investigate:
+		// const matrix = new DOMMatrix();
+		// matrix.scaleSelf(ui.getScale());
+		// matrix.rotateSelf(rotateDeg);
+		// matrix.translateSelf(translateX,translateY);
+		// //console.log('after:',matrix);
+		// element.page.setAttribute("transform", matrix.toString());
 
-		const transform = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
-
-		element.page.setAttribute('transform', transform);
 	}/* updatePageTransform */
 
 
