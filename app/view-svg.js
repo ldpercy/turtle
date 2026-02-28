@@ -91,7 +91,7 @@ class SVGView {
 
 		const coords = turtleApp.space.newCartesianCoordinates(x,y);
 
-		const point = turtleApp.space.newPoint('point marker');
+		const point = turtleApp.space.newPoint(undefined,'point marker');
 		point.cartesian = coords;
 
 		const svgX = x;
@@ -176,7 +176,7 @@ class SVGView {
 	updateTurtle() {
 		element.turtleIcon.setAttribute(
 			'transform',
-			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.degrees})`
+			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.direction.degrees})`
 		);
 
 		this.updatePageTransform();
@@ -189,7 +189,7 @@ class SVGView {
 
 		//console.log(this.turtle);
 
-		const rotate = turtleApp.turtle.position.degrees;
+		const rotate = turtleApp.turtle.position.direction.degrees;
 
 		const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
 		const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
