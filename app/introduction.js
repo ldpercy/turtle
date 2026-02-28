@@ -3,12 +3,19 @@
 //
 
 
+import { turtleApp } from './turtleApp.js';
 
 
 export function writeTurtleCommandString() {
 	// intro for initial load
 	const result = `
-		// Turtle
+		// Welcome to Turtle
+		~right 55,550
+		left 55
+		text ${turtleApp.appVersion}
+		~right 55,-550
+		left 55
+
 		~left 60,800
 		right 140,400
 		right 175,200
