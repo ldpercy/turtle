@@ -4,7 +4,7 @@
 
 import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import * as Maths from "../[html-common]/module/Maths.js";
-import * as SVG from "../[library]/SVG.js";
+import * as SVG from "../[html-common]/module/SVG.js";
 import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
 
@@ -248,4 +248,5 @@ class SVGView {
 }/* SVGView */
 
 
-export const svg = new SVGView();
+
+export const svgView = new SVGView();
