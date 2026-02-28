@@ -2,7 +2,7 @@
 //	svg
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import * as Maths from "../[library]/Maths.js";
 import * as SVG from "../[library]/SVG.js";
 import { turtleApp } from "./turtleApp.js";

@@ -2,7 +2,7 @@
 //	view html-ui
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import { turtleApp } from "./turtleApp.js";
 
 

@@ -2,7 +2,7 @@
 //	turtleApp.js
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import { SVGTurtle } from "../[library]/SVGTurtle.js";
 
 import { SVG } from "../[library]/SVG.js";
@@ -16,11 +16,14 @@ import { ui } from './view-html-ui.js';
 
 class TurtleApp extends HTMLApp {
 
-	info = `
-		Turtle v0.11.0 by ldpercy
-		https://github.com/ldpercy/turtle/releases/tag/v0.11.0
-	`.replace(/\n\t\t/g,'\n');
-	infoStyle = 'color: light-dark(darkgreen, lightgreen)';
+	appVersion = 'v0.📽🖧';
+	appInfo = [`%c
+		Turtle ${this.appVersion} by ldpercy
+		https://github.com/ldpercy/year-clock/releases/tag/${this.appVersion}
+		`.replace(/\n\t/g,'\n'),
+		'color: light-dark(seagreen, lightseagreen); font-weight:bold;'
+	];
+
 
 
 	/** @type {object} */
