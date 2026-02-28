@@ -3,7 +3,7 @@
 //
 
 import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
-import { SVGTurtle } from "../[library]/SVGTurtle.js";
+import { SVGTurtle } from "./SVGTurtle.js";
 
 import * as svg from "../[html-common]/module/SVG.js";
 import { Space } from "../[html-common]/module/PlanarSpace.js";

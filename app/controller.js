@@ -7,7 +7,7 @@ import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
 import { svgView } from "./view-svg.js";
 //import { turtle } from "../[library]/Turtle.js";
-import * as turtleCommand from "../[library]/TurtleCommand.js";
+import * as turtleCommand from "./TurtleCommand.js";
 
 
 //
