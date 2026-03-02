@@ -17,11 +17,12 @@ import { ui } from './view-html-ui.js';
 class TurtleApp extends HTMLApp {
 
 	appVersion = 'v0.📽🖧';
+	projectColour = 'lightseagreen';
 	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
 		https://github.com/ldpercy/year-clock/releases/tag/${this.appVersion}
 		`.replace(/\n\t/g,'\n'),
-		'color: light-dark(seagreen, lightseagreen); font-weight:bold;'
+		`color: light-dark(hsl(from ${this.projectColour} h s 30), hsl(from ${this.projectColour} h s 70));`,
 	];
 
 

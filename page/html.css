@@ -6,6 +6,8 @@
 
 
 html {
+	--project-colour: lightseagreen;
+
 	--page-background-light: #fcfcfc;
 	--page-background-dark: #111111;
 
@@ -252,7 +254,7 @@ form {
 		background-repeat: repeat;
 
 		background-size: 10%;
-		background-color: var(--turtle-body);
+		background-color: var(--project-colour);
 		opacity: 0.25;
 	}
 }
