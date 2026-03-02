@@ -247,6 +247,15 @@ form {
 		margin: 0em 1em;
 	}
 
+	kbd {
+		display:inline-block;
+		border-radius: 1ex;
+		border: 1px dotted grey;
+		text-align:center;
+		width:3ex;
+	}
+
+
 	&::backdrop {
 		background-image:  url('./turtle.svg');
 		filter: blur(3px);
