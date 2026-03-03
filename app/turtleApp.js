@@ -110,8 +110,13 @@ class TurtleApp extends HTMLApp {
 			type: 'click',
 			listener: svgView.clearPoint,
 		},
+		{
+			query: '#button-showAppInfo',
+			type: 'click',
+			listener: ui.toggleAppInfoDialog,
+		},
 
-	];
+	];/* eventListeners */
 
 
 

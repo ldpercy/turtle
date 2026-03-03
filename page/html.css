@@ -223,8 +223,7 @@ form {
 
 
 
-#info-popover {
-	/* backdrop-filter: blur(20px); */
+#dialog-appInfo {
 	border-radius: 1em;
 	padding:1em;
 	border: 3px solid var(--accent);
@@ -257,14 +256,14 @@ form {
 
 
 	&::backdrop {
-		background-image:  url('./turtle.svg');
-		filter: blur(3px);
+		backdrop-filter: blur(1pt) brightness(50%);
+		background-image:  url(./turtle-backdrop.svg);
 		background-position: center;
 		background-repeat: repeat;
 
 		background-size: 10%;
-		background-color: var(--project-colour);
-		opacity: 0.25;
+		/* background-color: var(--project-colour); */
+		opacity: 0.8;
 	}
 }
 

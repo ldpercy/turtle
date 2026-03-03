@@ -13,7 +13,7 @@ const elementMap = {
 	drawingForm		: 'form-drawing',
 	commandInput	: 'input-command',
 	turtleInfo		: 'turtle-info',
-	infoPopover		: 'info-popover',
+	appInfoDialog	: 'dialog-appInfo',
 };
 
 let currentCommandSet = 1;
@@ -144,8 +144,10 @@ class HTMLUserInterface {
 	//
 
 
-	togglePopover() {
-		element.infoPopover.togglePopover();
+	toggleAppInfoDialog() {
+		console.debug('toggleHelpDialog');
+		element.appInfoDialog.showModal();
+		element.appInfoDialog.blur();
 	}
 
 	updateTurtleInfo() {

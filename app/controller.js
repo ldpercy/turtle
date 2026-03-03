@@ -44,7 +44,7 @@ const keyFunctionMap = {
 	'Z'	: zoomOut,
 	'-'	: zoomOut,
 
-	'?'	: ui.togglePopover,
+	'?'	: ui.toggleAppInfoDialog,
 };
 
 
