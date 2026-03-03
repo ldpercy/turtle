@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Turtle v0.11.0 by ldpercy</title>
+	<title>Turtle v0.12.0 by ldpercy</title>
 	<meta charset="utf-8">
+	<meta name="description" content="Turtle v0.12.0 by ldpercy - HTML, CSS, SVG, JavaScript">
 	<meta name="color-scheme" content="dark light">
-	<meta name="description" content="Turtle v0.11.0 by ldpercy - SVG, JavaScript, HTML, CSS">
-	<link rel="icon" href="./page/turtle.svg"/>
+	<meta name="theme-color" content="lightseagreen"/>
+	<link rel="icon" href="./favicon.svg"/>
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 
@@ -48,7 +49,7 @@
 			<output id="turtle-info" class="infoBox"></output>
 
 			<br/>
-			<button type="button" popovertarget="info-popover"><strong>🛈 Turtle help</strong></button>
+			<button type="button" id="button-showAppInfo"><strong>🛈 Turtle help</strong></button>
 
 		</form>
 	</div><!-- control-left -->
@@ -206,10 +207,10 @@
 	</svg>
 
 
-	<dialog popover id="info-popover" closedby="any">
+	<dialog id="dialog-appInfo" closedby="any">
 		<h1>
 			<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.11.0">v0.11.0</a>
+			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.12.0">v0.12.0</a>
 			by <a href="https://github.com/ldpercy/">ldpercy</a>
 		</h1>
 
@@ -263,11 +264,11 @@
 			<dt><kbd>o</kbd></dt>
 			<dd>Return turtle to origin</dd>
 
-			<dt><kbd>! (shift 1)</kbd></dt>
+			<dt><kbd>!</kbd> (shift 1)</dt>
 			<dd>Show command tab 1</dd>
-			<dt><kbd>@ (shift 2)</kbd></dt>
+			<dt><kbd>@</kbd> (shift 2)</dt>
 			<dd>Show command tab 2</dd>
-			<dt><kbd># (shift 3)</kbd></dt>
+			<dt><kbd>#</kbd> (shift 3)</dt>
 			<dd>Show command tab 3</dd>
 
 			<dt><kbd>T</kbd></dt>
@@ -277,9 +278,9 @@
 			<dt><kbd>R</kbd></dt>
 			<dd>Toggle page rotation</dd>
 
-			<dt><kbd>+ or z</kbd></dt>
+			<dt><kbd>+</kbd> or <kbd>z</kbd></dt>
 			<dd>Zoom in</dd>
-			<dt><kbd>- or Z</kbd></dt>
+			<dt><kbd>-</kbd> or <kbd>Z</kbd></dt>
 			<dd>Zoom out</dd>
 
 			<dt><kbd>?</kbd></dt>

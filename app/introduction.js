@@ -3,18 +3,29 @@
 //
 
 
+import { turtleApp } from './turtleApp.js';
 
 
 export function writeTurtleCommandString() {
 	// intro for initial load
 	const result = `
-		// Turtle
-		~left 60,800
-		right 140,400
-		right 175,200
-		left 85,400
+		// Welcome to Turtle
+		~right 55,550
+		left 55
+		text ${turtleApp.appVersion}
+		~right 55,-550
+		left 55
+
+		//T
+		~xy -492,418
+		left 190
+		rect 350,20
+		~right 0,200
+		ellipse 20,400
+		~right 0,200
 		marker
 
+		//u
 		~left 160,220
 		right 165,200
 		left 55,100

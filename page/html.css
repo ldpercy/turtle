@@ -6,6 +6,8 @@
 
 
 html {
+	--project-colour: lightseagreen;
+
 	--page-background-light: #fcfcfc;
 	--page-background-dark: #111111;
 
@@ -95,8 +97,11 @@ summary {
 	cursor: pointer;
 }
 
-a { color: var(--accent); }
-
+a {
+	color: var(--accent);
+	text-decoration: none;
+	&:hover { text-decoration: underline; }
+}
 
 
 .control-group {
@@ -221,14 +226,21 @@ form {
 
 
 
-#info-popover {
-	/* backdrop-filter: blur(20px); */
+#dialog-appInfo {
 	border-radius: 1em;
 	padding:1em;
 	border: 3px solid var(--accent);
 	opacity: 95%;
 	box-shadow: 0px 0px 3em var(--accent);
 
+	h1 {text-align:center; }
+	h1::before {
+		display: inline-block ;
+		content: url("../favicon.svg");
+		height:2ex;
+		width:2ex;
+		vertical-align: sub;
+	}
 
 	dl {
 		display: grid;
@@ -245,15 +257,24 @@ form {
 		margin: 0em 1em;
 	}
 
+	kbd {
+		display:inline-block;
+		border-radius: 1ex;
+		border: 1px dotted grey;
+		text-align:center;
+		width:3ex;
+	}
+
+
 	&::backdrop {
-		background-image:  url('./turtle.svg');
-		filter: blur(3px);
+		backdrop-filter: blur(1pt) brightness(40%);
+		background-image:  url(./turtle-backdrop.svg);
 		background-position: center;
 		background-repeat: repeat;
 
-		background-size: 10%;
-		background-color: var(--turtle-body);
-		opacity: 0.25;
+		background-size: 14vh;
+		/* background-color: var(--project-colour); */
+		opacity: 0.8;
 	}
 }
 

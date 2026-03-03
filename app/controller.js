@@ -5,9 +5,9 @@
 
 import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
-import { svg } from "./view-svg.js";
+import { svgView } from "./view-svg.js";
 //import { turtle } from "../[library]/Turtle.js";
-import * as turtleCommand from "../[library]/TurtleCommand.js";
+import * as turtleCommand from "./TurtleCommand.js";
 
 
 //
@@ -28,7 +28,7 @@ export function commandTabListener(event) {
 
 const keyFunctionMap = {
 	'd'	: doCommands,
-	'c'	: svg.clearDrawing,
+	'c'	: svgView.clearDrawing,
 	'o'	: toOrigin,
 
 	'!'	: () => ui.showCommandSet(1),		// ! == shift-1
@@ -44,7 +44,7 @@ const keyFunctionMap = {
 	'Z'	: zoomOut,
 	'-'	: zoomOut,
 
-	'?'	: ui.togglePopover,
+	'?'	: ui.toggleAppInfoDialog,
 };
 
 
@@ -80,7 +80,7 @@ export function svgClickListener(event) {
 	const mouseMode = ui.mouseMode;
 
 	if (mouseMode === 'info') {
-		svg.drawPointInfo(pagePoint.x, pagePoint.y);
+		svgView.drawPointInfo(pagePoint.x, pagePoint.y);
 	}
 	else if (mouseMode === 'draw') {
 		const cmd = `xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
@@ -124,14 +124,14 @@ svgDblClickListener(event) {   // not firing for some reason???
 //
 
 export function updatePage() {
-	svg.updatePage();
+	svgView.updatePage();
 }
 
 export function toOrigin() {
 	//console.log('toOrigin');
 	//const cmd = new turtleCommand.Command('origin');
 	doCommand('~origin');
-	svg.updateTurtle();
+	svgView.updateTurtle();
 	ui.updateTurtleInfo();
 }
 
@@ -141,8 +141,8 @@ export function doCommands() {
 	//console.log('Commands:', commands);
 
 	const commandOutput = turtleApp.turtle.doCommands(commands);
-	svg.updateTurtle();
-	svg.draw(commandOutput);
+	svgView.updateTurtle();
+	svgView.draw(commandOutput);
 	ui.updateTurtleInfo();
 }/* doCommands */
 
@@ -151,8 +151,8 @@ function doCommand(commandString) {
 	const command = turtleCommand.createCommand(commandString);
 	//console.log(commands);
 	const commandOutput = turtleApp.turtle.doCommand(command);
-	svg.updateTurtle();
-	svg.draw(commandOutput);
+	svgView.updateTurtle();
+	svgView.draw(commandOutput);
 	ui.updateTurtleInfo();
 }
 
@@ -160,17 +160,17 @@ function doCommand(commandString) {
 
 function toggleTurtle() {
 	ui.showTurtle = !ui.showTurtle;
-	svg.showTurtle = ui.showTurtle;
+	svgView.showTurtle = ui.showTurtle;
 }
 
 function toggleCenter() {
 	ui.centerTurtle = !ui.centerTurtle;
-	svg.updatePageTransform();
+	svgView.updatePageTransform();
 }
 
 function toggleRotate() {
 	ui.rotatePage = !ui.rotatePage;
-	svg.updatePageTransform();
+	svgView.updatePageTransform();
 }
 
 
@@ -178,11 +178,11 @@ function toggleRotate() {
 function zoomIn() {
 	//console.log('zoomIn');
 	ui.zoom++;
-	svg.updatePageTransform();
+	svgView.updatePageTransform();
 }
 
 function zoomOut() {
 	//console.log('zoomOut');
 	ui.zoom--;
-	svg.updatePageTransform();
+	svgView.updatePageTransform();
 }

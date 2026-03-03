@@ -2,25 +2,29 @@
 //	turtleApp.js
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
-import { SVGTurtle } from "../[library]/SVGTurtle.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
+import { SVGTurtle } from "./SVGTurtle.js";
 
-import { SVG } from "../[library]/SVG.js";
-import { Space } from "../[library]/PlanarSpace.js";
+import * as svg from "../[html-common]/module/SVG.js";
+import { Space } from "../[html-common]/module/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as controller from './controller.js';
-import { svg } from './view-svg.js';
+import { svgView } from './view-svg.js';
 import { ui } from './view-html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
 
-	info = `
-		Turtle v0.11.0 by ldpercy
-		https://github.com/ldpercy/turtle/releases/tag/v0.11.0
-	`.replace(/\n\t\t/g,'\n');
-	infoStyle = 'color: light-dark(darkgreen, lightgreen)';
+	appVersion = 'v0.12.0';
+	projectColour = 'lightseagreen';
+	appInfo = [`%c
+		Turtle ${this.appVersion} by ldpercy
+		https://github.com/ldpercy/year-clock/releases/tag/${this.appVersion}
+		`.replace(/\n\t/g,'\n'),
+		`color: light-dark(hsl(from ${this.projectColour} h s 30), hsl(from ${this.projectColour} h s 70));`,
+	];
+
 
 
 	/** @type {object} */
@@ -44,7 +48,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-clearDrawing',
 			type: 'click',
-			listener: svg.clearDrawing
+			listener: svgView.clearDrawing
 		},
 		{
 			query: '#button-origin',
@@ -59,7 +63,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#form-drawing',
 			type: 'change',
-			listener: svg.updateDrawing
+			listener: svgView.updateDrawing
 		},
 		{
 			element: document,
@@ -104,10 +108,15 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-clearPoint',
 			type: 'click',
-			listener: svg.clearPoint,
+			listener: svgView.clearPoint,
+		},
+		{
+			query: '#button-showAppInfo',
+			type: 'click',
+			listener: ui.toggleAppInfoDialog,
 		},
 
-	];
+	];/* eventListeners */
 
 
 
@@ -139,23 +148,24 @@ class TurtleApp extends HTMLApp {
 	setup() {
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
+
+		this.page = new svg.Box(-2400, -2400, 4800, 4800);
 		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
 		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
-		this.viewBox = new SVG.ViewBox(this.page);
+		this.viewBox = new svg.ViewBox(this.page.x, this.page.y, this.page.width, this.page.height);
 
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
-		this.space = new Space('turtle-space');
+		this.space = new Space(undefined,'turtle-space');
 		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
-		svg.placeTurtle(this.turtle);
+		svgView.placeTurtle(this.turtle);
 
-		svg.updatePage();
-		svg.updateTurtle();
+		svgView.updatePage();
+		svgView.updateTurtle();
 
-		svg.drawGrid();
-		svg.updateDrawing();
+		svgView.drawGrid();
+		svgView.updateDrawing();
 		ui.updateTurtleInfo();
 	}
 

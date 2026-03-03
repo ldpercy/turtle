@@ -166,7 +166,7 @@ export class SVGTurtle {
 			`	${this.position.direction.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${this.position.direction.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`polar:`,
-			`	r: ${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
+			`	r: ${this.coordinates.position.polar.radius.toPrecision(this.precision.report)}`,
 			`	a: ${originAngle.degrees.toPrecision(this.precision.report)}°`,
 			`	a: ${originAngle.radians.toPrecision(this.precision.report)} rad`,
 			`	a: ${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,

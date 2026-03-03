@@ -1,5 +1,6 @@
-Variables and maths
-===================
+Arithmetic syntax
+=================
+(was "variables and maths")
 
 This is *completely* speculative, just wondering theoretically what the syntax could look like.
 
@@ -262,7 +263,7 @@ Back to syntax for a bit
 Still fuzzy on this, so just going to dump some ideas and see what might make sense.
 
 The default turtle is the assumed thing being operated on, and plus is the default or assumed operator.
-So these could be equiavelent:
+So these could be equivalent:
 ```
 right 45,500					// what I have currently
 turtle.right 45,500				// method syntax, apply this operation (mutation) to the turtle

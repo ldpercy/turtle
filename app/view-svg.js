@@ -2,9 +2,9 @@
 //	svg
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
-import * as Maths from "../[library]/Maths.js";
-import * as SVG from "../[library]/SVG.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
+import * as Maths from "../[html-common]/module/Maths.js";
+import * as SVG from "../[html-common]/module/SVG.js";
 import { turtleApp } from "./turtleApp.js";
 import { ui } from './view-html-ui.js';
 
@@ -91,7 +91,7 @@ class SVGView {
 
 		const coords = turtleApp.space.newCartesianCoordinates(x,y);
 
-		const point = turtleApp.space.newPoint('point marker');
+		const point = turtleApp.space.newPoint(undefined,'point marker');
 		point.cartesian = coords;
 
 		const svgX = x;
@@ -176,7 +176,7 @@ class SVGView {
 	updateTurtle() {
 		element.turtleIcon.setAttribute(
 			'transform',
-			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.degrees})`
+			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.direction.degrees})`
 		);
 
 		this.updatePageTransform();
@@ -189,7 +189,7 @@ class SVGView {
 
 		//console.log(this.turtle);
 
-		const rotate = turtleApp.turtle.position.degrees;
+		const rotate = turtleApp.turtle.position.direction.degrees;
 
 		const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
 		const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
@@ -248,4 +248,5 @@ class SVGView {
 }/* SVGView */
 
 
-export const svg = new SVGView();
+
+export const svgView = new SVGView();
