@@ -145,9 +145,9 @@ class HTMLUserInterface {
 
 
 	toggleAppInfoDialog() {
-		console.debug('toggleHelpDialog');
+		//console.debug('toggleHelpDialog');
 		element.appInfoDialog.showModal();
-		element.appInfoDialog.blur();
+		//element.appInfoDialog.blur();
 	}
 
 	updateTurtleInfo() {
