@@ -121,6 +121,7 @@ More detail in the [task/](<./task/>) directory.
 
 ### Recently Completed
 
+* Convert to use `html-common` submodule
 * Command argument validation
 * Added keyboard controls
 * Turtle can follow mouse clicks

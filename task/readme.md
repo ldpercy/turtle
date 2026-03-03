@@ -11,15 +11,13 @@ Todo
 * A prevent default is affecting ctrl-shift-r
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical page pixels
-* Chromium's colour picker goes offscreen
+* Chromium's colour picker goes offscreen - should really be fixed by the vendor
 
 
 
 ### General
 
-* Try out a git submodule for some common HTML items, potentially to be shared between a few projects
 * Text command string cleaning/validation - 'safe' unicode
-* Improve the help dialog - backdrop, dismissal etc
 * Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
@@ -66,7 +64,8 @@ In Progress
 
 Done
 ----
-
+* Fixed the help/info dialog - backdrop, dismissal etc
+* Conversion to use `html-common` submodule
 * The weird to-from-origin turtle movement has gone away with the change to translate positioning
 * The command box is gone, so the white flash in ff after a dark reload is no longer a problem
 * Added some keyboard controls
