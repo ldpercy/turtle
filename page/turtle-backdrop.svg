@@ -4,6 +4,7 @@
 		svg { opacity: 40%; }
 		.background { fill:lightseagreen; }
 		.turtle {
+			filter: blur(1pt);
 			--turtle: #0a07;
 			--turtle-stroke: #0a0f;
 			fill: var(--turtle);
