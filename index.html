@@ -6,7 +6,7 @@
 	<meta name="description" content="Turtle v0.📽🖧 by ldpercy - HTML, CSS, SVG, JavaScript">
 	<meta name="color-scheme" content="dark light">
 	<meta name="theme-color" content="lightseagreen"/>
-	<link rel="icon" href="./page/turtle.svg"/>
+	<link rel="icon" href="./favicon.svg"/>
 	<link rel="stylesheet" href="./page/html.css"/>
 	<link rel="stylesheet" href="./page/svg.css"/>
 
@@ -49,7 +49,7 @@
 			<output id="turtle-info" class="infoBox"></output>
 
 			<br/>
-			<button type="button" popovertarget="info-popover"><strong>🛈 Turtle help</strong></button>
+			<button type="button" id="button-showAppInfo"><strong>🛈 Turtle help</strong></button>
 
 		</form>
 	</div><!-- control-left -->
@@ -207,7 +207,7 @@
 	</svg>
 
 
-	<dialog popover id="info-popover" closedby="any">
+	<dialog id="dialog-appInfo" closedby="any">
 		<h1>
 			<a href="https://github.com/ldpercy/turtle/">Turtle</a>
 			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.📽🖧">v0.📽🖧</a>
