@@ -51,9 +51,12 @@ const keyFunctionMap = {
 export function documentKeyListener(event) {
 	//console.log('documentKeyListener', event);
 
-	if (keyFunctionMap[event.key]) {
-		event.preventDefault();
-		keyFunctionMap[event.key]();
+	if (!event.altKey && !event.ctrlKey && !event.metaKey) {
+
+		if (keyFunctionMap[event.key]) {
+			event.preventDefault();
+			keyFunctionMap[event.key]();
+		}
 	}
 
 }/* documentKeyListener */
