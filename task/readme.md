@@ -8,7 +8,7 @@ Todo
 ### Bugs
 
 
-* A prevent default is affecting ctrl-shift-r
+*
 * Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical page pixels
 * Chromium's colour picker goes offscreen - should really be fixed by the vendor
@@ -17,21 +17,21 @@ Todo
 
 ### General
 
+* Clean ways of centering polygons, esp centering about origin (not with translate)
 * Text command string cleaning/validation - 'safe' unicode
 * Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
-* Add some initial command sets to the tabs as examples for new users
+* Initial command sets to the tabs as examples for new users
 * Improve/normalise general angle presentation, they're very inconsistent at the moment - doing this properly will be space or customisation option dependant
 * Different modes/command sets etc - basic/advanced for example
-* See if details/summary open/closed state can be saved in storage as well
 * Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
 * Export/save the svg output...???
 * Think about enforcing quotes for text commands, see below
 * Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
 * See if the summary/details markers can be styled a little more nicely
 * Check out what validation/cleaning I need for the command textarea & string
-* Get custom spaces, including polar axis and direction, working properly
+* Custom spaces showing the polar axis and direction fixes
 * SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
 * Add automatic colour scheme selection based on the user's preference
 * Grid reactive to zoom level and/or turtle position
@@ -52,11 +52,11 @@ Todo
 In Progress
 -----------
 
-* Not exhibiting right? (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?
+* Keyboard shortcut bug: a prevent default is affecting ctrl-shift-r; plus [other examples](<0.🖮🐛 - fix keyboard shortcuts.md>)
 * In the process of removing zoom effects on `use:hover` (turtle, marker) with zoom on ordinary SVG which works better. Zoom on `use` is trouble (shadow-dom style, transform origin, browser differences etc).
 * JSDoc type annotations
 * Origin/reset variants - eg one to go to the origin without resetting the heading
-* Go to x,y command with/without line
+* Go to x,y command with/without line - initial version working, but needs to be properly integrated with new commands
 * Figuring out position+point arithmetic
 * Customisable drawing/viewbox sizes; dynamically draw grid to custom size
 * Continue working on transition to drawing spaces / geometric spaces
@@ -91,3 +91,7 @@ Done
 * Split this repo from experiment-svg
 
 
+### Discarded items
+
+* See if details/summary open/closed state can be saved in storage as well. Not needed for now, but could return to.
+* Not exhibiting right? (Firefox) Turning the turtle on/off lightens/darkens the grids and I can't figure out why - doesn't seem to be css, might be a rendering effect?  This seeme to have gone away...
