@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-colourscheme="light">
 <head>
 	<title>Turtle v0.12.1 by ldpercy</title>
 	<meta charset="utf-8">
@@ -20,7 +20,7 @@
 
 	<script type="module" src="./app/turtleApp.js"></script>
 </head>
-<body class="dark">
+<body>
 
 	<div class="control-group control-left">
 		<form id="form-turtle" tabindex="0">
@@ -73,11 +73,11 @@
 
 			<label class="scheme" title="Colour scheme">
 				<label title="Light scheme">
-					<input type="radio" name="colourScheme" value="light" checked>
+					<input type="radio" name="colourScheme" value="light" checked class="colourScheme-selector" data-colourscheme="light">
 					light
 				</label>
 				<label title="Dark scheme">
-					<input type="radio" name="colourScheme" value="dark">
+					<input type="radio" name="colourScheme" value="dark" class="colourScheme-selector" data-colourscheme="dark">
 					dark
 				</label>
 				<!--

@@ -62,6 +62,11 @@ class TurtleApp extends HTMLApp {
 			listener: controller.updatePage
 		},
 		{
+			query: '.colourScheme-selector',
+			type: 'click',
+			listener: this.colourSchemeListener
+		},
+		{
 			query: '#form-drawing',
 			type: 'change',
 			listener: svgView.updateDrawing
@@ -125,14 +130,12 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
-
-		const firstLoad = !localStorage.appSettings;
+		const firstLoad = !localStorage[`${this.appName}_documentDOMContentLoaded`];
 
 		this.loadSettings();
 
-		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
-		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
-
+		localStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
+		sessionStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
 
 		this.setup();
 
@@ -190,7 +193,11 @@ class TurtleApp extends HTMLApp {
 		}
 	}
 
-
+	colourSchemeListener(event) {
+		console.debug(event);
+		//event.preventDefault();
+		this.setColourScheme(event.target.dataset.colourscheme);
+	}
 
 	/* saveSettings
 	*/
@@ -207,26 +214,31 @@ class TurtleApp extends HTMLApp {
 		//console.log(appSettings);
 
 		const appSettingsJson = JSON.stringify(appSettings);
-		localStorage.setItem('appSettings', appSettingsJson );
-		localStorage.setItem('savedAt', new Date().toISOString());
+		localStorage.setItem(`${this.appName}_settings`, appSettingsJson );
+		localStorage.setItem(`${this.appName}_savedAt`, new Date().toISOString());
 		//.log('Settings saved');
 	}/* saveSettings */
 
 
 	loadSettings() {
 		//console.log('Settings loaded');
-		if (localStorage.appSettings) {
 
-			const appSettings = JSON.parse(localStorage.appSettings);
+		if (localStorage[`${this.appName}_colourScheme`]) {
+			this.setColourScheme(localStorage[`${this.appName}_colourScheme`]);
+		}
+
+		if (localStorage[`${this.appName}_settings`]) {
+
+			const appSettings = JSON.parse(localStorage[`${this.appName}_settings`]);
 			this.populateForm(this.element.turtleForm, appSettings.turtle);
 			this.populateForm(this.element.pageForm, appSettings.page);
 			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
 		else {
 			// first load
-
 		}
-		localStorage.setItem('loadedAt', new Date().toISOString());
+
+		localStorage.setItem(`${this.appName}_loadedAt`, new Date().toISOString());
 	}/* loadSettings */
 
 
