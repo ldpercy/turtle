@@ -138,6 +138,12 @@ class HTMLUserInterface {
 	}
 
 
+	/** @param {string} colourScheme */
+	set colourScheme(colourScheme) {
+		element.pageForm.colourScheme.value = colourScheme;
+		turtleApp.setColourScheme(colourScheme);
+	}
+
 
 	//
 	//	other

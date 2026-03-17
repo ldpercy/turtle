@@ -49,6 +49,14 @@ html {
 @media (prefers-color-scheme:light) { }
 
 
+html {
+	color-scheme: dark;
+	--accent: var(--accent-dark);
+	accent-color: var(--accent);
+	background-color: var(--page-background-dark);
+	color: white;
+}
+
 
 html[data-colourscheme=light] {
 	color-scheme: light;

@@ -132,6 +132,8 @@ class TurtleApp extends HTMLApp {
 
 		const firstLoad = !localStorage[`${this.appName}_documentDOMContentLoaded`];
 
+		ui.colourScheme = localStorage[`${this.appName}_colourScheme`] || 'light';
+
 		this.loadSettings();
 
 		localStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
@@ -222,10 +224,6 @@ class TurtleApp extends HTMLApp {
 
 	loadSettings() {
 		//console.log('Settings loaded');
-
-		if (localStorage[`${this.appName}_colourScheme`]) {
-			this.setColourScheme(localStorage[`${this.appName}_colourScheme`]);
-		}
 
 		if (localStorage[`${this.appName}_settings`]) {
 
