@@ -16,8 +16,9 @@ import { ui } from './view-html-ui.js';
 
 class TurtleApp extends HTMLApp {
 
-	appVersion = 'v0.12.1';
-	projectColour = 'lightseagreen';
+	appName			= 'turtle';
+	appVersion		= 'v0.12.2';
+	projectColour	= 'lightseagreen';
 	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
 		https://github.com/ldpercy/year-clock/releases/tag/${this.appVersion}
@@ -59,6 +60,11 @@ class TurtleApp extends HTMLApp {
 			query: '#form-page',
 			type: 'change',
 			listener: controller.updatePage
+		},
+		{
+			query: '.colourScheme-selector',
+			type: 'click',
+			listener: (event) => { ui.colourScheme = event.target.dataset.colourscheme; }
 		},
 		{
 			query: '#form-drawing',
@@ -124,14 +130,14 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
+		const firstLoad = !localStorage[`${this.appName}_documentDOMContentLoaded`];
 
-		const firstLoad = !localStorage.appSettings;
+		ui.colourScheme = localStorage[`${this.appName}_colourScheme`] || 'light';
 
 		this.loadSettings();
 
-		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
-		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
-
+		localStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
+		sessionStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
 
 		this.setup();
 
@@ -190,7 +196,6 @@ class TurtleApp extends HTMLApp {
 	}
 
 
-
 	/* saveSettings
 	*/
 	saveSettings() {
@@ -206,26 +211,27 @@ class TurtleApp extends HTMLApp {
 		//console.log(appSettings);
 
 		const appSettingsJson = JSON.stringify(appSettings);
-		localStorage.setItem('appSettings', appSettingsJson );
-		localStorage.setItem('savedAt', new Date().toISOString());
+		localStorage.setItem(`${this.appName}_settings`, appSettingsJson );
+		localStorage.setItem(`${this.appName}_savedAt`, new Date().toISOString());
 		//.log('Settings saved');
 	}/* saveSettings */
 
 
 	loadSettings() {
 		//console.log('Settings loaded');
-		if (localStorage.appSettings) {
 
-			const appSettings = JSON.parse(localStorage.appSettings);
+		if (localStorage[`${this.appName}_settings`]) {
+
+			const appSettings = JSON.parse(localStorage[`${this.appName}_settings`]);
 			this.populateForm(this.element.turtleForm, appSettings.turtle);
 			this.populateForm(this.element.pageForm, appSettings.page);
 			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
 		else {
 			// first load
-
 		}
-		localStorage.setItem('loadedAt', new Date().toISOString());
+
+		localStorage.setItem(`${this.appName}_loadedAt`, new Date().toISOString());
 	}/* loadSettings */
 
 

@@ -8,11 +8,8 @@ Todo
 ### Bugs
 
 
-*
-* Initial colour scheme loading is still a bit wonky
 * Eliminate the 5 extra vertical page pixels
 * Chromium's colour picker goes offscreen - should really be fixed by the vendor
-
 
 
 ### General
@@ -52,7 +49,6 @@ Todo
 In Progress
 -----------
 
-* Keyboard shortcut bug: a prevent default is affecting ctrl-shift-r; plus [other examples](<0.🖮🐛 - fix keyboard shortcuts.md>)
 * In the process of removing zoom effects on `use:hover` (turtle, marker) with zoom on ordinary SVG which works better. Zoom on `use` is trouble (shadow-dom style, transform origin, browser differences etc).
 * JSDoc type annotations
 * Origin/reset variants - eg one to go to the origin without resetting the heading
@@ -64,6 +60,9 @@ In Progress
 
 Done
 ----
+* localStorage items prefixed with 'turtle_'
+* Initial colour scheme loading resolved for now
+* Keyboard events now filter out `alt` `ctrl` & `meta` combos - [keyboard shortcut bug](<v0/0.12.1 - fix keyboard shortcuts.md>)
 * Fixed the help/info dialog - backdrop, dismissal etc
 * Conversion to use `html-common` submodule
 * The weird to-from-origin turtle movement has gone away with the change to translate positioning
