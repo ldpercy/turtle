@@ -64,7 +64,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '.colourScheme-selector',
 			type: 'click',
-			listener: this.colourSchemeListener
+			listener: (event) => { ui.colourScheme = event.target.dataset.colourscheme; }
 		},
 		{
 			query: '#form-drawing',
@@ -195,11 +195,6 @@ class TurtleApp extends HTMLApp {
 		}
 	}
 
-	colourSchemeListener(event) {
-		console.debug(event);
-		//event.preventDefault();
-		this.setColourScheme(event.target.dataset.colourscheme);
-	}
 
 	/* saveSettings
 	*/
