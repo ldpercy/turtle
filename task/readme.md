@@ -8,7 +8,7 @@ Todo
 ### Bugs
 
 
-* Eliminate the 5 extra vertical page pixels
+
 * Chromium's colour picker goes offscreen - should really be fixed by the vendor
 
 
@@ -60,6 +60,7 @@ In Progress
 
 Done
 ----
+* Have found a way to eliminate the 5 extra vertical pixels - they come from SVG's default `display:inline;` - 'block' remedies it.
 * localStorage items prefixed with 'turtle_'
 * Initial colour scheme loading resolved for now
 * Keyboard events now filter out `alt` `ctrl` & `meta` combos - [keyboard shortcut bug](<v0/0.12.1 - fix keyboard shortcuts.md>)
