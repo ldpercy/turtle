@@ -117,7 +117,7 @@ How to run
 Tasks
 -----
 
-More detail in the [task/](<./task/>) directory.
+More detail in the [task/](<./[task]/>) directory.
 
 ### Recently Completed
 
