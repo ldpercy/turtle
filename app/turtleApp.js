@@ -9,7 +9,7 @@ import * as svg from "../[html-common]/module/SVG.js";
 import { Space } from "../[html-common]/module/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
-import * as controller from './controller.js';
+import { controller} from './controller.js';
 import { pageArea } from './page-area.js';
 import { ui } from './html-ui.js';
 
@@ -39,90 +39,7 @@ class TurtleApp extends HTMLApp {
 		drawing			: 'group-drawing',
 	};
 
-	/** @type {array} */
-	eventListeners = [
-		{
-			query: '#button-doCommands',
-			type: 'click',
-			listener: controller.doCommands
-		},
-		{
-			query: '#button-clearDrawing',
-			type: 'click',
-			listener: pageArea.clearDrawing
-		},
-		{
-			query: '#button-origin',
-			type: 'click',
-			listener: controller.toOrigin
-		},
-		{
-			query: '#form-page',
-			type: 'change',
-			listener: controller.updatePage
-		},
-		{
-			query: '.colourScheme-selector',
-			type: 'click',
-			listener: (event) => { ui.colourScheme = event.target.dataset.colourscheme; }
-		},
-		{
-			query: '#form-drawing',
-			type: 'change',
-			listener: pageArea.updateDrawing
-		},
-		{
-			element: document,
-			type: 'visibilitychange',
-			listener: this.visibilitychangeListener
-		},
-		{
-			query: '#command-tabs .tab',
-			type: 'click',
-			listener: controller.commandTabListener
-		},
-		// {
-		// 	query: '#svg-element',
-		// 	type: 'dblclick',
-		// 	listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
-		// },
-		{
-			query: '#svg-element',
-			type: 'click',
-			listener: controller.svgClickListener
-		},
-		// {
-		// 	query: '#svg-element',
-		// 	type: 'keydown',
-		// 	listener: controller.svgKeyListener
-		// },
-		{
-			element: document,
-			type: 'keydown',
-			listener: controller.documentKeyListener
-		},
-		{
-			query: 'textarea',
-			type: 'keydown',
-			listener: (event)=>event.stopPropagation()
-		},
-		{
-			query: 'textarea',
-			type: 'change',
-			listener: ui.updateHiddenInput
-		},
-		{
-			query: '#button-clearPoint',
-			type: 'click',
-			listener: pageArea.clearPoint,
-		},
-		{
-			query: '#button-showAppInfo',
-			type: 'click',
-			listener: ui.toggleAppInfoDialog,
-		},
 
-	];/* eventListeners */
 
 
 
@@ -174,6 +91,12 @@ class TurtleApp extends HTMLApp {
 		pageArea.updateDrawing();
 		ui.updateTurtleInfo();
 	}
+
+
+
+	// controller methods
+
+
 
 
 

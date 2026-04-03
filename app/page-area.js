@@ -29,10 +29,11 @@ const precision = {
 
 class PageArea {
 
+	svgElement = undefined;
 
 	constructor() {
-		const svgElement = document.getElementById('svg-element');
-		element = HTMLApp.buildElementMap(svgElement, elementMap);
+		this.svgElement = document.getElementById('svg-element');
+		element = HTMLApp.buildElementMap(this.svgElement, elementMap);
 
 		//console.log('svg element', element);
 	}
@@ -234,6 +235,10 @@ class PageArea {
 		this.updatePageTransform();
 
 	}/* updatePage */
+
+
+
+
 
 }/* PageArea */
 
