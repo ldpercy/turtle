@@ -6,7 +6,7 @@ import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import * as Maths from "../[html-common]/module/Maths.js";
 import * as SVG from "../[html-common]/module/SVG.js";
 import { turtleApp } from "./turtleApp.js";
-import { ui } from './view-html-ui.js';
+import { ui } from './html-ui.js';
 
 
 let element = {};
@@ -27,7 +27,7 @@ const precision = {
 	report : 6
 };
 
-class SVGView {
+class PageArea {
 
 
 	constructor() {
@@ -235,8 +235,8 @@ class SVGView {
 
 	}/* updatePage */
 
-}/* SVGView */
+}/* PageArea */
 
 
 
-export const svgView = new SVGView();
+export const pageArea = new PageArea();

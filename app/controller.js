@@ -4,8 +4,8 @@
 
 
 import { turtleApp } from "./turtleApp.js";
-import { ui } from './view-html-ui.js';
-import { svgView } from "./view-svg.js";
+import { ui } from './html-ui.js';
+import { pageArea } from "./page-area.js";
 //import { turtle } from "../[library]/Turtle.js";
 import * as turtleCommand from "./TurtleCommand.js";
 
@@ -28,7 +28,7 @@ export function commandTabListener(event) {
 
 const keyFunctionMap = {
 	'd'	: doCommands,
-	'c'	: svgView.clearDrawing,
+	'c'	: pageArea.clearDrawing,
 	'o'	: toOrigin,
 
 	'!'	: () => ui.showCommandSet(1),		// ! == shift-1
@@ -83,7 +83,7 @@ export function svgClickListener(event) {
 	const mouseMode = ui.mouseMode;
 
 	if (mouseMode === 'info') {
-		svgView.drawPointInfo(pagePoint.x, pagePoint.y);
+		pageArea.drawPointInfo(pagePoint.x, pagePoint.y);
 	}
 	else if (mouseMode === 'draw') {
 		const cmd = `xyTurn ${pagePoint.x}, ${-pagePoint.y}`;
@@ -127,14 +127,14 @@ svgDblClickListener(event) {   // not firing for some reason???
 //
 
 export function updatePage() {
-	svgView.updatePage();
+	pageArea.updatePage();
 }
 
 export function toOrigin() {
 	//console.log('toOrigin');
 	//const cmd = new turtleCommand.Command('origin');
 	doCommand('~origin');
-	svgView.updateTurtle();
+	pageArea.updateTurtle();
 	ui.updateTurtleInfo();
 }
 
@@ -144,8 +144,8 @@ export function doCommands() {
 	//console.log('Commands:', commands);
 
 	const commandOutput = turtleApp.turtle.doCommands(commands);
-	svgView.updateTurtle();
-	svgView.draw(commandOutput);
+	pageArea.updateTurtle();
+	pageArea.draw(commandOutput);
 	ui.updateTurtleInfo();
 }/* doCommands */
 
@@ -154,8 +154,8 @@ function doCommand(commandString) {
 	const command = turtleCommand.createCommand(commandString);
 	//console.log(commands);
 	const commandOutput = turtleApp.turtle.doCommand(command);
-	svgView.updateTurtle();
-	svgView.draw(commandOutput);
+	pageArea.updateTurtle();
+	pageArea.draw(commandOutput);
 	ui.updateTurtleInfo();
 }
 
@@ -163,17 +163,17 @@ function doCommand(commandString) {
 
 function toggleTurtle() {
 	ui.showTurtle = !ui.showTurtle;
-	svgView.showTurtle = ui.showTurtle;
+	pageArea.showTurtle = ui.showTurtle;
 }
 
 function toggleCenter() {
 	ui.centerTurtle = !ui.centerTurtle;
-	svgView.updatePageTransform();
+	pageArea.updatePageTransform();
 }
 
 function toggleRotate() {
 	ui.rotatePage = !ui.rotatePage;
-	svgView.updatePageTransform();
+	pageArea.updatePageTransform();
 }
 
 
@@ -181,11 +181,11 @@ function toggleRotate() {
 function zoomIn() {
 	//console.log('zoomIn');
 	ui.zoom++;
-	svgView.updatePageTransform();
+	pageArea.updatePageTransform();
 }
 
 function zoomOut() {
 	//console.log('zoomOut');
 	ui.zoom--;
-	svgView.updatePageTransform();
+	pageArea.updatePageTransform();
 }

@@ -10,8 +10,8 @@ import { Space } from "../[html-common]/module/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
 import * as controller from './controller.js';
-import { svgView } from './view-svg.js';
-import { ui } from './view-html-ui.js';
+import { pageArea } from './page-area.js';
+import { ui } from './html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
@@ -49,7 +49,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-clearDrawing',
 			type: 'click',
-			listener: svgView.clearDrawing
+			listener: pageArea.clearDrawing
 		},
 		{
 			query: '#button-origin',
@@ -69,7 +69,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#form-drawing',
 			type: 'change',
-			listener: svgView.updateDrawing
+			listener: pageArea.updateDrawing
 		},
 		{
 			element: document,
@@ -114,7 +114,7 @@ class TurtleApp extends HTMLApp {
 		{
 			query: '#button-clearPoint',
 			type: 'click',
-			listener: svgView.clearPoint,
+			listener: pageArea.clearPoint,
 		},
 		{
 			query: '#button-showAppInfo',
@@ -165,13 +165,13 @@ class TurtleApp extends HTMLApp {
 		this.space = new Space(undefined,'turtle-space');
 		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
-		svgView.placeTurtle(this.turtle);
+		pageArea.placeTurtle(this.turtle);
 
-		svgView.updatePage();
-		svgView.updateTurtle();
+		pageArea.updatePage();
+		pageArea.updateTurtle();
 
-		svgView.drawGrid();
-		svgView.updateDrawing();
+		pageArea.drawGrid();
+		pageArea.updateDrawing();
 		ui.updateTurtleInfo();
 	}
 
