@@ -69,7 +69,7 @@ class Controller {
 		{
 			element: document,
 			type: 'visibilitychange',
-			listener: ()=>turtleApp.visibilitychangeListener
+			listener: () => { turtleApp.visibilitychangeListener(); }
 		},
 		{
 			query: '#command-tabs .tab',
@@ -325,6 +325,7 @@ class Controller {
 		this.element.downloadAnchor.href = url.toString();
 		this.element.downloadAnchor.click();
 		//console.log(url.toString());
+		this.element.downloadAnchor.href = '';
 	}
 
 
