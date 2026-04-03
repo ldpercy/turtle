@@ -26,6 +26,7 @@
 		<form id="form-turtle" tabindex="0">
 			<h1>Turtle</h1>
 
+
 			<h2>Commands</h2>
 
 			<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set" spellcheck="false">right 60,500</textarea>
@@ -47,6 +48,10 @@
 
 			<h2>Position</h2>
 			<output id="turtle-info" class="infoBox"></output>
+
+			<br/>
+			<button type="button" id="button-save">save drawing 🖬</button>
+			<a id="download-anchor" download="turtle-drawing.svg" href="" style="display:none;"></a>
 
 			<br/>
 			<button type="button" id="button-showAppInfo"><strong>🛈 Turtle help</strong></button>

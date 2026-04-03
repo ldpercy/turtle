@@ -17,19 +17,20 @@ class Controller {
 
 
 	constructor() {
-		// /this.element = HTMLApp.buildElementMap(document, this.elementMap)
+		this.element = HTMLApp.buildElementMap(document, this.elementMap)
 		HTMLApp.addEventListeners(this.eventListeners, this);
 		//console.debug('controller constructor');
 	}
 
 
 	elementMap = {
-		turtleForm		: 'form-turtle',
-		pageForm		: 'form-page',
-		drawingForm		: 'form-drawing',
-		commandInput	: 'input-command',
-		turtleInfo		: 'turtle-info',
-		appInfoDialog	: 'dialog-appInfo',
+		// turtleForm		: 'form-turtle',
+		// pageForm		: 'form-page',
+		// drawingForm		: 'form-drawing',
+		// commandInput	: 'input-command',
+		// turtleInfo		: 'turtle-info',
+		// appInfoDialog	: 'dialog-appInfo',
+		downloadAnchor	: 'download-anchor',
 	};
 
 
@@ -109,6 +110,11 @@ class Controller {
 			query: '#button-clearPoint',
 			type: 'click',
 			listener: pageArea.clearPoint,
+		},
+		{
+			query: '#button-save',
+			type: 'click',
+			listener: this.saveDrawing,
 		},
 		{
 			query: '#button-showAppInfo',
@@ -295,6 +301,30 @@ class Controller {
 		//console.log('zoomOut');
 		ui.zoom--;
 		pageArea.updatePageTransform();
+	}
+
+
+	saveDrawing() {
+
+		//event.preventDefault();
+
+		//this.element.saveLink.download = 'polygon_download.svg';
+
+		const drawingGroupContent = document.getElementById('group-drawing').innerHTML;
+
+		const svgDoc = `
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
+				<title>turtle drawing</title>
+				<g id="drawing-group" style="stroke:black;fill:grey;fill-opacity:50%; transform:scaleY(-1);">
+					${drawingGroupContent}
+				</g>
+			</svg>
+		`;
+
+		const url = new URL(`data:text/plain;utf8,${encodeURIComponent(svgDoc)}`);
+		this.element.downloadAnchor.href = url.toString();
+		this.element.downloadAnchor.click();
+		//console.log(url.toString());
 	}
 
 
