@@ -7,48 +7,46 @@ Todo
 
 ### Bugs
 
-
-
 * Chromium's colour picker goes offscreen - should really be fixed by the vendor
 
 
 ### General
 
+* `html-common` There are changes coming in the pipeline for PlanarSpace - will need to fully test before upgrade
 * Clean ways of centering polygons, esp centering about origin (not with translate)
-* Text command string cleaning/validation - 'safe' unicode
-* Solidify terminology around page, app, document etc - some I'm using a bit loosely
+* `validation` Text command string cleaning/validation - 'safe' unicode
+* `terminology` Solidify terminology around page, app, document etc - some I'm using a bit loosely
 * Need to review page rotation, as noted at the end of [fix angles](<v0/0.8.1 - fix angles.md>)
 * An undo feature?
 * Initial command sets to the tabs as examples for new users
 * Improve/normalise general angle presentation, they're very inconsistent at the moment - doing this properly will be space or customisation option dependant
-* Different modes/command sets etc - basic/advanced for example
-* Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
-* Export/save the svg output...???
-* Think about enforcing quotes for text commands, see below
-* Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
-* See if the summary/details markers can be styled a little more nicely
-* Check out what validation/cleaning I need for the command textarea & string
-* Custom spaces showing the polar axis and direction fixes
-* SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
-* Add automatic colour scheme selection based on the user's preference
-* Grid reactive to zoom level and/or turtle position
+* `cmd` Different modes/command sets etc - basic/advanced for example
+* `storage` Maybe save a few copies of the settings history with timestamps in localstorage, might be handy for debugging. Different command sets from different tabs maybe also?
+* `cmd` Think about enforcing quotes for text commands, see below
+* `validation` Find out if I need to do any special escaping for 'funky' strings in value & title attributes (also if needed for textarea)
+* `css` See if the summary/details markers can be styled a little more nicely
+* `validation` Check out what validation/cleaning I need for the command textarea & string
+* `space` Custom spaces showing the polar axis and direction fixes
+* `cmd` SVG drawing commands that *do* move the turtle, eg a circle that moves the turtle forward by the diameter
+* `css` Add automatic colour scheme selection based on the user's preference
+* `grid` Grid reactive to zoom level and/or turtle position
 * Add local-frame grid overlays
-* [Multi-turtle](<ꙮ🐢 - multi-turtle.md>)
-* [Command grouping and repeat](<command grouping and repeat.md>)
-* Custom space rules - size, boundaries, wrapping
-* Ability to switch between SVG and conventional coordinates (`y` up/down)
-* Work out how to apply different transition speeds to different items
-* Add SVG arc command - might be tricky to do nicely
-* Add colour commands for turtle to override defaults
-* Add fill colour picker
-* Vastly improve floating-point handling - snapping, rounding, comparison, precision etc
-* Change or have options for line drawing - line, polygon, polyline, path
+* `idea` [Multi-turtle](<ꙮ🐢 - multi-turtle.md>)
+* `task` [Command grouping and repeat](<command grouping and repeat.md>)
+* `space` Custom space rules - size, boundaries, wrapping
+* `space` Ability to switch between SVG and conventional coordinates (`y` up/down)
+* `css` Work out how to apply different transition speeds to different items
+* `cmd` Add SVG arc command - might be tricky to do nicely
+* `cmd` Add colour commands for turtle to override defaults
+* `style` Add fill colour picker
+* `maths` Vastly improve floating-point handling - snapping, rounding, comparison, precision etc
+* `cmd` Change or have options for line drawing - line, polygon, polyline, path
 
 
 
 In Progress
 -----------
-
+* Export/save the svg output...???
 * In the process of removing zoom effects on `use:hover` (turtle, marker) with zoom on ordinary SVG which works better. Zoom on `use` is trouble (shadow-dom style, transform origin, browser differences etc).
 * JSDoc type annotations
 * Origin/reset variants - eg one to go to the origin without resetting the heading
