@@ -1,0 +1,106 @@
+/*
+**	index.css
+*/
+
+@import "./page/main-ui.css";
+@import "./page/document-area.css";
+
+
+* {
+	/* having difficulty getting transitions into the shadow dom at the moment, this is here for <use> elements until I can improve */
+	transition: all ease-in var(--transition-duration);
+}
+
+
+html {
+	--project-colour: lightseagreen;
+
+	--page-background-light: #fcfcfc;
+	--page-background-dark: #111111;
+
+	--silver: #bbbb;
+	--teal: #088;		/* cartesian grid */
+
+	--pink: #c7a;		/* polar grid new */
+	--purple: #b0b;
+	--fadedred: #f07;	/* point info */
+
+	--accent-light: #08c;
+	--accent-dark: #0cf;
+	--transition-duration: 0.5s;
+
+	--turtle-body: #0a07;
+	--turtle-outline: #0a0f;
+
+	margin:0px;
+	padding:0px;
+
+	body {
+		margin:0px;
+		padding:0px;
+	}
+	scrollbar-width: none;
+
+	font-size: 16px; /* 14px; */
+	font-family:'Noto sans', sans-serif;
+
+	body > svg { display:block; }
+	/*
+	the 5 extra pixels are related to svg elements with `display:inline;` (which is the default) - change to block to fix
+	*/
+}
+
+
+@media (prefers-color-scheme:dark) { }
+
+@media (prefers-color-scheme:light) { }
+
+
+html {
+	color-scheme: dark;
+	--accent: var(--accent-dark);
+	accent-color: var(--accent);
+	background-color: var(--page-background-dark);
+	color: white;
+}
+
+
+html[data-colourscheme=light] {
+	color-scheme: light;
+	--accent: var(--accent-light);
+	accent-color: var(--accent);
+	background-color: var(--page-background-light);
+	color: black;
+
+	form {
+		background-color:#eee9;
+		border-color: #bbbb;
+	}
+	.infoBox { background-color: #fffc; }
+
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #ffffff;
+	}
+}
+
+html[data-colourscheme=dark] {
+	color-scheme: dark;
+	--accent: var(--accent-dark);
+	accent-color: var(--accent);
+	background-color: var(--page-background-dark);
+	color: white;
+
+	form {
+		background-color:#7779;
+		border-color: #9999;
+	}
+	.infoBox {
+		background-color: #222c;
+		border-color: #9999;
+	}
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #2b2a33;
+	}
+}
