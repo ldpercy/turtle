@@ -9,15 +9,15 @@ import * as svg from "../[html-common]/module/SVG.js";
 import { Space } from "../[html-common]/module/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
-import * as controller from './controller.js';
-import { svgView } from './view-svg.js';
-import { ui } from './view-html-ui.js';
+import { controller} from './controller.js';
+import { pageArea } from './page-area.js';
+import { ui } from './html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
 
 	appName			= 'turtle';
-	appVersion		= 'v0.12.3';
+	appVersion		= 'v0.13.0';
 	projectColour	= 'lightseagreen';
 	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
@@ -39,90 +39,7 @@ class TurtleApp extends HTMLApp {
 		drawing			: 'group-drawing',
 	};
 
-	/** @type {array} */
-	eventListeners = [
-		{
-			query: '#button-doCommands',
-			type: 'click',
-			listener: controller.doCommands
-		},
-		{
-			query: '#button-clearDrawing',
-			type: 'click',
-			listener: svgView.clearDrawing
-		},
-		{
-			query: '#button-origin',
-			type: 'click',
-			listener: controller.toOrigin
-		},
-		{
-			query: '#form-page',
-			type: 'change',
-			listener: controller.updatePage
-		},
-		{
-			query: '.colourScheme-selector',
-			type: 'click',
-			listener: (event) => { ui.colourScheme = event.target.dataset.colourscheme; }
-		},
-		{
-			query: '#form-drawing',
-			type: 'change',
-			listener: svgView.updateDrawing
-		},
-		{
-			element: document,
-			type: 'visibilitychange',
-			listener: this.visibilitychangeListener
-		},
-		{
-			query: '#command-tabs .tab',
-			type: 'click',
-			listener: controller.commandTabListener
-		},
-		// {
-		// 	query: '#svg-element',
-		// 	type: 'dblclick',
-		// 	listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
-		// },
-		{
-			query: '#svg-element',
-			type: 'click',
-			listener: controller.svgClickListener
-		},
-		// {
-		// 	query: '#svg-element',
-		// 	type: 'keydown',
-		// 	listener: controller.svgKeyListener
-		// },
-		{
-			element: document,
-			type: 'keydown',
-			listener: controller.documentKeyListener
-		},
-		{
-			query: 'textarea',
-			type: 'keydown',
-			listener: (event)=>event.stopPropagation()
-		},
-		{
-			query: 'textarea',
-			type: 'change',
-			listener: ui.updateHiddenInput
-		},
-		{
-			query: '#button-clearPoint',
-			type: 'click',
-			listener: svgView.clearPoint,
-		},
-		{
-			query: '#button-showAppInfo',
-			type: 'click',
-			listener: ui.toggleAppInfoDialog,
-		},
 
-	];/* eventListeners */
 
 
 
@@ -142,7 +59,7 @@ class TurtleApp extends HTMLApp {
 		this.setup();
 
 		if (firstLoad) {
-			console.log('first load')
+			console.log('Welcome to Turtle!')
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
 			controller.doCommands();
 		}
@@ -165,15 +82,21 @@ class TurtleApp extends HTMLApp {
 		this.space = new Space(undefined,'turtle-space');
 		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
-		svgView.placeTurtle(this.turtle);
+		pageArea.placeTurtle(this.turtle);
 
-		svgView.updatePage();
-		svgView.updateTurtle();
+		pageArea.updatePage();
+		pageArea.updateTurtle();
 
-		svgView.drawGrid();
-		svgView.updateDrawing();
+		pageArea.drawGrid();
+		pageArea.updateDrawing();
 		ui.updateTurtleInfo();
 	}
+
+
+
+	// controller methods
+
+
 
 
 

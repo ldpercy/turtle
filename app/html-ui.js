@@ -1,9 +1,10 @@
 //
-//	view html-ui
+//	html-ui
 //
 
 import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import { turtleApp } from "./turtleApp.js";
+
 
 
 let element;
@@ -30,6 +31,10 @@ class HTMLUserInterface {
 		const commandSet = Number.parseInt(element.turtleForm['input-commandSet-active'].value) || 1;
 		this.showCommandSet((commandSet), false);
 	}
+
+
+
+
 
 
 	//

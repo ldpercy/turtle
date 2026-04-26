@@ -11,10 +11,10 @@ export function writeTurtleCommandString() {
 	const result = `
 		// Welcome to Turtle
 		~right 55,550
-		left 55
+		~left 55
 		text ${turtleApp.appVersion}
 		~right 55,-550
-		left 55
+		~left 55
 
 		//T
 		~xy -492,418

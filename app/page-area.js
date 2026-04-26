@@ -6,7 +6,7 @@ import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import * as Maths from "../[html-common]/module/Maths.js";
 import * as SVG from "../[html-common]/module/SVG.js";
 import { turtleApp } from "./turtleApp.js";
-import { ui } from './view-html-ui.js';
+import { ui } from './html-ui.js';
 
 
 let element = {};
@@ -27,12 +27,13 @@ const precision = {
 	report : 6
 };
 
-class SVGView {
+class PageArea {
 
+	svgElement = undefined;
 
 	constructor() {
-		const svgElement = document.getElementById('svg-element');
-		element = HTMLApp.buildElementMap(svgElement, elementMap);
+		this.svgElement = document.getElementById('svg-element');
+		element = HTMLApp.buildElementMap(this.svgElement, elementMap);
 
 		//console.log('svg element', element);
 	}
@@ -235,8 +236,12 @@ class SVGView {
 
 	}/* updatePage */
 
-}/* SVGView */
 
 
 
-export const svgView = new SVGView();
+
+}/* PageArea */
+
+
+
+export const pageArea = new PageArea();

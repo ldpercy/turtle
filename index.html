@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Turtle v0.12.3 by ldpercy</title>
+	<title>Turtle v0.13.0 by ldpercy</title>
 	<meta charset="utf-8">
-	<meta name="description" content="Turtle v0.12.3 by ldpercy - HTML, CSS, SVG, JavaScript">
+	<meta name="description" content="Turtle v0.13.0 by ldpercy - HTML, CSS, SVG, JavaScript">
 	<meta name="color-scheme" content="dark light">
 	<meta name="theme-color" content="lightseagreen"/>
 	<link rel="icon" href="./favicon.svg"/>
-	<link rel="stylesheet" href="./page/html.css"/>
-	<link rel="stylesheet" href="./page/svg.css"/>
+	<link rel="stylesheet" href="./index.css"/>
 
 	<script>
 		const protocol = new URL(window.location).protocol;
@@ -25,6 +24,7 @@
 	<div class="control-group control-left">
 		<form id="form-turtle" tabindex="0">
 			<h1>Turtle</h1>
+
 
 			<h2>Commands</h2>
 
@@ -47,6 +47,10 @@
 
 			<h2>Position</h2>
 			<output id="turtle-info" class="infoBox"></output>
+
+			<br/>
+			<button type="button" id="button-save">save drawing 🖬</button>
+			<a id="download-anchor" download="drawing.turtle.svg" href="" style="display:none;"></a>
 
 			<br/>
 			<button type="button" id="button-showAppInfo"><strong>🛈 Turtle help</strong></button>
@@ -210,7 +214,7 @@
 	<dialog id="dialog-appInfo" closedby="any">
 		<h1>
 			<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.12.3">v0.12.3</a>
+			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.13.0">v0.13.0</a>
 			by <a href="https://github.com/ldpercy/">ldpercy</a>
 		</h1>
 

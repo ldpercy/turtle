@@ -30,7 +30,7 @@ Currently the page is presented in conventional cartesian coordinates.
 
 Early versions used [standard SVG coordinates](<https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Positions#the_grid>) which inverts `y` compared to the usual presentation.
 
-The ability to switch the page back into SVG mode is now a job under the [improve page and space](<../task/improve page and space.md>) task.
+The ability to switch the page back into SVG mode is now a job under the [improve page and space](<../[task]/improve page and space.md>) task.
 
 
 
