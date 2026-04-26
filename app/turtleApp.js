@@ -59,7 +59,7 @@ class TurtleApp extends HTMLApp {
 		this.setup();
 
 		if (firstLoad) {
-			console.log('first load')
+			console.log('Welcome to Turtle!')
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
 			controller.doCommands();
 		}

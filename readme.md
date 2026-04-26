@@ -108,7 +108,7 @@ How to run
 > Versions prior to that were runnable with `file://` protocol.
 
 
-* Clone the repository
+* Clone the repository, including the [html-common submodule](<../html-common/[wiki]/git submodule.md>)
 * Start up your favourite webserver, making sure the project repo is under the webroot
 * Navigate to `[localhost]/turtle/index.html` or equivalent
 
