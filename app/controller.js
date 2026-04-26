@@ -315,12 +315,16 @@ class Controller {
 		const svgDoc = `
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" >
 				<title>turtle drawing</title>
-				<g id="drawing-group" style="stroke:black;fill:grey;fill-opacity:50%; transform:scaleY(-1);">
+				<foreignObject x="-1000" y="-1000" width="100" height="100" style="overflow: visible;">
+					<pre xmlns="http://www.w3.org/1999/xhtml">${ui.commandString}</pre>
+				</foreignObject>
+
+				<g id="drawing-group" style="stroke:black;stroke-width:5;fill:grey;fill-opacity:50%;">
 					${drawingGroupContent}
 				</g>
 			</svg>
 		`;
-
+		// transform:scaleY(-1);
 		const url = new URL(`data:text/plain;utf8,${encodeURIComponent(svgDoc)}`);
 		this.element.downloadAnchor.href = url.toString();
 		this.element.downloadAnchor.click();
