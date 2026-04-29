@@ -7,7 +7,7 @@ summary {
 }
 
 a {
-	color: var(--accent);
+	color: var(--accent-colour);
 	text-decoration: none;
 	&:hover { text-decoration: underline; }
 }
@@ -29,27 +29,6 @@ a {
 
 
 
-form {
-	display: grid;
-	border:1px solid silver;
-	/* filter: drop-shadow(0px 5px 5px var(--accent)); */
-	border-radius: 1ex;
-	padding:1ex;
-	margin: 1ex;
-
-	font-size: 1em;
-
-	h1 { font-size:3ex; margin-bottom: 1ex; }
-	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
-	h3 { font-size:1em; margin-top:1ex; margin-bottom:1ex; }
-
-
-	h1 + h2 { margin-top: 0ex; }
-
-	details { margin-top:1ex; margin-bottom: 0ex; }
-	details > label { display: block; }
-
-	hr { width:100%; }
 
 	#input-command {
 		height:15em;
@@ -68,15 +47,7 @@ form {
 
 	textarea { font-size: 1.6ex; }
 
-	br { margin-top:1ex; }
 
-	details { margin-top: 0em; }
-	details.project { margin-top: 1ex; }
-
-	/*
-	details>summary { list-style: none; }
-	summary::after { content: " ⯇";  }
-	details[open] summary::after { content: " ⯆"; text-align:right; } */
 
 	.tab-body { z-index:10; }
 
@@ -113,18 +84,7 @@ form {
 	}
 
 
-	&:focus-within {
-		transition-duration: 0s;
-		outline: 2px solid var(--accent);
-		/* filter: drop-shadow(0px 0px 2px var(--accent)); */
-	}
 
-	*:focus-visible {
-		transition-duration: 0s;
-		outline: 2px solid var(--accent);
-	}
-
-}/* form */
 
 .infoBox {
 	font-family: monospace;
@@ -135,12 +95,12 @@ form {
 
 
 
-#dialog-appInfo {
+/* #dialog-appInfo {
 	border-radius: 1em;
 	padding:1em;
-	border: 3px solid var(--accent);
+	border: 3px solid var(--accent-colour);
 	opacity: 95%;
-	box-shadow: 0px 0px 3em var(--accent);
+	box-shadow: 0px 0px 3em var(--accent-colour);
 
 	h1 {text-align:center; }
 	h1::before {
@@ -182,13 +142,16 @@ form {
 		background-repeat: repeat;
 
 		background-size: 14vh;
-		/* background-color: var(--project-colour); */
+		/ * background-color: var(--project-colour); * /
 		opacity: 0.8;
 	}
 }
+ */
 
-
-
+#dialog-appInfo {
+	&::backdrop { background-image:  url(./turtle-backdrop.svg); }
+	h1::before { content: url("../favicon.svg"); }
+}
 
 
 

@@ -12,6 +12,12 @@ Use common styles from html-common.
 
 
 
+I've been using a different accent colour for this project, so will have to change how I'm calculating scheme accents...
+
+	accent-base-colour
+	accent-colour
+	accent-scheme-colour
+
 
 
 

@@ -12,9 +12,9 @@ svg {
 }
 
 svg:focus-within {
-	outline: 1px dotted var(--accent);
+	outline: 1px dotted var(--accent-colour);
 	outline-offset: -1px;
-	/* filter: drop-shadow(0px 0px 2px var(--accent)); */
+	/* filter: drop-shadow(0px 0px 2px var(--accent-colour)); */
 	/* transition: 1s; */
 }
 
@@ -240,7 +240,7 @@ svg:focus-within {
 	filter: drop-shadow(0px 0px 30px #ff07);
 	/* &:focus {
 		transition: 0s;
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--accent-colour);
 	} */
 }
 

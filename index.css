@@ -2,6 +2,8 @@
 **	index.css
 */
 
+@import "./[html-common]/style/fullpage/dialog-appInfo.css";
+@import "./[html-common]/style/fullpage/ui-panel.css";
 @import "./page/main-ui.css";
 @import "./page/document-area.css";
 
@@ -12,8 +14,12 @@
 }
 
 
-html {
+:root {
 	--project-colour: lightseagreen;
+}
+
+html {
+
 
 	--page-background-light: #fcfcfc;
 	--page-background-dark: #111111;
@@ -25,8 +31,10 @@ html {
 	--purple: #b0b;
 	--fadedred: #f07;	/* point info */
 
-	--accent-light: #08c;
-	--accent-dark: #0cf;
+	--accent-baseColour: #0099dd;
+	/* --accent-light: #08c;
+	--accent-dark: #0cf; */
+
 	--transition-duration: 0.5s;
 
 	--turtle-body: #0a07;
@@ -41,7 +49,7 @@ html {
 	}
 	scrollbar-width: none;
 
-	font-size: 16px; /* 14px; */
+	font-size: 14px; /* 14px; */
 	font-family:'Noto sans', sans-serif;
 
 	body > svg { display:block; }
@@ -58,8 +66,9 @@ html {
 
 html {
 	color-scheme: dark;
-	--accent: var(--accent-dark);
-	accent-color: var(--accent);
+	/* --accent: var(--accent-dark); */
+	--accent-colour: oklch(from var(--accent-baseColour) 0.60 c h / alpha);
+	accent-color: var(--accent-colour);
 	background-color: var(--page-background-dark);
 	color: white;
 }
@@ -67,8 +76,9 @@ html {
 
 html[data-colourscheme=light] {
 	color-scheme: light;
-	--accent: var(--accent-light);
-	accent-color: var(--accent);
+	/* --accent: var(--accent-light); */
+	--accent-colour: oklch(from var(--accent-baseColour) 0.60 c h / alpha);
+	accent-color: var(--accent-colour);
 	background-color: var(--page-background-light);
 	color: black;
 
@@ -86,8 +96,9 @@ html[data-colourscheme=light] {
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
-	--accent: var(--accent-dark);
-	accent-color: var(--accent);
+	/* --accent: var(--accent-dark); */
+	--accent-colour: oklch(from var(--accent-baseColour) 0.80 c h / alpha);
+	accent-color: var(--accent-colour);
 	background-color: var(--page-background-dark);
 	color: white;
 
