@@ -13,19 +13,6 @@ a {
 }
 
 
-.control-group {
-
-	&.control-left {
-		position:absolute;
-		left:0ex;
-	}
-
-	&.control-right {
-		position:absolute;
-		right:0ex;
-	}
-}
-
 
 
 
@@ -45,7 +32,7 @@ a {
 
 	input[name=zoom] { width: 16ex;}
 
-	textarea { font-size: 1.6ex; }
+	textarea { font-size: 1em; }
 
 
 
