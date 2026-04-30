@@ -2,9 +2,18 @@
 **	document-area.css
 */
 
+
 svg {
 	font-family: serif;
 }
+
+svg, svg *, use, use *
+{
+	/* having difficulty getting transitions into the shadow dom at the moment, this is here for <use> elements until I can improve */
+	transition: all ease-in var(--transition-duration);
+}
+
+
 
 .svg-element {
 	width: 100vw;

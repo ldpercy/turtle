@@ -9,10 +9,6 @@
 @import "./page/document-area.css";
 
 
-* {
-	/* having difficulty getting transitions into the shadow dom at the moment, this is here for <use> elements until I can improve */
-	transition: all ease-in var(--transition-duration);
-}
 
 
 :root {
