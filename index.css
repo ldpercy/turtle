@@ -13,6 +13,7 @@
 
 :root {
 	--project-colour: lightseagreen;
+	--transition-time-page: 0.5s;
 }
 
 html {
@@ -68,6 +69,10 @@ html {
 	accent-color: var(--accent-colour);
 	background-color: var(--page-background-dark);
 	color: white;
+
+	transition:
+		background-color var(--transition-time-page) linear;
+		/* color-scheme var(--transition-time-page) linear allow-discrete; */		/* this causes scheme switching bugs in chromium */
 }
 
 
