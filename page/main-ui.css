@@ -32,15 +32,20 @@ input[type=color] { width: 50%; margin-right:0.7ex; }
 	margin-left:1ex;
 	position: relative;
 	top: -1px;
-	/* z-index:5; */
+
 	.tab {
 		position: relative;
 		display: inline-block;
 		text-decoration: none;
 		line-height: 3ex;
+		&.active { z-index:15; }
 	}
 
-	.tab.active { z-index:15; }
+	a {
+		color: var(--accent-colour);
+		text-decoration: none;
+		&:hover { text-decoration: underline; }
+	}
 
 	&.top .tab {
 		border-width: 1px 1px 0px;
@@ -57,7 +62,7 @@ input[type=color] { width: 50%; margin-right:0.7ex; }
 		margin-bottom: 0.2em;
 	}
 
-}
+}/* tabbar */
 
 
 
