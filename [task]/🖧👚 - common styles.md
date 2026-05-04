@@ -20,6 +20,7 @@ Use common styles from html-common.
 * [ ] Some of the gap spacing could be tightened a little
 * [x] Chromium dark colour scheme glitch (sorted now)
 * [ ] figure out custom accent colour
+* [x] Fix origin shortcut - changeover to common keyboard handler
 
 
 
