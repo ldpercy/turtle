@@ -14,6 +14,8 @@
 :root {
 	--project-colour: lightseagreen;
 	--transition-time-page: 0.5s;
+	--schemeColour-light: #fcfcfc;
+	--schemeColour-dark: #0a0a0a;
 }
 
 html {
@@ -64,10 +66,9 @@ html {
 
 html {
 	color-scheme: dark;
-	/* --accent: var(--accent-dark); */
 	--accent-colour: oklch(from var(--accent-baseColour) 0.60 c h / alpha);
 	accent-color: var(--accent-colour);
-	background-color: var(--page-background-dark);
+	background-color: var(--scheme-colour);
 	color: white;
 
 	transition:
@@ -78,16 +79,16 @@ html {
 
 html[data-colourscheme=light] {
 	color-scheme: light;
-	/* --accent: var(--accent-light); */
+	--scheme-colour: #fcfcfc;
+
 	--accent-colour: oklch(from var(--accent-baseColour) 0.60 c h / alpha);
 	accent-color: var(--accent-colour);
-	background-color: var(--page-background-light);
 	color: black;
 
-	form {
+	/* form {
 		background-color:#eee9;
 		border-color: #bbbb;
-	}
+	} */
 	.infoBox { background-color: #fffc; }
 
 	.tabbar a {
@@ -98,16 +99,16 @@ html[data-colourscheme=light] {
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
-	/* --accent: var(--accent-dark); */
+	--scheme-colour: #111111;
 	--accent-colour: oklch(from var(--accent-baseColour) 0.80 c h / alpha);
 	accent-color: var(--accent-colour);
-	background-color: var(--page-background-dark);
+	background-color: var(--scheme-colour);
 	color: white;
-
+/*
 	form {
 		background-color:#7779;
 		border-color: #9999;
-	}
+	} */
 	.infoBox {
 		background-color: #222c;
 		border-color: #9999;
