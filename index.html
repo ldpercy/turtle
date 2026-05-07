@@ -8,16 +8,7 @@
 	<meta name="theme-color" content="lightseagreen"/>
 	<link rel="icon" href="./favicon.svg"/>
 	<link rel="stylesheet" href="./index.css"/>
-
-	<script>
-		const protocol = new URL(window.location).protocol;
-
-		if (protocol === 'file:') {
-			alert("You are using `file:` protocol - modules won't work");
-		}
-	</script>
-
-	<script type="module" src="./app/turtleApp.js"></script>
+	<script  type="module"  src="./index.js"></script>
 </head>
 <body>
 
@@ -62,7 +53,7 @@
 
 			<fieldset class="flex1" title="Colour scheme">
 				<label title="Light scheme">
-					<input type="radio" name="colourScheme" class="colourScheme-selector" value="light" data-colourscheme="light" checked>
+					<input type="radio" name="colourScheme" class="colourScheme-selector" value="light" data-colourscheme="light">
 					light
 				</label>
 				<label title="Dark scheme">
@@ -142,10 +133,14 @@
 
 		<form id="form-drawing" tabindex="0" class="ui-panel">
 			<h2>Drawing</h2>
+
 			<label for="input-colour" title="Drawing colour">
-				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
 				colour
 			</label>
+			<div class="flex1">
+				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
+			</div>
+
 			<label for="input-strokeWidth" title="Drawing stroke-width">
 				stroke-width
 			</label>

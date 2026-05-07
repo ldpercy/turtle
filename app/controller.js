@@ -294,10 +294,6 @@ class Controller {
 
 	saveDrawing() {
 
-		//event.preventDefault();
-
-		//this.element.saveLink.download = 'polygon_download.svg';
-
 		const drawingGroupContent = document.getElementById('group-drawing').innerHTML;
 
 		const svgDoc = `

@@ -10,12 +10,9 @@
 	min-width: 15em;
 }
 
-#turtle-info {
-	white-space: pre;
-}
 
 
-input[type=color] { width: 50%; margin-right:0.7ex; }
+/* input[type=color] { width: 50%; margin-right:0.7ex; } */
 
 
 
@@ -65,14 +62,6 @@ input[type=color] { width: 50%; margin-right:0.7ex; }
 }/* tabbar */
 
 
-
-
-.infoBox {
-	font-family: monospace;
-	font-size: 1.6ex;
-	padding:1ex;
-	border:1px solid var(--silver);
-}
 
 
 
