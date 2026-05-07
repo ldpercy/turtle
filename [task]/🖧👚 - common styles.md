@@ -45,3 +45,13 @@ Will try to readd targeted transitions in places where it was nice in the old se
 
 One thing to note it the marker use transitions are now not working, so will need to get those changed over/fixed somehow.
 
+
+
+Panel colours
+-------------
+
+This one is killing me at the moment as they were all customised.
+
+I have some stuff that's slowly progressing in html-common, but it's not good enough for here yet.
+
+Getting a bit closer now...
