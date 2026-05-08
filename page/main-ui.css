@@ -2,7 +2,9 @@
 **	main-ui.css
 */
 
-
+.ui-panel {
+	--gap: 0.3em;
+}
 
 
 #input-command {

@@ -14,12 +14,12 @@ Use common styles from html-common.
 
 * [x] Update app info dialog to common style
 * [x] panel styles from html-common
-* [ ] Too much space after the main heading
-* [ ] No outlines on the labels
-* [ ] Colour selector label layout
-* [ ] Some of the gap spacing could be tightened a little
+* [x] Trim main heading space
+* [x] No outlines on the labels
+* [x] Colour selector label layout
+* [x] Some of the gap spacing could be tightened a little
 * [x] Chromium dark colour scheme glitch (sorted now)
-* [ ] figure out custom accent colour
+* [x] figure out custom accent colour
 * [x] Fix origin shortcut - changeover to common keyboard handler
 
 
