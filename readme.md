@@ -121,6 +121,7 @@ More detail in the [task/](<./[task]/>) directory.
 
 ### Recently Completed
 
+* Now using appinfo and panel styles from `html-common`
 * Convert to use `html-common` submodule
 * Command argument validation
 * Added keyboard controls

@@ -19,6 +19,7 @@ class Controller {
 	constructor() {
 		this.element = HTMLApp.buildElementMap(document, this.elementMap)
 		HTMLApp.addEventListeners(this.eventListeners, this);
+		this.keyboardHandler = HTMLApp.newKeyboardHandler(this.keyFunctionMap,this);
 		//console.debug('controller constructor');
 	}
 
@@ -94,7 +95,8 @@ class Controller {
 		{
 			element: document,
 			type: 'keydown',
-			listener: this.documentKeyListener
+			//listener: this.keyboardHandler							//	Use this for a local keyboard handler
+			listener: (event) => { this.keyboardHandler(event); }		//	Use this for one generated from HTMLApp
 		},
 		{
 			query: 'textarea',
@@ -163,21 +165,6 @@ class Controller {
 	};
 
 
-	documentKeyListener(event) {
-		//console.log('documentKeyListener', event);
-
-		if (!event.altKey && !event.ctrlKey && !event.metaKey) {
-
-			if (this.keyFunctionMap[event.key]) {
-				event.preventDefault();
-				this.keyFunctionMap[event.key]();
-			}
-		}
-
-	}/* documentKeyListener */
-
-
-
 
 	svgClickListener(event) {
 		//console.debug('svgClickListener', event);
@@ -244,9 +231,9 @@ class Controller {
 	}
 
 	toOrigin() {
-		//console.log('toOrigin');
+		console.log('toOrigin');
 		//const cmd = new turtleCommand.Command('origin');
-		this.doCommand('~origin');
+		this.doCommand('~origin');	/* ??? */
 		pageArea.updateTurtle();
 		ui.updateTurtleInfo();
 	}
@@ -263,6 +250,7 @@ class Controller {
 	}/* doCommands */
 
 
+	/** @param {string} commandString */
 	doCommand(commandString) {
 		const command = turtleCommand.createCommand(commandString);
 		//console.log(commands);
@@ -305,10 +293,6 @@ class Controller {
 
 
 	saveDrawing() {
-
-		//event.preventDefault();
-
-		//this.element.saveLink.download = 'polygon_download.svg';
 
 		const drawingGroupContent = document.getElementById('group-drawing').innerHTML;
 

@@ -1,39 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-colourscheme="dark">
 <head>
-	<title>Turtle v0.13.0 by ldpercy</title>
+	<title>Turtle v0.14.0 by ldpercy</title>
 	<meta charset="utf-8">
-	<meta name="description" content="Turtle v0.13.0 by ldpercy - HTML, CSS, SVG, JavaScript">
+	<meta name="description" content="Turtle v0.14.0 by ldpercy - HTML, CSS, SVG, JavaScript">
 	<meta name="color-scheme" content="dark light">
 	<meta name="theme-color" content="lightseagreen"/>
 	<link rel="icon" href="./favicon.svg"/>
 	<link rel="stylesheet" href="./index.css"/>
-
-	<script>
-		const protocol = new URL(window.location).protocol;
-
-		if (protocol === 'file:') {
-			alert("You are using `file:` protocol - modules won't work");
-		}
-	</script>
-
-	<script type="module" src="./app/turtleApp.js"></script>
+	<script  type="module"  src="./index.js"></script>
 </head>
 <body>
 
-	<div class="control-group control-left">
-		<form id="form-turtle" tabindex="0">
+	<div class="panel-group group-left">
+		<form id="form-turtle" tabindex="0" class="ui-panel">
 			<h1>Turtle</h1>
 
+			<h3>Commands</h3>
 
-			<h2>Commands</h2>
+			<section>
+				<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set" spellcheck="false">right 60,500</textarea>
+				<nav id="command-tabs" class="tabbar bottom">
+					<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab" title="Command set 1">set 1</a>
+					<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
+					<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab" title="Command set 3">set 3</a>
+				</nav>
+			</section>
 
-			<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set" spellcheck="false">right 60,500</textarea>
-			<div id="command-tabs" class="tabbar bottom">
-				<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab" title="Command set 1">set 1</a>
-				<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
-				<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab" title="Command set 3">set 3</a>
-			</div>
 			<button id="button-doCommands" type="button" title="Perform the current commands">do</button>
 			<button id="button-clearDrawing" type="button" title="Clear the drawing">clear</button>
 			<button id="button-origin" type="button" title="Return the turtle to the origin">to origin</button>
@@ -43,24 +36,37 @@
 			<input type="hidden" id="input-commandSet-2" name="commandSet-2" value="// command set 2">
 			<input type="hidden" id="input-commandSet-3" name="commandSet-3" value="// command set 3">
 
-			<br/>
-
-			<h2>Position</h2>
+			<h3>Position</h3>
 			<output id="turtle-info" class="infoBox"></output>
 
-			<br/>
 			<button type="button" id="button-save">save drawing 🖬</button>
 			<a id="download-anchor" download="drawing.turtle.svg" href="" style="display:none;"></a>
 
-			<br/>
 			<button type="button" id="button-showAppInfo"><strong>🛈 Turtle help</strong></button>
 
 		</form>
 	</div><!-- control-left -->
 
-	<div class="control-group control-right">
-		<form id="form-page" tabindex="0">
+	<div class="panel-group group-right">
+		<form id="form-page" tabindex="0" class="ui-panel">
 			<h2>Page</h2>
+
+			<fieldset class="flex1" title="Colour scheme">
+				<label title="Light scheme">
+					<input type="radio" name="colourScheme" class="colourScheme-selector" value="light" data-colourscheme="light">
+					light
+				</label>
+				<label title="Dark scheme">
+					<input type="radio" name="colourScheme" class="colourScheme-selector" value="dark" data-colourscheme="dark">
+					dark
+				</label>
+				<!--
+				<label title="auto">
+					<input type="radio" name="scheme" value="auto" checked>
+					▣
+				</label>
+				 -->
+			</fieldset>
 
 			<label for="input-showTurtle" title="Show the turtle">
 				<input type="checkbox" name="showTurtle" id="input-showTurtle" checked>
@@ -75,54 +81,34 @@
 				rotate page
 			</label>
 
-			<label class="scheme" title="Colour scheme">
-				<label title="Light scheme">
-					<input type="radio" name="colourScheme" value="light" checked class="colourScheme-selector" data-colourscheme="light">
-					light
-				</label>
-				<label title="Dark scheme">
-					<input type="radio" name="colourScheme" value="dark" class="colourScheme-selector" data-colourscheme="dark">
-					dark
-				</label>
-				<!--
-				<label title="auto">
-					<input type="radio" name="scheme" value="auto" checked>
-					▣
-				</label>
-				 -->
-			</label>
+
 			<label for="input-zoom" class="zoom" title="Page zoom">
-				<input type="range" name="zoom" id="input-zoom" value="1" min="-1" max="3" list="datalist-zoom"/>
-				<datalist id="datalist-zoom">
-					<option value="-1">-1</option>
-					<option value="0">0</option>
-					<option value="1">+1</option>
-					<option value="2">+2</option>
-					<option value="3">+3</option>
-				</datalist>
 				zoom
 			</label>
+			<input type="range" name="zoom" id="input-zoom" value="1" min="-1" max="3" list="datalist-zoom"/>
+			<datalist id="datalist-zoom">
+				<option value="-1">-1</option>
+				<option value="0">0</option>
+				<option value="1">+1</option>
+				<option value="2">+2</option>
+				<option value="3">+3</option>
+			</datalist>
+
+
 
 			<h3>Grid</h3>
-			<details>
-				<summary>
-					<label for="input-showCartesian" title="Show the cartesian grid">
-						<input type="checkbox" name="showCartesian" id="input-showCartesian" checked>
-						cartesian
-					</label>
-				</summary>
-				<input name="cartesianOpacity" id="input-cartesianOpacity" type="range" min="0.1" max="1" step="0.1" value="1" title="Cartesian grid opacity">
-			</details>
+			<label for="input-showCartesian" title="Show the cartesian grid">
+				<input type="checkbox" name="showCartesian" id="input-showCartesian" checked>
+				cartesian
+			</label>
+			<input name="cartesianOpacity" id="input-cartesianOpacity" type="range" min="0.1" max="1" step="0.1" value="1" title="Cartesian grid opacity">
+			<label for="input-showPolar" title="Show the polar grid">
+				<input type="checkbox" name="showPolar" id="input-showPolar">
+				polar
+			</label>
 
-			<details>
-				<summary>
-					<label for="input-showPolar" title="Show the polar grid">
-						<input type="checkbox" name="showPolar" id="input-showPolar">
-						polar
-					</label>
-				</summary>
-				<input name="polarOpacity" id="input-polarOpacity" type="range" min="0.1" max="1" step="0.1" value="0.7" title="Polar grid opacity">
-			</details>
+			<input name="polarOpacity" id="input-polarOpacity" type="range" min="0.1" max="1" step="0.1" value="0.7" title="Polar grid opacity">
+
 
 			<h3>Mouse</h3>
 			<label title="No action">
@@ -145,16 +131,22 @@
 		</form><!-- page -->
 
 
-		<form id="form-drawing" tabindex="0">
+		<form id="form-drawing" tabindex="0" class="ui-panel">
 			<h2>Drawing</h2>
+
 			<label for="input-colour" title="Drawing colour">
-				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
 				colour
 			</label>
+			<div class="flex1">
+				<input type="color" name="colour" id="input-colour" value="#ff7700"/>
+			</div>
+
 			<label for="input-strokeWidth" title="Drawing stroke-width">
-				<input type="range" name="strokeWidth" id="input-strokeWidth" value="10" min="1" max="20"/>
 				stroke-width
 			</label>
+			<input type="range" name="strokeWidth" id="input-strokeWidth" value="10" min="1" max="20"/>
+
+
 			<label for="input-showStroke" title="Show the drawing stroke">
 				<input type="checkbox" name="showStroke" id="input-showStroke" checked>
 				stroke
@@ -214,7 +206,7 @@
 	<dialog id="dialog-appInfo" closedby="any">
 		<h1>
 			<a href="https://github.com/ldpercy/turtle/">Turtle</a>
-			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.13.0">v0.13.0</a>
+			<a href="https://github.com/ldpercy/turtle/releases/tag/v0.14.0">v0.14.0</a>
 			by <a href="https://github.com/ldpercy/">ldpercy</a>
 		</h1>
 

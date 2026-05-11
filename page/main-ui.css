@@ -1,194 +1,76 @@
+/*
+**	main-ui.css
+*/
 
-
-h1:nth-child(1), h2:nth-child(1) { margin-top:0ex; }
-
-summary {
-	cursor: pointer;
-}
-
-a {
-	color: var(--accent);
-	text-decoration: none;
-	&:hover { text-decoration: underline; }
+.ui-panel {
+	--gap: 0.3em;
 }
 
 
-.control-group {
-
-	&.control-left {
-		position:absolute;
-		left:0ex;
-	}
-
-	&.control-right {
-		position:absolute;
-		right:0ex;
-	}
+#input-command {
+	height:15em;
+	min-width: 15em;
 }
 
 
 
-
-form {
-	display: grid;
-	border:1px solid silver;
-	/* filter: drop-shadow(0px 5px 5px var(--accent)); */
-	border-radius: 1ex;
-	padding:1ex;
-	margin: 1ex;
-
-	font-size: 1em;
-
-	h1 { font-size:3ex; margin-bottom: 1ex; }
-	h2 { font-size:2ex; margin-top:2ex; margin-bottom:1ex; }
-	h3 { font-size:1em; margin-top:1ex; margin-bottom:1ex; }
+/* input[type=color] { width: 50%; margin-right:0.7ex; } */
 
 
-	h1 + h2 { margin-top: 0ex; }
 
-	details { margin-top:1ex; margin-bottom: 0ex; }
-	details > label { display: block; }
+.tab-body {
+	position: relative;
+	z-index: 10;
+}
 
-	hr { width:100%; }
+.tabbar {
+	margin-top:0ex;
+	padding-top:0ex;
 
-	#input-command {
-		height:15em;
-		min-width: 15em;
-	}
+	font-size:1.4ex;
+	margin-left:1ex;
+	position: relative;
+	top: -1px;
 
-	#turtle-info {
-		white-space: pre;
-	}
-
-
-	input[type=color] { width: 10ex; margin-right:0.7ex; }
-	input[type=range] { width: 10ex; }
-
-	input[name=zoom] { width: 16ex;}
-
-	textarea { font-size: 1.6ex; }
-
-	br { margin-top:1ex; }
-
-	details { margin-top: 0em; }
-	details.project { margin-top: 1ex; }
-
-	/*
-	details>summary { list-style: none; }
-	summary::after { content: " ⯇";  }
-	details[open] summary::after { content: " ⯆"; text-align:right; } */
-
-	.tab-body { z-index:10; }
-
-	.tabbar {
-		font-size:1.4ex;
-		margin-left:0.2em;
+	.tab {
 		position: relative;
-		top: -2px;
-		/* z-index:5; */
-		.tab {
-			position: relative;
-			display: inline-block;
-			text-decoration: none;
-			line-height: 3ex;
-		}
-
-		.tab.active { z-index:15; }
-
-		&.top .tab {
-			border-width: 1px 1px 0px;
-			border-style: solid solid none;
-			border-radius: 0.5ex 0.5ex 0ex 0ex;
-			padding: 0ex 1ex 0ex;
-		}
-		&.bottom .tab {
-			border-width: 0px 1px 1px;
-			border-style: none solid solid ;
-			border-radius: 0ex 0ex 0.5ex 0.5ex;
-			padding: 0.2ex 1ex 0ex;
-			margin-top: 0em ;
-			margin-bottom: 0.2em;
-		}
-
+		display: inline-block;
+		text-decoration: none;
+		line-height: 3ex;
+		&.active { z-index:15; }
 	}
 
-
-	&:focus-within {
-		transition-duration: 0s;
-		outline: 2px solid var(--accent);
-		/* filter: drop-shadow(0px 0px 2px var(--accent)); */
+	a {
+		color: var(--accent-colour);
+		text-decoration: none;
+		&:hover { text-decoration: underline; }
 	}
 
-	*:focus-visible {
-		transition-duration: 0s;
-		outline: 2px solid var(--accent);
+	&.top .tab {
+		border-width: 1px 1px 0px;
+		border-style: solid solid none;
+		border-radius: 0.5ex 0.5ex 0ex 0ex;
+		padding: 0ex 1ex 0ex;
+	}
+	&.bottom .tab {
+		border-width: 0px 1px 1px;
+		border-style: none solid solid ;
+		border-radius: 0ex 0ex 0.5ex 0.5ex;
+		padding: 0.2ex 1ex 0ex;
+		margin-top: 0em ;
+		margin-bottom: 0.2em;
 	}
 
-}/* form */
+}/* tabbar */
 
-.infoBox {
-	font-family: monospace;
-	font-size: 1.6ex;
-	padding:1ex;
-	border:1px solid var(--silver);
-}
+
 
 
 
 #dialog-appInfo {
-	border-radius: 1em;
-	padding:1em;
-	border: 3px solid var(--accent);
-	opacity: 95%;
-	box-shadow: 0px 0px 3em var(--accent);
-
-	h1 {text-align:center; }
-	h1::before {
-		display: inline-block ;
-		content: url("../favicon.svg");
-		height:2ex;
-		width:2ex;
-		vertical-align: sub;
-	}
-
-	dl {
-		display: grid;
-		grid-template-columns: 2fr 3fr ;
-		margin:1em;
-		font-size:1em;
-	}
-	dt {
-		margin: 0em 1em;
-		white-space: nowrap;
-		font-family: monospace;
-	}
-	dd {
-		margin: 0em 1em;
-	}
-
-	kbd {
-		display:inline-block;
-		border-radius: 1ex;
-		border: 1px dotted grey;
-		text-align:center;
-		width:3ex;
-	}
-
-
-	&::backdrop {
-		backdrop-filter: blur(1pt) brightness(40%);
-		background-image:  url(./turtle-backdrop.svg);
-		background-position: center;
-		background-repeat: repeat;
-
-		background-size: 14vh;
-		/* background-color: var(--project-colour); */
-		opacity: 0.8;
-	}
+	&::backdrop { background-image:  url(./turtle-backdrop.svg); }
+	h1::before { content: url("../favicon.svg"); }
 }
-
-
-
 
 
 
