@@ -30,9 +30,7 @@ Todo
 * `space`	Custom spaces showing the polar axis and direction fixes
 * `space`	Custom space rules - size, boundaries, wrapping
 * `space`	Ability to switch between SVG and conventional coordinates (`y` up/down)
-* `css`		See if the summary/details markers can be styled a little more nicely
 * `css`		Add automatic colour scheme selection based on the user's preference
-* `css`		Work out how to apply different transition speeds to different items
 * `style`	Add fill colour picker
 * `grid`	Grid reactive to zoom level and/or turtle position
 * `grid`	Add local-frame grid overlays
@@ -57,6 +55,7 @@ In Progress
 
 Done
 ----
+* Use styles from html-common
 * `file`	A very basic (minimum-viable) save function
 * `css`		Have found a way to eliminate the 5 extra vertical pixels - they come from SVG's default `display:inline;`	- 'block' remedies it.
 * localStorage items prefixed with 'turtle_'
