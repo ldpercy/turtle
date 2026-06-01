@@ -18,7 +18,7 @@ class TurtleApp extends HTMLApp {
 
 	appName			= 'turtle';
 	appVersion		= 'v0.14.0';
-	projectColour	= 'lightseagreen';
+	projectColour	= 'teal';
 	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
 		https://github.com/ldpercy/year-clock/releases/tag/${this.appVersion}

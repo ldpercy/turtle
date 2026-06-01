@@ -2,7 +2,7 @@
 
 	<style>
 		svg { opacity: 40%; }
-		.background { fill:lightseagreen; }
+		.background { fill:teal; }
 		.turtle {
 			filter: blur(1pt);
 			--turtle: #0a07;
