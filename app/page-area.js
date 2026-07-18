@@ -189,19 +189,19 @@ class PageArea {
 	updatePageTransform() {
 
 
-		const rotateDeg = (ui.rotatePage) ? -turtleApp.turtle.position.degrees : 0;
+		//const rotateDeg = (ui.rotatePage) ? -turtleApp.turtle.position.degrees : 0;
 		//const translateX = (ui.centerTurtle) ? -turtleApp.turtle.svgX : 0;
 		//const translateY = (ui.centerTurtle) ? -turtleApp.turtle.svgY : 0;
 
 		//console.log(this.turtle);
 
-		//const rotate = turtleApp.turtle.position.direction.degrees;
-		//const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
-		//const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
+		const rotate = turtleApp.turtle.position.direction.degrees;
+		const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
+		const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
 
 
-		const rotateTransform    = `rotate(${rotateDeg},0,0)`;
-		const translateTransform = `translate(${translateX},${translateY})`;
+		//const rotateTransform    = `rotate(${rotateDeg},0,0)`;
+		//const translateTransform = `translate(${translateX},${translateY})`;
 		const scaleTransform = `scale(${ui.getScale()})`;
 		const transformString = `${scaleTransform} ${rotateTransform} ${translateTransform} `;
 		element.page.setAttribute('transform', transformString);
