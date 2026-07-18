@@ -17,7 +17,7 @@ import { ui } from './html-ui.js';
 class TurtleApp extends HTMLApp {
 
 	appName			= 'turtle';
-	appVersion		= 'v0.🆕⎈';
+	appVersion		= 'v0.👚①';
 	projectColour	= 'teal';
 	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
