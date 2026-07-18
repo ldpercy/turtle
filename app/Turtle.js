@@ -1,4 +1,4 @@
-import * as space from './PlanarSpace.js';
+import * as space from '../[html-common]/module/PlanarSpace.js';
 import * as turtleCommand from './TurtleCommand.js';
 
 
@@ -57,7 +57,7 @@ export class Turtle {
 	get y()  { return this.#position.y; }
 	get location() { return this.#position.location; }
 	get direction() { return this.#position.direction; }
-	get radius() { return this.#position.radius; }
+	get radius() { return this.#position.polar.radius; }
 	get coordinates() { return { position: this.#position, direction: this.direction } };
 
 	get report() { return `x:${this.x}; y:${this.y}; direction:${this.direction.degrees};`; }

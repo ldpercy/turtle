@@ -2,11 +2,11 @@
 //	svg
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
-import * as Maths from "../[library]/Maths.js";
-import * as SVG from "../[library]/SVG.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
+import * as Maths from "../[html-common]/module/Maths.js";
+import * as SVG from "../[html-common]/module/SVG.js";
 import { turtleApp } from "./turtleApp.js";
-import { ui } from './view-html-ui.js';
+import { ui } from './html-ui.js';
 
 
 let element = {};
@@ -27,12 +27,13 @@ const precision = {
 	report : 6
 };
 
-class SVGView {
+class PageArea {
 
+	svgElement = undefined;
 
 	constructor() {
-		const svgElement = document.getElementById('svg-element');
-		element = HTMLApp.buildElementMap(svgElement, elementMap);
+		this.svgElement = document.getElementById('svg-element');
+		element = HTMLApp.buildElementMap(this.svgElement, elementMap);
 
 		//console.log('svg element', element);
 	}
@@ -91,7 +92,7 @@ class SVGView {
 
 		const coords = turtleApp.space.newCartesianCoordinates(x,y);
 
-		const point = turtleApp.space.newPoint('point marker');
+		const point = turtleApp.space.newPoint(undefined,'point marker');
 		point.cartesian = coords;
 
 		const svgX = x;
@@ -176,7 +177,7 @@ class SVGView {
 	updateTurtle() {
 		element.turtleIcon.setAttribute(
 			'transform',
-			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.degrees})`
+			`translate(${turtleApp.turtle.svgX},${turtleApp.turtle.svgY}) rotate(${turtleApp.turtle.position.direction.degrees})`
 		);
 
 		this.updatePageTransform();
@@ -187,9 +188,17 @@ class SVGView {
 
 	updatePageTransform() {
 
+
 		const rotateDeg = (ui.rotatePage) ? -turtleApp.turtle.position.degrees : 0;
-		const translateX = (ui.centerTurtle) ? -turtleApp.turtle.svgX : 0;
-		const translateY = (ui.centerTurtle) ? -turtleApp.turtle.svgY : 0;
+		//const translateX = (ui.centerTurtle) ? -turtleApp.turtle.svgX : 0;
+		//const translateY = (ui.centerTurtle) ? -turtleApp.turtle.svgY : 0;
+
+		//console.log(this.turtle);
+
+		//const rotate = turtleApp.turtle.position.direction.degrees;
+		//const rotateTransform    = (ui.rotatePage)   ? `rotate(${-rotate},0,0)` : 'rotate(0,0,0)';
+		//const translateTransform = (ui.centerTurtle) ? `translate(${-turtleApp.turtle.svgX},${-turtleApp.turtle.svgY})` : 'translate(0,0)';
+
 
 		const rotateTransform    = `rotate(${rotateDeg},0,0)`;
 		const translateTransform = `translate(${translateX},${translateY})`;
@@ -233,16 +242,6 @@ class SVGView {
 			element.polarGroup.style.display = 'none';
 		}
 
-		if (ui.colourScheme === 'light')
-		{
-			document.body.classList.remove('dark');
-			document.body.classList.add('light');
-		}
-		else {
-			document.body.classList.remove('light');
-			document.body.classList.add('dark');
-		}
-
 		element.cartesianGrid.style.setProperty('opacity', ui.cartesianOpacity);
 		element.polarGrid.style.setProperty('opacity', ui.polarOpacity);
 
@@ -250,7 +249,12 @@ class SVGView {
 
 	}/* updatePage */
 
-}/* SVGView */
 
 
-export const svg = new SVGView();
+
+
+}/* PageArea */
+
+
+
+export const pageArea = new PageArea();

@@ -1,0 +1,82 @@
+/*
+**	main-ui.css
+*/
+
+.ui-panel {
+	--gap: 0.3em;
+}
+
+
+#input-command {
+	height:15em;
+	min-width: 15em;
+}
+
+
+
+/* input[type=color] { width: 50%; margin-right:0.7ex; } */
+
+
+
+.tab-body {
+	position: relative;
+	z-index: 10;
+}
+
+.tabbar {
+	margin-top:0ex;
+	padding-top:0ex;
+
+	font-size:1.4ex;
+	margin-left:1ex;
+	position: relative;
+	top: -1px;
+
+	.tab {
+		position: relative;
+		display: inline-block;
+		text-decoration: none;
+		line-height: 3ex;
+		&.active { z-index:15; }
+	}
+
+	a {
+		color: var(--accent-colour);
+		text-decoration: none;
+		&:hover { text-decoration: underline; }
+	}
+
+	&.top .tab {
+		border-width: 1px 1px 0px;
+		border-style: solid solid none;
+		border-radius: 0.5ex 0.5ex 0ex 0ex;
+		padding: 0ex 1ex 0ex;
+	}
+	&.bottom .tab {
+		border-width: 0px 1px 1px;
+		border-style: none solid solid ;
+		border-radius: 0ex 0ex 0.5ex 0.5ex;
+		padding: 0.2ex 1ex 0ex;
+		margin-top: 0em ;
+		margin-bottom: 0.2em;
+	}
+
+}/* tabbar */
+
+
+
+
+
+#dialog-appInfo {
+	&::backdrop { background-image:  url(./turtle-backdrop.svg); }
+	h1::before { content: url("../favicon.svg"); }
+}
+
+
+
+
+
+
+
+
+

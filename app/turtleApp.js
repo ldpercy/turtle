@@ -2,27 +2,28 @@
 //	turtleApp.js
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
-import { SVGTurtle } from "../[library]/SVGTurtle.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
+import { SVGTurtle } from "./SVGTurtle.js";
 
-import { SVG } from "../[library]/SVG.js";
-import { Space } from "../[library]/PlanarSpace.js";
+import * as svg from "../[html-common]/module/SVG.js";
+import { Space } from "../[html-common]/module/PlanarSpace.js";
 
 import * as introduction from './introduction.js';
-import * as controller from './controller.js';
-import { svg } from './view-svg.js';
-import { ui } from './view-html-ui.js';
+import { controller} from './controller.js';
+import { pageArea } from './page-area.js';
+import { ui } from './html-ui.js';
 
 
 class TurtleApp extends HTMLApp {
 
-	appVersion = 'v0.🆕⎈';
-	appInfo = [
-		`%c
+	appName			= 'turtle';
+	appVersion		= 'v0.🆕⎈';
+	projectColour	= 'teal';
+	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
-		https://github.com/ldpercy/turtle/releases/tag/${this.appVersion}
-		`.replace(/\n\t\t/g,'\n'),
-		'color: light-dark(darkgreen, lightgreen)'
+		https://github.com/ldpercy/year-clock/releases/tag/${this.appVersion}
+		`.replace(/\n\t/g,'\n'),
+		`color: light-dark(hsl(from ${this.projectColour} h s 30), hsl(from ${this.projectColour} h s 70));`,
 	];
 
 
@@ -37,80 +38,7 @@ class TurtleApp extends HTMLApp {
 		drawing			: 'group-drawing',
 	};
 
-	/** @type {array} */
-	eventListeners = [
-		{
-			query: '#button-doCommands',
-			type: 'click',
-			listener: controller.doCommands
-		},
-		{
-			query: '#button-clearDrawing',
-			type: 'click',
-			listener: svg.clearDrawing
-		},
-		{
-			query: '#button-origin',
-			type: 'click',
-			listener: controller.toOrigin
-		},
-		{
-			query: '#form-page',
-			type: 'change',
-			listener: controller.updatePage
-		},
-		{
-			query: '#form-drawing',
-			type: 'change',
-			listener: svg.updateDrawing
-		},
-		{
-			element: document,
-			type: 'visibilitychange',
-			listener: this.visibilitychangeListener
-		},
-		{
-			query: '#command-tabs .tab',
-			type: 'click',
-			listener: controller.commandTabListener
-		},
-		// {
-		// 	query: '#svg-element',
-		// 	type: 'dblclick',
-		// 	listener: this.svgDblClickListener //()=>console.log('dblclick')//  // not firing sometimes for some reason???
-		// },
-		{
-			query: '#svg-element',
-			type: 'click',
-			listener: controller.svgClickListener
-		},
-		// {
-		// 	query: '#svg-element',
-		// 	type: 'keydown',
-		// 	listener: controller.svgKeyListener
-		// },
-		{
-			element: document,
-			type: 'keydown',
-			listener: controller.documentKeyListener
-		},
-		{
-			query: 'textarea',
-			type: 'keydown',
-			listener: (event)=>event.stopPropagation()
-		},
-		{
-			query: 'textarea',
-			type: 'change',
-			listener: ui.updateHiddenInput
-		},
-		{
-			query: '#button-clearPoint',
-			type: 'click',
-			listener: svg.clearPoint,
-		},
 
-	];
 
 
 
@@ -118,19 +46,19 @@ class TurtleApp extends HTMLApp {
 	documentDOMContentLoaded() {
 		super.documentDOMContentLoaded();
 
+		const firstLoad = !localStorage[`${this.appName}_documentDOMContentLoaded`];
 
-		const firstLoad = !localStorage.appSettings;
+		ui.colourScheme = localStorage[`${this.appName}_colourScheme`] || 'light';
 
 		this.loadSettings();
 
-		localStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
-		sessionStorage.setItem('documentDOMContentLoaded', new Date().toISOString());
-
+		localStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
+		sessionStorage.setItem(`${this.appName}_documentDOMContentLoaded`, new Date().toISOString());
 
 		this.setup();
 
 		if (firstLoad) {
-			console.log('first load')
+			console.log('Welcome to Turtle!')
 			this.element.commandInput.value = introduction.writeTurtleCommandString();
 			controller.doCommands();
 		}
@@ -142,25 +70,32 @@ class TurtleApp extends HTMLApp {
 	setup() {
 
 		//this.viewBox = new SVG.viewBox().fromString('-1200 -1200 2400 2400');
-		this.page = new SVG.Rectangle(-2400, -2400, 4800, 4800);
+
+		this.page = new svg.Box(-2400, -2400, 4800, 4800);
 		//this.page = new SVG.Rectangle(0, 0, 2100, 2970);		// A4 page
 		//const pageViewBox = new SVG.Rectangle(0, -2970, 2100, 2970);
-		this.viewBox = new SVG.ViewBox(this.page);
+		this.viewBox = new svg.ViewBox(this.page.x, this.page.y, this.page.width, this.page.height);
 
 		this.element.svg.setAttribute('viewBox', this.viewBox.toStringPadded(100));
 
-		this.space = new Space('turtle-space');
+		this.space = new Space(undefined,'turtle-space');
 		this.turtle = new SVGTurtle('Terry', 'turtle-terry', this.space, 6);		// Pratchett & Tao
 
-		svg.placeTurtle(this.turtle);
+		pageArea.placeTurtle(this.turtle);
 
-		svg.updatePage();
-		svg.updateTurtle();
+		pageArea.updatePage();
+		pageArea.updateTurtle();
 
-		svg.drawGrid();
-		svg.updateDrawing();
+		pageArea.drawGrid();
+		pageArea.updateDrawing();
 		ui.updateTurtleInfo();
 	}
+
+
+
+	// controller methods
+
+
 
 
 
@@ -183,7 +118,6 @@ class TurtleApp extends HTMLApp {
 	}
 
 
-
 	/* saveSettings
 	*/
 	saveSettings() {
@@ -199,26 +133,27 @@ class TurtleApp extends HTMLApp {
 		//console.log(appSettings);
 
 		const appSettingsJson = JSON.stringify(appSettings);
-		localStorage.setItem('appSettings', appSettingsJson );
-		localStorage.setItem('savedAt', new Date().toISOString());
+		localStorage.setItem(`${this.appName}_settings`, appSettingsJson );
+		localStorage.setItem(`${this.appName}_savedAt`, new Date().toISOString());
 		//.log('Settings saved');
 	}/* saveSettings */
 
 
 	loadSettings() {
 		//console.log('Settings loaded');
-		if (localStorage.appSettings) {
 
-			const appSettings = JSON.parse(localStorage.appSettings);
+		if (localStorage[`${this.appName}_settings`]) {
+
+			const appSettings = JSON.parse(localStorage[`${this.appName}_settings`]);
 			this.populateForm(this.element.turtleForm, appSettings.turtle);
 			this.populateForm(this.element.pageForm, appSettings.page);
 			this.populateForm(this.element.drawingForm, appSettings.drawing);
 		}
 		else {
 			// first load
-
 		}
-		localStorage.setItem('loadedAt', new Date().toISOString());
+
+		localStorage.setItem(`${this.appName}_loadedAt`, new Date().toISOString());
 	}/* loadSettings */
 
 

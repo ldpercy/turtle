@@ -60,6 +60,17 @@ export class SVGTurtle {
 			`;
 		}
 
+		if ((new Date()).getMonth() === 3) {
+			seasonal = `
+				<g style="stroke:hotpink;fill:pink;stroke-width:5px">
+					<path d="m -22,-41 a 22,22 0 1 1 +44,0  " style="fill:none;"/> <!-- h-6 a 16,16 0 1 0 -32,0 z -->
+					<ellipse cx="-13" cy="-87" rx="7" ry="22" transform="rotate(-15,-9,-87)"/>
+					<ellipse cx="+17" cy="-85" rx="7" ry="22" transform="rotate(+20,+13,-87)"/>
+				</g>
+			`;
+		}
+
+
 		const result = `
 			<g id="${this.id}">
 				<g class="turtle terry turtle-hover">
@@ -166,7 +177,7 @@ export class SVGTurtle {
 			`	${this.position.direction.radiansPi.toPrecision(this.precision.report)} π rad`,
 			`	${this.position.direction.radiansTau.toPrecision(this.precision.report)} τ rad`,
 			`polar:`,
-			`	r: ${this.coordinates.position.radius.toPrecision(this.precision.report)}`,
+			`	r: ${this.coordinates.position.polar.radius.toPrecision(this.precision.report)}`,
 			`	a: ${originAngle.degrees.toPrecision(this.precision.report)}°`,
 			`	a: ${originAngle.radians.toPrecision(this.precision.report)} rad`,
 			`	a: ${originAngle.radiansPi.toPrecision(this.precision.report)} π rad`,

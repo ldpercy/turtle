@@ -1,9 +1,10 @@
 //
-//	view html-ui
+//	html-ui
 //
 
-import { HTMLApp } from "../[library]/HTMLApp.js";
+import { HTMLApp } from "../[html-common]/module/HTMLApp.js";
 import { turtleApp } from "./turtleApp.js";
+
 
 
 let element;
@@ -13,7 +14,7 @@ const elementMap = {
 	drawingForm		: 'form-drawing',
 	commandInput	: 'input-command',
 	turtleInfo		: 'turtle-info',
-	infoPopover		: 'info-popover',
+	appInfoDialog	: 'dialog-appInfo',
 };
 
 let currentCommandSet = 1;
@@ -30,6 +31,10 @@ class HTMLUserInterface {
 		const commandSet = Number.parseInt(element.turtleForm['input-commandSet-active'].value) || 1;
 		this.showCommandSet((commandSet), false);
 	}
+
+
+
+
 
 
 	//
@@ -138,14 +143,22 @@ class HTMLUserInterface {
 	}
 
 
+	/** @param {string} colourScheme */
+	set colourScheme(colourScheme) {
+		element.pageForm.colourScheme.value = colourScheme;
+		turtleApp.setColourScheme(colourScheme);
+	}
+
 
 	//
 	//	other
 	//
 
 
-	togglePopover() {
-		element.infoPopover.togglePopover();
+	toggleAppInfoDialog() {
+		//console.debug('toggleHelpDialog');
+		element.appInfoDialog.showModal();
+		//element.appInfoDialog.blur();
 	}
 
 	updateTurtleInfo() {

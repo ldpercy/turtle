@@ -108,7 +108,7 @@ How to run
 > Versions prior to that were runnable with `file://` protocol.
 
 
-* Clone the repository
+* Clone the repository, including the [html-common submodule](<../html-common/[wiki]/git submodule.md>)
 * Start up your favourite webserver, making sure the project repo is under the webroot
 * Navigate to `[localhost]/turtle/index.html` or equivalent
 
@@ -117,10 +117,12 @@ How to run
 Tasks
 -----
 
-More detail in the [task/](<./task/>) directory.
+More detail in the [task/](<./[task]/>) directory.
 
 ### Recently Completed
 
+* Now using appinfo and panel styles from `html-common`
+* Convert to use `html-common` submodule
 * Command argument validation
 * Added keyboard controls
 * Turtle can follow mouse clicks

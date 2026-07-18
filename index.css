@@ -1,0 +1,118 @@
+/*
+**	index.css
+*/
+
+@import "./[html-common]/style/fullpage/dialog-appInfo.css";
+@import "./[html-common]/style/fullpage/ui-panel.css";
+@import "./[html-common]/style/fullpage/panel-group.css";
+@import "./page/main-ui.css";
+@import "./page/document-area.css";
+
+
+
+
+:root {
+	--project-colour: teal;
+	--transition-time-page: 0.5s;
+	--schemeColour-light: #fcfcfc;
+	--schemeColour-dark: #0a0a0a;
+}
+
+html {
+
+
+	--page-background-light: #fcfcfc;
+	--page-background-dark: #111111;
+
+	--silver: #bbbb;
+	--teal: #088;		/* cartesian grid */
+
+	--pink: #c7a;		/* polar grid new */
+	--purple: #b0b;
+	--fadedred: #f07;	/* point info */
+
+	--accent-baseColour: #0099dd;
+	/* --accent-light: #08c;
+	--accent-dark: #0cf; */
+
+	--transition-duration: 0.5s;
+
+	--turtle-body: #0a07;
+	--turtle-outline: #0a0f;
+
+	margin:0px;
+	padding:0px;
+
+	body {
+		margin:0px;
+		padding:0px;
+	}
+	scrollbar-width: none;
+
+	font-size: 14px; /* 14px; */
+	font-family:'Noto sans', sans-serif;
+
+	body > svg { display:block; }
+	/*
+	the 5 extra pixels are related to svg elements with `display:inline;` (which is the default) - change to block to fix
+	*/
+}
+
+
+@media (prefers-color-scheme:dark) { }
+
+@media (prefers-color-scheme:light) { }
+
+
+html {
+	color-scheme: dark;
+	--accent-colour: oklch(from var(--accent-baseColour) 0.60 c h / alpha);
+	--default-panel-colour: var(--scheme-colour);
+	--custom-border-colour: grey;
+	accent-color: var(--accent-colour);
+	background-color: var(--scheme-colour);
+	color: var(--text-colour);
+
+	transition:
+		background-color var(--transition-time-page) linear;
+		/* color-scheme var(--transition-time-page) linear allow-discrete; */		/* this causes scheme switching bugs in chromium */
+}
+
+
+html[data-colourscheme=light] {
+	color-scheme: light;
+	--scheme-colour: #fcfcfc;
+	--accent-colour: oklch(from var(--accent-baseColour) 0.60 c h / alpha);
+	--text-colour: black;
+
+	/* form {
+		background-color:#eee9;
+		border-color: #bbbb;
+	} */
+	.infoBox { background-color: #fffc; }
+
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #ffffff;
+	}
+}
+
+html[data-colourscheme=dark] {
+	color-scheme: dark;
+	--scheme-colour: #111111;
+	--accent-colour: oklch(from var(--accent-baseColour) 0.80 c h / alpha);
+	--text-colour: white;
+/*
+	form {
+		background-color:#7779;
+		border-color: #9999;
+	} */
+	.infoBox {
+		background-color: #222c;
+		border-color: #9999;
+	}
+	.tabbar a {
+		border-color: #8f8f9d;
+		background-color: #2b2a33;
+	}
+}
