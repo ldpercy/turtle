@@ -17,7 +17,7 @@ import { ui } from './html-ui.js';
 class TurtleApp extends HTMLApp {
 
 	appName			= 'turtle';
-	appVersion		= 'v0.14.0';
+	appVersion		= 'v0.🆕⎈';
 	projectColour	= 'teal';
 	appInfo = [`%c
 		Turtle ${this.appVersion} by ldpercy
@@ -25,7 +25,6 @@ class TurtleApp extends HTMLApp {
 		`.replace(/\n\t/g,'\n'),
 		`color: light-dark(hsl(from ${this.projectColour} h s 30), hsl(from ${this.projectColour} h s 70));`,
 	];
-
 
 
 	/** @type {object} */
