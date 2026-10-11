@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="-32 -32 64 64">
+
+	<style>
+		.turtle {
+			stroke: #00aa00;
+			stroke-width: 3;
+		}
+
+		.body {
+			fill: #00aa00;
+			fill-opacity:0.5;
+		}
+
+		.head { fill: #00aa00; }
+		.feet { fill: #00aa00; }
+		.eyes { fill: yellow; stroke:none; }
+	</style>
+
+	<g class="turtle">
+		<g class="feet">
+			<circle class="fl" r="6" cx="-20" cy="-9"/>
+			<circle class="fr" r="6" cx="+20" cy="-9"/>
+			<circle class="bl" r="6" cx="-14" cy="+24"/>
+			<circle class="br" r="6" cx="+14" cy="+24"/>
+		</g>
+		<circle class="body" r="24" cx="0" cy="5"/>
+		<circle class="head" r="12" cx="0" cy="-18.6"/>
+		<g class="eyes">
+			<path d="m -2,-18 a 4,4 0 1 0 -7,0 z"/>
+			<path d="m +2,-18 a 4,4 0 1 1 +7,0 z"/>
+		</g>
+	</g>
+</svg>
