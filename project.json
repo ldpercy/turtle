@@ -1,0 +1,9 @@
+{
+	"name"			: "turtle",
+	"description"	: "A simple implementation of turtle graphics in JavaScript & SVG",
+	"repository"	: "https://github.com/ldpercy/turtle/",
+	"version"		: "style-followup",
+	"commit"		: "abcdef",
+	"date"			: "2026-10-25",
+	"tag"			: ["html","css","svg","js"]
+}
