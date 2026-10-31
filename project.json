@@ -6,5 +6,10 @@
 	"commit"		: "abcdef",
 	"date"			: "2026-10-25",
 	"status"		: "style followup",
-	"tag"			: ["html","css","svg","js"]
+	"tag"			: ["html","css","svg","js","JSDoc"],
+	"screenshot"	: [
+		{
+			"path"	: "[project]/screenshot/turtle-screenshot-1.png"
+		}
+	]
 }
