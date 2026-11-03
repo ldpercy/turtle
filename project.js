@@ -1,9 +1,9 @@
-{
+/** @type ProjectData */
+export default {
 	"name"			: "turtle",
 	"description"	: "A simple implementation of turtle graphics in JavaScript & SVG",
 	"repository"	: "https://github.com/ldpercy/turtle/",
 	"version"		: "v0.👚①",
-	"commit"		: "abcdef",
 	"date"			: "2026-10-25",
 	"status"		: "style followup",
 	"tag"			: ["html","css","svg","js","JSDoc"],
