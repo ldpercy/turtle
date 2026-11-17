@@ -9,7 +9,7 @@ export default {
 	"tag"			: ["html","css","svg","js","JSDoc","🍦js"],
 	"screenshot"	: [
 		{
-			"path"	: "[project]/screenshot/turtle-screenshot-1.png"
+			"path"	: "[project]/screenshot/turtle-screenshot-2.webp"
 		}
 	]
 }

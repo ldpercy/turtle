@@ -1,7 +1,19 @@
 Examples
 ========
 
+Benzene
+------
 
+	// benzene
+	bear 0,200
+	right 60
+	//text C
+	bear 0,50
+	~bear 0,50
+	//text H
+	circle 50
+	~right 180,100
+	right 60
 
 Flowers
 -------
@@ -86,26 +98,27 @@ Where the two turns add up to 360
 right 110,1800
 left 250,700
 ```
-right 120,1800
-left 240,700
+	right 120,1800
+	left 240,700
 
-right 110,1800
-left 250,800
+	right 110,1800
+	left 250,800
 
-right 80,1400
-left 280,1200
+	right 80,1400
+	left 280,1200
 
-// 12 sided
-right 105,600
-left 255,1400
+	// 12 sided
+	right 105,600
+	left 255,1400
 
 
 Actually equal turns a bit of over 90deg is better:
-right 110,200
-right 110,1400
 
-right 130,200
-right 130,1400
+	right 110,200
+	right 110,1400
+
+	right 130,200
+	right 130,1400
 
 
 
@@ -116,12 +129,12 @@ What's the angle?
 
 Something weird going on with these - not sure if bug:
 
-// command set 1
-left 99.30133,999
-left 55,555
+	// command set 1
+	left 99.30133,999
+	left 55,555
 
-left 100,1000
-left 53.3333,800
+	left 100,1000
+	left 53.3333,800
 
 
 The mystery angle is derived from 30 divided by 7 = 4.285714
